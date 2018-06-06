@@ -36,6 +36,26 @@ class Template
             return "";
         }, $html, 1);
 
+        // Wiki links.
+        $html = preg_replace_callback('@\[\[(.+)\]\]@', function ($m) {
+            $parts = explode("|", $m[1], 2);
+
+            if (count($parts) == 1) {
+                $target = $parts[0];
+                $title = $parts[0];
+            } else {
+                $target = $parts[0];
+                $title = $parts[1];
+            }
+
+            $link = sprintf("<a class=\"wiki\" href=\"/wiki?name=%s\" title=\"%s\">%s</a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));
+
+            return $link;
+        }, $html);
+
+        // Some typography.
+        $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
+
         $html = self::renderFile("page.twig", array(
             "page_name" => $pageName,
             "page_title" => $props["title"],
