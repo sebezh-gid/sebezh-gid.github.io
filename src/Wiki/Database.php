@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Wiki;
 
 class Database {
     /**
@@ -19,7 +19,7 @@ class Database {
     {
         $now = time();
 
-        $html = \App\Template::renderPage($name, $text);
+        $html = Template::renderPage($name, $text);
 
         $stmt = self::dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
         if ($stmt->rowCount() == 0) {

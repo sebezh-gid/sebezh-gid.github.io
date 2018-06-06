@@ -17,14 +17,14 @@ class Handlers
 		if (empty($pageName))
 			return $response->withRedirect("/wiki?name=Welcome", 302);
 
-		$page = \App\Database::getPageByName($pageName);
+		$page = Database::getPageByName($pageName);
 		if ($page === false) {
 			$contents = "# {$pageName}\n\n**{$pageName} -- something that we don't have information on, yet.\n";
 		} else {
 			$contents = $page["source"];
 		}
 
-		$html = \App\Template::renderFile("editor.twig", array(
+		$html = Template::renderFile("editor.twig", array(
 			"page_name" => $pageName,
 			"page_source" => $contents,
 			));
@@ -43,7 +43,7 @@ class Handlers
 		$name = $_POST["page_name"];
 		$text = $_POST["page_source"];
 
-		\App\Database::updatePage($name, $text);
+		Database::updatePage($name, $text);
 
 		return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
 	}

@@ -11,11 +11,11 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
     if (empty($pageName))
         return $response->withRedirect("/wiki?name=Welcome", 302);
 
-    $page = App\Database::getPageByName($pageName);
+    $page = \Wiki\Database::getPageByName($pageName);
     if ($page === false) {
         $status = 404;
 
-        $html = App\Template::renderFile("nopage.twig", array(
+        $html = \Wiki\Template::renderFile("nopage.twig", array(
 			"title" => "Page not found",
             "page_name" => $pageName,
             ));
@@ -26,12 +26,12 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
     } else {
         $status = 200;
 
-        $html = App\Template::renderFile("page.twig", array(
+        $html = \Wiki\Template::renderFile("page.twig", array(
             "page_name" => $pageName,
             "page" => $page,
             ));
 
-        App\Database::updatePageHtml($pageName, $html);
+        \Wiki\Database::updatePageHtml($pageName, $html);
     }
 
     $response->getBody()->write($html);
