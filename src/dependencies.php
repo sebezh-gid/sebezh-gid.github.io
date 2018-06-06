@@ -17,3 +17,15 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+
+function debug()
+{
+    while (ob_get_level())
+        ob_end_clean();
+
+    header("HTTP/1.0 503 Debug");
+    header("Content-Type: text/plain; charset=utf-8");
+    call_user_func_array("var_dump", func_get_args());
+    die();
+}

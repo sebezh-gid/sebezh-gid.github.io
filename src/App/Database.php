@@ -19,10 +19,7 @@ class Database {
     {
         $now = time();
 
-        $html = \App\Template::renderFile("page.twig", array(
-            "page_name" => $name,
-            "page_text" => $text,
-            ));
+        $html = \App\Template::renderPage($name, $text);
 
         $stmt = self::dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
         if ($stmt->rowCount() == 0) {
