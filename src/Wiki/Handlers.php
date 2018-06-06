@@ -47,4 +47,9 @@ class Handlers
 
 		return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
 	}
+
+    public static function getHome(Request $request, Response $response)
+    {
+        return $response->withRedirect("/wiki?name=Welcome", 303);
+    }
 }

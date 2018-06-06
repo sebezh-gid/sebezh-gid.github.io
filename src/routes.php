@@ -47,10 +47,6 @@ $app->post("/edit", function (Request $request, Response $response, array $args)
 	return \Wiki\Handlers::postEdit($request, $response);
 });
 
-$app->get('/[{name}]', function (Request $request, Response $response, array $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
-
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
+$app->get("/", function (Request $request, Response $response, array $args) {
+    return \Wiki\Handlers::getHome($request, $response);
 });
