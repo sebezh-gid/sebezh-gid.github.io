@@ -37,7 +37,7 @@ class Template
         }, $html, 1);
 
         // Wiki links.
-        $html = preg_replace_callback('@\[\[(.+)\]\]@', function ($m) {
+        $html = preg_replace_callback('@\[\[(.+?)\]\]@', function ($m) {
             $parts = explode("|", $m[1], 2);
 
             if (count($parts) == 1) {
