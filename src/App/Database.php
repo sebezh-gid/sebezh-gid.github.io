@@ -15,6 +15,21 @@ class Database {
         return $res;
     }
 
+    public static function updatePage($name, $text)
+    {
+        $now = time();
+
+        $html = \App\Template::renderFile("page.twig", array(
+            "page_name" => $name,
+            "page_text" => $text,
+            ));
+
+        $stmt = self::dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
+        if ($stmt->rowCount() == 0) {
+            self::dbQuery("INSERT INTO `pages` (`name`, `source`, `html`, `created`, `updated`) VALUES (?, ?, ?, ?, ?)", array($name, $text, $html, $now, $now));
+        }
+    }
+
     /**
      * Connect to the database.
      *
@@ -49,5 +64,12 @@ class Database {
         $sth = self::connect()->prepare($query);
         $sth->execute($params);
         return $sth->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    protected static function dbQuery($query, array $params = array())
+    {
+        $sth = self::connect()->prepare($query);
+        $sth->execute($params);
+        return $sth;
     }
 }

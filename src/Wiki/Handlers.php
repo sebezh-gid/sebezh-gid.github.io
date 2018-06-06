@@ -1,0 +1,50 @@
+<?php
+
+namespace Wiki;
+
+use Slim\Http\Request;
+use Slim\Http\Response;
+
+class Handlers
+{
+	/**
+	 * Display the page edit form.
+	 **/
+	public static function getEdit(Request $request, Response $response)
+	{
+		$pageName = $request->getQueryParam("name");
+
+		if (empty($pageName))
+			return $response->withRedirect("/wiki?name=Welcome", 302);
+
+		$page = \App\Database::getPageByName($pageName);
+		if ($page === false) {
+			$contents = "# {$pageName}\n\n**{$pageName} -- something that we don't have information on, yet.\n";
+		} else {
+			$contents = $page["source"];
+		}
+
+		$html = \App\Template::renderFile("editor.twig", array(
+			"page_name" => $pageName,
+			"page_source" => $contents,
+			));
+
+		$response->getBody()->write($html);
+		return $response;
+	}
+
+	/**
+	 * Update page contents.
+	 **/
+	public static function postEdit(Request $request, Response $response)
+	{
+		// TODO: access control.
+
+		$name = $_POST["page_name"];
+		$text = $_POST["page_source"];
+
+		\App\Database::updatePage($name, $text);
+
+		return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
+	}
+}

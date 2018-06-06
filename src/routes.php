@@ -39,6 +39,14 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
     return $response->withStatus($status);
 });
 
+$app->get("/edit", function (Request $request, Response $response, array $args) {
+	return \Wiki\Handlers::getEdit($request, $response);
+});
+
+$app->post("/edit", function (Request $request, Response $response, array $args) {
+	return \Wiki\Handlers::postEdit($request, $response);
+});
+
 $app->get('/[{name}]', function (Request $request, Response $response, array $args) {
     // Sample log message
     $this->logger->info("Slim-Skeleton '/' route");
