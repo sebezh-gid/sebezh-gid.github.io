@@ -27,6 +27,11 @@ class Database {
         }
     }
 
+    public static function updatePageHtml($pageName, $html)
+    {
+        self::dbQuery("UPDATE `pages` SET `html` = ? WHERE `name` = ?", array($html, $pageName));
+    }
+
     /**
      * Connect to the database.
      *

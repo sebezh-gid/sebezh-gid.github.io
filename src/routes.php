@@ -7,6 +7,7 @@ use Slim\Http\Response;
 
 $app->get('/wiki', function (Request $request, Response $response, array $args) {
     $pageName = $request->getQueryParam("name");
+    $fresh = $request->getQueryParam("cache") == "no";
 
     if (empty($pageName))
         return $response->withRedirect("/wiki?name=Welcome", 302);
@@ -19,18 +20,14 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
 			"title" => "Page not found",
             "page_name" => $pageName,
             ));
-    } elseif (!empty($page["html"])) {
+    } elseif (!empty($page["html"]) and !$fresh) {
         $status = 200;
 
         $html = $page["html"];
     } else {
         $status = 200;
 
-        $html = \Wiki\Template::renderFile("page.twig", array(
-            "page_name" => $pageName,
-            "page" => $page,
-            ));
-
+        $html = \Wiki\Template::renderPage($pageName, $page["source"]);
         \Wiki\Database::updatePageHtml($pageName, $html);
     }
 
