@@ -18,7 +18,8 @@ TODO:
 
 ## Authors
 
-Written by Justin Forest <hex@umonkey.net>.  Send all suggestions by email.
+Written by Justin Forest [hex@umonkey.net][3].  Send all suggestions by email.
 
 [1]: http://commonmark.org/
 [2]: https://www.fossil-scm.org/
+[3]: mailto:hex@umonkey.net
