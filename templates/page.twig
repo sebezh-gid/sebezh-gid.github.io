@@ -1,5 +1,10 @@
 {% extends "base.twig" %}
 
+{% block more_head %}
+ <link rel="edit" title="Edit this page" href="/edit?name={{ page_name }}"/>
+ <link rel="alternate" type="application/x-wiki" title="Edit this page" href="/edit?name={{ page_name }}"/>
+{% endblock %}
+
 {% block page_h1 %}{{ page_title }}{% endblock %}
 
 {% block page_contents %}
