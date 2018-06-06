@@ -43,7 +43,7 @@ function enable_edit_hotkey()
             this.selectionStart = s + x.length + 4;
             this.selectionEnd = s + x.length + 4;
         }
-      
+
         // External markdown links.
         if (e.altKey && (e.key == "[" || e.key == "х")) {
             var v = this.value,
@@ -54,15 +54,15 @@ function enable_edit_hotkey()
             this.selectionStart = e + 3;
             this.selectionEnd = e + 3;
         }
-      
+
         // Make itemized list from selected lines
         if (e.altKey && e.key == "-") {
             var v = this.value,
                 s = this.selectionStart,
                 e = this.selectionEnd;
-      
+
             var src = v.substring(s, e);
-      
+
             var lines = src.match(/[^\r\n]+/g);
             for (var i in lines) {
                 var line = lines[i];
@@ -71,13 +71,19 @@ function enable_edit_hotkey()
                     line = line.substring(2);
                 lines[i] = line;
             }
-      
+
             lines = lines.join("\n") + "\n";
             var dst = v.substring(0, s) + lines + v.substring(e);
-      
+
             this.value = dst;
             this.selectionStart = s + lines.length;
             this.selectionEnd = s + lines.length;
+        }
+    });
+
+    $(document).on("keydown", "form", function (e) {
+        if (e.ctrlKey && e.keyCode == 13) {
+            $(this).find(".btn-primary").eq(0).click();
         }
     });
 }
