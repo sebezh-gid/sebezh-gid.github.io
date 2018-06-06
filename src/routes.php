@@ -16,6 +16,7 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
         $status = 404;
 
         $html = App\Template::renderFile("nopage.twig", array(
+			"title" => "Page not found",
             "page_name" => $pageName,
             ));
     } elseif (!empty($page["html"])) {

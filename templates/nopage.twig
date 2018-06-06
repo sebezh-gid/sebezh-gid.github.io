@@ -1,1 +1,12 @@
 {% extends "base.twig" %}
+
+{% block page_h1 %}Page not found{% endblock %}
+
+{% block page_contents %}
+ <p>This wiki has no article with this exact name.</p>
+
+ <ul>
+  <li><a href="/edit?name={{ page_name }}">Start the <em>{{ page_name }}</em> article</a></li>
+  <li><a href="/search?query={{ page_name }}">Search for "{{ page_name }}" in existing articles</a></li>
+ </ul>
+{% endblock %}
