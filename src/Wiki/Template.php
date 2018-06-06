@@ -24,22 +24,47 @@ class Template
 
     public static function renderPage($pageName, $pageText)
     {
+        // Extract properties.
+        list($props, $pageText) = self::extractProperties($pageName, $pageText);
+
         $md = new CommonMarkConverter();
         $html = $md->convertToHtml($pageText);
 
-        $title = $pageName;
-        $html = preg_replace_callback('@<h1>(.+)</h1>@', function ($m) use (&$title) {
-            $title = $m[1];
+        // Extract page title.
+        $html = preg_replace_callback('@<h1>(.+)</h1>@', function ($m) use (&$props) {
+            $props["title"] = $m[1];
             return "";
         }, $html, 1);
 
         $html = self::renderFile("page.twig", array(
             "page_name" => $pageName,
-            "page_title" => $title,
+            "page_title" => $props["title"],
             "page_text" => $pageText,
             "page_html" => $html,
+            "page_props" => $props,
             ));
 
         return $html;
+    }
+
+    protected static function extractProperties($pageName, $text)
+    {
+        $props = array(
+            "lang" => "en",
+            "title" => $pageName,
+            );
+
+        $lines = preg_split('@(\r\n|\n)@', $text);
+        foreach ($lines as $idx => $line) {
+            if (preg_match('@^([a-z0-9_]+):\s+(.+)$@', $line, $m)) {
+                $props[$m[1]] = $m[2];
+            } elseif ($line == "---") {
+                $lines = array_slice($lines, $idx + 1);
+                $text = implode("\r\n", $lines);
+                break;
+            }
+        }
+
+        return [$props, $text];
     }
 }
