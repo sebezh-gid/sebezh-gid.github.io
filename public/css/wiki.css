@@ -4,3 +4,11 @@
  margin-top: 50px;
  padding-bottom: 10px;
 }
+
+.form-actions {
+ margin-top: 10px;
+}
+
+.pedit textarea {
+ height: calc(100vh - 250px);
+}

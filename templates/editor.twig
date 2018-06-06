@@ -3,13 +3,13 @@
 {% block page_h1 %}Редактирование страницы «{{ page_name }}»{% endblock %}
 
 {% block page_contents %}
- <form method="post" action="/edit">
+ <form class="pedit" method="post" action="/edit">
   <input type="hidden" name="page_name" value="{{ page_name }}"/>
 
   <textarea class="form-control" name="page_source">{{ page_source }}</textarea>
 
   <div class="form-actions">
-   <button class="btn btn-primary">Save</button>
+   <button class="btn btn-primary">Save</button> or <a href="/wiki?name={{ page_name }}">leave as is</a>
   </div>
  </form>
 {% endblock %}
