@@ -7,49 +7,61 @@ use Slim\Http\Response;
 
 class Handlers
 {
-	/**
-	 * Display the page edit form.
-	 **/
-	public static function getEdit(Request $request, Response $response)
-	{
-		$pageName = $request->getQueryParam("name");
+    /**
+     * Display the page edit form.
+     **/
+    public static function getEdit(Request $request, Response $response)
+    {
+        $pageName = $request->getQueryParam("name");
 
-		if (empty($pageName))
-			return $response->withRedirect("/wiki?name=Welcome", 302);
+        if (empty($pageName))
+            return $response->withRedirect("/wiki?name=Welcome", 302);
 
-		$page = Database::getPageByName($pageName);
-		if ($page === false) {
-			$contents = "# {$pageName}\n\n**{$pageName} -- something that we don't have information on, yet.\n";
-		} else {
-			$contents = $page["source"];
-		}
+        $page = Database::getPageByName($pageName);
+        if ($page === false) {
+            $contents = "# {$pageName}\n\n**{$pageName} -- something that we don't have information on, yet.\n";
+        } else {
+            $contents = $page["source"];
+        }
 
-		$html = Template::renderFile("editor.twig", array(
-			"page_name" => $pageName,
-			"page_source" => $contents,
-			));
+        $html = Template::renderFile("editor.twig", array(
+            "page_name" => $pageName,
+            "page_source" => $contents,
+            ));
 
-		$response->getBody()->write($html);
-		return $response;
-	}
+        $response->getBody()->write($html);
+        return $response;
+    }
 
-	/**
-	 * Update page contents.
-	 **/
-	public static function postEdit(Request $request, Response $response)
-	{
-		// TODO: access control.
+    /**
+     * Update page contents.
+     **/
+    public static function postEdit(Request $request, Response $response)
+    {
+        // TODO: access control.
 
-		$name = $_POST["page_name"];
-		$text = $_POST["page_source"];
+        $name = $_POST["page_name"];
+        $text = $_POST["page_source"];
 
-		Database::updatePage($name, $text);
+        Database::updatePage($name, $text);
 
-		return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
-	}
+        return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
+    }
 
     public static function getHome(Request $request, Response $response)
     {
         return $response->withRedirect("/wiki?name=Welcome", 303);
+    }
+
+    public static function getIndex(Request $request, Response $response)
+    {
+        $names = Database::getAllPageNames();
+
+        $html = Template::renderFile("index.twig", array(
+            "pages" => $names,
+            ));
+
+        $response->getBody()->write($html);
+        return $response;
     }
 }

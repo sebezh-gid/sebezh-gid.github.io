@@ -32,6 +32,17 @@ class Database {
         self::dbQuery("UPDATE `pages` SET `html` = ? WHERE `name` = ?", array($html, $pageName));
     }
 
+    public static function getAllPageNames()
+    {
+        $res = array();
+
+        $rows = self::dbFetch("SELECT `name` FROM `pages` ORDER BY `name`");
+        foreach ($rows as $row)
+            $res[] = $row["name"];
+
+        return $res;
+    }
+
     /**
      * Connect to the database.
      *
@@ -54,7 +65,7 @@ class Database {
         return $conn;
     }
 
-    protected static function fetch($query, array $params = array())
+    protected static function dbFetch($query, array $params = array())
     {
         $sth = self::connect()->prepare($query);
         $sth->execute($params);

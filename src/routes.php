@@ -17,7 +17,7 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
         $status = 404;
 
         $html = \Wiki\Template::renderFile("nopage.twig", array(
-			"title" => "Page not found",
+            "title" => "Page not found",
             "page_name" => $pageName,
             ));
     } elseif (!empty($page["html"]) and !$fresh) {
@@ -37,11 +37,15 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
 });
 
 $app->get("/edit", function (Request $request, Response $response, array $args) {
-	return \Wiki\Handlers::getEdit($request, $response);
+    return \Wiki\Handlers::getEdit($request, $response);
 });
 
 $app->post("/edit", function (Request $request, Response $response, array $args) {
-	return \Wiki\Handlers::postEdit($request, $response);
+    return \Wiki\Handlers::postEdit($request, $response);
+});
+
+$app->get("/index", function (Request $request, Response $response, array $args) {
+    return \Wiki\Handlers::getIndex($request, $response);
 });
 
 $app->get("/", function (Request $request, Response $response, array $args) {
