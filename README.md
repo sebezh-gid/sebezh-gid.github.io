@@ -16,6 +16,11 @@ TODO:
 - Upload files.  Store them in the SQLite database also.
 
 
+## Some websites
+
+- [sebezh-gid.ru][4]: an illustrated guide to Sebezh district of Pskov region, Russia.  Local wikipedia of absolutely everything.
+
+
 ## Authors
 
 Written by Justin Forest [hex@umonkey.net][3].  Send all suggestions by email.
@@ -23,3 +28,4 @@ Written by Justin Forest [hex@umonkey.net][3].  Send all suggestions by email.
 [1]: http://commonmark.org/
 [2]: https://www.fossil-scm.org/
 [3]: mailto:hex@umonkey.net
+[4]: https://sebezh-gid.ru/
