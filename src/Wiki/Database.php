@@ -42,7 +42,7 @@ class Database {
         static $conn = null;
 
         if (is_null($conn)) {
-            $dsn = "sqlite:" . $_SERVER["DOCUMENT_ROOT"] . "/database.sqlite";
+            $dsn = "sqlite:" . APP_ROOT . "/database.sqlite";
 
             $conn = new \PDO($dsn);
 
