@@ -1,68 +1,81 @@
 <!doctype html>
 <html lang="{% if page_props.lang %}{{ page_props.lang }}{% else %}en{% endif %}">
- <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-  <link rel="stylesheet" type="text/css" href="/css/wiki.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/pt-sans.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/wiki.css"/>
 
-  {% block more_head %}{% endblock %}
+        <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/css/leaflet.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/css/Control.FullScreen.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/css/Control.Loading.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/css/MarkerCluster.Default.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/css/MarkerCluster.css" type="text/css" media="screen" />
 
-  <title>{% block page_title %}Wiki{% endblock %}</title>
- </head>
- <body>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
 
-  <header>
-    <div class="collapse bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">Contact</h4>
-            <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Follow on Twitter</a></li>
-              <li><a href="#" class="text-white">Like on Facebook</a></li>
-              <li><a href="#" class="text-white">Email me</a></li>
-            </ul>
-          </div>
+        {% block more_head %}{% endblock %}
+
+        <title>{% block page_title %}Wiki{% endblock %}</title>
+    </head>
+    <body>
+       {# TODO: header #}
+
+        <div class="container">
+            <aside>
+                <div class="logo"><a href="/wiki?name=Введение" title="Открыть главную страницу"><img src="/images/logo.jpg" alt="logo"/></a></div>
+
+                <ul>
+                    <li><a href="/wiki?name=Введение">Главная страница</a></li>
+                    <li><a href="/wiki?name=Лента обновлений">Лента обновлений</a></li>
+                    <li><a href="/index">Оглавление</a></li>
+                    <li><a href="/wiki?name=О+сайте">О сайте</a></li>
+                </ul>
+
+                <h2>Специальные страницы</h2>
+                <ul id="specialpages">
+                    <li><a href="/wiki?name=QR-коды">QR-код страницы</a></li>
+                    <li><a href="/wiki?name=Настройки">Настройки</a></li>
+                </ul>
+            </aside>
+
+            <main class="container" role="main">
+                <div class="row">
+                    <div class="col-md-12">
+                        {% block page_header %}
+                            <div class="page-header">
+                                <h1>{% block page_h1 %}It Works!{% endblock %}</h1>
+                            </div>
+                        {% endblock %}
+
+                        {% block page_contents %}
+                            <p>There is no contents on this page.</p>
+                        {% endblock %}
+                    </div>
+                </div>
+            </main>
         </div>
-      </div>
-    </div>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-      <div class="container d-flex justify-content-between">
-        <a href="#" class="navbar-brand d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-          <strong>Album</strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-    </div>
-  </header>
 
-  <main class="container" role="main">
-   <div class="row">
-     <div class="col-md-12">
-      {% block page_header %}
-       <div class="page-header">
-        <h1>{% block page_h1 %}It Works!{% endblock %}</h1>
-       </div>
-      {% endblock %}
+        <footer>
+            <p>Текст путеводителя доступен по лицензии <a href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike</a>.  Разрешено копирование в любом объёме и влюбом виде, при указании ссылки на первоисточник.</p>
+            <ul id="places">
+                <li><a href="/wiki?name=О+сайте">О сайте</a></li>
+                <li><a href="/index">Полный список страниц</a></li>
+                <li><a href="https://bitbucket.org/umonkey/php-wiki/src" target="_blank">Исходный код сайта</a></li>
+                <li><a href="https://metrika.yandex.ru/dashboard?id=41793534" target="_blank">Посещаемость</a></li>
+            </ul>
+        </footer>
 
-      {% block page_contents %}
-       <p>There is no contents on this page.</p>
-      {% endblock %}
-     </div>
-   </div>
-  </main>
-
-  <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="/js/wiki.js"></script>
- </body>
+        <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+        <script type="text/javascript" src="/js/leaflet.min.js"></script>
+        <script type="text/javascript" src="/js/leaflet.markercluster.min.js"></script>
+        <script type="text/javascript" src="/js/Control.FullScreen.js"></script>
+        <script type="text/javascript" src="/js/Control.Loading.js"></script>
+        <script type="text/javascript" src="/js/wiki.js"></script>
+    </body>
 </html>

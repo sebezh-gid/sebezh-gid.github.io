@@ -9,6 +9,9 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
     $pageName = $request->getQueryParam("name");
     $fresh = $request->getQueryParam("cache") == "no";
 
+    if ($_SERVER["HTTP_HOST"] == "localhost:8080")
+        $fresh = true;
+
     if (empty($pageName))
         return $response->withRedirect("/wiki?name=Welcome", 302);
 
@@ -36,18 +39,9 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
     return $response->withStatus($status);
 });
 
-$app->get("/edit", function (Request $request, Response $response, array $args) {
-    return \Wiki\Handlers::getEdit($request, $response);
-});
+$app->get("/edit", '\Wiki\Handlers:getEdit');
+$app->post("/edit", '\Wiki\Handlers:postEdit');
 
-$app->post("/edit", function (Request $request, Response $response, array $args) {
-    return \Wiki\Handlers::postEdit($request, $response);
-});
+$app->get("/index", '\Wiki\Handlers:getIndex');
 
-$app->get("/index", function (Request $request, Response $response, array $args) {
-    return \Wiki\Handlers::getIndex($request, $response);
-});
-
-$app->get("/", function (Request $request, Response $response, array $args) {
-    return \Wiki\Handlers::getHome($request, $response);
-});
+$app->get("/", '\Wiki\Handlers:getHome');

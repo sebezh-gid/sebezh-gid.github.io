@@ -7,6 +7,10 @@ if (PHP_SAPI == 'cli-server') {
     if (is_file($file)) {
         return false;
     }
+
+    // Do not route static paths to the application.
+    if (preg_match('@^/(photo|css|js)/@', $url["path"]))
+        return false;
 }
 
 require __DIR__ . '/../vendor/autoload.php';

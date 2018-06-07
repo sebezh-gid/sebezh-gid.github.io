@@ -1,14 +1,1061 @@
+body {
+    background-color: #f6f6f6;
+    color: #4d4d4d;
+    font: 16px/1.35 "PT Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+  display: block;
+  position: relative;
+}
+
+.leftcol {
+  padding: 10px;
+  color: #4d4d4d;
+}
+.rightcol {
+  background-color: #fff;
+  color: #222;
+  border: 1px solid #a7d7f9;
+  border-right-width: 0;
+  border-top-width: 0;
+  padding: 40px 10px 10px;
+  position: relative;
+}
+.lcol, .rcol {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+}
+
+.lnav a {
+  color: #0645ad;
+}
+.lnav h2 {
+  font-size: 1em;
+  margin: 20px 0 .25em;
+}
+.lnav ul {
+  list-style-type: none;
+  margin: 0 0 10px;
+  padding: 0;
+}
+.lnav li {
+  margin: 0 0 5px;
+  padding: 0;
+}
+
+.submenu {
+  position: absolute;
+  top: 10px;
+}
+.submenu a {
+  display: inline-block;
+  margin: 0 10px 0 0;
+}
+
 .page-header {
- border-bottom: solid 1px #eee;
- margin-bottom: 20px;
- margin-top: 50px;
- padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 20px;
+}
+.page-header h1 {
+  margin: 0 0 10px;
+  font-size: 29px;
+  font-weight: normal;
+  line-height: 1.3em;
+}
+.page-header p.lead {
+    font-size: 125%;
+    line-height: 150%;
+    margin: -5px 0 10px;
 }
 
-.form-actions {
- margin-top: 10px;
+.clear {
+clear:both;
+display:block;
+overflow:hidden;
+visibility:hidden;
+width:0;
+height:0;
 }
 
-.pedit textarea {
- height: calc(100vh - 250px);
+.clearfix:after {
+clear:both;
+content:' ';
+display:block;
+font-size:0;
+line-height:0;
+visibility:hidden;
+width:0;
+height:0;
+}
+
+.clearfix {
+  display:inline-block;
+}
+
+.markdown:after {
+    display: block;
+    content: " ";
+    clear: both;
+}
+
+
+* html .clearfix {
+  height: 1%;
+}
+
+.clearfix {
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6, {
+  margin-bottom:0.5em;
+  margin-top:0.5em;
+}
+
+h2, .section {
+  font-size:1.2em;
+  font-weight:normal;
+  margin:1em 0;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+.light {
+font-weight:100;
+}
+
+.heading, .section {
+margin:1em 0;
+padding:0.1em 0.3em;
+background-color:#F3F3F3;
+border-top:1px solid #D6D6D6;
+}
+
+hr {
+margin:2em 0;
+border:0;
+height:1px;
+color:#ccd4cc;
+background-color:#ccd4cc;
+}
+
+sup, sub {
+line-height:0;
+}
+
+p {
+margin-top:1em;
+margin-bottom:1em;
+}
+
+.with-under {
+margin-bottom:0;
+}
+
+.under {
+margin-top:0;
+}
+
+.gray {
+color:#666866;
+}
+
+.green {
+color:#337700;
+}
+
+.red {
+color:#cc0000;
+}
+
+.violet {
+color:44400aa;
+}
+.highlight {
+background-color:#fffdcc;
+}
+
+
+blockquote {
+margin-top:1em;
+margin-bottom:1em;
+margin-left:0;
+padding-left:20px;
+border-left:2px solid #ccd4cc;
+color:#111;
+}
+
+
+a.timelineHistLink {
+ font-family: monospace;
+}
+
+.top-space {
+margin-top:2em;
+}
+
+.bottom-space {
+margin-bottom:2em;
+}
+
+
+.sectionmenu a:visited {
+  color:#0044c0;
+}
+
+.sectionmenu {
+  background-color: #fff;
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, #EEEEEE),
+      color-stop(1, #FFFFFF)
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      #EEEEEE 0%,
+      #FFFFFF 100%
+  );
+  border-bottom: 1px solid #C0C0C0;
+  padding: 8px 15px 6px 10px;
+}
+
+.sectionmenu a {
+  padding-left: 15px;
+  padding-right: 15px;
+  text-decoration: none;
+}
+
+.footer {
+margin:1em 0;
+padding:15px;
+color:#666866;
+/*border-top: 1px solid #ccd4cc;*/
+text-align: right;
+}
+
+div.sidebox{
+padding-left: 10px !important;
+border: none !important;
+border-left:1px solid #cccfcc !important;
+float:right;
+background-color: #fff !important;
+}
+
+div.sideboxTitle{
+width: 100% !important;
+padding: 3px !important;
+font-weight: 600;
+}
+
+.label-value th {
+text-align: right;
+}
+
+.divider {
+color: #666866;
+border-bottom: 1px solid #cccfcc;
+white-space: nowrap;
+}
+
+.timelineTime {
+color: #666866;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+.title-header {
+  float: left;
+}
+
+.header .title {
+  display: none;
+}
+
+.page-title {
+  position: absolute;
+  top: 60px;
+  left: 15px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+  padding: 0;
+  color: #000;
+
+  font-size: 28px;
+  font-weight: normal;
+
+}
+body.wiki .page-title {
+  display: none;
+}
+body.wiki h1 {
+  font-size: 29px;
+  font-weight: normal;
+  line-height: 1.3em;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 20px;
+}
+
+.content {
+  font-size: 14px;
+  width: 100%;
+}
+.subcontent {
+  font-size: 14px;
+  padding-top: 15px;
+  padding-left: 15px;
+  width: 92%;
+}
+
+.tktDspLabel {
+  color: #666866;
+}
+
+.tktDspValue {
+  background-color: #fff !important;
+  border-bottom: 1px solid #eee;
+}
+
+.timelineTableCell {
+  padding: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 6px;
+}
+
+.timelineComment {
+  white-space: pre;
+}
+
+.infoComment {
+  white-space: pre;
+}
+
+th {
+  vertical-align: top;
+}
+
+li { 
+  margin-top: 0.5em; 
+  margin-bottom: 0.5em;
+}
+
+table.browser {
+  width: none;
+}
+
+.browser ul {
+  margin-left: 2em;
+  margin-right: 2em;
+  list-style-type: square;
+  color: #D2A24A;
+}
+
+.browser li a {
+text-decoration:none;
+}
+
+.browser li a:hover {
+    text-decoration: underline;
+}
+
+textarea, pre, code {
+  font: 9pt "Droid Sans Mono", Menlo, "DejaVu Sans Mono", Inconsolata, "Bitstream Vera Sans Mono", "Lucida Console", monospace;
+}
+
+pre {
+  color: #111;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+pre.diff {
+  overflow: none;
+}
+
+pre.diff {
+  color: #000;
+}
+
+pre.diff-position {
+  display:-moz-inline-stack;
+  display:inline-block;
+  zoom:1;
+  *display:block;
+  width: 100%;
+  font-style: italic;
+  padding: 0.5em 0;
+  margin: 0.5em 0;
+  border-top: 1px dotted #A2B5CD;
+  border-bottom: 1px dotted #A2B5CD;
+  color: #A2B5CD;
+}
+
+pre.diff-added {
+  background-color: #CEFBC3 !important;
+}
+
+pre.diff-removed {
+  background-color: #F5C2C1 !important;
+}
+
+div.comment {
+  border-left: solid 2px #ccc;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+div.comment .verbatim {
+  overflow: hidden;
+}
+
+.Xwikiedit form .actions {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    border-top: 1px solid #5980CC;
+    margin-top: -31px;
+    background-color: white;
+    padding-left: 15px;
+    line-height: 30px;
+}
+.wikiedit form .actions input {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+th.center, td.center {
+    text-align: center;
+}
+
+img {
+  max-width: 100%;
+}
+
+img[align=right] {
+    float: right;
+    padding: 1px;
+    border: solid 1px #ccc;
+    background-color: white;
+    margin: 0 0 10px 20px;
+}
+img[align=left] {
+    float: left;
+    margin: 0 20px 10px 0;
+}
+div.right {
+    float: right;
+    margin: 0 0 10px 20px;
+    background-color: white;
+}
+div.right img,
+div.gallery img {
+    padding: 1px;
+    border: solid 1px #ccc;
+    margin: 0 0 5px;
+}
+div.right .map img {
+    border: none;
+}
+div.right a,
+div.gallery a {
+    line-height: 1em;
+    outline: none;
+}
+div.gallery a {
+    display: inline-block;
+    float: left;
+    margin: 0 5px 0 0;
+}
+div.gallery img {
+    float: left;
+    height: 150px;
+}
+div.gallery:after {
+    display: block;
+    content: " ";
+    clear: both;
+}
+
+a {
+    color: #0b0080;
+}
+
+
+#reportTable {
+    visibility: hidden;
+}
+
+/**
+ * Общее оформление таблицы.
+ **/
+body.rptview table.report {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    margin-top: 50px;
+    color: #444;
+}
+
+#reportTable td,
+#reportTable th {
+    border-color: #ccc;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    padding: 6px 10px;
+    white-space: nowrap;
+}
+#reportTable tbody a {
+    color: #555599;  /* чтобы не было заметно мерцание при замене на ссылки */
+}
+
+
+/**
+ * Коррекция стилей при наведении курсора.
+ **/
+#reportTable tbody tr:hover td {
+  background-color: #ddd;
+}
+
+
+/**
+ * Коррекция ширины колонок и шрифтов.
+ **/
+table.report td:nth-child(1) {
+  font-family: monospace;
+}
+table.report td:nth-child(2) {
+  width: 100%;
+  white-space: normal;
+}
+
+
+/**
+ * Отчёт по закупкам.
+ **/
+body.report_3 table.report td:nth-child(3),
+body.report_3 table.report td:nth-child(5),
+body.report_3 table.report td:nth-child(6) {
+    text-align: right;
+}
+
+
+/**
+ * Корректировка по статусам.
+ **/
+#reportTable tr.status_active td {
+    border-bottom: solid 1px #ddd;
+}
+
+.tktmeta .pad {
+  padding-left: 2em;
+}
+.ticketform {
+  line-height: 1.5em;
+}
+.ticketform, .ticketform .wide {
+  width: 100%;
+}
+.ticketform .text {
+  border: solid 1px #ccc;
+  border-top: solid 1px #888;
+  font-family: monospace;
+  padding: 2px 4px;
+  width: 100%;
+}
+.ticketform th {
+  text-align: right;
+  font-weight: normal;
+  white-space: nowrap;
+  line-height: 40px;
+}
+.ticketform th,
+.ticketform td {
+  padding: 5px 5px 0 0;
+}
+.ticketform input.default {
+  font-weight: bold;
+}
+
+body.tktview .comment .userinfo {
+    color: #888;
+}
+body.tktview .comment .userinfo a {
+    color: inherit;
+    text-decoration: none;
+}
+body.tktview .comment pre {
+    line-height: 1.5em;
+}
+
+body.tktview h1 .priority {
+    color: gray;
+    cursor: help;
+}
+
+body.tktview p.status {
+    color: gray;
+}
+
+body.tktview h1 small a {
+    color: #080;
+    text-decoration: underline;
+}
+
+.ticketform td.short input {
+    width: 90px;
+}
+.ticketform td.short select {
+    width: 100px;
+}
+
+body.wiki .content {
+  font-size: 16px;
+}
+
+body.wiki .content table {
+  border-collapse: collapse;
+}
+body.wiki .content table td,
+body.wiki .content table th {
+  border: solid 1px #ccc;
+  padding: 4px 8px;
+}
+body.wiki .content table .r {
+  text-align: right;
+}
+body.wiki .content table .c {
+  text-align: center;
+}
+body.wiki .content table thead th {
+  vertical-align: bottom;
+}
+
+.wiki table {
+  border-collapse: collapse;
+}
+.wiki table th,
+.wiki table td {
+  border: solid 1px gray;
+  padding: 2px 4px;
+}
+
+
+body.wiki table.frontpage {
+    font-size: 14px;
+    width: 100%;
+}
+body.wiki table.frontpage h3 {
+    margin: 0.25em 0;
+    font-weight: normal;
+    color: gray;
+    font-size: 90%;
+}
+body.wiki table.frontpage th {
+    background-color: #eee;
+    text-align: left;
+    font-weight: bold;
+}
+body.wiki table.frontpage td {
+    vertical-align: top;
+    width: 25%;
+}
+body.wiki table.frontpage ul {
+    margin: 0.5em 0 1em;
+    padding: 0;
+    list-style-type: none;
+}
+body.wiki table.frontpage li {
+    margin: .25em 0;
+}
+body.wiki table.frontpage a.sub {
+    font-size: 90%;
+    margin-left: .5em;
+}
+
+@media (max-width: 799px) {
+ 
+}
+@media (min-width: 800px) {
+  .leftcol {
+    width: 150px;
+    float: left;
+    top: 0;
+    position: absolute;
+  }
+  .rightcol {
+    margin-left: 170px;
+  }
+}
+
+table.elka td,
+table.elka th {
+  border: none !important;
+}
+table.elka th {
+  text-align: right;
+  font-weight: normal;
+  vertical-align: top;
+}
+
+table.tktinfo {
+    border-collapse: collapse;
+}
+table.tktinfo th,
+table.tktinfo td {
+    text-align: left;
+    padding: 2px 30px 2px 0;
+}
+table.tktinfo th {
+    font-weight: normal;
+    color: gray;
+}
+
+a.btn, button.btn, label.btn {
+    display: inline-block;
+    line-height: 2em;
+    height: 2em;
+    padding: 0 1em;
+    color: #444;
+    background-color: #eee;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn.active {
+    background-color: #ddd;
+}
+
+.actions {
+    font-size: 0;
+}
+.actions .btn {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.btn-group {
+    display: inline-block;
+}
+.btn-group .btn {
+    border-radius: 0;
+    border-left: none;
+    margin-right: 0;
+}
+.btn-group .btn:first-child {
+    border-radius: 3px 0 0 3px;
+    border-left: 1px solid #ccc;
+}
+.btn-group .btn:last-child {
+    border-radius: 0 3px 3px 0;
+}
+
+.tktview .description,
+.tktview .comment,
+.tktview .tktinfo {
+    margin-left: 15px;
+}
+
+.tktview .attachments {
+    margin-left: 15px;
+    vertical-align: top;
+}
+.tktview .attachments a.file {
+    display: inline-block;
+    text-align: left;
+    width: 200px;
+    margin: 0 10px 10px 0;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    padding: 8px 4px;
+}
+.tktview .attachments .file img {
+    float: left;
+}
+.tktview .attachments .info {
+    display: block;
+    margin-left: 55px;
+    line-height: 1.5em;
+}
+.tktview .rightcol,
+.wcontent .rightcol {
+    padding-top: 10px;
+}
+
+.tkth {
+    position: relative;
+    border-bottom: 1px solid #eee;
+    height: .75em;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+}
+
+.tkth span {
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+    padding-right: 1em;
+}
+
+table.noframe,
+table.noframe td {
+    border: none !important;
+}
+table.wide,
+table td.wide {
+    width: 100%;
+}
+table.nopad th,
+table.nopad td {
+    padding: 0 !important;
+}
+ul.plain {
+    list-style-type: none;
+    margin: 0 0 0 20px;
+    padding: 0 10px 0 0;
+    line-height: 1.5em;
+}
+ul.plain li {
+    margin: 0;
+    padding: 0;
+}
+
+div.welcome {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+div.welcome td {
+    vertical-align: top;
+}
+div.welcome p {
+    margin: 0 0 .5em 0;
+}
+
+#toc {
+    border: solid 1px #ccc;
+    margin: 10px 0;
+    padding: 0 10px;
+    font-size: 14px;
+    background-color: #fff;
+    display: inline-block;
+}
+#toc ul {
+    list-style-type: disc;
+    margin: 0;
+    padding: 0 0 0 1em;
+}
+.right #toc {
+    float: none;
+    min-width: 204px;
+}
+.right img {
+    display: block;
+}
+
+h2 a[name],
+h3 a[name],
+h4 a[name] {
+    color: inherit;
+}
+
+#disqus_thread {
+    margin-top: 50px;
+}
+
+.wiki .submenu {
+    display: none;
+}
+.wiki .rightcol {
+    padding-top: 10px;
+}
+.wiki_welcome h1 {
+    display: none;
+}
+
+#homesearch {
+    width: 100%;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+#homesearch input[type=text] {
+    border: solid 1px #ccc;
+    padding: 4px 10px;
+    width: calc(100% - 20px);
+}
+
+/**
+ * Настройка форм.
+ **/
+.form-group {
+    margin: 10px 0;
+}
+.form-control {
+    display: block;
+}
+form .msgbox {
+    margin-top: 10px;
+}
+
+/**
+ * Настройка карт.
+ **/
+.map {
+    display: block;
+    width: 100%;
+    height: 300px;
+    background-color: #eee;
+}
+.leaflet-popup-content img {
+    max-width: 100%;
+    min-width: 200px;
+}
+
+
+/**
+ * Настройки диалогов.
+ **/
+.dlg {
+    padding: 10px;
+}
+.dlg .form-control {
+    width: calc(100% - 22px);
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+}
+.dlg .orsep {
+    text-align: center;
+    margin: 5px 50px 15px;
+    border-bottom: 1px solid #ccc;
+    height: 10px;
+    position: relative;
+}
+.dlg .orsep span {
+    display: inline-block;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 30px);
+    width: 60px;
+}
+.dlg label.btn {
+    width: calc(100% - 30px);
+    text-align: center;
+}
+
+.container {
+    padding: 0 0 0 10px;
+}
+
+aside {
+    color: #4d4d4d;
+    float: left;
+    font-size: 14px;
+    width: 160px;
+    padding-top: 10px;
+}
+aside a {
+    color: #0645ad;
+}
+aside .logo {
+    margin-bottom: 20px;
+}
+aside .logo a {
+    display: inline-block;
+    line-height: 0;
+}
+aside ul {
+    list-style-type: none;
+    margin: 0 0 10px;
+    padding: 0;
+}
+aside h2 {
+    font-size: inherit;
+    margin: 20px 0 .25em;
+}
+
+main {
+    background-color: #fff;
+    color: #222;
+    margin-left: 160px;
+    border-left: 1px solid #a7d7f9;
+    border-bottom: 1px solid #a7d7f9;
+}
+main.container {
+    padding: 10px 15px 30px 15px;
+}
+main h2 {
+    font-size: 21px;
+    font-weight: normal;
+    border-bottom: 1px solid #ddd;
+}
+main h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+main a[href^="http:"],
+main a[href^="https:"] {
+    background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2212%22%20height=%2212%22%3E%20%3Cpath%20fill=%22%23fff%22%20stroke=%22%23b08%22%20d=%22M1.5%204.518h5.982V10.5H1.5z%22/%3E%20%3Cpath%20fill=%22%2336c%22%20d=%22M5.765%201H11v5.39L9.427%207.937l-1.31-1.31L5.393%209.35l-2.69-2.688%202.81-2.808L4.2%202.544z%22/%3E%20%3Cpath%20fill=%22%23fff%22%20d=%22M9.995%202.004l.022%204.885L8.2%205.07%205.32%207.95%204.09%206.723l2.882-2.88-1.85-1.852z%22/%3E%20%3C/svg%3E);
+    background-repeat: no-repeat;
+    background-position: center right;
+    padding-right: 14px;
+}
+main a[href*=".wikipedia.org/wiki/"] {
+    background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEUAAAAAAAABAQEXFxcwMDBHR0dYWFhnZ2d2dnaHh4eVlZWpqam3t7fHx8fX19fo6Oj+/v6uGRflAAAAAXRSTlMAQObYZgAAAcNJREFUSMfdVtmO3CAQnKrmMGCg/v9r82DAnsnM7lpRpCj91Maurr7N43GIvpXHRfRDufv9REj3ENJNxF8H6Kb8JwDvnA8hBO/cplOv5dD9OvUuSA+pbo4kSUtVeyQJMBa17EnC53ac0lIbLvUNJK1LkoqBTJKk5sh8eJJI388YeiAZhpcbgW0eb4cVFVq7Br0b6Ma76iZbNdeGlYz0lKUeAeyLYniSUMZR964+p7UY4IbeHGhdquYHqfbh5AnoHkC9UCQpchEE218Ll0n6SWGE9brSoIu6AN0BmCFGkttpVWlxXVpjIxAWBWiMy5i5N73UjOQMMoAz8ZLyLN9z8wVyGW0kbKJlrr8DVFvtcaBnJsss2mt7O4LpEvYssz+5ngE7OYvXyEVRET8NkJGWh0eFpG+H3j4BMgB/FCoq4HCwnUX7fUSNsDK8biRck+ITwQsggQxSQR6Jyurmv1gC3QCr8q5LqiRdT6xfbY0NRMpH5/RIMjv35ZppAGyOwU7S1gy9B/RAkvt8AHDpireLrF4aSoW8tN17QPc8x6CHS8t+WpVlTa+kzO3b3dq2Sxp7rH++jP/Bn+L9H/v9q8P9y8mt688v55B4SrngDmcAAAAASUVORK5CYII=) no-repeat center right;
+    background-size: contain;
+    padding-right: 20px;
+    border: none;
+}
+main textarea.wiki {
+  width: 90%;
+  width: calc(100% - 30px);
+  min-width: calc(100% - 30px);
+  max-width: calc(100% - 30px);
+  padding: 10px 10px 10px 20px;
+  margin-top: 10px;
+  font-family: monospace;
+  line-height: 1.5em;
+  border: solid 1px #ccc;
+  height: calc(100vh - 150px);
+}
+main .form-actions {
+    margin-top: 10px;
+}
+
+footer {
+    margin-top: 30px;
+    margin-left: 185px;
+    font-size: 13px;
+    padding: 0 50px 50px 0;
+}
+footer ul#places {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+footer ul#places li {
+    display: inline-block;
+    margin: 0 10px 0 0;
 }

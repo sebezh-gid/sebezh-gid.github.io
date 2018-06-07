@@ -27,5 +27,7 @@ function debug()
     header("HTTP/1.0 503 Debug");
     header("Content-Type: text/plain; charset=utf-8");
     call_user_func_array("var_dump", func_get_args());
+    print "---\n";
+    debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
     die();
 }

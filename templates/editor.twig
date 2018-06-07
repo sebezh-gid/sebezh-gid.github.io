@@ -1,5 +1,7 @@
 {% extends "base.twig" %}
 
+{% block page_title %}re:{{ page_name }} — гид по Себежу{% endblock %}
+
 {% block page_h1 %}Редактирование страницы «{{ page_name }}»{% endblock %}
 
 {% block page_contents %}
@@ -9,7 +11,7 @@
   <textarea class="form-control wiki" name="page_source" autofocus="autofocus">{{ page_source }}</textarea>
 
   <div class="form-actions">
-   <button class="btn btn-primary">Save</button> or <a href="/wiki?name={{ page_name }}">leave as is</a>
+   <button class="btn btn-primary">Сохранить</button> или <a href="/wiki?name={{ page_name }}">оставить как есть</a>
   </div>
  </form>
 {% endblock %}
