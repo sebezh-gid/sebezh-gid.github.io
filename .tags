@@ -1,0 +1,95 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+APP_ROOT	src/settings.php	/^define("APP_ROOT", __DIR__ . "\/..");$/;"	d
+Database	src/Wiki/Database.php	/^class Database {$/;"	c
+Handlers	src/Wiki/Handlers.php	/^class Handlers$/;"	c
+Page	src/Wiki/Page.php	/^class Page {$/;"	c
+SETTINGS_PATH	src/settings.php	/^define("SETTINGS_PATH", __FILE__);$/;"	d
+Template	src/Wiki/Template.php	/^class Template$/;"	c
+__construct	src/Wiki/Database.php	/^    public function __construct($container)$/;"	f
+__construct	src/Wiki/Handlers.php	/^    public function __construct($container)$/;"	f
+class.	src/Wiki/Database.php	/^ * Database interface class.$/;"	c
+conn	src/Wiki/Database.php	/^            $this->conn = new \\PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);$/;"	v
+conn	src/Wiki/Database.php	/^        $this->conn = null;$/;"	v
+conn	src/Wiki/Database.php	/^    protected $conn;$/;"	v
+connect	src/Wiki/Database.php	/^    protected function connect()$/;"	f
+container	src/Wiki/Handlers.php	/^        $this->container = $container;$/;"	v
+container	src/Wiki/Handlers.php	/^    protected $container;$/;"	v
+container	src/dependencies.php	/^$container = $app->getContainer();$/;"	v
+contents	src/Wiki/Handlers.php	/^            $contents = "# {$pageName}\\n\\n**{$pageName} -- something that we don't have information on, yet.\\n";$/;"	v
+contents	src/Wiki/Handlers.php	/^            $contents = $page["source"];$/;"	v
+converter	src/Wiki/Template.php	/^            $converter = new CommonMarkConverter();$/;"	v
+db	src/Wiki/Database.php	/^        $db = $this->connect();$/;"	v
+db	src/Wiki/Handlers.php	/^        $this->db = $container->get("database");$/;"	v
+db	src/Wiki/Handlers.php	/^    protected $db;$/;"	v
+db	src/routes.php	/^    $db = $this->get("database");$/;"	v
+dbFetch	src/Wiki/Database.php	/^    protected function dbFetch($query, array $params = array())$/;"	f
+dbFetchOne	src/Wiki/Database.php	/^    protected function dbFetchOne($query, array $params = array())$/;"	f
+dbQuery	src/Wiki/Database.php	/^    protected function dbQuery($query, array $params = array())$/;"	f
+debug	src/dependencies.php	/^function debug()$/;"	f
+dsn	src/Wiki/Database.php	/^        $this->dsn = $container->get("settings")["dsn"];$/;"	v
+dsn	src/Wiki/Database.php	/^    protected $dsn;$/;"	v
+extractProperties	src/Wiki/Template.php	/^    protected static function extractProperties($pageName, $text)$/;"	f
+fresh	src/routes.php	/^        $fresh = true;$/;"	v
+fresh	src/routes.php	/^    $fresh = $request->getQueryParam("cache") == "no";$/;"	v
+getAllPageNames	src/Wiki/Database.php	/^    public function getAllPageNames()$/;"	f
+getByName	src/Wiki/Page.php	/^    public static function getByName($name)$/;"	f
+getEdit	src/Wiki/Handlers.php	/^    public static function getEdit(Request $request, Response $response)$/;"	f
+getHome	src/Wiki/Handlers.php	/^    public function getHome(Request $request, Response $response)$/;"	f
+getIndex	src/Wiki/Handlers.php	/^    public static function getIndex(Request $request, Response $response)$/;"	f
+getPageByName	src/Wiki/Database.php	/^    public function getPageByName($name)$/;"	f
+homePage	src/Wiki/Handlers.php	/^        $homePage = $this->container->get("settings")["wiki"]["homePage"];$/;"	v
+html	src/Wiki/Database.php	/^        $html = Template::renderPage($name, $text);$/;"	v
+html	src/Wiki/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
+html	src/Wiki/Handlers.php	/^        $html = Template::renderFile("index.twig", array($/;"	v
+html	src/Wiki/Template.php	/^            $html = $converter->convertToHtml($src);$/;"	v
+html	src/Wiki/Template.php	/^        $html = $md->convertToHtml($pageText);$/;"	v
+html	src/Wiki/Template.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
+html	src/Wiki/Template.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
+html	src/Wiki/Template.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', function ($m) {$/;"	v
+html	src/Wiki/Template.php	/^        $html = self::renderFile("page.twig", array($/;"	v
+html	src/routes.php	/^        $html = $page["html"];$/;"	v
+html	src/routes.php	/^        $html = \\Wiki\\Template::renderFile("nopage.twig", array($/;"	v
+html	src/routes.php	/^        $html = \\Wiki\\Template::renderPage($pageName, $page["source"]);$/;"	v
+lines	src/Wiki/Template.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
+lines	src/Wiki/Template.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
+link	src/Wiki/Handlers.php	/^        $link = "\/wiki?name=" . urlencode($homePage);$/;"	v
+link	src/Wiki/Template.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
+loader	src/Wiki/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
+logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
+md	src/Wiki/Template.php	/^        $md = new CommonMarkConverter();$/;"	v
+name	src/Wiki/Handlers.php	/^        $name = $_POST["page_name"];$/;"	v
+names	src/Wiki/Handlers.php	/^        $names = $this->db->getAllPageNames();$/;"	v
+now	src/Wiki/Database.php	/^        $now = time();$/;"	v
+page	src/Wiki/Handlers.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
+page	src/routes.php	/^    $page = $db->getPageByName($pageName);$/;"	v
+pageName	src/Wiki/Handlers.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
+pageName	src/routes.php	/^    $pageName = $request->getQueryParam("name");$/;"	v
+parts	src/Wiki/Template.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
+postEdit	src/Wiki/Handlers.php	/^    public static function postEdit(Request $request, Response $response)$/;"	f
+props	src/Wiki/Template.php	/^        $props = array($/;"	v
+renderFile	src/Wiki/Template.php	/^    public static function renderFile($templateName, array $data = array())$/;"	f
+renderPage	src/Wiki/Template.php	/^    public static function renderPage($pageName, $pageText)$/;"	f
+res	src/Wiki/Database.php	/^        $res = $this->dbFetchOne("SELECT `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));$/;"	v
+res	src/Wiki/Database.php	/^        $res = array();$/;"	v
+root	src/Wiki/Template.php	/^        $root = $_SERVER["DOCUMENT_ROOT"] . "\/..\/templates";$/;"	v
+rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
+settings	src/dependencies.php	/^    $settings = $c->get('settings')['logger'];$/;"	v
+settings	src/dependencies.php	/^    $settings = $c->get('settings')['renderer'];$/;"	v
+status	src/routes.php	/^        $status = 200;$/;"	v
+status	src/routes.php	/^        $status = 404;$/;"	v
+sth	src/Wiki/Database.php	/^        $sth = $db->prepare($query);$/;"	v
+stmt	src/Wiki/Database.php	/^        $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));$/;"	v
+target	src/Wiki/Template.php	/^                $target = $parts[0];$/;"	v
+template	src/Wiki/Template.php	/^        $template = $twig->load($templateName);$/;"	v
+text	src/Wiki/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v
+text	src/Wiki/Template.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
+title	src/Wiki/Template.php	/^                $title = $parts[0];$/;"	v
+title	src/Wiki/Template.php	/^                $title = $parts[1];$/;"	v
+twig	src/Wiki/Template.php	/^        $twig = new \\Twig\\Environment($loader);$/;"	v
+updatePage	src/Wiki/Database.php	/^    public function updatePage($name, $text)$/;"	f
+updatePageHtml	src/Wiki/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
