@@ -15,7 +15,9 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
     if (empty($pageName))
         return $response->withRedirect("/wiki?name=Welcome", 302);
 
-    $page = \Wiki\Database::getPageByName($pageName);
+    $db = $this->get("database");
+
+    $page = $db->getPageByName($pageName);
     if ($page === false) {
         $status = 404;
 
@@ -31,7 +33,7 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
         $status = 200;
 
         $html = \Wiki\Template::renderPage($pageName, $page["source"]);
-        \Wiki\Database::updatePageHtml($pageName, $html);
+        $db->updatePageHtml($pageName, $html);
     }
 
     $response->getBody()->write($html);

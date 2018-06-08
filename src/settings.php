@@ -20,5 +20,15 @@ return [
         ],
 
         'database' => APP_ROOT . '/database.sqlite',
+
+        'dsn' => [
+            'name' => 'sqlite:' . __DIR__ . '/../database.sqlite',
+            'user' => null,
+            'password' => null,
+        ],
+
+        'wiki' => [
+            'homePage' => 'Введение',
+        ],
     ],
 ];

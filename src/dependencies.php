@@ -19,6 +19,10 @@ $container['logger'] = function ($c) {
 };
 
 
+// database
+$container['database'] = new \Wiki\Database($container);
+
+
 function debug()
 {
     while (ob_get_level())

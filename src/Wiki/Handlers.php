@@ -7,6 +7,19 @@ use Slim\Http\Response;
 
 class Handlers
 {
+    protected $container;
+
+    protected $db;
+
+    /**
+     * Set up the handler.
+     **/
+    public function __construct($container)
+    {
+        $this->container = $container;
+        $this->db = $container->get("database");
+    }
+
     /**
      * Display the page edit form.
      **/
@@ -17,7 +30,7 @@ class Handlers
         if (empty($pageName))
             return $response->withRedirect("/wiki?name=Welcome", 302);
 
-        $page = Database::getPageByName($pageName);
+        $page = $this->db->getPageByName($pageName);
         if ($page === false) {
             $contents = "# {$pageName}\n\n**{$pageName} -- something that we don't have information on, yet.\n";
         } else {
@@ -43,19 +56,21 @@ class Handlers
         $name = $_POST["page_name"];
         $text = $_POST["page_source"];
 
-        Database::updatePage($name, $text);
+        $this->db->updatePage($name, $text);
 
         return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
     }
 
-    public static function getHome(Request $request, Response $response)
+    public function getHome(Request $request, Response $response)
     {
-        return $response->withRedirect("/wiki?name=Welcome", 303);
+        $homePage = $this->container->get("settings")["wiki"]["homePage"];
+        $link = "/wiki?name=" . urlencode($homePage);
+        return $response->withRedirect($link, 303);
     }
 
     public static function getIndex(Request $request, Response $response)
     {
-        $names = Database::getAllPageNames();
+        $names = $this->db->getAllPageNames();
 
         $html = Template::renderFile("index.twig", array(
             "pages" => $names,

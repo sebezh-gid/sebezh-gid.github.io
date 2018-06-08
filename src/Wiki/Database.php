@@ -1,42 +1,81 @@
 <?php
+/**
+ * Database interface class.
+ *
+ * This class has public methods that do the work directly: read pages,
+ * update tables, etc.  Methods usually return arrays of data, or accept
+ * arrays of data to store or update the database with.
+ *
+ * No active records, cursors or other stuff.  Just a PDO wrapper.
+ *
+ * This class should be accessed by handlers (based on \Wiki\Handler)
+ * using $this->db.
+ **/
 
 namespace Wiki;
 
 class Database {
+    /**
+     * Data source name (connection information).
+     * An array of connection info in PDO format, keys: name, user, password.
+     **/
+    protected $dsn;
+
+    /**
+     * PDO instance.
+     **/
+    protected $conn;
+
+    /**
+     * Prepares the database connection.
+     *
+     * Does not actually connect.  This method is usually called during the application setup
+     * process, when exception handling might not yet have been configured.  We'll connect later,
+     * in a lazy manner.
+     *
+     * @param Container $container We extract settings from this.
+     **/
+    public function __construct($container)
+    {
+        $this->conn = null;
+
+        $this->dsn = $container->get("settings")["dsn"];
+    }
+
     /**
      * Return page contents by its name.
      *
      * @param string $name Page name;
      * @return array|false Page description.
      **/
-    public static function getPageByName($name)
+    public function getPageByName($name)
     {
-        $res = self::dbFetchOne("SELECT `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));
+        $res = $this->dbFetchOne("SELECT `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));
         return $res;
     }
 
-    public static function updatePage($name, $text)
+    public function updatePage($name, $text)
     {
         $now = time();
 
         $html = Template::renderPage($name, $text);
 
-        $stmt = self::dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
+        $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
         if ($stmt->rowCount() == 0) {
-            self::dbQuery("INSERT INTO `pages` (`name`, `source`, `html`, `created`, `updated`) VALUES (?, ?, ?, ?, ?)", array($name, $text, $html, $now, $now));
+            $this->dbQuery("INSERT INTO `pages` (`name`, `source`, `html`, `created`, `updated`) VALUES (?, ?, ?, ?, ?)", array($name, $text, $html, $now, $now));
         }
     }
 
-    public static function updatePageHtml($pageName, $html)
+    public function updatePageHtml($pageName, $html)
     {
-        self::dbQuery("UPDATE `pages` SET `html` = ? WHERE `name` = ?", array($html, $pageName));
+        $this->dbQuery("UPDATE `pages` SET `html` = ? WHERE `name` = ?", array($html, $pageName));
     }
 
-    public static function getAllPageNames()
+    public function getAllPageNames()
     {
         $res = array();
 
-        $rows = self::dbFetch("SELECT `name` FROM `pages` ORDER BY `name`");
+        $rows = $this->dbFetch("SELECT `name` FROM `pages` ORDER BY `name`");
         foreach ($rows as $row)
             $res[] = $row["name"];
 
@@ -48,40 +87,39 @@ class Database {
      *
      * @return PDO Database connection.
      **/
-    protected static function connect()
+    protected function connect()
     {
-        static $conn = null;
-
-        if (is_null($conn)) {
-            $dsn = "sqlite:" . APP_ROOT . "/database.sqlite";
-
-            $conn = new \PDO($dsn);
-
-            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-            $conn->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
+        if (is_null($this->conn)) {
+            if (!is_array($this->dsn))
+                throw new \RuntimeException("database not configured");
+            $this->conn = new \PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);
+            $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
         }
 
-        return $conn;
+        return $this->conn;
     }
 
-    protected static function dbFetch($query, array $params = array())
+    protected function dbFetch($query, array $params = array())
     {
-        $sth = self::connect()->prepare($query);
+        $db = $this->connect();
+        $sth = $db->prepare($query);
         $sth->execute($params);
         return $sth->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    protected static function dbFetchOne($query, array $params = array())
+    protected function dbFetchOne($query, array $params = array())
     {
-        $sth = self::connect()->prepare($query);
+        $db = $this->connect();
+        $sth = $db->prepare($query);
         $sth->execute($params);
         return $sth->fetch(\PDO::FETCH_ASSOC);
     }
 
-    protected static function dbQuery($query, array $params = array())
+    protected function dbQuery($query, array $params = array())
     {
-        $sth = self::connect()->prepare($query);
+        $db = $this->connect();
+        $sth = $db->prepare($query);
         $sth->execute($params);
         return $sth;
     }
