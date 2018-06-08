@@ -23,7 +23,7 @@ class Handlers
     /**
      * Display the page edit form.
      **/
-    public static function getEdit(Request $request, Response $response)
+    public function getEdit(Request $request, Response $response)
     {
         $pageName = $request->getQueryParam("name");
 
@@ -49,7 +49,7 @@ class Handlers
     /**
      * Update page contents.
      **/
-    public static function postEdit(Request $request, Response $response)
+    public function postEdit(Request $request, Response $response)
     {
         // TODO: access control.
 
@@ -68,7 +68,7 @@ class Handlers
         return $response->withRedirect($link, 303);
     }
 
-    public static function getIndex(Request $request, Response $response)
+    public function getIndex(Request $request, Response $response)
     {
         $names = $this->db->getAllPageNames();
 
