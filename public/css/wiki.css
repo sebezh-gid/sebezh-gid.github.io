@@ -734,7 +734,7 @@ table.tktinfo th {
 a.btn, button.btn, label.btn {
     display: inline-block;
     line-height: 2em;
-    height: 2em;
+    height: 30px;
     padding: 0 1em;
     color: #444;
     background-color: #eee;
@@ -742,6 +742,14 @@ a.btn, button.btn, label.btn {
     border-radius: 3px;
     text-decoration: none;
     cursor: pointer;
+}
+a.btn.tool {
+    padding: 0 8px;
+    height: 28px;
+    line-height: 28px;
+}
+.btn.lsep {
+    margin-left: 20px;
 }
 
 .btn.active {
@@ -1058,4 +1066,9 @@ footer ul#places {
 footer ul#places li {
     display: inline-block;
     margin: 0 10px 0 0;
+}
+
+.ui-widget-overlay {
+    background-color: #000 !important;
+    opacity: .5 !important;
 }

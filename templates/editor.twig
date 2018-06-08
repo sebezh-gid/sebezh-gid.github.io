@@ -12,6 +12,20 @@
 
   <div class="form-actions">
    <button class="btn btn-primary">Сохранить</button> или <a href="/wiki?name={{ page_name }}">оставить как есть</a>
+   <a class="btn btn-default tool lsep" href="#image" title="Загрузить фото"><i class="fa fa-image"></i></a>
+   <a class="btn btn-default tool" href="#map" title="Вставить заготовку фотоальбома"><i class="fa fa-images"></i></a>
+   <a class="btn btn-default tool" href="#map" title="Вставить карту"><i class="fa fa-map-marker"></i></a>
   </div>
  </form>
+
+<form id="dlgUploadPhoto" class="dlg async" title="Добавление фотографии" method="post" action="/upload" style="display: none">
+    <div class="field-group">
+        <label class="btn btn-default">Выбери файл<input id="filePhoto" type="file" name="file" accept="image/jpeg, image/png, image/gif" style="display: none"/></label>
+    </div>
+    <div class="orsep"><span>или</span></div>
+    <div class="field-group">
+        <input type="text" name="link" class="form-control" id="dlgUploadLink" placeholder="Вставь ссылку на картинку" autocomplete="off"/>
+    </div>
+    <p class="msgbox" style="display: none"></p>
+</form>
 {% endblock %}
