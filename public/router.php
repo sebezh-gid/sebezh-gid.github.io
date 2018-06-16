@@ -14,6 +14,15 @@ if (PHP_SAPI == "cli-server") {
     $file = __DIR__ . $url["path"];
     if (is_file($file))
         return false;
+
+    if ($_SERVER["REQUEST_URI"] == "/") {
+        if (file_exists($fn = $_SERVER["DOCUMENT_ROOT"] . "/index.html")) {
+            $html = file_get_contents($fn);
+            header("Content-Type: text/html; charset=utf-8");
+            header("Content-Length: " . strlen($html));
+            die($html);
+        }
+    }
 }
 
 $_SERVER["SCRIPT_NAME"] = "index.php";
