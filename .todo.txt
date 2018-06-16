@@ -3,3 +3,4 @@
 - QR codes: http://phpqrcode.sourceforge.net/index.php
 - Redirect pages.
 - Collapse maps by default, open on click.
+- Fulltext search, https://sqlite.org/fts3.html
