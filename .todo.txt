@@ -2,3 +2,4 @@
 - Move site name to settings.
 - QR codes: http://phpqrcode.sourceforge.net/index.php
 - Redirect pages.
+- Collapse maps by default, open on click.
