@@ -1,0 +1,33 @@
+{% extends "base.twig" %}
+
+{% block page_title %}Список всех файлов{% endblock %}
+
+{% block page_h1 %}Список всех файлов{% endblock %}
+
+{% block page_contents %}
+    {% if files %}
+        <table class="table grid files">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Размер</th>
+                    <th>Загружен</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                    <tr>
+                        <td>
+                            <a data-gallery="img" href="/files/{{ file.name }}">{{ file.real_name }}</a>
+                        </td>
+                        <td>{{ file.length|filesize }}</td>
+                        <td>{{ file.created|date_simple }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Загрузить файл можно в форме редактирования страницы.</p>
+    {% else %}
+        <p>Нет загруженных файлов.  Загрузить файл можно в форме редактирования страницы.</p>
+    {% endif %}
+{% endblock %}

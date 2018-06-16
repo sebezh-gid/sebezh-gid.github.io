@@ -374,12 +374,9 @@ function enable_wiki_fancybox()
 function enable_toolbar()
 {
     $(document).on("click", "a.tool", function (e) {
-        e.preventDefault();
-
-        var action = $(this).attr("href");
-        console.log(action);
+        var action = $(this).attr("data-action");
         switch (action) {
-        case "#image":
+        case "image":
             var dlgUploadPhoto = $("#dlgUploadPhoto").dialog({
                 autoOpen: true,
                 modal: true,
@@ -388,6 +385,7 @@ function enable_toolbar()
                     $(this).find(".msgbox").hide();
                 }
             });
+            e.preventDefault();
             break;
         }
     });
@@ -473,7 +471,7 @@ function enable_async_forms()
             }
 
             if (res.code) {
-                var ta = $("textarea.wikiedit")[0],
+                var ta = $("textarea.wiki")[0],
                     tv = ta.value,
                     ss = ta.selectionStart,
                     se = ta.selectionEnd,
@@ -481,11 +479,12 @@ function enable_async_forms()
 
                 var text = tv.substring(0, ss) + res.code + tv.substring(ss);
                 ta.value = text;
-                ta.selectionStart = ss;
+                ta.selectionStart = ss + res.code.length;
                 ta.selectionEnd = ss + res.code.length;
                 ta.focus();
 
                 $(".dlg").dialog("close");
+                ta.focus();
             }
         }).always(function () {
             $("body").removeClass("wait");

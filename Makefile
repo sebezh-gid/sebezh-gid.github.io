@@ -4,10 +4,10 @@ autoload:
 	composer dump-autoload
 
 serve:
-	php -S 127.0.0.1:8080 -t public public/index.php
+	php -S 127.0.0.1:8080 -t public public/router.php
 
 sql:
-	sqlite3 -header database.sqlite
+	sqlite3 -header data/database.sqlite
 
 tags:
 	@echo "Rebuilding ctags (see doc/HOWTO_dev.md)"

@@ -16,10 +16,17 @@ set tags=.tags
 " Default spacing.
 set ts=4 sts=4 sw=4 et
 
-au FileType php set ts=4 sts=4 sw=4 et tw=0
+au FileType php set ts=4 sts=4 sw=4 et tw=0 foldmethod=indent foldlevel=1
 au FileType html.twig set ts=4 sts=4 sw=4 et tw=0
 
 " Display line endings and other stuff.
 " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 set list listchars=tab:»·,trail:.,extends:>
 nmap <F8> :set list!<CR>
+
+" Folding setup.
+set foldenable
+" Close folds when cursor leaves them.
+"set foldclose=all
+"set foldcolumn=4
+set foldnestmax=2

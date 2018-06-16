@@ -3,9 +3,45 @@
 namespace Wiki;
 
 use League\CommonMark\CommonMarkConverter;
+use \Slim\Http\Response;
 
 class Template
 {
+    protected $twig;
+
+    public function __construct(array $settings)
+    {
+        $root = $settings["template_path"];
+        $loader = new \Twig\Loader\FilesystemLoader($root);
+        $this->twig = new \Twig\Environment($loader);
+
+        $this->twig->addFilter(new \Twig\TwigFilter("markdown", function ($src) {
+            $converter = new CommonMarkConverter();
+            $html = $converter->convertToHtml($src);
+            return $html;
+        }, array("is_safe" => array("html"))));
+
+        $this->twig->addFilter(new \Twig\TwigFilter("filesize", function ($size) {
+            if ($size > 1048576)
+                return sprintf("%.02f MB", $size / 1048576);
+            else
+                return sprintf("%.02f KB", $size / 1024);
+        }));
+
+        $this->twig->addFilter(new \Twig\TwigFilter("date_simple", function ($ts) {
+            return strftime("%d.%m.%y, %H:%M", $ts);
+        }));
+    }
+
+    public function render(Response $response, $fileName, array $data = array())
+    {
+        $template = $this->twig->load($fileName);
+        $html = $template->render($data);
+
+        $response->getBody()->write($html);
+        return $response;
+    }
+
     public static function renderFile($templateName, array $data = array())
     {
         $root = $_SERVER["DOCUMENT_ROOT"] . "/../templates";

@@ -1072,3 +1072,26 @@ footer ul#places li {
     background-color: #000 !important;
     opacity: .5 !important;
 }
+
+table.grid {
+    border-collapse: collapse;
+}
+table.grid td,
+table.grid th {
+    border: solid 1px #ccc;
+    padding: 4px 10px;
+}
+
+a.image {
+    display: inline-block;
+    line-height: 0;
+}
+a.image.right {
+    float: right;
+    margin: 0 0 10px 20px;
+}
+a.image.right img {
+    padding: 1px;
+    border: solid 1px #ccc;
+    background-color: #fff;
+}

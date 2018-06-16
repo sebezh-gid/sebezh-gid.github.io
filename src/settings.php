@@ -12,6 +12,11 @@ return [
             'template_path' => __DIR__ . '/../templates/',
         ],
 
+        // Template settings.
+        'templates' => [
+            'template_path' => __DIR__ . '/../templates',
+        ],
+
         // Monolog settings
         'logger' => [
             'name' => 'slim-app',
@@ -19,16 +24,22 @@ return [
             'level' => \Monolog\Logger::DEBUG,
         ],
 
-        'database' => APP_ROOT . '/database.sqlite',
+        'database' => __DIR__ . '/../data/database.sqlite',
 
         'dsn' => [
-            'name' => 'sqlite:' . __DIR__ . '/../database.sqlite',
+            'name' => 'sqlite:' . __DIR__ . '/../data/database.sqlite',
             'user' => null,
             'password' => null,
         ],
 
         'wiki' => [
             'homePage' => 'Введение',
+        ],
+
+        'thumbnails' => [
+            'small' => [
+                'width' => 200,
+            ],
         ],
     ],
 ];

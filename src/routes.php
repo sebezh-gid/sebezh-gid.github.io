@@ -44,6 +44,12 @@ $app->get('/wiki', function (Request $request, Response $response, array $args) 
 $app->get("/edit", '\Wiki\Handlers:getEdit');
 $app->post("/edit", '\Wiki\Handlers:postEdit');
 
+$app->post("/upload", '\Wiki\UploadHandler:onPost');
+
+$app->get("/files", \Wiki\Handlers\FileList::class . ":onGet");
+$app->get("/files/{name:.*}", \Wiki\FileHandler::class . ':onGet');
+$app->get("/thumbnail/{name:.*}", \Wiki\Handlers\Thumbnail::class . ":onGet");
+
 $app->get("/index", '\Wiki\Handlers:getIndex');
 
 $app->get("/", '\Wiki\Handlers:getHome');

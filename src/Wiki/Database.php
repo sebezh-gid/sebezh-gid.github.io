@@ -83,6 +83,62 @@ class Database {
     }
 
     /**
+     * Save a file in the database.
+     **/
+    public function saveFile(array $fileInfo)
+    {
+        $this->dbQuery("INSERT INTO `files` (`name`, `real_name`, `type`, `length`, `created`, `body`, `hash`) VALUES (?, ?, ?, ?, ?, ?, ?)", array(
+            $fileInfo["name"],
+            $fileInfo["real_name"],
+            $fileInfo["type"],
+            $fileInfo["length"],
+            $fileInfo["created"],
+            $fileInfo["body"],
+            md5($fileInfo["body"]),
+            ));
+    }
+
+    /**
+     * Returns an array of all uploaded files.
+     **/
+    public function findFiles()
+    {
+        $rows = $this->dbFetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `real_name`");
+        return $rows;
+    }
+
+    /**
+     * Returns file data by name.
+     * This is how you normally access individual files.
+     **/
+    public function getFileByName($name)
+    {
+        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `name` = ?", [$name]);
+        return count($rows) > 0 ? $rows[0] : null;
+    }
+
+    /**
+     * Returns file data by contents hash.
+     * This is used for deduplication during upload.
+     **/
+    public function getFileByHash($hash)
+    {
+        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `hash` = ?", [$hash]);
+        return count($rows) > 0 ? $rows[0] : null;
+    }
+
+    public function getThumbnail($name, $type)
+    {
+        $rows = $this->dbFetch("SELECT * FROM `thumbnails` WHERE `name` = ? AND `type` = ?", [$name, $type]);
+        return $rows ? $rows[0] : null;
+    }
+
+    public function saveThumbnail($name, $type, $body)
+    {
+        $this->dbQuery("INSERT INTO `thumbnails` (`name`, `type`, `body`, `hash`) VALUES (?, ?, ?, ?)", [$name, $type, $body, md5($body)]);
+    }
+
+    /**
      * Connect to the database.
      *
      * @return PDO Database connection.
@@ -100,7 +156,7 @@ class Database {
         return $this->conn;
     }
 
-    protected function dbFetch($query, array $params = array())
+    protected function dbFetch($query, array $params = array(), $callback = null)
     {
         $db = $this->connect();
         $sth = $db->prepare($query);

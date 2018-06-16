@@ -32,7 +32,7 @@ class Handlers
 
         $page = $this->db->getPageByName($pageName);
         if ($page === false) {
-            $contents = "# {$pageName}\n\n**{$pageName} -- something that we don't have information on, yet.\n";
+            $contents = "# {$pageName}\n\n**{$pageName}** -- something that we don't have information on, yet.\n";
         } else {
             $contents = $page["source"];
         }
@@ -63,6 +63,8 @@ class Handlers
 
     public function getHome(Request $request, Response $response)
     {
+        debug($request, $response);
+
         $homePage = $this->container->get("settings")["wiki"]["homePage"];
         $link = "/wiki?name=" . urlencode($homePage);
         return $response->withRedirect($link, 303);

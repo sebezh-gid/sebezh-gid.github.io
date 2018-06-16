@@ -9,6 +9,12 @@ $container['renderer'] = function ($c) {
     return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
+$container['template'] = function ($c) {
+    $settings = $c->get('settings')['templates'];
+    $tpl = new \Wiki\Template($settings);
+    return $tpl;
+};
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];

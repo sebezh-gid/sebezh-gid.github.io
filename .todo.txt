@@ -1,0 +1,3 @@
+- Support for settings.
+- Move site name to settings.
+- Cache thumbnails in the database.
