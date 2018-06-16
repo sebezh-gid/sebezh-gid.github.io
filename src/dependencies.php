@@ -15,6 +15,14 @@ $container['template'] = function ($c) {
     return $tpl;
 };
 
+$container['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        $twig = $c->get("template");
+        return $twig->render($response, "notfound.twig")
+            ->withStatus(404);
+    };
+};
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];

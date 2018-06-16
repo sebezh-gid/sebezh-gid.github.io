@@ -19,7 +19,7 @@ __construct	src/Wiki/Handlers.php	/^    public function __construct($container)$
 __construct	src/Wiki/Template.php	/^    public function __construct(array $settings)$/;"	f
 body	src/Wiki/Handlers/Thumbnail.php	/^        $body = ob_get_clean();$/;"	v
 class.	src/Wiki/Database.php	/^ * Database interface class.$/;"	c
-code	src/Wiki/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$info["name"]}?width=200' alt='{$info["real_name"]}'\/><\/a>";$/;"	v
+code	src/Wiki/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["real_name"]}'\/><\/a>";$/;"	v
 conn	src/Wiki/Database.php	/^            $this->conn = new \\PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);$/;"	v
 conn	src/Wiki/Database.php	/^        $this->conn = null;$/;"	v
 conn	src/Wiki/Database.php	/^    protected $conn;$/;"	v
@@ -42,8 +42,10 @@ divisor	src/Wiki/Handlers/Thumbnail.php	/^        $divisor = array_sum(array_map
 dsn	src/Wiki/Database.php	/^        $this->dsn = $container->get("settings")["dsn"];$/;"	v
 dsn	src/Wiki/Database.php	/^    protected $dsn;$/;"	v
 dst	src/Wiki/Handlers/Thumbnail.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
+dst	src/Wiki/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 ext	src/Wiki/UploadHandler.php	/^        $ext = mb_strtolower(pathinfo($res["real_name"], PATHINFO_EXTENSION));$/;"	v
 extractProperties	src/Wiki/Template.php	/^    protected static function extractProperties($pageName, $text)$/;"	f
+fi	src/Wiki/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;"	v
 file	src/Wiki/FileHandler.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 file	src/Wiki/Handlers/Thumbnail.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 files	src/Wiki/Handlers/FileList.php	/^        $files = $this->db->findFiles();$/;"	v
@@ -160,9 +162,11 @@ title	src/Wiki/Template.php	/^                $title = $parts[0];$/;"	v
 title	src/Wiki/Template.php	/^                $title = $parts[1];$/;"	v
 tmp	src/Wiki/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
 tn	src/Wiki/Handlers/Thumbnail.php	/^            $tn = $this->prepareThumbnail($name, $type, $options);$/;"	v
+tn	src/Wiki/UploadHandler.php	/^                $tn = $fi["filename"] . "_small." . $fi["extension"];$/;"	v
 tpl	src/dependencies.php	/^    $tpl = new \\Wiki\\Template($settings);$/;"	v
 twig	src/Wiki/Template.php	/^        $this->twig = new \\Twig\\Environment($loader);$/;"	v
 twig	src/Wiki/Template.php	/^        $twig = new \\Twig\\Environment($loader);$/;"	v
 twig	src/Wiki/Template.php	/^    protected $twig;$/;"	v
+twig	src/dependencies.php	/^        $twig = $c->get("template");$/;"	v
 updatePage	src/Wiki/Database.php	/^    public function updatePage($name, $text)$/;"	f
 updatePageHtml	src/Wiki/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
