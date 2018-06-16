@@ -1,3 +1,4 @@
 - Support for settings.
 - Move site name to settings.
 - QR codes: http://phpqrcode.sourceforge.net/index.php
+- Redirect pages.
