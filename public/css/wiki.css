@@ -1095,3 +1095,13 @@ a.image.right img {
     border: solid 1px #ccc;
     background-color: #fff;
 }
+
+.page-header .icons {
+    font-size: 1.5em;
+    float: right;
+    margin-right: -5px;
+}
+.page-header .icons a {
+    color: inherit;
+    padding: 0 5px;
+}

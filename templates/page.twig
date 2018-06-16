@@ -7,7 +7,17 @@
 
 {% block page_title %}{% if page_name == "Введение" %}Гид по Себежу{% else %}{{ page_title }} — гид по Себежу{% endif %}{% endblock %}
 
-{% block page_h1 %}{{ page_title }}{% endblock %}
+{% block page_header %}
+    <div class="page-header">
+        <div class="icons">
+            <a href="/wiki?name=Скачать+путеводитель"><i class="fa fa-download"></i></a>
+            <a href="/wiki?name=QR-коды"><i class="fa fa-qrcode"></i></a>
+            <a href="/wiki?name=Карты"><i class="fa fa-compass"></i></a>
+            <a href="/wiki?name=О+сайте"><i class="fa fa-bars"></i></a>
+        </div>
+        <h1>{{ page_title }}</h1>
+    </div>
+{% endblock %}
 
 {% block page_contents %}
  {{ page_html|raw }}
