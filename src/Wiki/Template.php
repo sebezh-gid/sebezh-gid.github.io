@@ -44,7 +44,7 @@ class Template
 
     public static function renderFile($templateName, array $data = array())
     {
-        $root = $_SERVER["DOCUMENT_ROOT"] . "/../templates";
+        $root = __DIR__ . "/../../templates";
         $loader = new \Twig\Loader\FilesystemLoader($root);
         $twig = new \Twig\Environment($loader);
 
@@ -53,6 +53,8 @@ class Template
             $html = $converter->convertToHtml($src);
             return $html;
         }, array("is_safe" => array("html"))));
+
+        $data["host"] = $_SERVER["HTTP_HOST"];
 
         $template = $twig->load($templateName);
         return $template->render($data);
