@@ -1,7 +1,4 @@
 <?php
-define("APP_ROOT", __DIR__ . "/..");
-define("SETTINGS_PATH", __FILE__);
-
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
@@ -23,8 +20,6 @@ return [
             'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
-
-        'database' => __DIR__ . '/../data/database.sqlite',
 
         'dsn' => [
             'name' => 'sqlite:' . __DIR__ . '/../data/database.sqlite',
