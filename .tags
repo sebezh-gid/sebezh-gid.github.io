@@ -4,17 +4,15 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-APP_ROOT	src/settings.php	/^define("APP_ROOT", __DIR__ . "\/..");$/;"	d
 Database	src/Wiki/Database.php	/^class Database {$/;"	c
 FileHandler	src/Wiki/FileHandler.php	/^class FileHandler extends Handlers$/;"	c
 FileList	src/Wiki/Handlers/FileList.php	/^class FileList extends Handlers$/;"	c
 Handlers	src/Wiki/Handlers.php	/^class Handlers$/;"	c
 Page	src/Wiki/Page.php	/^class Page {$/;"	c
-SETTINGS_PATH	src/settings.php	/^define("SETTINGS_PATH", __FILE__);$/;"	d
 Template	src/Wiki/Template.php	/^class Template$/;"	c
 Thumbnail	src/Wiki/Handlers/Thumbnail.php	/^class Thumbnail extends Handlers$/;"	c
 UploadHandler	src/Wiki/UploadHandler.php	/^class UploadHandler extends Handlers$/;"	c
-__construct	src/Wiki/Database.php	/^    public function __construct($container)$/;"	f
+__construct	src/Wiki/Database.php	/^    public function __construct(array $dsn)$/;"	f
 __construct	src/Wiki/Handlers.php	/^    public function __construct($container)$/;"	f
 __construct	src/Wiki/Template.php	/^    public function __construct(array $settings)$/;"	f
 body	src/Wiki/Handlers/Thumbnail.php	/^        $body = ob_get_clean();$/;"	v
@@ -39,7 +37,7 @@ dbFetchOne	src/Wiki/Database.php	/^    protected function dbFetchOne($query, arr
 dbQuery	src/Wiki/Database.php	/^    protected function dbQuery($query, array $params = array())$/;"	f
 debug	src/dependencies.php	/^function debug()$/;"	f
 divisor	src/Wiki/Handlers/Thumbnail.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
-dsn	src/Wiki/Database.php	/^        $this->dsn = $container->get("settings")["dsn"];$/;"	v
+dsn	src/Wiki/Database.php	/^        $this->dsn = $dsn;$/;"	v
 dsn	src/Wiki/Database.php	/^    protected $dsn;$/;"	v
 dst	src/Wiki/Handlers/Thumbnail.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
 dst	src/Wiki/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
@@ -133,8 +131,8 @@ res	src/Wiki/Handlers/Thumbnail.php	/^        $res = $this->db->getThumbnail($na
 res	src/Wiki/UploadHandler.php	/^        $res = array($/;"	v
 response	src/Wiki/FileHandler.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
 response	src/Wiki/Handlers/Thumbnail.php	/^        $response = $response->withHeader("Content-Type", $mimeType)$/;"	v
-root	src/Wiki/Template.php	/^        $root = $_SERVER["DOCUMENT_ROOT"] . "\/..\/templates";$/;"	v
 root	src/Wiki/Template.php	/^        $root = $settings["template_path"];$/;"	v
+root	src/Wiki/Template.php	/^        $root = __DIR__ . "\/..\/..\/templates";$/;"	v
 rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `hash` = ?", [$hash]);$/;"	v
 rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `name` = ?", [$name]);$/;"	v
 rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `thumbnails` WHERE `name` = ? AND `type` = ?", [$name, $type]);$/;"	v

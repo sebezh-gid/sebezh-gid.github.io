@@ -63,8 +63,6 @@ class Handlers
 
     public function getHome(Request $request, Response $response)
     {
-        debug($request, $response);
-
         $homePage = $this->container->get("settings")["wiki"]["homePage"];
         $link = "/wiki?name=" . urlencode($homePage);
         return $response->withRedirect($link, 303);
