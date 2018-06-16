@@ -35,11 +35,10 @@ class Database {
      *
      * @param Container $container We extract settings from this.
      **/
-    public function __construct($container)
+    public function __construct(array $dsn)
     {
         $this->conn = null;
-
-        $this->dsn = $container->get("settings")["dsn"];
+        $this->dsn = $dsn;
     }
 
     /**

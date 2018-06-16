@@ -34,7 +34,9 @@ $container['logger'] = function ($c) {
 
 
 // database
-$container['database'] = new \Wiki\Database($container);
+$container['database'] = function ($c) {
+    return new \Wiki\Database($c->get("settings")["dsn"]);
+};
 
 
 function debug()
