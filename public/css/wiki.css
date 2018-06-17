@@ -1023,14 +1023,14 @@ main h3 {
     font-size: 1.2em;
     font-weight: bold;
 }
-main a[href^="http:"],
-main a[href^="https:"] {
+.formatted a[href^="http:"],
+.formatted a[href^="https:"] {
     background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2212%22%20height=%2212%22%3E%20%3Cpath%20fill=%22%23fff%22%20stroke=%22%23b08%22%20d=%22M1.5%204.518h5.982V10.5H1.5z%22/%3E%20%3Cpath%20fill=%22%2336c%22%20d=%22M5.765%201H11v5.39L9.427%207.937l-1.31-1.31L5.393%209.35l-2.69-2.688%202.81-2.808L4.2%202.544z%22/%3E%20%3Cpath%20fill=%22%23fff%22%20d=%22M9.995%202.004l.022%204.885L8.2%205.07%205.32%207.95%204.09%206.723l2.882-2.88-1.85-1.852z%22/%3E%20%3C/svg%3E);
     background-repeat: no-repeat;
     background-position: center right;
     padding-right: 14px;
 }
-main a[href*=".wikipedia.org/wiki/"] {
+.formatted a[href*=".wikipedia.org/wiki/"] {
     background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEUAAAAAAAABAQEXFxcwMDBHR0dYWFhnZ2d2dnaHh4eVlZWpqam3t7fHx8fX19fo6Oj+/v6uGRflAAAAAXRSTlMAQObYZgAAAcNJREFUSMfdVtmO3CAQnKrmMGCg/v9r82DAnsnM7lpRpCj91Maurr7N43GIvpXHRfRDufv9REj3ENJNxF8H6Kb8JwDvnA8hBO/cplOv5dD9OvUuSA+pbo4kSUtVeyQJMBa17EnC53ac0lIbLvUNJK1LkoqBTJKk5sh8eJJI388YeiAZhpcbgW0eb4cVFVq7Br0b6Ma76iZbNdeGlYz0lKUeAeyLYniSUMZR964+p7UY4IbeHGhdquYHqfbh5AnoHkC9UCQpchEE218Ll0n6SWGE9brSoIu6AN0BmCFGkttpVWlxXVpjIxAWBWiMy5i5N73UjOQMMoAz8ZLyLN9z8wVyGW0kbKJlrr8DVFvtcaBnJsss2mt7O4LpEvYssz+5ngE7OYvXyEVRET8NkJGWh0eFpG+H3j4BMgB/FCoq4HCwnUX7fUSNsDK8biRck+ITwQsggQxSQR6Jyurmv1gC3QCr8q5LqiRdT6xfbY0NRMpH5/RIMjv35ZppAGyOwU7S1gy9B/RAkvt8AHDpireLrF4aSoW8tN17QPc8x6CHS8t+WpVlTa+kzO3b3dq2Sxp7rH++jP/Bn+L9H/v9q8P9y8mt688v55B4SrngDmcAAAAASUVORK5CYII=) no-repeat center right;
     background-size: contain;
     padding-right: 20px;

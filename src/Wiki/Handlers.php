@@ -79,4 +79,10 @@ class Handlers
         $response->getBody()->write($html);
         return $response;
     }
+
+    public function __get($key)
+    {
+        if ($key == "template")
+            return $this->container->get("template");
+    }
 }
