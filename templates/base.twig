@@ -35,11 +35,8 @@
                     <li><a href="/wiki?name=О+сайте">О сайте</a></li>
                 </ul>
 
-                <form method="get" action="https://yandex.ru/search/site/" target="_blank">
-                    <input type="hidden" name="searchid" value="2319971"/>
-                    <input type="hidden" name="web" value="0"/>
-                    <input type="hidden" name="l10n" value="ru"/>
-                    <input type="text" name="text" value="" placeholder="Поиск" autocomplete="off" style="width: 140px; margin: 10px 0 0; padding: 2px 4px; border: solid 1px #ccc"/>
+                <form method="get" action="/search">
+                    <input type="text" name="query" value="{{ query }}" placeholder="Поиск" autocomplete="off" style="width: 140px; margin: 10px 0 0; padding: 2px 4px; border: solid 1px #ccc"/>
                 </form>
             </aside>
 

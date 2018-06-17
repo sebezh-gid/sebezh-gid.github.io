@@ -105,7 +105,7 @@ class Template
         return $html;
     }
 
-    protected static function extractProperties($pageName, $text)
+    public static function extractProperties($pageName, $text)
     {
         $props = array(
             "lang" => "en",

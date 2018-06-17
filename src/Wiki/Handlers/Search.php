@@ -14,6 +14,20 @@ class Search extends Handlers
 {
     public function onGet(Request $request, Response $response, array $args)
     {
-        return $this->template->render($response, "search.twig");
+        $query = @$_GET["query"];
+        try {
+
+            $res = $query ? $this->sphinx->search($query) : null;
+            $error = false;
+        } catch (\Exception $e) {
+            $res = [];
+            $error = true;
+        }
+
+        return $this->template->render($response, "search.twig", [
+            "query" => $query,
+            "results" => $res,
+            "search_error" => $error,
+        ]);
     }
 }

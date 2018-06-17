@@ -1,15 +1,30 @@
 {% extends "base.twig" %}
 
-{% block page_title %}Поиск — гид по Себежу{% endblock %}
+{% block page_title %}Поиск «{{ query }}» — гид по Себежу{% endblock %}
 
-{% block page_h1 %}Поиск{% endblock %}
+{% block page_h1 %}Результаты поиска{% endblock %}
 
 {% block more_head %}
-    <link rel="edit" title="Edit this page" href="https://site.yandex.ru/searches/2319971/"/>
-    <link rel="alternate" type="application/x-wiki" title="Edit this page" href="https://site.yandex.ru/searches/2319971/"/>
+    <meta name="robots" contents="noindex, follow"/>
 {% endblock %}
 
 {% block page_contents %}
-    <div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'https://sebezh-gid.ru/search','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Гид по Себежу','suggest':true,'target':'_self','tld':'ru','type':2,'usebigdictionary':true,'searchid':2319971,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':null,'input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="https://yandex.ru/search/site/" method="get" target="_self" accept-charset="utf-8"><input type="hidden" name="searchid" value="2319971"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="search" name="text" value=""/><input type="submit" value="Найти"/></form></div><style type="text/css">.ya-page_js_yes .ya-site-form_inited_no { display: none; }</style><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
-    <div id="ya-site-results" onclick="return {'tld': 'ru','language': 'ru','encoding': '','htmlcss': '1.x','updatehash': true}"></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init();})})(window,document,'yandex_site_callbacks');</script>
+    <form class="search" method="get" action="/search"><input type="text" name="query" value="{{ query }}" autofocus="focus" autocomplete="off"/><button>Найти</button></form>
+
+    {% for res in results %}
+        <div class="result">
+            <p class="title"><a href="/wiki?name={{ res.name }}">{{ res.name }}</a></p>
+            <p class="snippet">{{ res.snippet|raw }}</p>
+            <p class="meta">Последняя редакция от {{ res.updated|date_simple }}</p>
+        </div>
+    {% endfor %}
+
+    {% if results %}
+        {# nothing #}
+    {% elseif search_error %}
+        <p>Извините, поиск временно не работает.</p>
+        <p>Попробуйте <a href="https://yandex.ru/search/site/?searchid=2319971&amp;text={{ query }}&amp;web=0&amp;l10n=ru">поискать Яндексом</a>.</p>
+    {% else %}
+        <p>К сожалению, по этому запросу ничего не найдено.</p>
+    {% endif %}
 {% endblock %}

@@ -49,7 +49,21 @@ class Database {
      **/
     public function getPageByName($name)
     {
-        $res = $this->dbFetchOne("SELECT `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));
+        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));
+        return $res;
+    }
+
+    /**
+     * Return page contents by its id.
+     *
+     * This is only for use by Sphinx Search, not for general use.
+     *
+     * @param string $name Page name;
+     * @return array|false Page description.
+     **/
+    public function getPageById($id)
+    {
+        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `id` = ?", [$id]);
         return $res;
     }
 
@@ -79,6 +93,11 @@ class Database {
             $res[] = $row["name"];
 
         return $res;
+    }
+
+    public function listPages()
+    {
+        return $this->dbFetch("SELECT `id`, `name`, `created`, `updated` FROM `pages`");
     }
 
     /**

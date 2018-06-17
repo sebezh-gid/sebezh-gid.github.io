@@ -15,6 +15,11 @@ $container['template'] = function ($c) {
     return $tpl;
 };
 
+$container['sphinx'] = function ($c) {
+    $settings = $c->get('settings')['sphinx'];
+    return new \Wiki\Sphinx($settings, $c->get('database'));
+};
+
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         $twig = $c->get("template");

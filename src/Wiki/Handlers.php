@@ -82,7 +82,11 @@ class Handlers
 
     public function __get($key)
     {
-        if ($key == "template")
-            return $this->container->get("template");
+        switch ($key) {
+            case "template":
+                return $this->container->get("template");
+            case "sphinx":
+                return $this->container->get("sphinx");
+        }
     }
 }

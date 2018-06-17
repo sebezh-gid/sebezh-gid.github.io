@@ -1105,3 +1105,23 @@ a.image.right img {
     color: inherit;
     padding: 0 5px;
 }
+
+form.search {
+    margin: 0 0 20px;
+}
+form.search button {
+    width: 100px;
+}
+form.search input {
+    width: calc(100% - 120px);
+    max-width: 400px;
+}
+.result {
+    margin: 0 0 1.5em;
+}
+.result p {
+    margin: 5px 0;
+}
+.result .meta {
+    color: #080;
+}

@@ -9,18 +9,25 @@ FileHandler	src/Wiki/FileHandler.php	/^class FileHandler extends Handlers$/;"	c
 FileList	src/Wiki/Handlers/FileList.php	/^class FileList extends Handlers$/;"	c
 Handlers	src/Wiki/Handlers.php	/^class Handlers$/;"	c
 Page	src/Wiki/Page.php	/^class Page {$/;"	c
+Parser	src/Wiki/Parser.php	/^class Parser$/;"	c
+Search	src/Wiki/Handlers/Search.php	/^class Search extends Handlers$/;"	c
+Sphinx	src/Wiki/Sphinx.php	/^class Sphinx$/;"	c
 Template	src/Wiki/Template.php	/^class Template$/;"	c
 Thumbnail	src/Wiki/Handlers/Thumbnail.php	/^class Thumbnail extends Handlers$/;"	c
 UploadHandler	src/Wiki/UploadHandler.php	/^class UploadHandler extends Handlers$/;"	c
 __construct	src/Wiki/Database.php	/^    public function __construct(array $dsn)$/;"	f
 __construct	src/Wiki/Handlers.php	/^    public function __construct($container)$/;"	f
+__construct	src/Wiki/Sphinx.php	/^    public function __construct(array $settings, $db)$/;"	f
 __construct	src/Wiki/Template.php	/^    public function __construct(array $settings)$/;"	f
+__get	src/Wiki/Handlers.php	/^    public function __get($key)$/;"	f
 body	src/Wiki/Handlers/Thumbnail.php	/^        $body = ob_get_clean();$/;"	v
 class.	src/Wiki/Database.php	/^ * Database interface class.$/;"	c
 code	src/Wiki/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["real_name"]}'\/><\/a>";$/;"	v
 conn	src/Wiki/Database.php	/^            $this->conn = new \\PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);$/;"	v
 conn	src/Wiki/Database.php	/^        $this->conn = null;$/;"	v
 conn	src/Wiki/Database.php	/^    protected $conn;$/;"	v
+conn	src/Wiki/Sphinx.php	/^        $this->conn = new \\PDO("mysql:host={$settings["host"]};port={$settings["port"]}", null, null);$/;"	v
+conn	src/Wiki/Sphinx.php	/^    protected $conn;$/;"	v
 connect	src/Wiki/Database.php	/^    protected function connect()$/;"	f
 container	src/Wiki/Handlers.php	/^        $this->container = $container;$/;"	v
 container	src/Wiki/Handlers.php	/^    protected $container;$/;"	v
@@ -31,6 +38,8 @@ converter	src/Wiki/Template.php	/^            $converter = new CommonMarkConvert
 db	src/Wiki/Database.php	/^        $db = $this->connect();$/;"	v
 db	src/Wiki/Handlers.php	/^        $this->db = $container->get("database");$/;"	v
 db	src/Wiki/Handlers.php	/^    protected $db;$/;"	v
+db	src/Wiki/Sphinx.php	/^        $this->db = $db;$/;"	v
+db	src/Wiki/Sphinx.php	/^    protected $db;$/;"	v
 db	src/routes.php	/^    $db = $this->get("database");$/;"	v
 dbFetch	src/Wiki/Database.php	/^    protected function dbFetch($query, array $params = array(), $callback = null)$/;"	f
 dbFetchOne	src/Wiki/Database.php	/^    protected function dbFetchOne($query, array $params = array())$/;"	f
@@ -42,7 +51,8 @@ dsn	src/Wiki/Database.php	/^    protected $dsn;$/;"	v
 dst	src/Wiki/Handlers/Thumbnail.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
 dst	src/Wiki/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 ext	src/Wiki/UploadHandler.php	/^        $ext = mb_strtolower(pathinfo($res["real_name"], PATHINFO_EXTENSION));$/;"	v
-extractProperties	src/Wiki/Template.php	/^    protected static function extractProperties($pageName, $text)$/;"	f
+extractProperties	src/Wiki/Parser.php	/^    public static function extractProperties($pageName, $text)$/;"	f
+extractProperties	src/Wiki/Template.php	/^    public static function extractProperties($pageName, $text)$/;"	f
 fi	src/Wiki/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;"	v
 file	src/Wiki/FileHandler.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 file	src/Wiki/Handlers/Thumbnail.php	/^        $file = $this->db->getFileByName($name);$/;"	v
@@ -58,7 +68,9 @@ getFileByHash	src/Wiki/Database.php	/^    public function getFileByHash($hash)$/
 getFileByName	src/Wiki/Database.php	/^    public function getFileByName($name)$/;"	f
 getHome	src/Wiki/Handlers.php	/^    public function getHome(Request $request, Response $response)$/;"	f
 getIndex	src/Wiki/Handlers.php	/^    public function getIndex(Request $request, Response $response)$/;"	f
+getPageById	src/Wiki/Database.php	/^    public function getPageById($id)$/;"	f
 getPageByName	src/Wiki/Database.php	/^    public function getPageByName($name)$/;"	f
+getSnippet	src/Wiki/Sphinx.php	/^    protected function getSnippet($source, $query)$/;"	f
 getThumbnail	src/Wiki/Database.php	/^    public function getThumbnail($name, $type)$/;"	f
 hash	src/Wiki/FileHandler.php	/^        $hash = empty($file["hash"])$/;"	v
 hash	src/Wiki/Handlers/Thumbnail.php	/^        $hash = md5($body);$/;"	v
@@ -67,6 +79,10 @@ homePage	src/Wiki/Handlers.php	/^        $homePage = $this->container->get("sett
 html	src/Wiki/Database.php	/^        $html = Template::renderPage($name, $text);$/;"	v
 html	src/Wiki/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
 html	src/Wiki/Handlers.php	/^        $html = Template::renderFile("index.twig", array($/;"	v
+html	src/Wiki/Parser.php	/^        $html = $md->convertToHtml($source);$/;"	v
+html	src/Wiki/Parser.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
+html	src/Wiki/Parser.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
+html	src/Wiki/Parser.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', function ($m) {$/;"	v
 html	src/Wiki/Template.php	/^            $html = $converter->convertToHtml($src);$/;"	v
 html	src/Wiki/Template.php	/^        $html = $md->convertToHtml($pageText);$/;"	v
 html	src/Wiki/Template.php	/^        $html = $template->render($data);$/;"	v
@@ -81,17 +97,24 @@ ih	src/Wiki/Handlers/Thumbnail.php	/^        $ih = imagesy($img);$/;"	v
 img	src/Wiki/Handlers/Thumbnail.php	/^                $img = $dst;$/;"	v
 img	src/Wiki/Handlers/Thumbnail.php	/^        $img = $this->scaleImage($img, $options);$/;"	v
 img	src/Wiki/Handlers/Thumbnail.php	/^        $img = imageCreateFromString($file["body"]);$/;"	v
+index	src/Wiki/Sphinx.php	/^        $this->index = $settings["index"];$/;"	v
+index	src/Wiki/Sphinx.php	/^    protected $index;$/;"	v
 info	src/Wiki/UploadHandler.php	/^                $info = $this->receiveFile($file);$/;"	v
 iw	src/Wiki/Handlers/Thumbnail.php	/^        $iw = imagesx($img);$/;"	v
 key	src/Wiki/Handlers/Thumbnail.php	/^        $key = $m[2];$/;"	v
 length	src/Wiki/Handlers/Thumbnail.php	/^        $length = strlen($tn["body"]);$/;"	v
+lines	src/Wiki/Parser.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
+lines	src/Wiki/Parser.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
 lines	src/Wiki/Template.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
 lines	src/Wiki/Template.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
 link	src/Wiki/Handlers.php	/^        $link = "\/wiki?name=" . urlencode($homePage);$/;"	v
+link	src/Wiki/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
 link	src/Wiki/Template.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
+listPages	src/Wiki/Database.php	/^    public function listPages()$/;"	f
 loadThumbnail	src/Wiki/Handlers/Thumbnail.php	/^    protected function loadThumbnail($name, $type)$/;"	f
 loader	src/Wiki/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
 logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
+md	src/Wiki/Parser.php	/^        $md = new CommonMarkConverter();$/;"	v
 md	src/Wiki/Template.php	/^        $md = new CommonMarkConverter();$/;"	v
 mimeType	src/Wiki/Handlers/Thumbnail.php	/^        $mimeType = "image\/jpeg";$/;"	v
 name	src/Wiki/FileHandler.php	/^        $name = $args["name"];$/;"	v
@@ -104,30 +127,40 @@ nw	src/Wiki/Handlers/Thumbnail.php	/^                $nw = $options["width"];$/;
 offset	src/Wiki/Handlers/Thumbnail.php	/^        $offset = 0;$/;"	v
 onGet	src/Wiki/FileHandler.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
 onGet	src/Wiki/Handlers/FileList.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/Wiki/Handlers/Search.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
 onGet	src/Wiki/Handlers/Thumbnail.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
 onPost	src/Wiki/UploadHandler.php	/^    public function onPost(Request $request, Response $response)$/;"	f
 options	src/Wiki/Handlers/Thumbnail.php	/^        $options = array_merge([$/;"	v
 page	src/Wiki/Handlers.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
+page	src/Wiki/Sphinx.php	/^            $page = $this->db->getPageById($row["id"]);$/;"	v
 page	src/routes.php	/^    $page = $db->getPageByName($pageName);$/;"	v
 pageName	src/Wiki/Handlers.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
 pageName	src/routes.php	/^    $pageName = $request->getQueryParam("name");$/;"	v
+parse	src/Wiki/Parser.php	/^    public static function parse($name, $source)$/;"	f
 parseName	src/Wiki/Handlers/Thumbnail.php	/^    protected function parseName($name)$/;"	f
 part1	src/Wiki/UploadHandler.php	/^        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);$/;"	v
 part2	src/Wiki/UploadHandler.php	/^        $part2 = substr(sha1($res["body"]), 0, 10);$/;"	v
 part3	src/Wiki/UploadHandler.php	/^        $part3 = sprintf("%x", time());$/;"	v
+parts	src/Wiki/Parser.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
 parts	src/Wiki/Template.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
 postEdit	src/Wiki/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
 prepareThumbnail	src/Wiki/Handlers/Thumbnail.php	/^    protected function prepareThumbnail($name, $type, array $options)$/;"	f
+props	src/Wiki/Parser.php	/^        $props = array($/;"	v
 props	src/Wiki/Template.php	/^        $props = array($/;"	v
+query	src/Wiki/Handlers/Search.php	/^        $query = @$_GET["query"];$/;"	v
 r	src/Wiki/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
 receiveFile	src/Wiki/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
 render	src/Wiki/Template.php	/^    public function render(Response $response, $fileName, array $data = array())$/;"	f
 renderFile	src/Wiki/Template.php	/^    public static function renderFile($templateName, array $data = array())$/;"	f
 renderPage	src/Wiki/Template.php	/^    public static function renderPage($pageName, $pageText)$/;"	f
-res	src/Wiki/Database.php	/^        $res = $this->dbFetchOne("SELECT `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));$/;"	v
+res	src/Wiki/Database.php	/^        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `id` = ?", [$id]);$/;"	v
+res	src/Wiki/Database.php	/^        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));$/;"	v
 res	src/Wiki/Database.php	/^        $res = array();$/;"	v
+res	src/Wiki/Handlers/Search.php	/^        $res = $query ? $this->sphinx->search($query) : null;$/;"	v
 res	src/Wiki/Handlers/Thumbnail.php	/^                $res = imagecopyresampled($dst, $img, 0, 0, 0, 0, $nw, $nh, $iw, $ih);$/;"	v
 res	src/Wiki/Handlers/Thumbnail.php	/^        $res = $this->db->getThumbnail($name, $type);$/;"	v
+res	src/Wiki/Sphinx.php	/^        $res = $this->searchIds($query);$/;"	v
+res	src/Wiki/Sphinx.php	/^        $res = array();$/;"	v
 res	src/Wiki/UploadHandler.php	/^        $res = array($/;"	v
 response	src/Wiki/FileHandler.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
 response	src/Wiki/Handlers/Thumbnail.php	/^        $response = $response->withHeader("Content-Type", $mimeType)$/;"	v
@@ -138,24 +171,36 @@ rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `file
 rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `thumbnails` WHERE `name` = ? AND `type` = ?", [$name, $type]);$/;"	v
 rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `real_name`");$/;"	v
 rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
+rows	src/Wiki/Sphinx.php	/^        $rows = $sth->fetchAll(\\PDO::FETCH_ASSOC);$/;"	v
 saveFile	src/Wiki/Database.php	/^    public function saveFile(array $fileInfo)$/;"	f
 saveThumbnail	src/Wiki/Database.php	/^    public function saveThumbnail($name, $type, $body)$/;"	f
 scaleImage	src/Wiki/Handlers/Thumbnail.php	/^    protected function scaleImage($img, array $options)$/;"	f
+search	src/Wiki/Sphinx.php	/^    public function search($query)$/;"	f
+searchIds	src/Wiki/Sphinx.php	/^    protected function searchIds($query)$/;"	f
 set	src/Wiki/Handlers/Thumbnail.php	/^        $set = $this->container->get("settings")["thumbnails"];$/;"	v
+settings	src/Wiki/Sphinx.php	/^        $settings = array_merge([$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['logger'];$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['renderer'];$/;"	v
+settings	src/dependencies.php	/^    $settings = $c->get('settings')['sphinx'];$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['templates'];$/;"	v
 sharpenImage	src/Wiki/Handlers/Thumbnail.php	/^    protected function sharpenImage($img)$/;"	f
 sharpenMatrix	src/Wiki/Handlers/Thumbnail.php	/^        $sharpenMatrix = array($/;"	v
+snip	src/Wiki/Sphinx.php	/^            $snip = $this->getSnippet($html, $query);$/;"	v
 status	src/routes.php	/^        $status = 200;$/;"	v
 status	src/routes.php	/^        $status = 404;$/;"	v
 sth	src/Wiki/Database.php	/^        $sth = $db->prepare($query);$/;"	v
+sth	src/Wiki/Sphinx.php	/^        $sth = $this->conn->prepare("CALL SNIPPETS(?, ?, ?, 10 AS around, 500 AS limit)");$/;"	v
+sth	src/Wiki/Sphinx.php	/^        $sth = $this->conn->prepare("SELECT * FROM `{$this->index}` WHERE MATCH (?)");$/;"	v
 stmt	src/Wiki/Database.php	/^        $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));$/;"	v
+target	src/Wiki/Parser.php	/^                $target = $parts[0];$/;"	v
 target	src/Wiki/Template.php	/^                $target = $parts[0];$/;"	v
 template	src/Wiki/Template.php	/^        $template = $this->twig->load($fileName);$/;"	v
 template	src/Wiki/Template.php	/^        $template = $twig->load($templateName);$/;"	v
 text	src/Wiki/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v
+text	src/Wiki/Parser.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
 text	src/Wiki/Template.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
+title	src/Wiki/Parser.php	/^                $title = $parts[0];$/;"	v
+title	src/Wiki/Parser.php	/^                $title = $parts[1];$/;"	v
 title	src/Wiki/Template.php	/^                $title = $parts[0];$/;"	v
 title	src/Wiki/Template.php	/^                $title = $parts[1];$/;"	v
 tmp	src/Wiki/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
