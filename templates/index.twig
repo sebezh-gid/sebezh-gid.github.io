@@ -5,9 +5,24 @@
 {% block page_h1 %}Список всех страниц{% endblock %}
 
 {% block page_contents %}
-    <ul>
-        {% for name in pages %}
-            <li><a href="/wiki?name={{ name }}">{{ name }}</a></li>
-        {% endfor %}
-    </ul>
+    <table class="table grid">
+        <thead>
+            <tr>
+                <th><a href="/index">Название</a></th>
+                <th><a href="/index?sort=updated">Изменение</a></th>
+                <th><a href="/index?sort=length">Размер</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for page in pages %}
+                <tr>
+                    <td>
+                        <a href="/wiki?name={{ page.name }}">{{ page.name }}</a>
+                    </td>
+                    <td dat-value="{{ page.updated }}">{{ page.updated }}</td>
+                    <td class="number">{{ page.length }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

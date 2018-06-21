@@ -70,10 +70,10 @@ class Handlers
 
     public function getIndex(Request $request, Response $response)
     {
-        $names = $this->db->getAllPageNames();
+        $pages = $this->db->listPages(@$_GET["sort"]);
 
         $html = Template::renderFile("index.twig", array(
-            "pages" => $names,
+            "pages" => $pages,
             ));
 
         $response->getBody()->write($html);

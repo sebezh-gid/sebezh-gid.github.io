@@ -6,6 +6,53 @@ body {
     padding: 0;
 }
 
+header {
+    width: 100%;
+    border-bottom: solid 1px #ccc;
+    background-color: #fff;
+}
+header .wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 15px;
+    line-height: 40px;
+    height: 40px;
+}
+header h1 {
+    display: inline-block;
+    font-size: 20px !important;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    letter-spacing: 0;
+    width: 160px;
+}
+header a {
+    text-decoration: none;
+    color: #000;
+}
+header b {
+    color: #080;
+}
+header ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    vertical-align: top;
+}
+header li {
+    display: inline-block;
+    margin: 0 0 0 40px;
+    vertical-align: top;
+}
+header .last {
+    float: right;
+}
+
 .row {
   display: block;
   position: relative;
@@ -1124,4 +1171,15 @@ form.search input {
 }
 .result .meta {
     color: #080;
+}
+
+table.grid td {
+    border: solid 1px #ccc;
+}
+table.table td {
+    padding: 4px 10px;
+}
+table.table .number {
+    text-align: right;
+    white-space: nowrap;
 }

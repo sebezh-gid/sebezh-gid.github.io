@@ -50,6 +50,8 @@ dsn	src/Wiki/Database.php	/^        $this->dsn = $dsn;$/;"	v
 dsn	src/Wiki/Database.php	/^    protected $dsn;$/;"	v
 dst	src/Wiki/Handlers/Thumbnail.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
 dst	src/Wiki/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
+error	src/Wiki/Handlers/Search.php	/^            $error = false;$/;"	v
+error	src/Wiki/Handlers/Search.php	/^            $error = true;$/;"	v
 ext	src/Wiki/UploadHandler.php	/^        $ext = mb_strtolower(pathinfo($res["real_name"], PATHINFO_EXTENSION));$/;"	v
 extractProperties	src/Wiki/Parser.php	/^    public static function extractProperties($pageName, $text)$/;"	f
 extractProperties	src/Wiki/Template.php	/^    public static function extractProperties($pageName, $text)$/;"	f
@@ -86,6 +88,8 @@ html	src/Wiki/Parser.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\
 html	src/Wiki/Template.php	/^            $html = $converter->convertToHtml($src);$/;"	v
 html	src/Wiki/Template.php	/^        $html = $md->convertToHtml($pageText);$/;"	v
 html	src/Wiki/Template.php	/^        $html = $template->render($data);$/;"	v
+html	src/Wiki/Template.php	/^        $html = preg_replace('@>\\s+<@', '><', $html);$/;"	v
+html	src/Wiki/Template.php	/^        $html = preg_replace('@\/>\\s+<@', '\/><', $html);$/;"	v
 html	src/Wiki/Template.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
 html	src/Wiki/Template.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
 html	src/Wiki/Template.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', function ($m) {$/;"	v
@@ -156,7 +160,8 @@ renderPage	src/Wiki/Template.php	/^    public static function renderPage($pageNa
 res	src/Wiki/Database.php	/^        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `id` = ?", [$id]);$/;"	v
 res	src/Wiki/Database.php	/^        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));$/;"	v
 res	src/Wiki/Database.php	/^        $res = array();$/;"	v
-res	src/Wiki/Handlers/Search.php	/^        $res = $query ? $this->sphinx->search($query) : null;$/;"	v
+res	src/Wiki/Handlers/Search.php	/^            $res = $query ? $this->sphinx->search($query) : null;$/;"	v
+res	src/Wiki/Handlers/Search.php	/^            $res = [];$/;"	v
 res	src/Wiki/Handlers/Thumbnail.php	/^                $res = imagecopyresampled($dst, $img, 0, 0, 0, 0, $nw, $nh, $iw, $ih);$/;"	v
 res	src/Wiki/Handlers/Thumbnail.php	/^        $res = $this->db->getThumbnail($name, $type);$/;"	v
 res	src/Wiki/Sphinx.php	/^        $res = $this->searchIds($query);$/;"	v

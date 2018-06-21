@@ -95,9 +95,14 @@ class Database {
         return $res;
     }
 
-    public function listPages()
+    public function listPages($sort = null)
     {
-        return $this->dbFetch("SELECT `id`, `name`, `created`, `updated` FROM `pages`");
+        if ($sort == "length")
+            return $this->dbFetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `length` DESC");
+        elseif ($sort == "updated")
+            return $this->dbFetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `updated` DESC");
+        else
+            return $this->dbFetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `name`");
     }
 
     /**

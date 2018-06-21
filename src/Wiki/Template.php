@@ -35,8 +35,16 @@ class Template
 
     public function render(Response $response, $fileName, array $data = array())
     {
+        debug($data);
         $template = $this->twig->load($fileName);
         $html = $template->render($data);
+
+        // Some typography.
+        $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
+
+        // Clean up.
+        $html = preg_replace('@/>\s+<@', '/><', $html);
+        $html = preg_replace('@>\s+<@', '><', $html);
 
         $response->getBody()->write($html);
         return $response;
@@ -57,7 +65,16 @@ class Template
         $data["host"] = $_SERVER["HTTP_HOST"];
 
         $template = $twig->load($templateName);
-        return $template->render($data);
+        $html = $template->render($data);
+
+        // Some typography.
+        $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
+
+        // Clean up.
+        $html = preg_replace('@/>\s+<@', '/><', $html);
+        $html = preg_replace('@>\s+<@', '><', $html);
+
+        return $html;
     }
 
     public static function renderPage($pageName, $pageText)
@@ -93,6 +110,10 @@ class Template
 
         // Some typography.
         $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
+
+        // Clean up.
+        $html = preg_replace('@/>\s+<@', '/><', $html);
+        $html = preg_replace('@>\s+<@', '><', $html);
 
         $html = self::renderFile("page.twig", array(
             "page_name" => $pageName,
