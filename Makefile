@@ -1,13 +1,26 @@
+REMOTE=sebezh-gid.ru
+
 all: tags
 
 autoload:
 	composer dump-autoload
 
+deploy:
+	rsync -avz -e ssh src templates vendor $(REMOTE):wiki/
+
 flush:
 	echo "UPDATE pages SET html = null;" | sqlite3 data/database.sqlite
 
+pull-data:
+	rm -f data/database.sqlite~
+	cp data/database.sqlite data/database.sqlite~
+	hgget data/database.sqlite
+
 serve:
 	php -S 127.0.0.1:8080 -t public public/router.php
+
+shell:
+	ssh $(REMOTE)
 
 sql:
 	sqlite3 -header data/database.sqlite
