@@ -103,7 +103,7 @@ class Template
                 $title = $parts[1];
             }
 
-            $link = sprintf("<a class=\"wiki\" href=\"/wiki?name=%s\" title=\"%s\">%s</a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));
+            $link = sprintf("<a class=\"wiki\" href=\"/wiki?name=%s\" title=\"%s\">%s</a>", urlencode($target), htmlspecialchars($target), htmlspecialchars($title));
 
             return $link;
         }, $html);

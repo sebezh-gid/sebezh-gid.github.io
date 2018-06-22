@@ -113,8 +113,8 @@ lines	src/Wiki/Template.php	/^                $lines = array_slice($lines, $idx 
 lines	src/Wiki/Template.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
 link	src/Wiki/Handlers.php	/^        $link = "\/wiki?name=" . urlencode($homePage);$/;"	v
 link	src/Wiki/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
-link	src/Wiki/Template.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
-listPages	src/Wiki/Database.php	/^    public function listPages()$/;"	f
+link	src/Wiki/Template.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($target), htmlspecialchars($title));$/;"	v
+listPages	src/Wiki/Database.php	/^    public function listPages($sort = null)$/;"	f
 loadThumbnail	src/Wiki/Handlers/Thumbnail.php	/^    protected function loadThumbnail($name, $type)$/;"	f
 loader	src/Wiki/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
 logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
@@ -124,7 +124,6 @@ mimeType	src/Wiki/Handlers/Thumbnail.php	/^        $mimeType = "image\/jpeg";$/;
 name	src/Wiki/FileHandler.php	/^        $name = $args["name"];$/;"	v
 name	src/Wiki/Handlers.php	/^        $name = $_POST["page_name"];$/;"	v
 name	src/Wiki/Handlers/Thumbnail.php	/^        $name = $m[1] . "." . $m[3];$/;"	v
-names	src/Wiki/Handlers.php	/^        $names = $this->db->getAllPageNames();$/;"	v
 nh	src/Wiki/Handlers/Thumbnail.php	/^                $nh = round($nw \/ $r);$/;"	v
 now	src/Wiki/Database.php	/^        $now = time();$/;"	v
 nw	src/Wiki/Handlers/Thumbnail.php	/^                $nw = $options["width"];$/;"	v
@@ -140,6 +139,7 @@ page	src/Wiki/Sphinx.php	/^            $page = $this->db->getPageById($row["id"]
 page	src/routes.php	/^    $page = $db->getPageByName($pageName);$/;"	v
 pageName	src/Wiki/Handlers.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
 pageName	src/routes.php	/^    $pageName = $request->getQueryParam("name");$/;"	v
+pages	src/Wiki/Handlers.php	/^        $pages = $this->db->listPages(@$_GET["sort"]);$/;"	v
 parse	src/Wiki/Parser.php	/^    public static function parse($name, $source)$/;"	f
 parseName	src/Wiki/Handlers/Thumbnail.php	/^    protected function parseName($name)$/;"	f
 part1	src/Wiki/UploadHandler.php	/^        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);$/;"	v
