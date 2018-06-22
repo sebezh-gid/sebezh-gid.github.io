@@ -81,6 +81,10 @@ class Database {
 
     public function updatePageHtml($pageName, $html)
     {
+        // Do not cache pages with broken links (presumably still editing).
+        if (preg_match('@"wiki broken"@', $html))
+            return;
+
         $this->dbQuery("UPDATE `pages` SET `html` = ? WHERE `name` = ?", array($html, $pageName));
     }
 
