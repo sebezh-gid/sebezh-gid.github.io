@@ -1084,7 +1084,7 @@ main h3 {
     border: none;
 }
 .formatted a.broken {
-    color: #800;
+    color: #ba0000;
 }
 main textarea.wiki {
   width: 90%;
@@ -1100,6 +1100,14 @@ main textarea.wiki {
 }
 main .form-actions {
     margin-top: 10px;
+}
+main .form-actions .btn {
+    margin-right: 5px;
+}
+main pre {
+    border: solid 1px #eee;
+    background-color: #f8f8f8;
+    padding: 4px 10px;
 }
 
 footer {
