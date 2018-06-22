@@ -12,7 +12,7 @@
 
   <div class="form-actions">
    <button class="btn btn-primary">Сохранить</button> или <a href="/wiki?name={{ page_name }}">оставить как есть</a> &middot; <a href="/wiki?name=Памятка+редактора" target="_blank">памятка редактора</a>
-   <a class="btn btn-default tool lsep" data-action="image" href="/wiki?name=Загрузка изображений" title="Загрузить фото"><i class="fa fa-image"></i></a>
+   <a class="btn btn-default tool lsep" data-dialog="#dlgUploadPhoto" href="/wiki?name=Загрузка изображений" title="Загрузить фото"><i class="fa fa-image"></i></a>
    <a class="btn btn-default tool" href="#map" title="Вставить заготовку фотоальбома"><i class="fa fa-images"></i></a>
    <a class="btn btn-default tool" href="/wiki?name=Как вставить карту" title="Вставить карту" target="_blank"><i class="fa fa-map-marker"></i></a>
   </div>
@@ -28,4 +28,5 @@
     </div>
     <p class="msgbox" style="display: none"></p>
 </form>
+
 {% endblock %}
