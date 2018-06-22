@@ -51,7 +51,11 @@ function enable_edit_hotkey()
     $(document).on("keydown", "textarea.wiki", function (e) {
         // Make wiki link from selection.
         if (e.altKey && (e.key == "]" || e.key == "ъ" || e.key == "Ъ")) {
-            var fixmap = {};
+            var fixmap = {
+                "нацпарк": "Себежский национальный парк",
+                "нацпарка": "Себежский национальный парк",
+                "национального парка": "Себежский национальный парк"
+            };
 
             var v = this.value,
                 s = this.selectionStart,
@@ -222,7 +226,11 @@ function enable_map()
         }
 
         map.on("click", function (e) {
-            if (e.originalEvent.ctrlKey) {
+            if (div_id == 'testmap') {
+                var ll = sfmt("{0},{1}", e.latlng.lat, e.latlng.lng);
+                var html = sfmt("<div class='map' data-center='{0}'></div>", ll);
+                $("pre:first code").text(html);
+            } else if (e.originalEvent.ctrlKey) {
                 var ll = sfmt("{0},{1}", e.latlng.lat, e.latlng.lng);
                 var html = sfmt("<div class=\"map\" data-center=\"{0}\"></div>", ll);
                 console.log("map center: " + ll);
@@ -374,19 +382,24 @@ function enable_wiki_fancybox()
 function enable_toolbar()
 {
     $(document).on("click", "a.tool", function (e) {
-        var action = $(this).attr("data-action");
-        switch (action) {
-        case "image":
-            var dlgUploadPhoto = $("#dlgUploadPhoto").dialog({
+        var dsel = $(this).attr("data-dialog");
+        if (dsel) {
+            $(dsel).dialog({
                 autoOpen: true,
                 modal: true,
                 open: function () {
-                    $(this)[0].reset();  // clean up the fields
+                    if ($(this).is("form"))
+                        $(this)[0].reset();  // clean up the fields
                     $(this).find(".msgbox").hide();
                 }
             });
             e.preventDefault();
-            break;
+        }
+
+        var action = $(this).attr("data-action");
+        if (action == "map") {
+            $("#dlgMap").show();
+            e.preventDefault();
         }
     });
 
