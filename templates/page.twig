@@ -25,5 +25,14 @@
 {% block page_contents %}
     <div class="formatted">
         {{ page_html|raw }}
+
+        {% if file and file.type == "image/jpeg" %}
+            <a class="image" data-fancybox="gallery" href="{{ file.link }}">
+                <img src="{{file.thumbnail}}"/>
+            </a>
+
+            <p>Код для вставки этого изображения:</p>
+            <pre>[[File:{{ file.name }}]]</pre>
+        {% endif %}
     </div>
 {% endblock %}

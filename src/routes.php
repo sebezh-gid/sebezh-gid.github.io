@@ -7,10 +7,8 @@ use Slim\Http\Response;
 
 $app->get('/wiki', '\Wiki\Handlers\Page');
 
-$app->get("/edit", '\Wiki\Handlers:getEdit');
-$app->post("/edit", '\Wiki\Handlers:postEdit');
-
-$app->post("/upload", '\Wiki\UploadHandler:onPost');
+$app->any("/edit", '\Wiki\Handlers\EditPage');
+$app->any("/upload", '\Wiki\Handlers\Upload');
 
 $app->get("/files", \Wiki\Handlers\FileList::class . ":onGet");
 $app->get("/files/{name:.*}", \Wiki\FileHandler::class . ':onGet');

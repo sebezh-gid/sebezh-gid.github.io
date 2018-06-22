@@ -1,0 +1,21 @@
+{% extends "base.twig" %}
+
+{% block page_title %}Загрузка файла — гид по Себежу{% endblock %}
+
+{% block page_h1 %}Загрузка файла{% endblock %}
+
+{% block page_contents %}
+    <p>Загрузить можно только картинку.  Другие файлы пока нужно размещать на внешних хостингах.</p>
+
+    <form class="async" method="post" action="/upload">
+        <div class="form-group">
+            <input type="file" name="file" accept="image/*"/>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary">Загрузить</button>
+        </div>
+
+        <p class="msgbox" style="display: none"></p>
+    </form>
+{% endblock %}

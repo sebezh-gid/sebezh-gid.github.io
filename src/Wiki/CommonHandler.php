@@ -40,4 +40,15 @@ class CommonHandler
                 debug($request);
         }
     }
+
+    protected function requireAdmin(Request $request)
+    {
+        switch ($request->getUri()->getHost()) {
+            case "127.0.0.1":
+            case "localhost":
+                return true;
+            default:
+                throw new \RuntimeException("access denied");
+        }
+    }
 }

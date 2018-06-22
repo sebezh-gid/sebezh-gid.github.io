@@ -48,7 +48,27 @@ class Page extends CommonHandler
 
     protected function renderPage(array $page)
     {
-        $html = $this->template->renderPage($page["name"], $page["source"], function ($m) {
+        $data = [
+            "page_name" => $page["name"],
+            "page_source" => $page["source"],
+        ];
+
+        if (preg_match('@^File:([0-9a-f_]+\.jpg)@', $page["name"], $m)) {
+            $file = $this->db->getFileByName($m[1]);
+            if (!is_null($file)) {
+                unset($file["body"]);
+
+                if (in_array($file["type"], ["image/jpeg"])) {
+                    $pi = pathinfo($file["name"]);
+                    $file["link"] = "/files/{$file["name"]}";
+                    $file["thumbnail"] = "/thumbnail/{$pi["filename"]}_small.{$pi["extension"]}";
+                }
+
+                $data["file"] = $file;
+            }
+        }
+
+        $html = $this->template->renderPage($data, function ($m) {
             $parts = explode("|", $m[1], 2);
 
             if (count($parts) == 1) {
@@ -57,6 +77,29 @@ class Page extends CommonHandler
             } else {
                 $target = $parts[0];
                 $title = $parts[1];
+            }
+
+            if (preg_match('@^File:(.+)$@', $target, $m)) {
+                $fname = $m[1];
+
+                $fd = $this->db->getPageByName("File:" . $m[1]);
+                if (is_null($fd)) {
+                    $caption = null;
+                } elseif (preg_match('@^# (.+)$@m', $fd["source"], $n)) {
+                    $caption = htmlspecialchars(trim($n[1]));
+                } else {
+                    $caption = null;
+                }
+
+                $link = "/files/" . $fname;
+                $thumbnail = "/thumbnail/" . str_replace(".jpg", "_small.jpg", $fname);
+
+                if ($caption)
+                    $html = "<a class=\"image\" href=\"{$link}\" data-fancybox=\"gallery\" data-caption=\"{$caption}\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
+                else
+                    $html = "<a class=\"image\" href=\"{$link}\" data-fancybox=\"gallery\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
+
+                return $html;
             }
 
             $tmp = $this->db->getPageByName($target);

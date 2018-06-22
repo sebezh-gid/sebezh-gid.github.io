@@ -17,7 +17,7 @@ pull-data:
 	hgget data/database.sqlite
 
 serve:
-	php -S 127.0.0.1:8080 -t public public/router.php
+	php -d upload_max_filesize=100M -S 127.0.0.1:8080 -t public public/router.php
 
 shell:
 	ssh $(REMOTE)

@@ -475,8 +475,14 @@ function enable_async_forms()
         }).done(function (res) {
             res = $.extend({
                 code: null,
-                message: null
+                message: null,
+                direct: null
             }, res);
+
+            if (res.redirect) {
+                window.location.href = res.redirect;
+                return;
+            }
 
             if (res.message) {
                 msgbox.text(res.message);

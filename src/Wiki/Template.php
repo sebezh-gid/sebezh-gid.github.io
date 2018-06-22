@@ -77,8 +77,11 @@ class Template
         return $html;
     }
 
-    public function renderPage($pageName, $pageText, $link_cb)
+    public function renderPage(array $data, $link_cb)
     {
+        $pageName = $data["page_name"];
+        $pageText = $data["page_source"];
+
         // Extract properties.
         list($props, $pageText) = self::extractProperties($pageName, $pageText);
 
@@ -102,13 +105,11 @@ class Template
         $html = preg_replace('@/>\s+<@', '/><', $html);
         $html = preg_replace('@>\s+<@', '><', $html);
 
-        $html = self::renderFile("page.twig", array(
-            "page_name" => $pageName,
-            "page_title" => $props["title"],
-            "page_text" => $pageText,
-            "page_html" => $html,
-            "page_props" => $props,
-            ));
+        $data["page_title"] = $props["title"];
+        $data["page_html"] = $html;
+        $data["page_props"] = $props;
+
+        $html = self::renderFile("page.twig", $data);
 
         return $html;
     }

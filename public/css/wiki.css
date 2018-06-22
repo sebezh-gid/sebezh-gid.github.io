@@ -1198,3 +1198,24 @@ table.table .number {
     text-align: right;
     white-space: nowrap;
 }
+
+.progressbar {
+    width: 100%;
+    background-color: #932727;
+    height: 20px;
+    position: relative;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.progressbar .done {
+    height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ff9231;
+    background-image: url(/images/progress.gif);
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    border-radius: 5px;
+}

@@ -70,6 +70,7 @@ class Database {
     public function updatePage($name, $text)
     {
         $now = time();
+        $html = null;
 
         $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
         if ($stmt->rowCount() == 0) {
