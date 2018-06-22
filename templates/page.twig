@@ -9,12 +9,15 @@
 
 {% block page_header %}
     <div class="page-header">
-        <div class="icons">
-            <a href="/wiki?name=Скачать+путеводитель"><i class="fa fa-download"></i></a>
-            <a href="/wiki?name=QR-коды"><i class="fa fa-qrcode"></i></a>
-            <a href="/wiki?name=Карты"><i class="fa fa-compass"></i></a>
-            <a href="/wiki?name=О+сайте"><i class="fa fa-bars"></i></a>
-        </div>
+        {% if false %}
+            {# это пока не готово #}
+            <div class="icons">
+                <a href="/wiki?name=Скачать+путеводитель"><i class="fa fa-download"></i></a>
+                <a href="/wiki?name=QR-коды"><i class="fa fa-qrcode"></i></a>
+                <a href="/wiki?name=Карты"><i class="fa fa-compass"></i></a>
+                <a href="/wiki?name=О+сайте"><i class="fa fa-bars"></i></a>
+            </div>
+        {% endif %}
         <h1>{{ page_title }}</h1>
     </div>
 {% endblock %}
