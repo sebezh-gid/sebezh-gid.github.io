@@ -77,7 +77,7 @@ class Template
         return $html;
     }
 
-    public static function renderPage($pageName, $pageText)
+    public function renderPage($pageName, $pageText, $link_cb)
     {
         // Extract properties.
         list($props, $pageText) = self::extractProperties($pageName, $pageText);
@@ -92,21 +92,7 @@ class Template
         }, $html, 1);
 
         // Wiki links.
-        $html = preg_replace_callback('@\[\[(.+?)\]\]@', function ($m) {
-            $parts = explode("|", $m[1], 2);
-
-            if (count($parts) == 1) {
-                $target = $parts[0];
-                $title = $parts[0];
-            } else {
-                $target = $parts[0];
-                $title = $parts[1];
-            }
-
-            $link = sprintf("<a class=\"wiki\" href=\"/wiki?name=%s\" title=\"%s\">%s</a>", urlencode($target), htmlspecialchars($target), htmlspecialchars($title));
-
-            return $link;
-        }, $html);
+        $html = preg_replace_callback('@\[\[(.+?)\]\]@', $link_cb, $html);
 
         // Some typography.
         $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
