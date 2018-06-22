@@ -35,7 +35,6 @@ class Template
 
     public function render(Response $response, $fileName, array $data = array())
     {
-        debug($data);
         $template = $this->twig->load($fileName);
         $html = $template->render($data);
 
@@ -69,6 +68,7 @@ class Template
 
         // Some typography.
         $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
+        $html = preg_replace('@\.  @', '.&nbsp; ', $html);
 
         // Clean up.
         $html = preg_replace('@/>\s+<@', '/><', $html);
@@ -96,6 +96,7 @@ class Template
 
         // Some typography.
         $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
+        $html = preg_replace('@\.  @', '.&nbsp; ', $html);
 
         // Clean up.
         $html = preg_replace('@/>\s+<@', '/><', $html);
