@@ -71,8 +71,6 @@ class Database {
     {
         $now = time();
 
-        $html = Template::renderPage($name, $text);
-
         $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
         if ($stmt->rowCount() == 0) {
             $this->dbQuery("INSERT INTO `pages` (`name`, `source`, `html`, `created`, `updated`) VALUES (?, ?, ?, ?, ?)", array($name, $text, $html, $now, $now));
