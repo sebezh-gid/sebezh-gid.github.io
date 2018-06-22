@@ -1,31 +1,27 @@
-# Simple wiki
+# Путеводитель но земле Себежской
 
-This is a simple but fast wiki written in PHP.  It is inspired by [Fossil
-SCM][2], which is really great, but quite hard to tweak because it's written in
-plain C.  However, the idea that everyhing is stored in one database file still
-looks great and is the key feature of this wiki.
+Исходный код сайта [sebezh-gid.ru][4] -- путеводителя по Себежскому району
+Псковской области.  Самодельная простая wiki на PHP, все тексты и файлы хранит
+в базе данных SQLite.
 
-Features:
+Техническим вдохновлением послужила [Fossil SCM][2], оттуда взята идея хранения
+всех данных в одном файле; чистый код самого вики движка можно найти в
+репозитории [umonkey/php-wiki][8].
 
-- Data is stored in an SQLite database.
-- Pages are rendered using [CommonMark][1], with wiki links added.
-- Rendered pages are stored in the database for quick response handling.
-
-TODO:
-
-- Upload files.  Store them in the SQLite database also.
+Идея самого путеводителя отчасти вдохновлена проектом [MonmouthpediA][5] и его
+последователями [Amarapedia][6] и [Gibraltarpedia][7].
 
 
-## Some websites
+## Автор
 
-- [sebezh-gid.ru][4]: an illustrated guide to Sebezh district of Pskov region, Russia.  Local wikipedia of absolutely everything.
-
-
-## Authors
-
-Written by Justin Forest [hex@umonkey.net][3].  Send all suggestions by email.
+Разработка, оформление, наполнение и всё остальное -- Фрунзе Владимир.  Вопросы
+и пожелания отправляйте на электронную почту, [hex@umonkey.net][3].
 
 [1]: http://commonmark.org/
 [2]: https://www.fossil-scm.org/
 [3]: mailto:hex@umonkey.net
 [4]: https://sebezh-gid.ru/
+[5]: https://en.wikipedia.org/wiki/Wikipedia:GLAM/MonmouthpediA
+[6]: https://en.wikipedia.org/wiki/Amarapedia
+[7]: https://en.wikipedia.org/wiki/Gibraltarpedia
+[8]: https://bitbucket.org/umonkey/php-wiki
