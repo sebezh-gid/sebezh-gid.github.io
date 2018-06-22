@@ -23,21 +23,21 @@
         <title>{% block page_title %}Wiki{% endblock %}</title>
     </head>
     <body>
-        <header>
-            <div class="wrapper">
-                <h1><a href="/">Гид по <b>Себежу</b></a></h1>
-                <ul>
-                    <li><a href="/wiki?name=Список мест">Места</a></li>
-                    <li><a href="/wiki?name=Чем заняться">Занятия</a></li>
-                    <li><a href="/wiki?name=Куда сходить">Афиша</a></li>
-                </ul>
-                <ul class="last">
-                    <li><a href="/wiki?name=Welcome">ENGLISH</a></li>
-                </ul>
-            </div>
-        </header>
-
-       {# TODO: header #}
+        {% if false %}
+            <header>
+                <div class="wrapper">
+                    <h1><a href="/">Гид по <b>Себежу</b></a></h1>
+                    <ul>
+                        <li><a href="/wiki?name=Список мест">Места</a></li>
+                        <li><a href="/wiki?name=Чем заняться">Занятия</a></li>
+                        <li><a href="/wiki?name=Куда сходить">Афиша</a></li>
+                    </ul>
+                    <ul class="last">
+                        <li><a href="/wiki?name=Welcome">ENGLISH</a></li>
+                    </ul>
+                </div>
+            </header>
+        {% endif %}
 
         <div class="container">
             <aside>
