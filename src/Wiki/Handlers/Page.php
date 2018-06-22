@@ -48,7 +48,7 @@ class Page extends CommonHandler
 
     protected function renderPage(array $page)
     {
-        $html = $this->template->renderPage($pageName, $page["source"], function ($m) {
+        $html = $this->template->renderPage($page["name"], $page["source"], function ($m) {
             $parts = explode("|", $m[1], 2);
 
             if (count($parts) == 1) {
