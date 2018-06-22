@@ -1109,6 +1109,10 @@ main pre {
     background-color: #f8f8f8;
     padding: 4px 10px;
 }
+main p.lang {
+    font-style: italic;
+    margin-left: 2em;
+}
 
 footer {
     margin-top: 30px;
