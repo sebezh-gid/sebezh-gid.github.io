@@ -5,7 +5,7 @@
  <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/edit?name={{ page_name }}"/>
 {% endblock %}
 
-{% block page_title %}{% if page_name == "Введение" %}Гид по Себежу{% else %}{{ page_title }} — гид по Себежу{% endif %}{% endblock %}
+{% block page_title %}{% if page_name == "Введение" %}Гид по Себежу{% else %}{{ page_title }} — {% if page_props.language == "en" %}Sebezh Guide{% else %}гид по Себежу{% endif %}{% endif %}{% endblock %}
 
 {% block page_header %}
     <div class="page-header">

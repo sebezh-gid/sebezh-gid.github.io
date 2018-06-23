@@ -44,10 +44,17 @@
                 <div class="logo"><a href="/" title="Открыть главную страницу"><img src="/images/logo.jpg" alt="logo"/></a></div>
 
                 <ul>
-                    <li><a href="/wiki?name=Введение">Главная страница</a></li>
-                    <li><a href="/wiki?name=Лента обновлений">Лента обновлений</a></li>
-                    <li><a href="/wiki?name=О+сайте">О сайте</a></li>
-                    <li><a href="/wiki?name=QR-коды">QR-коды</a></li>
+                    {% if page_props.language == "en" %}
+                        <li><a href="/wiki?name=Welcome">Home page</a></li>
+                        <li><a href="/index?sort=updated">Recent edits</a></li>
+                        <li><a href="/wiki?name=About this guide">About this guide</a></li>
+                        <li><a href="/wiki?name=QR-codes">QR-codes</a></li>
+                    {% else %}
+                        <li><a href="/wiki?name=Введение">Главная страница</a></li>
+                        <li><a href="/wiki?name=Лента обновлений">Лента обновлений</a></li>
+                        <li><a href="/wiki?name=О+сайте">О сайте</a></li>
+                        <li><a href="/wiki?name=QR-коды">QR-коды</a></li>
+                    {% endif %}
                 </ul>
 
                 <form method="get" action="/search">
