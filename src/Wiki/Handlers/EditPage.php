@@ -40,9 +40,9 @@ class EditPage extends CommonHandler
     /**
      * Update page contents.
      **/
-    public function postEdit(Request $request, Response $response)
+    public function onPost(Request $request, Response $response, array $args)
     {
-        // TODO: access control.
+        $this->requireAdmin($request);
 
         $name = $_POST["page_name"];
         $text = $_POST["page_source"];
