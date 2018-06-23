@@ -25,6 +25,12 @@ class Page extends CommonHandler
         }
 
         $page = $this->db->getPageByName($pageName);
+
+        if (preg_match('@^#REDIRECT \[\[(.+)\]\]$@m', $page["source"], $m)) {
+            $link = "/wiki?name=" . urlencode($m[1]);
+            return $response->withRedirect($link, 303);
+        }
+
         if ($page === false) {
             $status = 404;
 
