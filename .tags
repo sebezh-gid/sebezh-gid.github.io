@@ -193,6 +193,7 @@ part3	src/Wiki/UploadHandler.php	/^        $part3 = sprintf("%x", time());$/;"	v
 parts	src/Wiki/Handlers/Page.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
 parts	src/Wiki/Parser.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
 pi	src/Wiki/Handlers/Page.php	/^                    $pi = pathinfo($file["name"]);$/;"	v
+pi	src/Wiki/Handlers/Page.php	/^                $pi = pathinfo($fname);$/;"	v
 postEdit	src/Wiki/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
 prepareThumbnail	src/Wiki/Handlers/Thumbnail.php	/^    protected function prepareThumbnail($name, $type, array $options)$/;"	f
 props	src/Wiki/Parser.php	/^        $props = array($/;"	v
@@ -256,7 +257,7 @@ text	src/Wiki/Handlers/EditPage.php	/^        $text = $_POST["page_source"];$/;"
 text	src/Wiki/Handlers/Upload.php	/^        $text = "# Файл {$info["name"]}\\n\\nОписание файла отсутствует.\\n";$/;"	v
 text	src/Wiki/Parser.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
 text	src/Wiki/Template.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
-thumbnail	src/Wiki/Handlers/Page.php	/^                $thumbnail = "\/thumbnail\/" . str_replace(".jpg", "_small.jpg", $fname);$/;"	v
+thumbnail	src/Wiki/Handlers/Page.php	/^                $thumbnail = "\/thumbnail\/" . $pi["filename"] . "_small." . $pi["extension"];$/;"	v
 title	src/Wiki/Handlers/Page.php	/^                $title = $parts[0];$/;"	v
 title	src/Wiki/Handlers/Page.php	/^                $title = $parts[1];$/;"	v
 title	src/Wiki/Parser.php	/^                $title = $parts[0];$/;"	v

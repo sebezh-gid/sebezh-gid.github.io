@@ -59,7 +59,7 @@ class Page extends CommonHandler
             "page_source" => $page["source"],
         ];
 
-        if (preg_match('@^File:([0-9a-f_]+\.jpg)@', $page["name"], $m)) {
+        if (preg_match('@^File:([0-9a-f_]+\.(jpg|jpeg|png))@', $page["name"], $m)) {
             $file = $this->db->getFileByName($m[1]);
             if (!is_null($file)) {
                 unset($file["body"]);
@@ -97,8 +97,10 @@ class Page extends CommonHandler
                     $caption = null;
                 }
 
+                $pi = pathinfo($fname);
+
                 $link = "/files/" . $fname;
-                $thumbnail = "/thumbnail/" . str_replace(".jpg", "_small.jpg", $fname);
+                $thumbnail = "/thumbnail/" . $pi["filename"] . "_small." . $pi["extension"];
 
                 if ($caption)
                     $html = "<a class=\"image\" href=\"{$link}\" data-fancybox=\"gallery\" data-caption=\"{$caption}\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
