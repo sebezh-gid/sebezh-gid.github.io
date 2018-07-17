@@ -37,13 +37,7 @@ class Template
     {
         $template = $this->twig->load($fileName);
         $html = $template->render($data);
-
-        // Some typography.
-        $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
-
-        // Clean up.
-        $html = preg_replace('@/>\s+<@', '/><', $html);
-        $html = preg_replace('@>\s+<@', '><', $html);
+        $html = \Wiki\Util::cleanHtml($html);
 
         $response->getBody()->write($html);
         return $response;
@@ -66,13 +60,7 @@ class Template
         $template = $twig->load($templateName);
         $html = $template->render($data);
 
-        // Some typography.
-        $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
-        $html = preg_replace('@\.  @', '.&nbsp; ', $html);
-
-        // Clean up.
-        $html = preg_replace('@/>\s+<@', '/><', $html);
-        $html = preg_replace('@>\s+<@', '><', $html);
+        $html = \Wiki\Util::cleanHtml($html);
 
         return $html;
     }
@@ -96,14 +84,7 @@ class Template
 
         // Wiki links.
         $html = preg_replace_callback('@\[\[(.+?)\]\]@', $link_cb, $html);
-
-        // Some typography.
-        $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
-        $html = preg_replace('@\.  @', '.&nbsp; ', $html);
-
-        // Clean up.
-        $html = preg_replace('@/>\s+<@', '/><', $html);
-        $html = preg_replace('@>\s+<@', '><', $html);
+        $html = \Wiki\Util::cleanHtml($html);
 
         $data["page_title"] = $props["title"];
         $data["page_html"] = $html;

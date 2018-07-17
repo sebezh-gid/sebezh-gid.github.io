@@ -19,6 +19,7 @@ Template	src/Wiki/Template.php	/^class Template$/;"	c
 Thumbnail	src/Wiki/Handlers/Thumbnail.php	/^class Thumbnail extends Handlers$/;"	c
 Upload	src/Wiki/Handlers/Upload.php	/^class Upload extends CommonHandler$/;"	c
 UploadHandler	src/Wiki/UploadHandler.php	/^class UploadHandler extends Handlers$/;"	c
+Util	src/Wiki/Util.php	/^class Util$/;"	c
 __construct	src/Wiki/CommonHandler.php	/^    public function __construct($container)$/;"	f
 __construct	src/Wiki/Database.php	/^    public function __construct(array $dsn)$/;"	f
 __construct	src/Wiki/Handlers.php	/^    public function __construct($container)$/;"	f
@@ -31,6 +32,7 @@ body	src/Wiki/Handlers/Thumbnail.php	/^        $body = ob_get_clean();$/;"	v
 caption	src/Wiki/Handlers/Page.php	/^                    $caption = htmlspecialchars(trim($n[1]));$/;"	v
 caption	src/Wiki/Handlers/Page.php	/^                    $caption = null;$/;"	v
 class.	src/Wiki/Database.php	/^ * Database interface class.$/;"	c
+cleanHtml	src/Wiki/Util.php	/^    public static function cleanHtml($html)$/;"	f
 cls	src/Wiki/Handlers/Page.php	/^            $cls = $tmp ? "good" : "broken";$/;"	v
 code	src/Wiki/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["real_name"]}'\/><\/a>";$/;"	v
 conn	src/Wiki/Database.php	/^            $this->conn = new \\PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);$/;"	v
@@ -115,13 +117,14 @@ html	src/Wiki/Parser.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\
 html	src/Wiki/Template.php	/^            $html = $converter->convertToHtml($src);$/;"	v
 html	src/Wiki/Template.php	/^        $html = $md->convertToHtml($pageText);$/;"	v
 html	src/Wiki/Template.php	/^        $html = $template->render($data);$/;"	v
-html	src/Wiki/Template.php	/^        $html = preg_replace('@>\\s+<@', '><', $html);$/;"	v
-html	src/Wiki/Template.php	/^        $html = preg_replace('@\/>\\s+<@', '\/><', $html);$/;"	v
-html	src/Wiki/Template.php	/^        $html = preg_replace('@\\.  @', '.&nbsp; ', $html);$/;"	v
-html	src/Wiki/Template.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
+html	src/Wiki/Template.php	/^        $html = \\Wiki\\Util::cleanHtml($html);$/;"	v
 html	src/Wiki/Template.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
 html	src/Wiki/Template.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', $link_cb, $html);$/;"	v
 html	src/Wiki/Template.php	/^        $html = self::renderFile("page.twig", $data);$/;"	v
+html	src/Wiki/Util.php	/^        $html = preg_Replace('@\\s+<\/(html|head|body|div|ul|ol|li|form|input|aside|main|header|footer)>@', '<\/\\\\1>', $html);$/;"	v
+html	src/Wiki/Util.php	/^        $html = preg_replace('@\\.  @', '.&nbsp; ', $html);$/;"	v
+html	src/Wiki/Util.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
+html	src/Wiki/Util.php	/^        $html = preg_replace('@\\s+<(html|head|body|div|ul|li|p|header|footer|meta|title|aside|form|input|main|h1|h2|h3|h4|h5|script|!--)@', '<\\\\1', $html);$/;"	v
 ih	src/Wiki/Handlers/Thumbnail.php	/^        $ih = imagesy($img);$/;"	v
 img	src/Wiki/Handlers/Thumbnail.php	/^                $img = $dst;$/;"	v
 img	src/Wiki/Handlers/Thumbnail.php	/^        $img = $this->scaleImage($img, $options);$/;"	v
@@ -139,6 +142,7 @@ lines	src/Wiki/Template.php	/^                $lines = array_slice($lines, $idx 
 lines	src/Wiki/Template.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
 link	src/Wiki/Handlers.php	/^        $link = "\/wiki?name=" . urlencode($homePage);$/;"	v
 link	src/Wiki/Handlers/Page.php	/^                $link = "\/files\/" . $fname;$/;"	v
+link	src/Wiki/Handlers/Page.php	/^            $link = "\/wiki?name=" . urlencode($m[1]);$/;"	v
 link	src/Wiki/Handlers/Page.php	/^            $link = sprintf("<a class=\\"wiki %s\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", $cls, urlencode($target), htmlspecialchars($target), htmlspecialchars($title));$/;"	v
 link	src/Wiki/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
 listPages	src/Wiki/Database.php	/^    public function listPages($sort = null)$/;"	f
@@ -164,6 +168,7 @@ onGet	src/Wiki/Handlers/Page.php	/^    public function onGet(Request $request, R
 onGet	src/Wiki/Handlers/Search.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
 onGet	src/Wiki/Handlers/Thumbnail.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
 onGet	src/Wiki/Handlers/Upload.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onPost	src/Wiki/Handlers/EditPage.php	/^    public function onPost(Request $request, Response $response, array $args)$/;"	f
 onPost	src/Wiki/Handlers/Upload.php	/^    public function onPost(Request $request, Response $response)$/;"	f
 onPost	src/Wiki/UploadHandler.php	/^    public function onPost(Request $request, Response $response)$/;"	f
 options	src/Wiki/Handlers/Thumbnail.php	/^        $options = array_merge([$/;"	v
@@ -189,7 +194,6 @@ parts	src/Wiki/Handlers/Page.php	/^            $parts = explode("|", $m[1], 2);$
 parts	src/Wiki/Parser.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
 pi	src/Wiki/Handlers/Page.php	/^                    $pi = pathinfo($file["name"]);$/;"	v
 postEdit	src/Wiki/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
-postEdit	src/Wiki/Handlers/EditPage.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
 prepareThumbnail	src/Wiki/Handlers/Thumbnail.php	/^    protected function prepareThumbnail($name, $type, array $options)$/;"	f
 props	src/Wiki/Parser.php	/^        $props = array($/;"	v
 props	src/Wiki/Template.php	/^        $props = array($/;"	v
