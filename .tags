@@ -133,6 +133,7 @@ index	src/Wiki/Sphinx.php	/^        $this->index = $settings["index"];$/;"	v
 index	src/Wiki/Sphinx.php	/^    protected $index;$/;"	v
 info	src/Wiki/Handlers/Upload.php	/^        $info = $this->receiveFile($file);$/;"	v
 info	src/Wiki/UploadHandler.php	/^                $info = $this->receiveFile($file);$/;"	v
+isAdmin	src/Wiki/CommonHandler.php	/^    protected function isAdmin(Request $request)$/;"	f
 iw	src/Wiki/Handlers/Thumbnail.php	/^        $iw = imagesx($img);$/;"	v
 key	src/Wiki/Handlers/Thumbnail.php	/^        $key = $m[2];$/;"	v
 length	src/Wiki/Handlers/Thumbnail.php	/^        $length = strlen($tn["body"]);$/;"	v

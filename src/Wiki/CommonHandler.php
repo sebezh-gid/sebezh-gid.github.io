@@ -43,12 +43,20 @@ class CommonHandler
 
     protected function requireAdmin(Request $request)
     {
+        if ($this->isAdmin())
+            return true;
+        throw new \RuntimeException("access denied");
+    }
+
+    protected function isAdmin(Request $request)
+    {
         switch ($request->getUri()->getHost()) {
             case "127.0.0.1":
             case "localhost":
+            case "localhost":
                 return true;
             default:
-                throw new \RuntimeException("access denied");
+                return false;
         }
     }
 }

@@ -13,8 +13,6 @@ class EditPage extends CommonHandler
      **/
     public function onGet(Request $request, Response $response)
     {
-        $this->requireAdmin($request);
-
         $pageName = $request->getQueryParam("name");
 
         if (empty($pageName))
@@ -34,6 +32,7 @@ class EditPage extends CommonHandler
         return $this->template->render($response, "editor.twig", [
             "page_name" => $pageName,
             "page_source" => $contents,
+            "is_editable" => $this->isAdmin($request),
         ]);
     }
 
