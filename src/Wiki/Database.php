@@ -67,10 +67,18 @@ class Database {
         return $res;
     }
 
+    /**
+     * Update page contents.
+     *
+     * Saves current revision in the history table.
+     **/
     public function updatePage($name, $text)
     {
         $now = time();
         $html = null;
+
+        // Back up current revision.
+        $this->dbQuery("INSERT INTO `history` (`name`, `source`, `created`) SELECT `name`, `source`, `updated` FROM `pages` WHERE `name` = ?", [$name]);
 
         $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
         if ($stmt->rowCount() == 0) {
@@ -129,7 +137,7 @@ class Database {
      **/
     public function findFiles()
     {
-        $rows = $this->dbFetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `real_name`");
+        $rows = $this->dbFetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");
         return $rows;
     }
 
