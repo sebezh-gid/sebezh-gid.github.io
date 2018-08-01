@@ -172,6 +172,24 @@ class Database {
         $this->dbQuery("INSERT INTO `thumbnails` (`name`, `type`, `body`, `hash`) VALUES (?, ?, ?, ?)", [$name, $type, $body, md5($body)]);
     }
 
+    public function shortAdd($name, $code)
+    {
+        $this->dbQuery("INSERT INTO `shorts` (`id`, `name`) VALUES (?, ?)", [$code, $name]);
+        return true;
+    }
+
+    public function shortGetName($code)
+    {
+        $row = $this->dbFetchOne("SELECT `name` FROM `shorts` WHERE `id` = ?", [$code]);
+        return $row ? $row["name"] : null;
+    }
+
+    public function shortGetCode($name)
+    {
+        $row = $this->dbFetchOne("SELECT `id` FROM `shorts` WHERE `name` = ?", [$name]);
+        return isset($row["id"]) ? (int)$row["id"] : null;
+    }
+
     /**
      * Connect to the database.
      *

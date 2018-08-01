@@ -23,12 +23,10 @@ class Thumbnail extends Handlers
         $mimeType = "image/jpeg";
         $length = strlen($tn["body"]);
 
-        /*
+        // Make a copy to serve with Nginx later, if the folder exists.
         $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();
-        if (!is_dir($dir = dirname($dst)))
-            mkdir($dir, 0755, true);
-        file_put_contents($dst, $tn["body"]);
-        */
+        if (is_dir($dir = dirname($dst)))
+            file_put_contents($dst, $tn["body"]);
 
         $response = $response->withHeader("Content-Type", $mimeType)
             ->withHeader("Content-Length", $length)

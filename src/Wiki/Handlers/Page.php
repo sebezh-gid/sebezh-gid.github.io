@@ -1,4 +1,9 @@
 <?php
+/**
+ * Page display.
+ *
+ * Most work is done in ::renderPage()
+ **/
 
 namespace Wiki\Handlers;
 
@@ -52,6 +57,9 @@ class Page extends CommonHandler
         return $response->withStatus($status);
     }
 
+    /**
+     * The main page rendering function.
+     **/
     protected function renderPage(array $page)
     {
         $data = [
@@ -59,12 +67,12 @@ class Page extends CommonHandler
             "page_source" => $page["source"],
         ];
 
-        if (preg_match('@^File:([0-9a-f_]+\.(jpg|jpeg|png))@', $page["name"], $m)) {
+        if (preg_match('@^File:([0-9a-f_]{30}.+)@', $page["name"], $m)) {
             $file = $this->db->getFileByName($m[1]);
             if (!is_null($file)) {
                 unset($file["body"]);
 
-                if (in_array($file["type"], ["image/jpeg"])) {
+                if (preg_match('@^image/@', $file["type"])) {
                     $pi = pathinfo($file["name"]);
                     $file["link"] = "/files/{$file["name"]}";
                     $file["thumbnail"] = "/thumbnail/{$pi["filename"]}_small.{$pi["extension"]}";
@@ -88,26 +96,31 @@ class Page extends CommonHandler
             if (preg_match('@^File:(.+)$@', $target, $m)) {
                 $fname = $m[1];
 
-                $fd = $this->db->getPageByName("File:" . $m[1]);
-                if (is_null($fd)) {
-                    $caption = null;
-                } elseif (preg_match('@^# (.+)$@m', $fd["source"], $n)) {
-                    $caption = htmlspecialchars(trim($n[1]));
-                } else {
-                    $caption = null;
+                $file = $this->db->getFileByName($m[1]);
+                if ($file and preg_match('@^image/@', $file["type"])) {
+                    $fd = $this->db->getPageByName("File:" . $m[1]);
+                    if (is_null($fd)) {
+                        $caption = null;
+                    } elseif (preg_match('@^# (.+)$@m', $fd["source"], $n)) {
+                        $caption = htmlspecialchars(trim($n[1]));
+                    } else {
+                        $caption = null;
+                    }
+
+                    $link = "/files/" . $fname;
+                    $pagelink = "/wiki?name=" . urlencode($target);
+                    $thumbnail = "/thumbnail/" . str_replace(".jpg", "_small.jpg", $fname);
+
+                    $pi = pathinfo($fname);
+                    $thumbnail = "/thumbnail/" . $pi["filename"] . "_small." . $pi["extension"];
+
+                    if ($caption)
+                        $html = "<a class=\"image\" href=\"{$pagelink}\" data-src=\"{$link}\" data-fancybox=\"gallery\" data-caption=\"{$caption}\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
+                    else
+                        $html = "<a class=\"image\" href=\"{$pagelink}\" data-src=\"{$link}\" data-fancybox=\"gallery\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
+
+                    return $html;
                 }
-
-                $pi = pathinfo($fname);
-
-                $link = "/files/" . $fname;
-                $thumbnail = "/thumbnail/" . $pi["filename"] . "_small." . $pi["extension"];
-
-                if ($caption)
-                    $html = "<a class=\"image\" href=\"{$link}\" data-fancybox=\"gallery\" data-caption=\"{$caption}\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
-                else
-                    $html = "<a class=\"image\" href=\"{$link}\" data-fancybox=\"gallery\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
-
-                return $html;
             }
 
             $tmp = $this->db->getPageByName($target);

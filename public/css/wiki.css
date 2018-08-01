@@ -1219,3 +1219,7 @@ table.table .number {
     background-position: 0 50%;
     border-radius: 5px;
 }
+
+img.short {
+    background-color: #eee;
+}

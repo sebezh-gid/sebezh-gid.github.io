@@ -15,8 +15,8 @@ class Search extends Handlers
     public function onGet(Request $request, Response $response, array $args)
     {
         $query = @$_GET["query"];
-        try {
 
+        try {
             $res = $query ? $this->sphinx->search($query) : null;
             $error = false;
         } catch (\Exception $e) {
@@ -24,8 +24,18 @@ class Search extends Handlers
             $error = true;
         }
 
+        if (count($res) == 1) {
+            $link = "/wiki?name=" . urlencode($res[0]["name"]);
+            return $response->withRedirect($link, 303);
+        }
+
+        $wikiName = \Wiki\Common::wikiName($query);
+        $hasPage = $this->db->getPageByName($wikiName) ? true : false;
+
         return $this->template->render($response, "search.twig", [
             "query" => $query,
+            "wikiName" => $wikiName,
+            "has_page" => $hasPage,
             "results" => $res,
             "search_error" => $error,
         ]);

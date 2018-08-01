@@ -1,6 +1,6 @@
 {% extends "base.twig" %}
 
-{% block page_title %}Загрузка файла — гид по Себежу{% endblock %}
+{% block page_title %}Загрузка файла{% endblock %}
 
 {% block page_h1 %}Загрузка файла{% endblock %}
 
@@ -10,6 +10,11 @@
     <form class="async" method="post" action="/upload">
         <div class="form-group">
             <input type="file" name="file" accept="image/*"/>
+        </div>
+
+        <div class="form-group">
+            <label>Или укажите ссылку</label>
+            <input class="form-control" type="text" name="link" value="" autocomplete="off" placeholder="https://..."/>
         </div>
 
         <div class="form-actions">

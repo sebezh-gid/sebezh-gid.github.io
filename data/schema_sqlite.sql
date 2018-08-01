@@ -36,3 +36,9 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
 
 CREATE INDEX IF NOT EXISTS `IDX_thumbnails_name` ON `thumbnails` (`name`);
 CREATE INDEX IF NOT EXISTS `IDX_thumbnails_type` ON `thumbnails` (`type`);
+
+CREATE TABLE IF NOT EXISTS `shorts` (
+    `id` INTEGER NOT NULL PRIMARY KEY,
+    `name` TEXT
+);
+CREATE INDEX IF NOT EXISTS `IDX_shorts_name` ON `shorts` (`name`);

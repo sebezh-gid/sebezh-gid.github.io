@@ -68,18 +68,6 @@ class Handlers
         return $response->withRedirect($link, 303);
     }
 
-    public function getIndex(Request $request, Response $response)
-    {
-        $pages = $this->db->listPages(@$_GET["sort"]);
-
-        $html = Template::renderFile("index.twig", array(
-            "pages" => $pages,
-            ));
-
-        $response->getBody()->write($html);
-        return $response;
-    }
-
     public function __get($key)
     {
         switch ($key) {

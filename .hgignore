@@ -4,4 +4,5 @@
 ^pages\.json$
 \.fossil$
 ^public/photo$
+^public/short$
 ^data/sphinx$

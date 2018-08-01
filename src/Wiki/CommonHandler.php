@@ -43,7 +43,7 @@ class CommonHandler
 
     protected function requireAdmin(Request $request)
     {
-        if ($this->isAdmin())
+        if ($this->isAdmin($request))
             return true;
         throw new \RuntimeException("access denied");
     }
@@ -53,7 +53,7 @@ class CommonHandler
         switch ($request->getUri()->getHost()) {
             case "127.0.0.1":
             case "localhost":
-            case "localhost":
+            case "local.sebezh-gid.ru":
                 return true;
             default:
                 return false;

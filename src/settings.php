@@ -12,6 +12,15 @@ return [
         // Template settings.
         'templates' => [
             'template_path' => __DIR__ . '/../templates',
+            'defaults' => [
+                'language' => 'ru',
+                'strings_ru' => [
+                    'site_name' => 'База знаний',
+                ],
+                'strings_en' => [
+                    'site_name' => 'Knowledge Base',
+                ],
+            ]
         ],
 
         // Monolog settings
@@ -40,7 +49,7 @@ return [
         'sphinx' => [
             'host' => '127.0.0.1',
             'port' => 9306,
-            'index' => 'wiki',
+            'index' => 'home_bugs',
         ],
     ],
 ];

@@ -11,7 +11,7 @@ $container['renderer'] = function ($c) {
 
 $container['template'] = function ($c) {
     $settings = $c->get('settings')['templates'];
-    $tpl = new \Wiki\Template($settings);
+    $tpl = new \Wiki\Template($c);
     return $tpl;
 };
 
@@ -53,6 +53,12 @@ function debug()
     header("Content-Type: text/plain; charset=utf-8");
     call_user_func_array("var_dump", func_get_args());
     print "---\n";
+
+    ob_start();
     debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+    $stack = ob_get_clean();
+    $stack = str_replace(dirname(__DIR__) . "/", "", $stack);
+    print $stack;
+
     die();
 }

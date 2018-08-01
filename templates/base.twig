@@ -53,7 +53,9 @@
                         <li><a href="/wiki?name=Введение">Главная страница</a></li>
                         <li><a href="/wiki?name=Лента обновлений">Лента обновлений</a></li>
                         <li><a href="/wiki?name=О+сайте">О сайте</a></li>
-                        <li><a href="/wiki?name=QR-коды">QR-коды</a></li>
+                        {% if page_name %}
+                            <li><a href="/short?name={{ page_name }}">Напечатать табличку</a></li>
+                        {% endif %}
                     {% endif %}
                 </ul>
 

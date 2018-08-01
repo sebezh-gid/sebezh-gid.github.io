@@ -27,30 +27,51 @@ class Upload extends CommonHandler
     {
         $this->requireAdmin($request);
 
-        $files = $request->getUploadedFiles();
-
-        if (empty($files["file"])) {
+        $info = $this->getFile($request);
+        if ($info === false)
             return $response->withJSON([
-                "message" => "Не выбран файл.",
+                "message" => "Не удалось получить файл.",
             ]);
-        }
-
-        $file = $files["file"];
-        if ($file->getError() != UPLOAD_ERR_OK) {
-            return $response->withJSON([
-                "message" => "Не удалось принять файл.",
-            ]);
-        }
-
-        $info = $this->receiveFile($file);
 
         $name = "File:{$info["name"]}";
-        $text = "# Файл {$info["name"]}\n\nОписание файла отсутствует.\n";
+        $text = "# Файл {$info["real_name"]}\n\nОписание файла отсутствует.\n";
 
         $this->db->updatePage($name, $text);
         return $response->withJSON([
             "redirect" => "/wiki?name=" . urlencode($name),
         ]);
+    }
+
+    protected function getFile(Request $request)
+    {
+        $link = $request->getParam("link");
+        if (!empty($link)) {
+            $file = \Wiki\Common::fetch($link);
+            if ($file["status"] == 200) {
+                $real_name = $this->getFileName($link, $file);
+
+                $name = \Wiki\Common::uuid($file["data"]);
+                if ($ext = pathinfo($real_name, PATHINFO_EXTENSION))
+                    $name .= "." . $ext;
+
+                $res = [
+                    "name" =>  $name,
+                    "real_name" => $real_name,
+                    "type" => $file["headers"]["content-type"],
+                    "length" => strlen($file["data"]),
+                    "created" => time(),
+                    "body" => $file["data"],
+                ];
+
+                $this->db->saveFile($res);
+                return $res;
+            }
+        } elseif ($files = $request->getUploadedFiles()) {
+            if (!empty($files["file"]))
+                return $this->receiveFile($files["file"]);
+        }
+
+        return false;
     }
 
     /**
@@ -90,5 +111,34 @@ class Upload extends CommonHandler
         $this->db->saveFile($res);
 
         return $res;
+    }
+
+    protected function getFileName($link, array $file)
+    {
+        if (!empty($file["headers"]["content-disposition"])) {
+            if (preg_match('@filename="([^"]+)"@', $file["headers"]["content-disposition"], $m)) {
+                return $m[1];
+            }
+        }
+
+        $url = parse_url($link);
+        $name = basename($url["path"]);
+
+        if (!($ext = pathinfo($name, PATHINFO_EXTENSION))) {
+            switch ($file["headers"]["content-type"]) {
+                case "image/png":
+                    $name .= ".png";
+                    break;
+                case "image/jpg":
+                case "image/jpeg":
+                    $name .= ".jpg";
+                    break;
+                case "image/gif":
+                    $name .= ".gif";
+                    break;
+            }
+        }
+
+        return $name;
     }
 }

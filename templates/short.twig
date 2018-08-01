@@ -1,0 +1,18 @@
+{% extends "base.twig" %}
+
+{% block page_title %}Сокращатель — гид по Себежу{% endblock %}
+
+{% block page_h1 %}Результаты сокращения{% endblock %}
+
+{% block more_head %}
+    <meta name="robots" contents="noindex, follow"/>
+{% endblock %}
+
+{% block page_contents %}
+    <p>Странице <a href="/wiki?name={{ name }}">{{ name }}</a> присвоен код <strong>{{ code }}</strong>.&nbsp; Короткая ссылка на эту страницу:</p>
+    <p><a href="https://sebezh-gid.ru/{{ code }}">https://sebezh-gid.ru/{{ code }}</a></p>
+
+    <p>Изображение для печати таблички:</p>
+    <img class="short" src="/short/{{ code }}.png" width="300" height="200" alt="#{{ code }}"/>
+    <p>Изображение в формате PNG, размером 15×10 см при плотности 600 dpi — пригодно для печати на фотопринтере.</p>
+{% endblock %}
