@@ -17,7 +17,7 @@ class ShortImage extends CommonHandler
         $code = $args["code"];
 
         $nameRu = $this->getRussianName($code);
-        $nameEn = $this->getEnglishName($nameRu);
+        $nameEn = $this->getEnglishName($code);
 
         $params = [
             "code" => $code,
@@ -55,18 +55,31 @@ class ShortImage extends CommonHandler
     protected function getRussianName($code)
     {
         $name = $this->db->shortGetName($code);
-        return $name;
+        $page = $this->db->getPageByName($name);
+        $page = \Wiki\Util::parsePage($page);
+
+        if (!empty($page["plate_ru"]))
+            return $page["plate_ru"];
+        if (!empty($page["title"]))
+            return $page["title"];
+
+        return "Неизвестный объект";
     }
 
-    protected function getEnglishName($name)
+    protected function getEnglishName($code)
     {
+        $name = $this->db->shortGetName($code);
         $page = $this->db->getPageByName($name);
+        $page = \Wiki\Util::parsePage($page);
+
+        if (!empty($page["plate_en"]))
+            return $page["plate_en"];
 
         if (preg_match('@You can read this (page )?\[\[([^|]+)\|in English\]\]@', $page["source"], $m)) {
             return $m[2];
         }
 
-        return null;
+        return "Unknown object";
     }
 
     protected function renderImage(array $params)
