@@ -49,7 +49,7 @@ return [
         'sphinx' => [
             'host' => '127.0.0.1',
             'port' => 9306,
-            'index' => 'home_bugs',
+            'index' => 'wiki',
         ],
     ],
 ];
