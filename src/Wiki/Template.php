@@ -44,6 +44,8 @@ class Template
 
     public function render(Response $response, $fileName, array $data = array())
     {
+        $data["host"] = $_SERVER["HTTP_HOST"];
+
         $html = $this->renderFile($fileName, $data);
         $response->getBody()->write($html);
         return $response;
