@@ -63,7 +63,7 @@ class Template
 
         $template = $this->twig->load($fileName);
         $html = $template->render($data);
-        $html = $this->fixHTML($html);
+        $html = \Wiki\Util::cleanHtml($html);
 
         return $html;
     }
@@ -89,7 +89,7 @@ class Template
         // Wiki links.
         $html = preg_replace_callback('@\[\[(.+?)\]\]@', $link_cb, $html);
 
-        $html = $this->fixHTML($html);
+        $html = \Wiki\Util::cleanHtml($html);
 
         $data["page_title"] = $props["title"];
         $data["page_html"] = $html;
@@ -145,18 +145,5 @@ class Template
         }
 
         return $data;
-    }
-
-    protected function fixHTML($html)
-    {
-        // Some typography.
-        $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
-        $html = str_replace(".  ", ".&nbsp; ", $html);
-
-        // Clean up.
-        // $html = preg_replace('@/>\s+<@', '/><', $html);
-        // $html = preg_replace('@>\s+<@', '><', $html);
-
-        return $html;
     }
 }

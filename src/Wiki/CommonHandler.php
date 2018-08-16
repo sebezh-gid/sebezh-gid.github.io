@@ -59,4 +59,9 @@ class CommonHandler
                 return false;
         }
     }
+
+    protected function render(Response $response, $templateName, array $data = [])
+    {
+        return $this->template->render($response, $templateName, $data);
+    }
 }

@@ -10,9 +10,16 @@ class Util
         $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
         $html = preg_replace('@\.  @', '.&nbsp; ', $html);
 
+        // Closing tags should never have leading space.
+        $html = preg_replace('@\s+</([a-z0-9]+)>@', '</\1>', $html);
+
         // Clean up.
-        $html = preg_replace('@\s+<(html|head|body|div|ul|li|p|header|footer|meta|title|aside|form|input|main|h1|h2|h3|h4|h5|script|!--)@', '<\\1', $html);
-        $html = preg_Replace('@\s+</(html|head|body|div|ul|ol|li|form|input|aside|main|header|footer)>@', '</\\1>', $html);
+        $all = "html|head|body|header|main|footer|aside|nav|div|p|ul|ol|li|input|label|textarea|button|meta|title|h1|h2|h3|h4|h5|script|style|link|table|thead|tfoot|tbody|tr|th|td|img";
+        $html = preg_replace($re = '@\s*<(' . $all . '|!--)([^>]*>)\s*@', '<\1\2', $html);
+        $html = preg_replace('@\s*</(' . $all . ')>\s*@ms', '</\1>', $html);
+
+        $html = preg_replace('@</a>\s+@', '</a> ', $html);
+        $html = preg_replace('@\s+</a>@', ' </a>', $html);
 
         return $html;
     }

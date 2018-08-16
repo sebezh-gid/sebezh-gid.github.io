@@ -7,7 +7,13 @@ use Slim\Http\Response;
 
 $app->get('/wiki', '\Wiki\Handlers\Page');
 
-$app->get('/short', '\Wiki\Handlers\Short');
+$app->get('/short', '\Wiki\Handlers\Short:onGetForm');
+$app->post('/short', '\Wiki\Handlers\Short:onCreate');
+$app->get('/short/preview', '\Wiki\Handlers\Short:onGetPreview');
+$app->get('/short/{code:[0-9]{4}}', '\Wiki\Handlers\Short:onShowItem');
+$app->get('/i/short/{code:[0-9]{4}}.png', '\Wiki\Handlers\Short:onGetImage');
+$app->get('/s/{code:[0-9]{4}}', '\Wiki\Handlers\Short:onRedirect');
+
 $app->get('/short/{code:[0-9]{4}}.png', '\Wiki\Handlers\ShortImage');
 $app->get('/{code:[0-9]{4}}', '\Wiki\Handlers\ShortRedirect');
 

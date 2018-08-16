@@ -1,0 +1,63 @@
+{% extends "base.twig" %}
+
+{% block more_head %}
+    <meta name="robots" contents="noindex, follow"/>
+{% endblock %}
+
+{% block page_contents %}
+    <p>Таблички помогают информировать туристов об объектах.&nbsp; Их можно печатать в сувенирной лавке.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Параметры таблички</h2>
+            <form method="post" class="async qrcode">
+                <div class="form-group">
+                    <label>Название 1</label>
+                    <input class="form-control" type="text" name="russian" value="{{ plate_russian }}"/>
+                </div>
+                <div class="form-group">
+                    <label>Название 2</label>
+                    <input class="form-control" type="text" name="english" value="{{ plate_english }}"/>
+                </div>
+                <div class="form-group">
+                    <label>Ссылка</label>
+                    <input class="form-control" type="text" name="link" value="{{ plate_link }}"/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Создать</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h2>Предварительный просмотр</h2>
+            <div>
+                <img id="qrimg" src="/short/preview"/>
+            </div>
+        </div>
+    </div>
+
+    {% if recent %}
+        <h2>Последние выданные карточки</h2>
+        <table class="table grid">
+            <thead>
+                <tr>
+                    <th>Код</th>
+                    <th>Русский</th>
+                    <th>Английский</th>
+                    <th>Ссылка</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for em in recent %}
+                    <tr>
+                        <td><a href="/short/{{ em.id }}">{{ em.id }}</a></td>
+                        <td>{{ em.name1 }}</td>
+                        <td>{{ em.name2 }}</td>
+                        <td><a href="/wiki?name={{ em.link }}">{{ em.link }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.twig" %}
+
+{% block more_head %}
+    <meta name="robots" contents="noindex, follow"/>
+{% endblock %}
+
+{% block page_contents %}
+    <div class="row">
+        <div class="col-md-6">
+            <img src="/i/short/{{ info.id }}.png" alt="QR Code #{{ info.id }}"/>
+        </div>
+
+        <div class="col-md-6">
+            <p>Эту табличку можно напечатать в <a href="/wiki?name=Сувенирная лавка">сувенирной лавке</a>.&nbsp; Цветное изображение на фотобумаге с ламинированием стоит около 65 рублей.</p>
+            <p>Скачать файл можно по <a href="/i/short/{{ info.id }}.png">этой ссылке</a>.&nbsp; В файле изображение размером 15×10 см при разрешении 600 dpi.</p>
+        </div>
+    </div>
+{% endblock %}

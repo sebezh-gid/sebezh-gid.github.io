@@ -32,6 +32,7 @@ jQuery(function ($) {
     enable_wiki_fancybox();
     enable_map();
     enable_toolbar();
+    enable_qrcode_form();
 });
 
 
@@ -523,4 +524,19 @@ function enable_async_forms()
                 show_message(sfmt("Request failed: {0}\n\n{1}", message, xhr.responseText));
         });
     });
+}
+
+
+function enable_qrcode_form()
+{
+    var form = $("form.qrcode");
+    if (form.length) {
+        var update_preview = function () {
+            var src = "/short/preview?" + form.serialize();
+            $("#qrimg").attr("src", src).attr("data-large", src);
+        };
+
+        update_preview();
+    }
+
 }

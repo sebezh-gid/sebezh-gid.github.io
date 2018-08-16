@@ -20,7 +20,7 @@
 
         {% block more_head %}{% endblock %}
 
-        <title>{% block page_title %}Wiki{% endblock %}</title>
+        <title>{% block page_title %}{% if title %}{{ title }}{% else %}Wiki{% endif %} — {{ strings.site_name }}{% endblock %}</title>
     </head>
     <body>
         {% if false %}
@@ -48,7 +48,9 @@
                         <li><a href="/wiki?name=Welcome">Home page</a></li>
                         <li><a href="/index?sort=updated">Recent edits</a></li>
                         <li><a href="/wiki?name=About this guide">About this guide</a></li>
-                        <li><a href="/wiki?name=QR-codes">QR-codes</a></li>
+                        {% if page_name %}
+                            <li><a href="/short?name={{ page_name }}">QR-code for this page</a></li>
+                        {% endif %}
                     {% else %}
                         <li><a href="/wiki?name=Введение">Главная страница</a></li>
                         <li><a href="/wiki?name=Лента обновлений">Лента обновлений</a></li>
@@ -69,7 +71,7 @@
                     <div class="col-md-12">
                         {% block page_header %}
                             <div class="page-header">
-                                <h1>{% block page_h1 %}It Works!{% endblock %}</h1>
+                                <h1>{% block page_h1 %}{% if title %}{{ title }}{% else %}It Works!{% endif %}{% endblock %}</h1>
                             </div>
                         {% endblock %}
 

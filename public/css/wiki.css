@@ -57,6 +57,13 @@ header .last {
   display: block;
   position: relative;
 }
+.col-md-6 {
+    display: inline-block;
+    width: calc(50% - 20px);
+    vertical-align: top;
+    padding: 0 10px;
+    margin-left: -10px;
+}
 
 .leftcol {
   padding: 10px;
@@ -1140,8 +1147,15 @@ table.grid {
 }
 table.grid td,
 table.grid th {
-    border: solid 1px #ccc;
     padding: 4px 10px;
+}
+table.grid thead th {
+    color: #444;
+    font-weight: bold;
+    font-size: 85%;
+}
+table.grid tbody td {
+    border: solid 1px #ccc;
 }
 
 a.image {
@@ -1188,9 +1202,6 @@ form.search input {
     color: #080;
 }
 
-table.grid td {
-    border: solid 1px #ccc;
-}
 table.table td {
     padding: 4px 10px;
 }
@@ -1222,4 +1233,17 @@ table.table .number {
 
 img.short {
     background-color: #eee;
+}
+
+#qrimg {
+    box-shadow: 0 0 10px #080;
+}
+
+input.form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    line-height: 30px;
+    padding: 0 10px;
+    width: calc(100% - 22px);
+    background-color: #f8f8f8;
 }

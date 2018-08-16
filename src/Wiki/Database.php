@@ -172,10 +172,14 @@ class Database {
         $this->dbQuery("INSERT INTO `thumbnails` (`name`, `type`, `body`, `hash`) VALUES (?, ?, ?, ?)", [$name, $type, $body, md5($body)]);
     }
 
-    public function shortAdd($name, $code)
+    public function shortAdd($russian, $english, $link)
     {
-        $this->dbQuery("INSERT INTO `shorts` (`id`, `name`) VALUES (?, ?)", [$code, $name]);
-        return true;
+        $code = rand(1001, 9999);
+        $date = strftime("%Y-%m-%d %H:%M:%S");
+
+        $this->dbQuery("INSERT INTO `shorts` (`id`, `created`, `name1`, `name2`, `link`) VALUES (?, ?, ?, ?, ?)", [$code, $date, $russian, $english, $link]);
+
+        return $code;
     }
 
     public function shortGetName($code)
@@ -188,6 +192,16 @@ class Database {
     {
         $row = $this->dbFetchOne("SELECT `id` FROM `shorts` WHERE `name` = ?", [$name]);
         return isset($row["id"]) ? (int)$row["id"] : null;
+    }
+
+    public function shortsGetByCode($code)
+    {
+        return $this->dbFetchOne("SELECT * FROM `shorts` WHERE `id` = ?", [$code]);
+    }
+
+    public function shortsGetRecent()
+    {
+        return $this->dbFetch("SELECT * FROM `shorts` ORDER BY `created` DESC LIMIT 100");
     }
 
     /**
