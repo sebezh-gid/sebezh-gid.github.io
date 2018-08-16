@@ -32,9 +32,9 @@ return [
         ],
 
         'dsn' => [
-            'name' => 'sqlite:' . __DIR__ . '/../data/database.sqlite',
-            'user' => null,
-            'password' => null,
+            'name' => 'mysql:dbname=sebgid',
+            'user' => 'sebgid',
+            'password' => 'sebgid725',
         ],
 
         'wiki' => [
