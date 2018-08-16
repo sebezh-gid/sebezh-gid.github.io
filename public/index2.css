@@ -188,3 +188,32 @@ a.splash {
 .center .btn:hover {
     color: #444;
 }
+
+#search {
+    width: 100%;
+    max-width: 970px;
+    margin: -80px auto 80px;
+}
+#search form {
+    border: 1px solid #008;
+    border-radius: 4px;
+    background-color: #fff;
+    line-height: 0;
+}
+#search input {
+    border: none;
+    background-color: transparent;
+    padding: 0 10px;
+    width: calc(100% - 80px);
+    line-height: 40px;
+}
+#search button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: 60px;
+    background-color: #008;
+    color: #fff;
+    height: 40px;
+    cursor: pointer;
+}
