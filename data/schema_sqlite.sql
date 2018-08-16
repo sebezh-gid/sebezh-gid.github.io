@@ -45,3 +45,17 @@ CREATE TABLE IF NOT EXISTS `shorts` (
     `link` TEXT
 );
 CREATE INDEX IF NOT EXISTS `IDX_shorts_created` ON `shorts` (`created`);
+
+CREATE TABLE IF NOT EXISTS `sessions` (
+    `id` TEXT,
+    `updated` DATETIME NOT NULL,
+    `data` TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `IDX_sessions_id` ON `sessions` (`id`);
+
+CREATE TABLE IF NOT EXISTS `accounts` (
+    `id` INTEGER NOT NULL PRIMARY KEY,
+    `login` TEXT NOT NULL,
+    `password` TEXT NOT NULL,
+    `last_login` DATETIME NULL
+);

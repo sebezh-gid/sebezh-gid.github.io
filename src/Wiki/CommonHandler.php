@@ -41,6 +41,22 @@ class CommonHandler
         }
     }
 
+    protected function sessionGetId()
+    {
+        return @$_COOKIE["session_id"];
+    }
+
+    protected function sessionSave(array $data)
+    {
+        $sid = $this->sessionGetId();
+        if (empty($sid)) {
+            $sid = \Wiki\Common::uuid();
+            setcookie("session_id", $id, time() + 86400 * 365, "/");
+        }
+
+        $this->db->sessionSave($sid, $data);
+    }
+
     protected function requireAdmin(Request $request)
     {
         if ($this->isAdmin($request))
@@ -50,14 +66,16 @@ class CommonHandler
 
     protected function isAdmin(Request $request)
     {
-        switch ($request->getUri()->getHost()) {
-            case "127.0.0.1":
-            case "localhost":
-            case "local.sebezh-gid.ru":
-                return true;
-            default:
-                return false;
-        }
+        if (!($sid = $this->sessionGetId()))
+            return false;
+
+        if (!($session = $this->db->sessionGet($sid)))
+            return false;
+
+        if (empty($session["user_id"]))
+            return false;
+
+        return true;
     }
 
     protected function render(Response $response, $templateName, array $data = [])

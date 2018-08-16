@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /edit
+Disallow: /w/
 
 Sitemap: https://sebezh-gid.ru/sitemap.xml
 Host: https://sebezh-gid.ru/

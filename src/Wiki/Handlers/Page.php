@@ -57,6 +57,36 @@ class Page extends CommonHandler
         return $response->withStatus($status);
     }
 
+    public function onEdit(Request $request, Response $response, array $args)
+    {
+        $pageName = $request->getQueryParam("name");
+        if (empty($pageName))
+            return $this->notfound();
+
+        if (!$this->isAdmin($request)) {
+            $back = "/edit?name=" . urlencode($pageName);
+            $next = "/w/login?back=" . urlencode($back);
+            return $response->withRedirect($next, 302);
+        }
+
+        $page = $this->db->getPageByName($pageName);
+        if ($page === false) {
+            if (preg_match('@^\d{4}$@', $pageName)) {
+                $contents = "# sebezh-gid.ru #{$pageName}\n\n- Русский: [[страница]]\n- English: [[something]]";
+            } else {
+                $contents = "# {$pageName}\n\n**{$pageName}** -- something that we don't have information on, yet.\n";
+            }
+        } else {
+            $contents = $page["source"];
+        }
+
+        return $this->template->render($response, "editor.twig", [
+            "page_name" => $pageName,
+            "page_source" => $contents,
+            "is_editable" => $this->isAdmin($request),
+        ]);
+    }
+
     /**
      * The main page rendering function.
      **/

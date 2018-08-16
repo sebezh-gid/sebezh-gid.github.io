@@ -204,6 +204,24 @@ class Database {
         return $this->dbFetch("SELECT * FROM `shorts` ORDER BY `created` DESC LIMIT 100");
     }
 
+    public function sessionGet($id)
+    {
+        $row = $this->dbFetchOne("SELECT `data` FROM `sessions` WHERE `id` = ?", [$id]);
+        return $row ? unserialize($row["data"]) : null;
+    }
+
+    public function sessionSave($id, array $data)
+    {
+        $updated = strftime("%Y-%m-%d %H:%M:%S");
+
+        $this->dbQuery("REPLACE INTO `sessions` (`id`, `updated`, `data`) VALUES (?, ?, ?)", [$id, $updated, serialize($data)]);
+    }
+
+    public function accountGet($login)
+    {
+        return $this->dbFetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);
+    }
+
     /**
      * Connect to the database.
      *
