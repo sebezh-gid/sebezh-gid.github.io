@@ -7,3 +7,6 @@
 
 - Главная страница: как https://welcome.mosreg.ru/stories/magic-trees
   - большая фотография, под ней блоки как сейчас, но с более развёрнутыми текстами.
+
+SEO:
+- link rel=alternate hreflang=XY, see https://en.wikipedia.org/wiki/Sitemaps
