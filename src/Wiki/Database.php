@@ -246,6 +246,11 @@ class Database {
             $this->conn = new \PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);
             $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
+
+            $type = $this->conn->getAttribute(\PDO::ATTR_DRIVER_NAME);
+            if ($type == "mysql") {
+                $this->conn->query("SET NAMES utf8");
+            }
         }
 
         return $this->conn;

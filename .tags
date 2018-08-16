@@ -487,6 +487,7 @@ tpl	src/dependencies.php	/^    $tpl = new \\Wiki\\Template($c);$/;"	v
 twig	src/Wiki/Template.php	/^        $this->twig = new \\Twig\\Environment($loader);$/;"	v
 twig	src/Wiki/Template.php	/^    protected $twig;$/;"	v
 twig	src/dependencies.php	/^        $twig = $c->get("template");$/;"	v
+type	src/Wiki/Database.php	/^            $type = $this->conn->getAttribute(\\PDO::ATTR_DRIVER_NAME);$/;"	v
 type	src/Wiki/Handlers/Storage.php	/^        $type = $this->guessType($args["name"]);$/;"	v
 updatePage	src/Wiki/Database.php	/^    public function updatePage($name, $text)$/;"	f
 updatePageHtml	src/Wiki/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
