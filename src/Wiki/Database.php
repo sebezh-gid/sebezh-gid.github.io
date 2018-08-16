@@ -222,6 +222,17 @@ class Database {
         return $this->dbFetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);
     }
 
+    public function filePut($name, $data)
+    {
+        $date = strftime("%Y-%m-%d %H:%M:%S");
+        $this->dbQuery("REPLACE INTO `storage` (`updated`, `name`, `body`) VALUES (?, ?, ?)", [$date, $name, $data]);
+    }
+
+    public function fileGet($name)
+    {
+        return $this->dbFetchOne("SELECT `body` FROM `storage` WHERE `name` = ?", [$name]);
+    }
+
     /**
      * Connect to the database.
      *

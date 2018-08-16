@@ -92,6 +92,8 @@ class Short extends CommonHandler
             "link" => $base . "/s/{$info["id"]}",
         ]);
 
+        $this->db->filePut("short_{$info["id"]}.png", $image);
+
         $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();
         if (is_writable(dirname($path)))
             file_put_contents($path, $image);

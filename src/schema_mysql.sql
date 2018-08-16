@@ -78,3 +78,14 @@ CREATE TABLE IF NOT EXISTS `sessions` (
     PRIMARY KEY(`id`),
     KEY(`updated`)
 ) DEFAULT CHARSET utf8;
+
+
+CREATE TABLE IF NOT EXISTS `storage` (
+    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+    `updated` DATETIME NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    `body` MEDIUMBLOB,
+    PRIMARY KEY(`id`),
+    KEY(`updated`),
+    UNIQUE KEY(`name`)
+) DEFAULT CHARSET utf8;

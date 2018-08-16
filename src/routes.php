@@ -28,6 +28,8 @@ $app->get("/thumbnail/{name:.*}", \Wiki\Handlers\Thumbnail::class . ":onGet");
 $app->get("/w/login", '\Wiki\Handlers\Account:onGetLoginForm');
 $app->post("/w/login", '\Wiki\Handlers\Account:onLogin');
 
+$app->get("/f/{name}", '\Wiki\Handlers\Storage:onGetItem');
+
 $app->get("/search", \Wiki\Handlers\Search::class . ":onGet");
 
 $app->get("/index", '\Wiki\Handlers\Index');
