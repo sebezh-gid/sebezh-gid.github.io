@@ -63,6 +63,7 @@ header .last {
     vertical-align: top;
     padding: 0 10px;
     margin-left: -10px;
+    margin-right: 10px;
 }
 
 .leftcol {
@@ -1237,6 +1238,9 @@ img.short {
 
 #qrimg {
     box-shadow: 0 0 10px #080;
+}
+img.qrplate {
+    border: solid 1px #ccc;
 }
 
 input.form-control {
