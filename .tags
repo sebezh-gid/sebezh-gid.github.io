@@ -126,6 +126,7 @@ dst	src/Wiki/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] .
 enName	src/Wiki/Handlers/Short.php	/^        $enName = $this->getEnglishName($ruName);$/;"	v
 enfont	src/Wiki/Handlers/Short.php	/^        $enfont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Regular.ttf";$/;"	v
 enfont	src/Wiki/Handlers/ShortImage.php	/^        $enfont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Regular.ttf";$/;"	v
+english	src/Wiki/Handlers/Short.php	/^                    $english = $page["title"];$/;"	v
 english	src/Wiki/Handlers/Short.php	/^            $english = $page["title"];$/;"	v
 english	src/Wiki/Handlers/Short.php	/^        $english = null;$/;"	v
 environment	src/Wiki/Common.php	/^        $environment = \\League\\CommonMark\\Environment::createCommonMarkEnvironment();$/;"	v
@@ -253,6 +254,7 @@ link	src/Wiki/Handlers/Page.php	/^            $link = "\/wiki?name=" . urlencode
 link	src/Wiki/Handlers/Page.php	/^            $link = sprintf("<a class=\\"wiki %s\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", $cls, urlencode($target), htmlspecialchars($target), htmlspecialchars($title));$/;"	v
 link	src/Wiki/Handlers/Search.php	/^            $link = "\/wiki?name=" . urlencode($res[0]["name"]);$/;"	v
 link	src/Wiki/Handlers/Short.php	/^                $link = $page["ru"];$/;"	v
+link	src/Wiki/Handlers/Short.php	/^            $link = $page["name"];$/;"	v
 link	src/Wiki/Handlers/Short.php	/^        $link = null;$/;"	v
 link	src/Wiki/Handlers/ShortRedirect.php	/^        $link = "\/wiki?name=" . urlencode($name);$/;"	v
 link	src/Wiki/Handlers/Sitemap.php	/^            $link = $base . "\/wiki?name=" . urlencode($page["name"]);$/;"	v
@@ -411,6 +413,7 @@ ruName	src/Wiki/Handlers/Short.php	/^        $ruName = $this->getRussianName($co
 rufont	src/Wiki/Handlers/Short.php	/^        $rufont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Bold.ttf";$/;"	v
 rufont	src/Wiki/Handlers/ShortImage.php	/^        $rufont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Bold.ttf";$/;"	v
 russian	src/Wiki/Handlers/Short.php	/^                    $russian = $page["title"];$/;"	v
+russian	src/Wiki/Handlers/Short.php	/^            $russian = $page["title"];$/;"	v
 russian	src/Wiki/Handlers/Short.php	/^        $russian = null;$/;"	v
 saveFile	src/Wiki/Database.php	/^    public function saveFile(array $fileInfo)$/;"	f
 saveThumbnail	src/Wiki/Database.php	/^    public function saveThumbnail($name, $type, $body)$/;"	f

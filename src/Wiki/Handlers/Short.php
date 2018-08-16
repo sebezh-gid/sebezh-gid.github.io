@@ -203,9 +203,19 @@ class Short extends CommonHandler
             if (!empty($page["ru"])) {
                 $link = $page["ru"];
 
-                if ($tmp = $this->db->getPageByName($link)) {
+                if ($tmp = $this->db->getPageByName($page["ru"])) {
                     $page = \Wiki\Util::parsePage($tmp);
                     $russian = $page["title"];
+                }
+            }
+        } else {
+            $russian = $page["title"];
+            $link = $page["name"];
+
+            if (!empty($page["en"])) {
+                if ($tmp = $this->db->getPageByName($page["en"])) {
+                    $page = \Wiki\Util::parsePage($tmp);
+                    $english = $page["title"];
                 }
             }
         }
