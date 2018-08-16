@@ -10,3 +10,4 @@
 
 SEO:
 - link rel=alternate hreflang=XY, see https://en.wikipedia.org/wiki/Sitemaps
+- Яндекс.Турбо https://yandex.ru/support/webmaster/turbo/connection.html
