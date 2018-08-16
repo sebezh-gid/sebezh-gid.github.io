@@ -51,7 +51,7 @@ class CommonHandler
         $sid = $this->sessionGetId();
         if (empty($sid)) {
             $sid = \Wiki\Common::uuid();
-            setcookie("session_id", $id, time() + 86400 * 365, "/");
+            setcookie("session_id", $sid, time() + 86400 * 365, "/");
         }
 
         $this->db->sessionSave($sid, $data);
