@@ -6,3 +6,4 @@
 ^public/photo$
 ^public/short$
 ^data/sphinx$
+^h$
