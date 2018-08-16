@@ -64,7 +64,7 @@ class Page extends CommonHandler
             return $this->notfound();
 
         if (!$this->isAdmin($request)) {
-            $back = "/edit?name=" . urlencode($pageName);
+            $back = "/w/edit?name=" . urlencode($pageName);
             $next = "/w/login?back=" . urlencode($back);
             return $response->withRedirect($next, 302);
         }
@@ -85,6 +85,21 @@ class Page extends CommonHandler
             "page_source" => $contents,
             "is_editable" => $this->isAdmin($request),
         ]);
+    }
+
+    /**
+     * Update page contents.
+     **/
+    public function onSave(Request $request, Response $response, array $args)
+    {
+        $this->requireAdmin($request);
+
+        $name = $_POST["page_name"];
+        $text = $_POST["page_source"];
+
+        $this->db->updatePage($name, $text);
+
+        return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
     }
 
     /**

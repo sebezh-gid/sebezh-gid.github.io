@@ -1,8 +1,8 @@
 {% extends "base.twig" %}
 
 {% block more_head %}
- <link rel="edit" title="Редактировать страницу" href="/edit?name={{ page_name }}"/>
- <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/edit?name={{ page_name }}"/>
+ <link rel="edit" title="Редактировать страницу" href="/w/edit?name={{ page_name }}"/>
+ <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/w/edit?name={{ page_name }}"/>
 {% endblock %}
 
 {% block page_title %}{% if page_name == "Введение" %}Гид по Себежу{% else %}{{ page_title }} — {% if page_props.language == "en" %}Sebezh Guide{% else %}гид по Себежу{% endif %}{% endif %}{% endblock %}

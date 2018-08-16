@@ -6,7 +6,8 @@ use Slim\Http\Response;
 // Routes
 
 $app->get('/wiki', '\Wiki\Handlers\Page');
-$app->any("/edit", '\Wiki\Handlers\Page:onEdit');
+$app->get("/w/edit", '\Wiki\Handlers\Page:onEdit');
+$app->post("/w/edit", '\Wiki\Handlers\Page:onSave');
 
 $app->get('/short', '\Wiki\Handlers\Short:onGetForm');
 $app->post('/short', '\Wiki\Handlers\Short:onCreate');
