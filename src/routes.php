@@ -22,4 +22,6 @@ $app->get("/search", \Wiki\Handlers\Search::class . ":onGet");
 
 $app->get("/index", '\Wiki\Handlers\Index');
 
+$app->get("/sitemap.xml", '\Wiki\Handlers\Sitemap');
+
 $app->get("/", '\Wiki\Handlers:getHome');
