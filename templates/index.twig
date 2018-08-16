@@ -19,7 +19,7 @@
                     <td>
                         <a href="/wiki?name={{ page.name }}">{{ page.name }}</a>
                     </td>
-                    <td dat-value="{{ page.updated }}">{{ page.updated }}</td>
+                    <td dat-value="{{ page.updated }}">{{ page.updated|date_simple }}</td>
                     <td class="number">{{ page.length }}</td>
                 </tr>
             {% endfor %}
