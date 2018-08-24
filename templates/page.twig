@@ -24,6 +24,10 @@
 
 {% block page_contents %}
     <div class="formatted">
+        {% if page_props.en %}
+            <p><i>You can read this page <a href="/wiki?name={{ page_props.en }}">in English</a>.</i></p>
+        {% endif %}
+
         {{ page_html|raw }}
 
         {% if file and file.type == "image/jpeg" %}
