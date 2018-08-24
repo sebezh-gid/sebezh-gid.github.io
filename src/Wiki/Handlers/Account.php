@@ -1,6 +1,8 @@
 <?php
 /**
  * Account operations.
+ *
+ * Lets users log in.
  **/
 
 namespace Wiki\Handlers;
