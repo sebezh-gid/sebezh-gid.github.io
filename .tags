@@ -291,6 +291,7 @@ nameEn	src/Wiki/Handlers/ShortImage.php	/^        $nameEn = $this->getEnglishNam
 nameRu	src/Wiki/Handlers/ShortImage.php	/^        $nameRu = $this->getRussianName($code);$/;"	v
 next	src/Wiki/Handlers/Account.php	/^        $next = $_POST["back"];$/;"	v
 next	src/Wiki/Handlers/Page.php	/^            $next = "\/w\/login?back=" . urlencode($back);$/;"	v
+next	src/Wiki/Handlers/Search.php	/^            $next = "\/wiki?name=" . urlencode($short["link"]);$/;"	v
 next	src/Wiki/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($info["link"]);$/;"	v
 nh	src/Wiki/Handlers/Thumbnail.php	/^                $nh = round($nw \/ $r);$/;"	v
 now	src/Wiki/Database.php	/^        $now = time();$/;"	v
@@ -444,6 +445,7 @@ settings	src/dependencies.php	/^    $settings = $c->get('settings')['sphinx'];$/
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['templates'];$/;"	v
 sharpenImage	src/Wiki/Handlers/Thumbnail.php	/^    protected function sharpenImage($img)$/;"	f
 sharpenMatrix	src/Wiki/Handlers/Thumbnail.php	/^        $sharpenMatrix = array($/;"	v
+short	src/Wiki/Handlers/Search.php	/^        $short = $this->db->shortsGetByCode($query);$/;"	v
 shortAdd	src/Wiki/Database.php	/^    public function shortAdd($russian, $english, $link)$/;"	f
 shortGetCode	src/Wiki/Database.php	/^    public function shortGetCode($name)$/;"	f
 shortGetName	src/Wiki/Database.php	/^    public function shortGetName($code)$/;"	f

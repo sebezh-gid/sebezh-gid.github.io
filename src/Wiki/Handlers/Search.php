@@ -16,6 +16,12 @@ class Search extends Handlers
     {
         $query = @$_GET["query"];
 
+        $short = $this->db->shortsGetByCode($query);
+        if ($short) {
+            $next = "/wiki?name=" . urlencode($short["link"]);
+            return $response->withRedirect($next, 303);
+        }
+
         try {
             $res = $query ? $this->sphinx->search($query) : null;
             $error = false;
