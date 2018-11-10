@@ -3,7 +3,7 @@
  * Sphinx Search Engine connector.
  **/
 
-namespace Wiki;
+namespace App;
 
 class Sphinx
 {
@@ -46,7 +46,7 @@ class Sphinx
         foreach ($rows as $row) {
             $page = $this->db->getPageById($row["id"]);
 
-            list($props, $html) = \Wiki\Parser::parse($page["name"], $page["source"]);
+            list($props, $html) = \App\Parser::parse($page["name"], $page["source"]);
             $snip = $this->getSnippet($html, $query);
 
             $res[] = [

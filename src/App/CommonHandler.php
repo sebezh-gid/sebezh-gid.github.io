@@ -1,6 +1,6 @@
 <?php
 
-namespace Wiki;
+namespace App;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -50,7 +50,7 @@ class CommonHandler
     {
         $sid = $this->sessionGetId();
         if (empty($sid)) {
-            $sid = \Wiki\Common::uuid();
+            $sid = \App\Common::uuid();
             setcookie("session_id", $sid, time() + 86400 * 365, "/");
         }
 

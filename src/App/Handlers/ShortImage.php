@@ -3,12 +3,12 @@
  * Изображение таблички.
  **/
 
-namespace Wiki\Handlers;
+namespace App\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Endroid\QrCode\ErrorCorrectionLevel;
-use Wiki\CommonHandler;
+use App\CommonHandler;
 
 class ShortImage extends CommonHandler
 {
@@ -56,7 +56,7 @@ class ShortImage extends CommonHandler
     {
         $name = $this->db->shortGetName($code);
         $page = $this->db->getPageByName($name);
-        $page = \Wiki\Util::parsePage($page);
+        $page = \App\Util::parsePage($page);
 
         if (!empty($page["plate_ru"]))
             return $page["plate_ru"];
@@ -70,7 +70,7 @@ class ShortImage extends CommonHandler
     {
         $name = $this->db->shortGetName($code);
         $page = $this->db->getPageByName($name);
-        $page = \Wiki\Util::parsePage($page);
+        $page = \App\Util::parsePage($page);
 
         if (!empty($page["plate_en"]))
             return $page["plate_en"];

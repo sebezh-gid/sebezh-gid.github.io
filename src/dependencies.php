@@ -11,13 +11,13 @@ $container['renderer'] = function ($c) {
 
 $container['template'] = function ($c) {
     $settings = $c->get('settings')['templates'];
-    $tpl = new \Wiki\Template($c);
+    $tpl = new \App\Template($c);
     return $tpl;
 };
 
 $container['sphinx'] = function ($c) {
     $settings = $c->get('settings')['sphinx'];
-    return new \Wiki\Sphinx($settings, $c->get('database'));
+    return new \App\Sphinx($settings, $c->get('database'));
 };
 
 $container['notFoundHandler'] = function ($c) {
@@ -40,7 +40,7 @@ $container['logger'] = function ($c) {
 
 // database
 $container['database'] = function ($c) {
-    return new \Wiki\Database($c->get("settings")["dsn"]);
+    return new \App\Database($c->get("settings")["dsn"]);
 };
 
 

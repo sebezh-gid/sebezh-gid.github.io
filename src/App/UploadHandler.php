@@ -7,7 +7,7 @@
  * This is used by the photo upload script in the page editor.
  **/
 
-namespace Wiki;
+namespace App;
 
 use Slim\Http\Request;
 use Slim\Http\Response;

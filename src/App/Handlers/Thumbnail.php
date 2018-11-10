@@ -5,11 +5,11 @@
  * Generated thumbnails are saved in the database.
  **/
 
-namespace Wiki\Handlers;
+namespace App\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Wiki\Handlers;
+use App\Handlers;
 
 class Thumbnail extends Handlers
 {

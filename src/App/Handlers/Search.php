@@ -4,11 +4,11 @@
  * Currently only renders the template, we're using Yandex search.
  **/
 
-namespace Wiki\Handlers;
+namespace App\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Wiki\Handlers;
+use App\Handlers;
 
 class Search extends Handlers
 {
@@ -35,7 +35,7 @@ class Search extends Handlers
             return $response->withRedirect($link, 303);
         }
 
-        $wikiName = \Wiki\Common::wikiName($query);
+        $wikiName = \App\Common::wikiName($query);
         $hasPage = $this->db->getPageByName($wikiName) ? true : false;
 
         return $this->template->render($response, "search.twig", [

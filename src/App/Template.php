@@ -1,6 +1,6 @@
 <?php
 
-namespace Wiki;
+namespace App;
 
 use \Slim\Http\Response;
 
@@ -63,7 +63,7 @@ class Template
 
         $template = $this->twig->load($fileName);
         $html = $template->render($data);
-        $html = \Wiki\Util::cleanHtml($html);
+        $html = \App\Util::cleanHtml($html);
 
         return $html;
     }
@@ -76,9 +76,9 @@ class Template
         // Extract properties.
         list($props, $pageText) = self::extractProperties($pageName, $pageText);
 
-        $html = \Wiki\Common::renderMarkdown($pageText);
+        $html = \App\Common::renderMarkdown($pageText);
 
-        $html = \Wiki\Common::renderTOC($html);
+        $html = \App\Common::renderTOC($html);
 
         // Extract page title.
         $html = preg_replace_callback('@<h1>(.+)</h1>@', function ($m) use (&$props) {
@@ -89,7 +89,7 @@ class Template
         // Wiki links.
         $html = preg_replace_callback('@\[\[(.+?)\]\]@', $link_cb, $html);
 
-        $html = \Wiki\Util::cleanHtml($html);
+        $html = \App\Util::cleanHtml($html);
 
         $data["page_title"] = $props["title"];
         $data["page_html"] = $html;

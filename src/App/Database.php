@@ -8,11 +8,11 @@
  *
  * No active records, cursors or other stuff.  Just a PDO wrapper.
  *
- * This class should be accessed by handlers (based on \Wiki\Handler)
+ * This class should be accessed by handlers (based on \App\Handler)
  * using $this->db.
  **/
 
-namespace Wiki;
+namespace App;
 
 class Database {
     /**

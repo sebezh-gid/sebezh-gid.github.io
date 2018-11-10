@@ -3,11 +3,11 @@
  * File display.
  **/
 
-namespace Wiki\Handlers;
+namespace App\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Wiki\CommonHandler;
+use App\CommonHandler;
 
 
 class Storage extends CommonHandler

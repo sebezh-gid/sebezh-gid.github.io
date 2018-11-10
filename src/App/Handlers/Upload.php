@@ -7,12 +7,12 @@
  * This is used by the photo upload script in the page editor.
  **/
 
-namespace Wiki\Handlers;
+namespace App\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\UploadedFile;
-use Wiki\CommonHandler;
+use App\CommonHandler;
 
 class Upload extends CommonHandler
 {
@@ -46,7 +46,7 @@ class Upload extends CommonHandler
 
         $link = $request->getParam("link");
         if (!empty($link)) {
-            $file = \Wiki\Common::fetch($link);
+            $file = \App\Common::fetch($link);
             if ($file["status"] == 200) {
                 $name = $this->getFileName($link, $file);
                 $type = $file["headers"]["content-type"];

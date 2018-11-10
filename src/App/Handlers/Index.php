@@ -1,10 +1,10 @@
 <?php
 
-namespace Wiki\Handlers;
+namespace App\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Wiki\CommonHandler;
+use App\CommonHandler;
 
 
 class Index extends CommonHandler

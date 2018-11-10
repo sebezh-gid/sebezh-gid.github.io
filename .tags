@@ -4,540 +4,540 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-Account	src/Wiki/Handlers/Account.php	/^class Account extends CommonHandler$/;"	c
-Common	src/Wiki/Common.php	/^class Common$/;"	c
-CommonHandler	src/Wiki/CommonHandler.php	/^class CommonHandler$/;"	c
-Database	src/Wiki/Database.php	/^class Database {$/;"	c
-EditPage	src/Wiki/Handlers/EditPage.php	/^class EditPage extends CommonHandler$/;"	c
-File	src/Wiki/Handlers/File.php	/^class File extends CommonHandler$/;"	c
-FileHandler	src/Wiki/FileHandler.php	/^class FileHandler extends Handlers$/;"	c
-FileList	src/Wiki/Handlers/FileList.php	/^class FileList extends Handlers$/;"	c
-Files	src/Wiki/Handlers/Files.php	/^class Files extends CommonHandler$/;"	c
-Handlers	src/Wiki/Handlers.php	/^class Handlers extends CommonHandler$/;"	c
-Index	src/Wiki/Handlers/Index.php	/^class Index extends CommonHandler$/;"	c
-Page	src/Wiki/Handlers/Page.php	/^class Page extends CommonHandler$/;"	c
-Page	src/Wiki/Page.php	/^class Page {$/;"	c
-Parser	src/Wiki/Parser.php	/^class Parser$/;"	c
-Search	src/Wiki/Handlers/Search.php	/^class Search extends Handlers$/;"	c
-Short	src/Wiki/Handlers/Short.php	/^class Short extends CommonHandler$/;"	c
-ShortImage	src/Wiki/Handlers/ShortImage.php	/^class ShortImage extends CommonHandler$/;"	c
-ShortRedirect	src/Wiki/Handlers/ShortRedirect.php	/^class ShortRedirect extends CommonHandler$/;"	c
-Sitemap	src/Wiki/Handlers/Sitemap.php	/^class Sitemap extends CommonHandler$/;"	c
-Sphinx	src/Wiki/Sphinx.php	/^class Sphinx$/;"	c
-Storage	src/Wiki/Handlers/Storage.php	/^class Storage extends CommonHandler$/;"	c
-Template	src/Wiki/Template.php	/^class Template$/;"	c
-Thumbnail	src/Wiki/Handlers/Thumbnail.php	/^class Thumbnail extends Handlers$/;"	c
-Upload	src/Wiki/Handlers/Upload.php	/^class Upload extends CommonHandler$/;"	c
-UploadHandler	src/Wiki/UploadHandler.php	/^class UploadHandler extends Handlers$/;"	c
-Util	src/Wiki/Util.php	/^class Util$/;"	c
-__construct	src/Wiki/CommonHandler.php	/^    public function __construct($container)$/;"	f
-__construct	src/Wiki/Database.php	/^    public function __construct(array $dsn)$/;"	f
-__construct	src/Wiki/Handlers.php	/^    public function __construct($container)$/;"	f
-__construct	src/Wiki/Sphinx.php	/^    public function __construct(array $settings, $db)$/;"	f
-__construct	src/Wiki/Template.php	/^    public function __construct($container)$/;"	f
-__get	src/Wiki/CommonHandler.php	/^    public function __get($key)$/;"	f
-__get	src/Wiki/Handlers.php	/^    public function __get($key)$/;"	f
-__invoke	src/Wiki/CommonHandler.php	/^    public function __invoke(Request $request, Response $response, array $args)$/;"	f
-_fields	src/Wiki/Database.php	/^        $_fields = [];$/;"	v
-_fields	src/Wiki/Database.php	/^        $_fields = implode(", ", $_fields);$/;"	v
-_marks	src/Wiki/Database.php	/^        $_marks = [];$/;"	v
-_marks	src/Wiki/Database.php	/^        $_marks = implode(", ", $_marks);$/;"	v
-_params	src/Wiki/Database.php	/^        $_params = [];$/;"	v
-acc	src/Wiki/Handlers/Account.php	/^        $acc = $this->db->accountGet($_POST["login"]);$/;"	v
-accountGet	src/Wiki/Database.php	/^    public function accountGet($login)$/;"	f
-addDefaults	src/Wiki/Template.php	/^    protected function addDefaults(array $data)$/;"	f
-addSpecialPages	src/Wiki/Template.php	/^    protected function addSpecialPages(array $data)$/;"	f
-all	src/Wiki/Util.php	/^        $all = "html|head|body|header|main|footer|aside|nav|div|p|ul|ol|li|input|label|textarea|button|meta|title|h1|h2|h3|h4|h5|script|style|link|table|thead|tfoot|tbody|tr|th|td|img";$/;"	v
-anchor	src/Wiki/Common.php	/^            $anchor = mb_strtolower(trim(preg_replace('@\\s+@', '_', $m[2])));$/;"	v
-back	src/Wiki/Handlers/Account.php	/^        $back = @$_GET["back"];$/;"	v
-back	src/Wiki/Handlers/Page.php	/^            $back = "\/w\/edit?name=" . urlencode($pageName);$/;"	v
-barcode	src/Wiki/Handlers/Short.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
-barcode	src/Wiki/Handlers/ShortImage.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
-base	src/Wiki/Handlers/Short.php	/^        $base = $this->container->get("settings")["websiteBase"];$/;"	v
-base	src/Wiki/Handlers/Sitemap.php	/^        $base = $this->container->get("settings")["websiteBase"];$/;"	v
-bh	src/Wiki/Handlers/Short.php	/^        $bh = imagesy($barcode);$/;"	v
-bh	src/Wiki/Handlers/ShortImage.php	/^        $bh = imagesy($barcode);$/;"	v
-body	src/Wiki/Handlers/Thumbnail.php	/^        $body = ob_get_clean();$/;"	v
-body	src/Wiki/Handlers/Upload.php	/^                $body = $file["data"];$/;"	v
-body	src/Wiki/Handlers/Upload.php	/^                $body = file_get_contents($tmp);$/;"	v
-body	src/Wiki/Handlers/Upload.php	/^        $body = null;$/;"	v
-bw	src/Wiki/Handlers/Short.php	/^        $bw = imagesx($barcode);$/;"	v
-bw	src/Wiki/Handlers/ShortImage.php	/^        $bw = imagesx($barcode);$/;"	v
-canvas	src/Wiki/Handlers/Short.php	/^        $canvas = $this->getCanvas();$/;"	v
-canvas	src/Wiki/Handlers/ShortImage.php	/^        $canvas = $this->getCanvas();$/;"	v
-caption	src/Wiki/Handlers/Page.php	/^                $caption = null;$/;"	v
-class.	src/Wiki/Database.php	/^ * Database interface class.$/;"	c
-cleanHtml	src/Wiki/Util.php	/^    public static function cleanHtml($html)$/;"	f
-cls	src/Wiki/Handlers/Page.php	/^            $cls = $tmp ? "good" : "broken";$/;"	v
-code	src/Wiki/Common.php	/^            $code = sprintf("<h%u id='%s'>%s<\/h%u>", $openLevel, $anchor, $titleText, $openLevel);$/;"	v
-code	src/Wiki/Database.php	/^        $code = rand(1001, 9999);$/;"	v
-code	src/Wiki/Handlers/Short.php	/^            $code = rand(1001, 9999);$/;"	v
-code	src/Wiki/Handlers/Short.php	/^        $code = $args["code"];$/;"	v
-code	src/Wiki/Handlers/Short.php	/^        $code = $this->db->shortAdd($params["russian"], $params["english"], $params["link"]);$/;"	v
-code	src/Wiki/Handlers/Short.php	/^        $code = $this->db->shortGetCode($name);$/;"	v
-code	src/Wiki/Handlers/Short.php	/^        $code = $this->getCode($name);$/;"	v
-code	src/Wiki/Handlers/ShortImage.php	/^            $code = rand(1001, 9999);$/;"	v
-code	src/Wiki/Handlers/ShortImage.php	/^        $code = $args["code"];$/;"	v
-code	src/Wiki/Handlers/ShortImage.php	/^        $code = $this->db->shortGetCode($name);$/;"	v
-code	src/Wiki/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["real_name"]}'\/><\/a>";$/;"	v
-conn	src/Wiki/Database.php	/^            $this->conn = new \\PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);$/;"	v
-conn	src/Wiki/Database.php	/^        $this->conn = null;$/;"	v
-conn	src/Wiki/Database.php	/^    protected $conn;$/;"	v
-conn	src/Wiki/Sphinx.php	/^        $this->conn = new \\PDO("mysql:host={$settings["host"]};port={$settings["port"]}", null, null);$/;"	v
-conn	src/Wiki/Sphinx.php	/^    protected $conn;$/;"	v
-connect	src/Wiki/Database.php	/^    protected function connect()$/;"	f
-container	src/Wiki/CommonHandler.php	/^        $this->container = $container;$/;"	v
-container	src/Wiki/CommonHandler.php	/^    protected $container;$/;"	v
-container	src/Wiki/Handlers.php	/^        $this->container = $container;$/;"	v
-container	src/Wiki/Handlers.php	/^    protected $container;$/;"	v
-container	src/Wiki/Template.php	/^        $this->container = $container;$/;"	v
-container	src/Wiki/Template.php	/^    protected $container;$/;"	v
+Account	src/App/Handlers/Account.php	/^class Account extends CommonHandler$/;"	c
+Common	src/App/Common.php	/^class Common$/;"	c
+CommonHandler	src/App/CommonHandler.php	/^class CommonHandler$/;"	c
+Database	src/App/Database.php	/^class Database {$/;"	c
+EditPage	src/App/Handlers/EditPage.php	/^class EditPage extends CommonHandler$/;"	c
+File	src/App/Handlers/File.php	/^class File extends CommonHandler$/;"	c
+FileHandler	src/App/FileHandler.php	/^class FileHandler extends Handlers$/;"	c
+FileList	src/App/Handlers/FileList.php	/^class FileList extends Handlers$/;"	c
+Files	src/App/Handlers/Files.php	/^class Files extends CommonHandler$/;"	c
+Handlers	src/App/Handlers.php	/^class Handlers extends CommonHandler$/;"	c
+Index	src/App/Handlers/Index.php	/^class Index extends CommonHandler$/;"	c
+Page	src/App/Handlers/Page.php	/^class Page extends CommonHandler$/;"	c
+Page	src/App/Page.php	/^class Page {$/;"	c
+Parser	src/App/Parser.php	/^class Parser$/;"	c
+Search	src/App/Handlers/Search.php	/^class Search extends Handlers$/;"	c
+Short	src/App/Handlers/Short.php	/^class Short extends CommonHandler$/;"	c
+ShortImage	src/App/Handlers/ShortImage.php	/^class ShortImage extends CommonHandler$/;"	c
+ShortRedirect	src/App/Handlers/ShortRedirect.php	/^class ShortRedirect extends CommonHandler$/;"	c
+Sitemap	src/App/Handlers/Sitemap.php	/^class Sitemap extends CommonHandler$/;"	c
+Sphinx	src/App/Sphinx.php	/^class Sphinx$/;"	c
+Storage	src/App/Handlers/Storage.php	/^class Storage extends CommonHandler$/;"	c
+Template	src/App/Template.php	/^class Template$/;"	c
+Thumbnail	src/App/Handlers/Thumbnail.php	/^class Thumbnail extends Handlers$/;"	c
+Upload	src/App/Handlers/Upload.php	/^class Upload extends CommonHandler$/;"	c
+UploadHandler	src/App/UploadHandler.php	/^class UploadHandler extends Handlers$/;"	c
+Util	src/App/Util.php	/^class Util$/;"	c
+__construct	src/App/CommonHandler.php	/^    public function __construct($container)$/;"	f
+__construct	src/App/Database.php	/^    public function __construct(array $dsn)$/;"	f
+__construct	src/App/Handlers.php	/^    public function __construct($container)$/;"	f
+__construct	src/App/Sphinx.php	/^    public function __construct(array $settings, $db)$/;"	f
+__construct	src/App/Template.php	/^    public function __construct($container)$/;"	f
+__get	src/App/CommonHandler.php	/^    public function __get($key)$/;"	f
+__get	src/App/Handlers.php	/^    public function __get($key)$/;"	f
+__invoke	src/App/CommonHandler.php	/^    public function __invoke(Request $request, Response $response, array $args)$/;"	f
+_fields	src/App/Database.php	/^        $_fields = [];$/;"	v
+_fields	src/App/Database.php	/^        $_fields = implode(", ", $_fields);$/;"	v
+_marks	src/App/Database.php	/^        $_marks = [];$/;"	v
+_marks	src/App/Database.php	/^        $_marks = implode(", ", $_marks);$/;"	v
+_params	src/App/Database.php	/^        $_params = [];$/;"	v
+acc	src/App/Handlers/Account.php	/^        $acc = $this->db->accountGet($_POST["login"]);$/;"	v
+accountGet	src/App/Database.php	/^    public function accountGet($login)$/;"	f
+addDefaults	src/App/Template.php	/^    protected function addDefaults(array $data)$/;"	f
+addSpecialPages	src/App/Template.php	/^    protected function addSpecialPages(array $data)$/;"	f
+all	src/App/Util.php	/^        $all = "html|head|body|header|main|footer|aside|nav|div|p|ul|ol|li|input|label|textarea|button|meta|title|h1|h2|h3|h4|h5|script|style|link|table|thead|tfoot|tbody|tr|th|td|img";$/;"	v
+anchor	src/App/Common.php	/^            $anchor = mb_strtolower(trim(preg_replace('@\\s+@', '_', $m[2])));$/;"	v
+back	src/App/Handlers/Account.php	/^        $back = @$_GET["back"];$/;"	v
+back	src/App/Handlers/Page.php	/^            $back = "\/w\/edit?name=" . urlencode($pageName);$/;"	v
+barcode	src/App/Handlers/Short.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
+barcode	src/App/Handlers/ShortImage.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
+base	src/App/Handlers/Short.php	/^        $base = $this->container->get("settings")["websiteBase"];$/;"	v
+base	src/App/Handlers/Sitemap.php	/^        $base = $this->container->get("settings")["websiteBase"];$/;"	v
+bh	src/App/Handlers/Short.php	/^        $bh = imagesy($barcode);$/;"	v
+bh	src/App/Handlers/ShortImage.php	/^        $bh = imagesy($barcode);$/;"	v
+body	src/App/Handlers/Thumbnail.php	/^        $body = ob_get_clean();$/;"	v
+body	src/App/Handlers/Upload.php	/^                $body = $file["data"];$/;"	v
+body	src/App/Handlers/Upload.php	/^                $body = file_get_contents($tmp);$/;"	v
+body	src/App/Handlers/Upload.php	/^        $body = null;$/;"	v
+bw	src/App/Handlers/Short.php	/^        $bw = imagesx($barcode);$/;"	v
+bw	src/App/Handlers/ShortImage.php	/^        $bw = imagesx($barcode);$/;"	v
+canvas	src/App/Handlers/Short.php	/^        $canvas = $this->getCanvas();$/;"	v
+canvas	src/App/Handlers/ShortImage.php	/^        $canvas = $this->getCanvas();$/;"	v
+caption	src/App/Handlers/Page.php	/^                $caption = null;$/;"	v
+class.	src/App/Database.php	/^ * Database interface class.$/;"	c
+cleanHtml	src/App/Util.php	/^    public static function cleanHtml($html)$/;"	f
+cls	src/App/Handlers/Page.php	/^            $cls = $tmp ? "good" : "broken";$/;"	v
+code	src/App/Common.php	/^            $code = sprintf("<h%u id='%s'>%s<\/h%u>", $openLevel, $anchor, $titleText, $openLevel);$/;"	v
+code	src/App/Database.php	/^        $code = rand(1001, 9999);$/;"	v
+code	src/App/Handlers/Short.php	/^            $code = rand(1001, 9999);$/;"	v
+code	src/App/Handlers/Short.php	/^        $code = $args["code"];$/;"	v
+code	src/App/Handlers/Short.php	/^        $code = $this->db->shortAdd($params["russian"], $params["english"], $params["link"]);$/;"	v
+code	src/App/Handlers/Short.php	/^        $code = $this->db->shortGetCode($name);$/;"	v
+code	src/App/Handlers/Short.php	/^        $code = $this->getCode($name);$/;"	v
+code	src/App/Handlers/ShortImage.php	/^            $code = rand(1001, 9999);$/;"	v
+code	src/App/Handlers/ShortImage.php	/^        $code = $args["code"];$/;"	v
+code	src/App/Handlers/ShortImage.php	/^        $code = $this->db->shortGetCode($name);$/;"	v
+code	src/App/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["real_name"]}'\/><\/a>";$/;"	v
+conn	src/App/Database.php	/^            $this->conn = new \\PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);$/;"	v
+conn	src/App/Database.php	/^        $this->conn = null;$/;"	v
+conn	src/App/Database.php	/^    protected $conn;$/;"	v
+conn	src/App/Sphinx.php	/^        $this->conn = new \\PDO("mysql:host={$settings["host"]};port={$settings["port"]}", null, null);$/;"	v
+conn	src/App/Sphinx.php	/^    protected $conn;$/;"	v
+connect	src/App/Database.php	/^    protected function connect()$/;"	f
+container	src/App/CommonHandler.php	/^        $this->container = $container;$/;"	v
+container	src/App/CommonHandler.php	/^    protected $container;$/;"	v
+container	src/App/Handlers.php	/^        $this->container = $container;$/;"	v
+container	src/App/Handlers.php	/^    protected $container;$/;"	v
+container	src/App/Template.php	/^        $this->container = $container;$/;"	v
+container	src/App/Template.php	/^    protected $container;$/;"	v
 container	src/dependencies.php	/^$container = $app->getContainer();$/;"	v
-contents	src/Wiki/Handlers.php	/^            $contents = "# {$pageName}\\n\\n**{$pageName}** -- something that we don't have information on, yet.\\n";$/;"	v
-contents	src/Wiki/Handlers.php	/^            $contents = $page["source"];$/;"	v
-contents	src/Wiki/Handlers/EditPage.php	/^                $contents = "# sebezh-gid.ru #{$pageName}\\n\\n- Русский: [[страница]]\\n- English: [[something]]";$/;"	v
-contents	src/Wiki/Handlers/EditPage.php	/^                $contents = "# {$pageName}\\n\\n**{$pageName}** -- something that we don't have information on, yet.\\n";$/;"	v
-contents	src/Wiki/Handlers/EditPage.php	/^            $contents = $page["source"];$/;"	v
-contents	src/Wiki/Handlers/Page.php	/^                $contents = "# sebezh-gid.ru #{$pageName}\\n\\n- Русский: [[страница]]\\n- English: [[something]]";$/;"	v
-contents	src/Wiki/Handlers/Page.php	/^                $contents = "# {$pageName}\\n\\n**{$pageName}** -- something that we don't have information on, yet.\\n";$/;"	v
-contents	src/Wiki/Handlers/Page.php	/^            $contents = $page["source"];$/;"	v
-context	src/Wiki/Common.php	/^        $context = stream_context_create(array($/;"	v
-converter	src/Wiki/Common.php	/^        $converter = new \\League\\CommonMark\\Converter($dp, $re);$/;"	v
-data	src/Wiki/Handlers/Page.php	/^        $data = [$/;"	v
-data	src/Wiki/Handlers/Short.php	/^        $data = $gen->writeString();$/;"	v
-data	src/Wiki/Handlers/Short.php	/^        $data = file_get_contents($fn);$/;"	v
-data	src/Wiki/Handlers/ShortImage.php	/^        $data = $gen->writeString();$/;"	v
-data	src/Wiki/Handlers/ShortImage.php	/^        $data = file_get_contents($fn);$/;"	v
-data	src/Wiki/Template.php	/^        $data = $this->addDefaults($data);$/;"	v
-data	src/Wiki/Template.php	/^        $data = $this->addSpecialPages($data);$/;"	v
-data	src/Wiki/Template.php	/^        $data = array_merge($this->defaults, $data);$/;"	v
-date	src/Wiki/Database.php	/^        $date = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
-date	src/Wiki/Handlers/Sitemap.php	/^            $date = strftime("%Y-%m-%d", $page["updated"]);$/;"	v
-db	src/Wiki/Database.php	/^        $db = $this->connect();$/;"	v
-db	src/Wiki/Handlers.php	/^        $this->db = $container->get("database");$/;"	v
-db	src/Wiki/Handlers.php	/^    protected $db;$/;"	v
-db	src/Wiki/Sphinx.php	/^        $this->db = $db;$/;"	v
-db	src/Wiki/Sphinx.php	/^    protected $db;$/;"	v
-db	src/Wiki/Template.php	/^        $db = $this->container->get("database");$/;"	v
-dbFetch	src/Wiki/Database.php	/^    public function dbFetch($query, array $params = array(), $callback = null)$/;"	f
-dbFetchOne	src/Wiki/Database.php	/^    public function dbFetchOne($query, array $params = array())$/;"	f
-dbQuery	src/Wiki/Database.php	/^    public function dbQuery($query, array $params = array())$/;"	f
+contents	src/App/Handlers.php	/^            $contents = "# {$pageName}\\n\\n**{$pageName}** -- something that we don't have information on, yet.\\n";$/;"	v
+contents	src/App/Handlers.php	/^            $contents = $page["source"];$/;"	v
+contents	src/App/Handlers/EditPage.php	/^                $contents = "# sebezh-gid.ru #{$pageName}\\n\\n- Русский: [[страница]]\\n- English: [[something]]";$/;"	v
+contents	src/App/Handlers/EditPage.php	/^                $contents = "# {$pageName}\\n\\n**{$pageName}** -- something that we don't have information on, yet.\\n";$/;"	v
+contents	src/App/Handlers/EditPage.php	/^            $contents = $page["source"];$/;"	v
+contents	src/App/Handlers/Page.php	/^                $contents = "# sebezh-gid.ru #{$pageName}\\n\\n- Русский: [[страница]]\\n- English: [[something]]";$/;"	v
+contents	src/App/Handlers/Page.php	/^                $contents = "# {$pageName}\\n\\n**{$pageName}** -- something that we don't have information on, yet.\\n";$/;"	v
+contents	src/App/Handlers/Page.php	/^            $contents = $page["source"];$/;"	v
+context	src/App/Common.php	/^        $context = stream_context_create(array($/;"	v
+converter	src/App/Common.php	/^        $converter = new \\League\\CommonMark\\Converter($dp, $re);$/;"	v
+data	src/App/Handlers/Page.php	/^        $data = [$/;"	v
+data	src/App/Handlers/Short.php	/^        $data = $gen->writeString();$/;"	v
+data	src/App/Handlers/Short.php	/^        $data = file_get_contents($fn);$/;"	v
+data	src/App/Handlers/ShortImage.php	/^        $data = $gen->writeString();$/;"	v
+data	src/App/Handlers/ShortImage.php	/^        $data = file_get_contents($fn);$/;"	v
+data	src/App/Template.php	/^        $data = $this->addDefaults($data);$/;"	v
+data	src/App/Template.php	/^        $data = $this->addSpecialPages($data);$/;"	v
+data	src/App/Template.php	/^        $data = array_merge($this->defaults, $data);$/;"	v
+date	src/App/Database.php	/^        $date = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
+date	src/App/Handlers/Sitemap.php	/^            $date = strftime("%Y-%m-%d", $page["updated"]);$/;"	v
+db	src/App/Database.php	/^        $db = $this->connect();$/;"	v
+db	src/App/Handlers.php	/^        $this->db = $container->get("database");$/;"	v
+db	src/App/Handlers.php	/^    protected $db;$/;"	v
+db	src/App/Sphinx.php	/^        $this->db = $db;$/;"	v
+db	src/App/Sphinx.php	/^    protected $db;$/;"	v
+db	src/App/Template.php	/^        $db = $this->container->get("database");$/;"	v
+dbFetch	src/App/Database.php	/^    public function dbFetch($query, array $params = array(), $callback = null)$/;"	f
+dbFetchOne	src/App/Database.php	/^    public function dbFetchOne($query, array $params = array())$/;"	f
+dbQuery	src/App/Database.php	/^    public function dbQuery($query, array $params = array())$/;"	f
 debug	src/dependencies.php	/^function debug()$/;"	f
-defaults	src/Wiki/Template.php	/^        $this->defaults = isset($settings["defaults"])$/;"	v
-defaults	src/Wiki/Template.php	/^    protected $defaults;$/;"	v
-divisor	src/Wiki/Handlers/Files.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
-divisor	src/Wiki/Handlers/Thumbnail.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
-dp	src/Wiki/Common.php	/^        $dp = new \\League\\CommonMark\\DocParser($environment);$/;"	v
-dsn	src/Wiki/Database.php	/^        $this->dsn = $dsn;$/;"	v
-dsn	src/Wiki/Database.php	/^    protected $dsn;$/;"	v
-dst	src/Wiki/Handlers/Files.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
-dst	src/Wiki/Handlers/Files.php	/^            $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
-dst	src/Wiki/Handlers/ShortImage.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
-dst	src/Wiki/Handlers/Thumbnail.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
-dst	src/Wiki/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
-enName	src/Wiki/Handlers/Short.php	/^        $enName = $this->getEnglishName($ruName);$/;"	v
-enfont	src/Wiki/Handlers/Short.php	/^        $enfont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Regular.ttf";$/;"	v
-enfont	src/Wiki/Handlers/ShortImage.php	/^        $enfont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Regular.ttf";$/;"	v
-english	src/Wiki/Handlers/Short.php	/^                    $english = $page["title"];$/;"	v
-english	src/Wiki/Handlers/Short.php	/^            $english = $page["title"];$/;"	v
-english	src/Wiki/Handlers/Short.php	/^        $english = null;$/;"	v
-environment	src/Wiki/Common.php	/^        $environment = \\League\\CommonMark\\Environment::createCommonMarkEnvironment();$/;"	v
-error	src/Wiki/Handlers/Search.php	/^            $error = false;$/;"	v
-error	src/Wiki/Handlers/Search.php	/^            $error = true;$/;"	v
-ext	src/Wiki/Handlers/Storage.php	/^        $ext = mb_strtolower(pathinfo($name, PATHINFO_EXTENSION));$/;"	v
-ext	src/Wiki/UploadHandler.php	/^        $ext = mb_strtolower(pathinfo($res["real_name"], PATHINFO_EXTENSION));$/;"	v
-extractProperties	src/Wiki/Parser.php	/^    public static function extractProperties($pageName, $text)$/;"	f
-extractProperties	src/Wiki/Template.php	/^    public static function extractProperties($pageName, $text)$/;"	f
-fetch	src/Wiki/Common.php	/^    public static function fetch($url)$/;"	f
-fi	src/Wiki/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;"	v
-file	src/Wiki/FileHandler.php	/^        $file = $this->db->getFileByName($name);$/;"	v
-file	src/Wiki/Handlers/File.php	/^        $file = $this->db->getFileByName($name);$/;"	v
-file	src/Wiki/Handlers/Files.php	/^        $file = $this->db->dbFetchOne("SELECT `id`, `hash`, `name`, `real_name`, `kind`, `type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
-file	src/Wiki/Handlers/Files.php	/^        $file = $this->db->dbFetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
-file	src/Wiki/Handlers/Page.php	/^            $file = $this->db->getFileByName($m[1]);$/;"	v
-file	src/Wiki/Handlers/Short.php	/^        $file = $this->db->getFileByName($name);$/;"	v
-file	src/Wiki/Handlers/Storage.php	/^        $file = $this->db->fileGet($args["name"]);$/;"	v
-file	src/Wiki/Handlers/Thumbnail.php	/^        $file = $this->db->getFileByName($name);$/;"	v
-file	src/Wiki/Handlers/Upload.php	/^            $file = \\Wiki\\Common::fetch($link);$/;"	v
-fileGet	src/Wiki/Database.php	/^    public function fileGet($name)$/;"	f
-filePut	src/Wiki/Database.php	/^    public function filePut($name, $data)$/;"	f
-files	src/Wiki/Handlers/FileList.php	/^        $files = $this->db->findFiles();$/;"	v
-files	src/Wiki/Handlers/Files.php	/^        $files = $this->db->dbFetch("SELECT `id`, `hash`, `real_name`, `kind`, `type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {$/;"	v
-files	src/Wiki/UploadHandler.php	/^        $files = $request->getUploadedFiles();$/;"	v
-findFiles	src/Wiki/Database.php	/^    public function findFiles()$/;"	f
-fn	src/Wiki/Handlers/Short.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
-fn	src/Wiki/Handlers/ShortImage.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
-fname	src/Wiki/Handlers/Page.php	/^                $fname = $m[1];$/;"	v
-fresh	src/Wiki/Handlers/Page.php	/^                $fresh = true;$/;"	v
-fresh	src/Wiki/Handlers/Page.php	/^        $fresh = $request->getQueryParam("cache") == "no";$/;"	v
-gen	src/Wiki/Handlers/Short.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($link);$/;"	v
-gen	src/Wiki/Handlers/Short.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($params["link"]);$/;"	v
-gen	src/Wiki/Handlers/ShortImage.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($link);$/;"	v
-gen	src/Wiki/Handlers/ShortImage.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($params["link"]);$/;"	v
-getAllPageNames	src/Wiki/Database.php	/^    public function getAllPageNames()$/;"	f
-getBarCode	src/Wiki/Handlers/Short.php	/^    protected function getBarCode($link)$/;"	f
-getBarCode	src/Wiki/Handlers/ShortImage.php	/^    protected function getBarCode($link)$/;"	f
-getByName	src/Wiki/Page.php	/^    public static function getByName($name)$/;"	f
-getCanvas	src/Wiki/Handlers/Short.php	/^    protected function getCanvas()$/;"	f
-getCanvas	src/Wiki/Handlers/ShortImage.php	/^    protected function getCanvas()$/;"	f
-getCode	src/Wiki/Handlers/Short.php	/^    protected function getCode($name)$/;"	f
-getCode	src/Wiki/Handlers/ShortImage.php	/^    protected function getCode($name)$/;"	f
-getEdit	src/Wiki/Handlers.php	/^    public function getEdit(Request $request, Response $response)$/;"	f
-getEnglishName	src/Wiki/Handlers/Short.php	/^    protected function getEnglishName($name)$/;"	f
-getEnglishName	src/Wiki/Handlers/ShortImage.php	/^    protected function getEnglishName($code)$/;"	f
-getFile	src/Wiki/Handlers/Upload.php	/^    protected function getFile(Request $request)$/;"	f
-getFileByHash	src/Wiki/Database.php	/^    public function getFileByHash($hash)$/;"	f
-getFileByName	src/Wiki/Database.php	/^    public function getFileByName($name)$/;"	f
-getFileName	src/Wiki/Handlers/Upload.php	/^    protected function getFileName($link, array $file)$/;"	f
-getHome	src/Wiki/Handlers.php	/^    public function getHome(Request $request, Response $response)$/;"	f
-getImage	src/Wiki/Handlers/Files.php	/^    protected function getImage($img)$/;"	f
-getPageById	src/Wiki/Database.php	/^    public function getPageById($id)$/;"	f
-getPageByName	src/Wiki/Database.php	/^    public function getPageByName($name)$/;"	f
-getPageNames	src/Wiki/Handlers/Short.php	/^    protected function getPageNames($name)$/;"	f
-getRussianName	src/Wiki/Handlers/Short.php	/^    protected function getRussianName($code)$/;"	f
-getRussianName	src/Wiki/Handlers/ShortImage.php	/^    protected function getRussianName($code)$/;"	f
-getSnippet	src/Wiki/Sphinx.php	/^    protected function getSnippet($source, $query)$/;"	f
-getThumbnail	src/Wiki/Database.php	/^    public function getThumbnail($name, $type)$/;"	f
-guessType	src/Wiki/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
-hasPage	src/Wiki/Handlers/Search.php	/^        $hasPage = $this->db->getPageByName($wikiName) ? true : false;$/;"	v
-hash	src/Wiki/FileHandler.php	/^        $hash = empty($file["hash"])$/;"	v
-hash	src/Wiki/Handlers/File.php	/^        $hash = empty($file["hash"])$/;"	v
-hash	src/Wiki/Handlers/Short.php	/^        $hash = empty($file["hash"])$/;"	v
-hash	src/Wiki/Handlers/Thumbnail.php	/^        $hash = md5($body);$/;"	v
-hash	src/Wiki/Handlers/Upload.php	/^        $hash = md5($body);$/;"	v
-hash	src/Wiki/UploadHandler.php	/^        $hash = md5($res["body"]);$/;"	v
-html	src/Wiki/Common.php	/^        $html = $converter->convertToHtml($source);$/;"	v
-html	src/Wiki/Common.php	/^        $html = preg_replace_callback('@<h([12345])>(.+)<\/h([12345])>@', function ($m) use (&$level, &$toc) {$/;"	v
-html	src/Wiki/Common.php	/^        $html = str_replace("<div id=\\"toc\\"><\/div>", "<div id=\\"toc\\">{$toc}<\/div>", $html);$/;"	v
-html	src/Wiki/Database.php	/^        $html = null;$/;"	v
-html	src/Wiki/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
-html	src/Wiki/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\" data-caption=\\"{$caption}\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
-html	src/Wiki/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
-html	src/Wiki/Handlers/Page.php	/^                        $html = "<audio id='file_{$file["id"]}' controls='controls' preload='metadata'>";$/;"	v
-html	src/Wiki/Handlers/Page.php	/^            $html = $page["html"];$/;"	v
-html	src/Wiki/Handlers/Page.php	/^            $html = $this->renderPage($page);$/;"	v
-html	src/Wiki/Handlers/Page.php	/^        $html = $this->template->renderPage($data, function ($m) {$/;"	v
-html	src/Wiki/Parser.php	/^        $html = $md->convertToHtml($source);$/;"	v
-html	src/Wiki/Parser.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
-html	src/Wiki/Parser.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
-html	src/Wiki/Parser.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', function ($m) {$/;"	v
-html	src/Wiki/Template.php	/^            $html = \\Wik\\Common::renderMarkdown($src);$/;"	v
-html	src/Wiki/Template.php	/^        $html = $template->render($data);$/;"	v
-html	src/Wiki/Template.php	/^        $html = $this->renderFile("page.twig", $data);$/;"	v
-html	src/Wiki/Template.php	/^        $html = $this->renderFile($fileName, $data);$/;"	v
-html	src/Wiki/Template.php	/^        $html = \\Wiki\\Common::renderMarkdown($pageText);$/;"	v
-html	src/Wiki/Template.php	/^        $html = \\Wiki\\Common::renderTOC($html);$/;"	v
-html	src/Wiki/Template.php	/^        $html = \\Wiki\\Util::cleanHtml($html);$/;"	v
-html	src/Wiki/Template.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
-html	src/Wiki/Template.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', $link_cb, $html);$/;"	v
-html	src/Wiki/Util.php	/^        $html = preg_replace($re = '@\\s*<(' . $all . '|!--)([^>]*>)\\s*@', '<\\1\\2', $html);$/;"	v
-html	src/Wiki/Util.php	/^        $html = preg_replace('@<\/a>\\s+@', '<\/a> ', $html);$/;"	v
-html	src/Wiki/Util.php	/^        $html = preg_replace('@\\.  @', '.&nbsp; ', $html);$/;"	v
-html	src/Wiki/Util.php	/^        $html = preg_replace('@\\s*<\/(' . $all . ')>\\s*@ms', '<\/\\1>', $html);$/;"	v
-html	src/Wiki/Util.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
-html	src/Wiki/Util.php	/^        $html = preg_replace('@\\s+<\/([a-z0-9]+)>@', '<\/\\1>', $html);$/;"	v
-html	src/Wiki/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $html);$/;"	v
-ih	src/Wiki/Handlers/Files.php	/^        $ih = imagesy($img);$/;"	v
-ih	src/Wiki/Handlers/Thumbnail.php	/^        $ih = imagesy($img);$/;"	v
-image	src/Wiki/Handlers/Files.php	/^                $image = "\/i\/thumbnails\/{$em["id"]}.jpg";$/;"	v
-image	src/Wiki/Handlers/Files.php	/^                $image = null;$/;"	v
-image	src/Wiki/Handlers/Short.php	/^        $image = $this->renderImage($params);$/;"	v
-image	src/Wiki/Handlers/Short.php	/^        $image = $this->renderImage([$/;"	v
-image	src/Wiki/Handlers/ShortImage.php	/^        $image = $this->renderImage($params);$/;"	v
-img	src/Wiki/Handlers/Files.php	/^                $img = $dst;$/;"	v
-img	src/Wiki/Handlers/Files.php	/^        $img = $this->scaleImage($img, [$/;"	v
-img	src/Wiki/Handlers/Files.php	/^        $img = $this->sharpenImage($img);$/;"	v
-img	src/Wiki/Handlers/Files.php	/^        $img = imagecreatefromstring($file["body"]);$/;"	v
-img	src/Wiki/Handlers/Short.php	/^        $img = imagecreatefromstring($png);$/;"	v
-img	src/Wiki/Handlers/ShortImage.php	/^        $img = imagecreatefromstring($png);$/;"	v
-img	src/Wiki/Handlers/Thumbnail.php	/^                $img = $dst;$/;"	v
-img	src/Wiki/Handlers/Thumbnail.php	/^        $img = $this->scaleImage($img, $options);$/;"	v
-img	src/Wiki/Handlers/Thumbnail.php	/^        $img = imageCreateFromString($file["body"]);$/;"	v
-index	src/Wiki/Sphinx.php	/^        $this->index = $settings["index"];$/;"	v
-index	src/Wiki/Sphinx.php	/^    protected $index;$/;"	v
-info	src/Wiki/Handlers/Short.php	/^        $info = $this->db->shortsGetByCode($code);$/;"	v
-info	src/Wiki/UploadHandler.php	/^                $info = $this->receiveFile($file);$/;"	v
-insert	src/Wiki/Database.php	/^    public function insert($tableName, array $fields)$/;"	f
-isAdmin	src/Wiki/CommonHandler.php	/^    protected function isAdmin(Request $request)$/;"	f
-iw	src/Wiki/Handlers/Files.php	/^        $iw = imagesx($img);$/;"	v
-iw	src/Wiki/Handlers/Thumbnail.php	/^        $iw = imagesx($img);$/;"	v
-k	src/Wiki/Common.php	/^                    $k = strtolower(trim($parts[0]));$/;"	v
-key	src/Wiki/Handlers/Thumbnail.php	/^        $key = $m[2];$/;"	v
-keys	src/Wiki/Template.php	/^        $keys = ["header", "footer", "sidebar"];$/;"	v
-kind	src/Wiki/Handlers/Upload.php	/^                $kind = "other";$/;"	v
-kind	src/Wiki/Handlers/Upload.php	/^                $kind = "photo";$/;"	v
-lang	src/Wiki/Template.php	/^        $lang = $dlang = isset($this->defaults["language"]) ? $this->defaults["language"] : "en";$/;"	v
-large	src/Wiki/Handlers/Page.php	/^                        $large = "\/files\/{$file["id"]}\/download";$/;"	v
-length	src/Wiki/Handlers/Thumbnail.php	/^        $length = strlen($tn["body"]);$/;"	v
-level	src/Wiki/Common.php	/^            $level = (int)$openLevel;$/;"	v
-level	src/Wiki/Common.php	/^        $level = 1;$/;"	v
-lines	src/Wiki/Parser.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
-lines	src/Wiki/Parser.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
-lines	src/Wiki/Template.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
-lines	src/Wiki/Template.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
-lines	src/Wiki/Util.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
-lines	src/Wiki/Util.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
-link	src/Wiki/Handlers/Page.php	/^                        $link = "\/files\/{$file["id"]}";$/;"	v
-link	src/Wiki/Handlers/Page.php	/^            $link = "\/wiki?name=" . urlencode($m[1]);$/;"	v
-link	src/Wiki/Handlers/Page.php	/^            $link = sprintf("<a class=\\"wiki %s\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", $cls, urlencode($target), htmlspecialchars($target), htmlspecialchars($title));$/;"	v
-link	src/Wiki/Handlers/Search.php	/^            $link = "\/wiki?name=" . urlencode($res[0]["name"]);$/;"	v
-link	src/Wiki/Handlers/Short.php	/^                $link = $page["ru"];$/;"	v
-link	src/Wiki/Handlers/Short.php	/^            $link = $page["name"];$/;"	v
-link	src/Wiki/Handlers/Short.php	/^        $link = null;$/;"	v
-link	src/Wiki/Handlers/ShortRedirect.php	/^        $link = "\/wiki?name=" . urlencode($name);$/;"	v
-link	src/Wiki/Handlers/Sitemap.php	/^            $link = $base . "\/wiki?name=" . urlencode($page["name"]);$/;"	v
-link	src/Wiki/Handlers/Upload.php	/^        $link = $request->getParam("link");$/;"	v
-link	src/Wiki/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
-listPages	src/Wiki/Database.php	/^    public function listPages($sort = null)$/;"	f
-loadThumbnail	src/Wiki/Handlers/Thumbnail.php	/^    protected function loadThumbnail($name, $type)$/;"	f
-loader	src/Wiki/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
+defaults	src/App/Template.php	/^        $this->defaults = isset($settings["defaults"])$/;"	v
+defaults	src/App/Template.php	/^    protected $defaults;$/;"	v
+divisor	src/App/Handlers/Files.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
+divisor	src/App/Handlers/Thumbnail.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
+dp	src/App/Common.php	/^        $dp = new \\League\\CommonMark\\DocParser($environment);$/;"	v
+dsn	src/App/Database.php	/^        $this->dsn = $dsn;$/;"	v
+dsn	src/App/Database.php	/^    protected $dsn;$/;"	v
+dst	src/App/Handlers/Files.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
+dst	src/App/Handlers/Files.php	/^            $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
+dst	src/App/Handlers/ShortImage.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
+dst	src/App/Handlers/Thumbnail.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
+dst	src/App/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
+enName	src/App/Handlers/Short.php	/^        $enName = $this->getEnglishName($ruName);$/;"	v
+enfont	src/App/Handlers/Short.php	/^        $enfont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Regular.ttf";$/;"	v
+enfont	src/App/Handlers/ShortImage.php	/^        $enfont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Regular.ttf";$/;"	v
+english	src/App/Handlers/Short.php	/^                    $english = $page["title"];$/;"	v
+english	src/App/Handlers/Short.php	/^            $english = $page["title"];$/;"	v
+english	src/App/Handlers/Short.php	/^        $english = null;$/;"	v
+environment	src/App/Common.php	/^        $environment = \\League\\CommonMark\\Environment::createCommonMarkEnvironment();$/;"	v
+error	src/App/Handlers/Search.php	/^            $error = false;$/;"	v
+error	src/App/Handlers/Search.php	/^            $error = true;$/;"	v
+ext	src/App/Handlers/Storage.php	/^        $ext = mb_strtolower(pathinfo($name, PATHINFO_EXTENSION));$/;"	v
+ext	src/App/UploadHandler.php	/^        $ext = mb_strtolower(pathinfo($res["real_name"], PATHINFO_EXTENSION));$/;"	v
+extractProperties	src/App/Parser.php	/^    public static function extractProperties($pageName, $text)$/;"	f
+extractProperties	src/App/Template.php	/^    public static function extractProperties($pageName, $text)$/;"	f
+fetch	src/App/Common.php	/^    public static function fetch($url)$/;"	f
+fi	src/App/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;"	v
+file	src/App/FileHandler.php	/^        $file = $this->db->getFileByName($name);$/;"	v
+file	src/App/Handlers/File.php	/^        $file = $this->db->getFileByName($name);$/;"	v
+file	src/App/Handlers/Files.php	/^        $file = $this->db->dbFetchOne("SELECT `id`, `hash`, `name`, `real_name`, `kind`, `type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
+file	src/App/Handlers/Files.php	/^        $file = $this->db->dbFetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
+file	src/App/Handlers/Page.php	/^            $file = $this->db->getFileByName($m[1]);$/;"	v
+file	src/App/Handlers/Short.php	/^        $file = $this->db->getFileByName($name);$/;"	v
+file	src/App/Handlers/Storage.php	/^        $file = $this->db->fileGet($args["name"]);$/;"	v
+file	src/App/Handlers/Thumbnail.php	/^        $file = $this->db->getFileByName($name);$/;"	v
+file	src/App/Handlers/Upload.php	/^            $file = \\App\\Common::fetch($link);$/;"	v
+fileGet	src/App/Database.php	/^    public function fileGet($name)$/;"	f
+filePut	src/App/Database.php	/^    public function filePut($name, $data)$/;"	f
+files	src/App/Handlers/FileList.php	/^        $files = $this->db->findFiles();$/;"	v
+files	src/App/Handlers/Files.php	/^        $files = $this->db->dbFetch("SELECT `id`, `hash`, `real_name`, `kind`, `type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {$/;"	v
+files	src/App/UploadHandler.php	/^        $files = $request->getUploadedFiles();$/;"	v
+findFiles	src/App/Database.php	/^    public function findFiles()$/;"	f
+fn	src/App/Handlers/Short.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
+fn	src/App/Handlers/ShortImage.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
+fname	src/App/Handlers/Page.php	/^                $fname = $m[1];$/;"	v
+fresh	src/App/Handlers/Page.php	/^                $fresh = true;$/;"	v
+fresh	src/App/Handlers/Page.php	/^        $fresh = $request->getQueryParam("cache") == "no";$/;"	v
+gen	src/App/Handlers/Short.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($link);$/;"	v
+gen	src/App/Handlers/Short.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($params["link"]);$/;"	v
+gen	src/App/Handlers/ShortImage.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($link);$/;"	v
+gen	src/App/Handlers/ShortImage.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($params["link"]);$/;"	v
+getAllPageNames	src/App/Database.php	/^    public function getAllPageNames()$/;"	f
+getBarCode	src/App/Handlers/Short.php	/^    protected function getBarCode($link)$/;"	f
+getBarCode	src/App/Handlers/ShortImage.php	/^    protected function getBarCode($link)$/;"	f
+getByName	src/App/Page.php	/^    public static function getByName($name)$/;"	f
+getCanvas	src/App/Handlers/Short.php	/^    protected function getCanvas()$/;"	f
+getCanvas	src/App/Handlers/ShortImage.php	/^    protected function getCanvas()$/;"	f
+getCode	src/App/Handlers/Short.php	/^    protected function getCode($name)$/;"	f
+getCode	src/App/Handlers/ShortImage.php	/^    protected function getCode($name)$/;"	f
+getEdit	src/App/Handlers.php	/^    public function getEdit(Request $request, Response $response)$/;"	f
+getEnglishName	src/App/Handlers/Short.php	/^    protected function getEnglishName($name)$/;"	f
+getEnglishName	src/App/Handlers/ShortImage.php	/^    protected function getEnglishName($code)$/;"	f
+getFile	src/App/Handlers/Upload.php	/^    protected function getFile(Request $request)$/;"	f
+getFileByHash	src/App/Database.php	/^    public function getFileByHash($hash)$/;"	f
+getFileByName	src/App/Database.php	/^    public function getFileByName($name)$/;"	f
+getFileName	src/App/Handlers/Upload.php	/^    protected function getFileName($link, array $file)$/;"	f
+getHome	src/App/Handlers.php	/^    public function getHome(Request $request, Response $response)$/;"	f
+getImage	src/App/Handlers/Files.php	/^    protected function getImage($img)$/;"	f
+getPageById	src/App/Database.php	/^    public function getPageById($id)$/;"	f
+getPageByName	src/App/Database.php	/^    public function getPageByName($name)$/;"	f
+getPageNames	src/App/Handlers/Short.php	/^    protected function getPageNames($name)$/;"	f
+getRussianName	src/App/Handlers/Short.php	/^    protected function getRussianName($code)$/;"	f
+getRussianName	src/App/Handlers/ShortImage.php	/^    protected function getRussianName($code)$/;"	f
+getSnippet	src/App/Sphinx.php	/^    protected function getSnippet($source, $query)$/;"	f
+getThumbnail	src/App/Database.php	/^    public function getThumbnail($name, $type)$/;"	f
+guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
+hasPage	src/App/Handlers/Search.php	/^        $hasPage = $this->db->getPageByName($wikiName) ? true : false;$/;"	v
+hash	src/App/FileHandler.php	/^        $hash = empty($file["hash"])$/;"	v
+hash	src/App/Handlers/File.php	/^        $hash = empty($file["hash"])$/;"	v
+hash	src/App/Handlers/Short.php	/^        $hash = empty($file["hash"])$/;"	v
+hash	src/App/Handlers/Thumbnail.php	/^        $hash = md5($body);$/;"	v
+hash	src/App/Handlers/Upload.php	/^        $hash = md5($body);$/;"	v
+hash	src/App/UploadHandler.php	/^        $hash = md5($res["body"]);$/;"	v
+html	src/App/Common.php	/^        $html = $converter->convertToHtml($source);$/;"	v
+html	src/App/Common.php	/^        $html = preg_replace_callback('@<h([12345])>(.+)<\/h([12345])>@', function ($m) use (&$level, &$toc) {$/;"	v
+html	src/App/Common.php	/^        $html = str_replace("<div id=\\"toc\\"><\/div>", "<div id=\\"toc\\">{$toc}<\/div>", $html);$/;"	v
+html	src/App/Database.php	/^        $html = null;$/;"	v
+html	src/App/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
+html	src/App/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\" data-caption=\\"{$caption}\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
+html	src/App/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
+html	src/App/Handlers/Page.php	/^                        $html = "<audio id='file_{$file["id"]}' controls='controls' preload='metadata'>";$/;"	v
+html	src/App/Handlers/Page.php	/^            $html = $page["html"];$/;"	v
+html	src/App/Handlers/Page.php	/^            $html = $this->renderPage($page);$/;"	v
+html	src/App/Handlers/Page.php	/^        $html = $this->template->renderPage($data, function ($m) {$/;"	v
+html	src/App/Parser.php	/^        $html = $md->convertToHtml($source);$/;"	v
+html	src/App/Parser.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
+html	src/App/Parser.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
+html	src/App/Parser.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', function ($m) {$/;"	v
+html	src/App/Template.php	/^            $html = \\Wik\\Common::renderMarkdown($src);$/;"	v
+html	src/App/Template.php	/^        $html = $template->render($data);$/;"	v
+html	src/App/Template.php	/^        $html = $this->renderFile("page.twig", $data);$/;"	v
+html	src/App/Template.php	/^        $html = $this->renderFile($fileName, $data);$/;"	v
+html	src/App/Template.php	/^        $html = \\App\\Common::renderMarkdown($pageText);$/;"	v
+html	src/App/Template.php	/^        $html = \\App\\Common::renderTOC($html);$/;"	v
+html	src/App/Template.php	/^        $html = \\App\\Util::cleanHtml($html);$/;"	v
+html	src/App/Template.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
+html	src/App/Template.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', $link_cb, $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace($re = '@\\s*<(' . $all . '|!--)([^>]*>)\\s*@', '<\\1\\2', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@<\/a>\\s+@', '<\/a> ', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@\\.  @', '.&nbsp; ', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@\\s*<\/(' . $all . ')>\\s*@ms', '<\/\\1>', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/([a-z0-9]+)>@', '<\/\\1>', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $html);$/;"	v
+ih	src/App/Handlers/Files.php	/^        $ih = imagesy($img);$/;"	v
+ih	src/App/Handlers/Thumbnail.php	/^        $ih = imagesy($img);$/;"	v
+image	src/App/Handlers/Files.php	/^                $image = "\/i\/thumbnails\/{$em["id"]}.jpg";$/;"	v
+image	src/App/Handlers/Files.php	/^                $image = null;$/;"	v
+image	src/App/Handlers/Short.php	/^        $image = $this->renderImage($params);$/;"	v
+image	src/App/Handlers/Short.php	/^        $image = $this->renderImage([$/;"	v
+image	src/App/Handlers/ShortImage.php	/^        $image = $this->renderImage($params);$/;"	v
+img	src/App/Handlers/Files.php	/^                $img = $dst;$/;"	v
+img	src/App/Handlers/Files.php	/^        $img = $this->scaleImage($img, [$/;"	v
+img	src/App/Handlers/Files.php	/^        $img = $this->sharpenImage($img);$/;"	v
+img	src/App/Handlers/Files.php	/^        $img = imagecreatefromstring($file["body"]);$/;"	v
+img	src/App/Handlers/Short.php	/^        $img = imagecreatefromstring($png);$/;"	v
+img	src/App/Handlers/ShortImage.php	/^        $img = imagecreatefromstring($png);$/;"	v
+img	src/App/Handlers/Thumbnail.php	/^                $img = $dst;$/;"	v
+img	src/App/Handlers/Thumbnail.php	/^        $img = $this->scaleImage($img, $options);$/;"	v
+img	src/App/Handlers/Thumbnail.php	/^        $img = imageCreateFromString($file["body"]);$/;"	v
+index	src/App/Sphinx.php	/^        $this->index = $settings["index"];$/;"	v
+index	src/App/Sphinx.php	/^    protected $index;$/;"	v
+info	src/App/Handlers/Short.php	/^        $info = $this->db->shortsGetByCode($code);$/;"	v
+info	src/App/UploadHandler.php	/^                $info = $this->receiveFile($file);$/;"	v
+insert	src/App/Database.php	/^    public function insert($tableName, array $fields)$/;"	f
+isAdmin	src/App/CommonHandler.php	/^    protected function isAdmin(Request $request)$/;"	f
+iw	src/App/Handlers/Files.php	/^        $iw = imagesx($img);$/;"	v
+iw	src/App/Handlers/Thumbnail.php	/^        $iw = imagesx($img);$/;"	v
+k	src/App/Common.php	/^                    $k = strtolower(trim($parts[0]));$/;"	v
+key	src/App/Handlers/Thumbnail.php	/^        $key = $m[2];$/;"	v
+keys	src/App/Template.php	/^        $keys = ["header", "footer", "sidebar"];$/;"	v
+kind	src/App/Handlers/Upload.php	/^                $kind = "other";$/;"	v
+kind	src/App/Handlers/Upload.php	/^                $kind = "photo";$/;"	v
+lang	src/App/Template.php	/^        $lang = $dlang = isset($this->defaults["language"]) ? $this->defaults["language"] : "en";$/;"	v
+large	src/App/Handlers/Page.php	/^                        $large = "\/files\/{$file["id"]}\/download";$/;"	v
+length	src/App/Handlers/Thumbnail.php	/^        $length = strlen($tn["body"]);$/;"	v
+level	src/App/Common.php	/^            $level = (int)$openLevel;$/;"	v
+level	src/App/Common.php	/^        $level = 1;$/;"	v
+lines	src/App/Parser.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
+lines	src/App/Parser.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
+lines	src/App/Template.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
+lines	src/App/Template.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
+lines	src/App/Util.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
+lines	src/App/Util.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
+link	src/App/Handlers/Page.php	/^                        $link = "\/files\/{$file["id"]}";$/;"	v
+link	src/App/Handlers/Page.php	/^            $link = "\/wiki?name=" . urlencode($m[1]);$/;"	v
+link	src/App/Handlers/Page.php	/^            $link = sprintf("<a class=\\"wiki %s\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", $cls, urlencode($target), htmlspecialchars($target), htmlspecialchars($title));$/;"	v
+link	src/App/Handlers/Search.php	/^            $link = "\/wiki?name=" . urlencode($res[0]["name"]);$/;"	v
+link	src/App/Handlers/Short.php	/^                $link = $page["ru"];$/;"	v
+link	src/App/Handlers/Short.php	/^            $link = $page["name"];$/;"	v
+link	src/App/Handlers/Short.php	/^        $link = null;$/;"	v
+link	src/App/Handlers/ShortRedirect.php	/^        $link = "\/wiki?name=" . urlencode($name);$/;"	v
+link	src/App/Handlers/Sitemap.php	/^            $link = $base . "\/wiki?name=" . urlencode($page["name"]);$/;"	v
+link	src/App/Handlers/Upload.php	/^        $link = $request->getParam("link");$/;"	v
+link	src/App/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
+listPages	src/App/Database.php	/^    public function listPages($sort = null)$/;"	f
+loadThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function loadThumbnail($name, $type)$/;"	f
+loader	src/App/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
 logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
-md	src/Wiki/Parser.php	/^        $md = new CommonMarkConverter();$/;"	v
-mimeType	src/Wiki/Handlers/Thumbnail.php	/^        $mimeType = "image\/jpeg";$/;"	v
-name	src/Wiki/FileHandler.php	/^        $name = $args["name"];$/;"	v
-name	src/Wiki/Handlers.php	/^        $name = $_POST["page_name"];$/;"	v
-name	src/Wiki/Handlers/EditPage.php	/^        $name = $_POST["page_name"];$/;"	v
-name	src/Wiki/Handlers/File.php	/^        $name = $args["name"];$/;"	v
-name	src/Wiki/Handlers/Page.php	/^        $name = $_POST["page_name"];$/;"	v
-name	src/Wiki/Handlers/Short.php	/^        $name = $_GET["name"];$/;"	v
-name	src/Wiki/Handlers/Short.php	/^        $name = $args["name"];$/;"	v
-name	src/Wiki/Handlers/Short.php	/^        $name = $this->db->shortGetName($code);$/;"	v
-name	src/Wiki/Handlers/ShortImage.php	/^        $name = $this->db->shortGetName($code);$/;"	v
-name	src/Wiki/Handlers/ShortRedirect.php	/^        $name = $this->db->shortGetName($args["code"]);$/;"	v
-name	src/Wiki/Handlers/Thumbnail.php	/^        $name = $m[1] . "." . $m[3];$/;"	v
-name	src/Wiki/Handlers/Upload.php	/^                $name = $files["file"]->getClientFilename();$/;"	v
-name	src/Wiki/Handlers/Upload.php	/^                $name = $this->getFileName($link, $file);$/;"	v
-name	src/Wiki/Handlers/Upload.php	/^        $name = basename($url["path"]);$/;"	v
-name	src/Wiki/Handlers/Upload.php	/^        $name = null;$/;"	v
-name	src/Wiki/Template.php	/^            $name = "wiki:" . $key;$/;"	v
-nameEn	src/Wiki/Handlers/ShortImage.php	/^        $nameEn = $this->getEnglishName($code);$/;"	v
-nameRu	src/Wiki/Handlers/ShortImage.php	/^        $nameRu = $this->getRussianName($code);$/;"	v
-next	src/Wiki/Handlers/Account.php	/^        $next = $_POST["back"];$/;"	v
-next	src/Wiki/Handlers/Page.php	/^            $next = "\/w\/login?back=" . urlencode($back);$/;"	v
-next	src/Wiki/Handlers/Search.php	/^            $next = "\/wiki?name=" . urlencode($short["link"]);$/;"	v
-next	src/Wiki/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($info["link"]);$/;"	v
-nh	src/Wiki/Handlers/Files.php	/^                $nh = round($nw \/ $r);$/;"	v
-nh	src/Wiki/Handlers/Thumbnail.php	/^                $nh = round($nw \/ $r);$/;"	v
-notfound	src/Wiki/CommonHandler.php	/^    protected function notfound(Response $response)$/;"	f
-now	src/Wiki/Database.php	/^        $now = time();$/;"	v
-nw	src/Wiki/Handlers/Files.php	/^                $nw = $options["width"];$/;"	v
-nw	src/Wiki/Handlers/Thumbnail.php	/^                $nw = $options["width"];$/;"	v
-offset	src/Wiki/Handlers/Files.php	/^        $offset = 0;$/;"	v
-offset	src/Wiki/Handlers/Thumbnail.php	/^        $offset = 0;$/;"	v
-old	src/Wiki/Handlers/Upload.php	/^        $old = $this->db->dbFetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);$/;"	v
-onCreate	src/Wiki/Handlers/Short.php	/^    public function onCreate(Request $request, Response $response, array $args)$/;"	f
-onDownload	src/Wiki/Handlers/Files.php	/^    public function onDownload(Request $request, Response $response, array $args)$/;"	f
-onEdit	src/Wiki/Handlers/Page.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/FileHandler.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/EditPage.php	/^    public function onGet(Request $request, Response $response)$/;"	f
-onGet	src/Wiki/Handlers/File.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/FileList.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/Index.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/Page.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/Search.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/Short.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/ShortImage.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/ShortRedirect.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/Sitemap.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/Thumbnail.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGet	src/Wiki/Handlers/Upload.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
-onGetForm	src/Wiki/Handlers/Short.php	/^    public function onGetForm(Request $request, Response $response, array $args)$/;"	f
-onGetImage	src/Wiki/Handlers/Short.php	/^    public function onGetImage(Request $request, Response $response, array $args)$/;"	f
-onGetItem	src/Wiki/Handlers/Storage.php	/^    public function onGetItem(Request $request, Response $response, array $args)$/;"	f
-onGetLoginForm	src/Wiki/Handlers/Account.php	/^    public function onGetLoginForm(Request $request, Response $response, array $args)$/;"	f
-onGetPreview	src/Wiki/Handlers/Short.php	/^    public function onGetPreview(Request $request, Response $response, array $args)$/;"	f
-onGetRecent	src/Wiki/Handlers/Files.php	/^    public function onGetRecent(Request $request, Response $response, array $args)$/;"	f
-onLogin	src/Wiki/Handlers/Account.php	/^    public function onLogin(Request $request, Response $response, array $args)$/;"	f
-onPost	src/Wiki/Handlers/EditPage.php	/^    public function onPost(Request $request, Response $response, array $args)$/;"	f
-onPost	src/Wiki/Handlers/Upload.php	/^    public function onPost(Request $request, Response $response)$/;"	f
-onPost	src/Wiki/UploadHandler.php	/^    public function onPost(Request $request, Response $response)$/;"	f
-onRedirect	src/Wiki/Handlers/Short.php	/^    public function onRedirect(Request $request, Response $response, array $args)$/;"	f
-onSave	src/Wiki/Handlers/Page.php	/^    public function onSave(Request $request, Response $response, array $args)$/;"	f
-onShowFile	src/Wiki/Handlers/Files.php	/^    public function onShowFile(Request $request, Response $response, array $args)$/;"	f
-onShowItem	src/Wiki/Handlers/Short.php	/^    public function onShowItem(Request $request, Response $response, array $args)$/;"	f
-onThumbnail	src/Wiki/Handlers/Files.php	/^    public function onThumbnail(Request $request, Response $response, array $args)$/;"	f
-options	src/Wiki/Handlers/Files.php	/^        $options = array_merge([$/;"	v
-options	src/Wiki/Handlers/Thumbnail.php	/^        $options = array_merge([$/;"	v
-page	src/Wiki/Handlers.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
-page	src/Wiki/Handlers/EditPage.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
-page	src/Wiki/Handlers/Page.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
-page	src/Wiki/Handlers/Short.php	/^                    $page = \\Wiki\\Util::parsePage($tmp);$/;"	v
-page	src/Wiki/Handlers/Short.php	/^        $page = $this->db->getPageByName($name);$/;"	v
-page	src/Wiki/Handlers/Short.php	/^        $page = \\Wiki\\Util::parsePage($page);$/;"	v
-page	src/Wiki/Handlers/ShortImage.php	/^        $page = $this->db->getPageByName($name);$/;"	v
-page	src/Wiki/Handlers/ShortImage.php	/^        $page = \\Wiki\\Util::parsePage($page);$/;"	v
-page	src/Wiki/Sphinx.php	/^            $page = $this->db->getPageById($row["id"]);$/;"	v
-page	src/Wiki/Template.php	/^            $page = $db->getPageByName($name);$/;"	v
-pageName	src/Wiki/Handlers.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
-pageName	src/Wiki/Handlers/EditPage.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
-pageName	src/Wiki/Handlers/Page.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
-pageName	src/Wiki/Template.php	/^        $pageName = $data["page_name"];$/;"	v
-pageText	src/Wiki/Template.php	/^        $pageText = $data["page_source"];$/;"	v
-pages	src/Wiki/Handlers/Index.php	/^        $pages = $this->db->listPages(@$_GET["sort"]);$/;"	v
-pages	src/Wiki/Handlers/Sitemap.php	/^        $pages = $this->db->listPages();$/;"	v
-params	src/Wiki/Handlers/Short.php	/^        $params = [$/;"	v
-params	src/Wiki/Handlers/Short.php	/^        $params = array_merge([$/;"	v
-params	src/Wiki/Handlers/ShortImage.php	/^        $params = [$/;"	v
-parse	src/Wiki/Parser.php	/^    public static function parse($name, $source)$/;"	f
-parseName	src/Wiki/Handlers/Thumbnail.php	/^    protected function parseName($name)$/;"	f
-parsePage	src/Wiki/Util.php	/^    public static function parsePage(array $page)$/;"	f
-part1	src/Wiki/Common.php	/^        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);$/;"	v
-part1	src/Wiki/UploadHandler.php	/^        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);$/;"	v
-part2	src/Wiki/Common.php	/^        $part2 = substr(sha1($salt), 0, 10);$/;"	v
-part2	src/Wiki/UploadHandler.php	/^        $part2 = substr(sha1($res["body"]), 0, 10);$/;"	v
-part3	src/Wiki/Common.php	/^        $part3 = sprintf("%08x", time());$/;"	v
-part3	src/Wiki/UploadHandler.php	/^        $part3 = sprintf("%x", time());$/;"	v
-parts	src/Wiki/Common.php	/^                    $parts = explode(":", $h, 2);$/;"	v
-parts	src/Wiki/Handlers/Page.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
-parts	src/Wiki/Parser.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
-path	src/Wiki/Handlers/Short.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
-path	src/Wiki/Handlers/Storage.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
-pi	src/Wiki/Handlers/Page.php	/^                    $pi = pathinfo($file["name"]);$/;"	v
-png	src/Wiki/Handlers/Short.php	/^        $png = $gen->writeString();$/;"	v
-png	src/Wiki/Handlers/ShortImage.php	/^        $png = $gen->writeString();$/;"	v
-postEdit	src/Wiki/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
-prepareThumbnail	src/Wiki/Handlers/Thumbnail.php	/^    protected function prepareThumbnail($name, $type, array $options)$/;"	f
-props	src/Wiki/Parser.php	/^        $props = array($/;"	v
-props	src/Wiki/Template.php	/^        $props = array($/;"	v
-props	src/Wiki/Util.php	/^        $props = [$/;"	v
-query	src/Wiki/Database.php	/^        $query = "INSERT INTO `{$tableName}` ({$_fields}) VALUES ({$_marks})";$/;"	v
-query	src/Wiki/Handlers/Search.php	/^        $query = @$_GET["query"];$/;"	v
-r	src/Wiki/Handlers/Files.php	/^                $r = $iw \/ $ih;$/;"	v
-r	src/Wiki/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
-re	src/Wiki/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($environment);$/;"	v
-receiveFile	src/Wiki/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
-recent	src/Wiki/Handlers/Short.php	/^        $recent = $this->db->shortsGetRecent();$/;"	v
-render	src/Wiki/CommonHandler.php	/^    protected function render(Response $response, $templateName, array $data = [])$/;"	f
-render	src/Wiki/Template.php	/^    public function render(Response $response, $fileName, array $data = array())$/;"	f
-renderFile	src/Wiki/Template.php	/^    public function renderFile($fileName, array $data)$/;"	f
-renderImage	src/Wiki/Handlers/Short.php	/^    protected function renderImage(array $params)$/;"	f
-renderImage	src/Wiki/Handlers/ShortImage.php	/^    protected function renderImage(array $params)$/;"	f
-renderMarkdown	src/Wiki/Common.php	/^    public static function renderMarkdown($source)$/;"	f
-renderPage	src/Wiki/Handlers/Page.php	/^    protected function renderPage(array $page)$/;"	f
-renderPage	src/Wiki/Template.php	/^    public function renderPage(array $data, $link_cb)$/;"	f
-renderTOC	src/Wiki/Common.php	/^    public static function renderTOC($html)$/;"	f
-requireAdmin	src/Wiki/CommonHandler.php	/^    protected function requireAdmin(Request $request)$/;"	f
-res	src/Wiki/Common.php	/^        $res = array($/;"	v
-res	src/Wiki/Common.php	/^        $res = mb_strtoupper(mb_substr($name, 0, 1))$/;"	v
-res	src/Wiki/Database.php	/^        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `id` = ?", [$id]);$/;"	v
-res	src/Wiki/Database.php	/^        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));$/;"	v
-res	src/Wiki/Database.php	/^        $res = array();$/;"	v
-res	src/Wiki/Handlers/Files.php	/^                $res = imagecopyresampled($dst, $img, 0, 0, 0, 0, $nw, $nh, $iw, $ih);$/;"	v
-res	src/Wiki/Handlers/Search.php	/^            $res = $query ? $this->sphinx->search($query) : null;$/;"	v
-res	src/Wiki/Handlers/Search.php	/^            $res = [];$/;"	v
-res	src/Wiki/Handlers/Thumbnail.php	/^                $res = imagecopyresampled($dst, $img, 0, 0, 0, 0, $nw, $nh, $iw, $ih);$/;"	v
-res	src/Wiki/Handlers/Thumbnail.php	/^        $res = $this->db->getThumbnail($name, $type);$/;"	v
-res	src/Wiki/Sphinx.php	/^        $res = $this->searchIds($query);$/;"	v
-res	src/Wiki/Sphinx.php	/^        $res = array();$/;"	v
-res	src/Wiki/UploadHandler.php	/^        $res = array($/;"	v
-response	src/Wiki/FileHandler.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
-response	src/Wiki/Handlers/File.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
-response	src/Wiki/Handlers/Files.php	/^            $response = $response->withHeader("Content-Type", "image\/jpeg")$/;"	v
-response	src/Wiki/Handlers/Files.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
-response	src/Wiki/Handlers/Short.php	/^        $response = $response->withHeader("Content-Type", "image\/png")$/;"	v
-response	src/Wiki/Handlers/Short.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
-response	src/Wiki/Handlers/ShortImage.php	/^        $response = $response->withHeader("Content-Type", "image\/png")$/;"	v
-response	src/Wiki/Handlers/Sitemap.php	/^        $response = $response->withHeader("Content-Type", "text\/xml; charset=utf-8");$/;"	v
-response	src/Wiki/Handlers/Storage.php	/^        $response = $response->withHeader("Content-Type", $type)$/;"	v
-response	src/Wiki/Handlers/Thumbnail.php	/^        $response = $response->withHeader("Content-Type", $mimeType)$/;"	v
-root	src/Wiki/Template.php	/^        $root = $settings["template_path"];$/;"	v
-row	src/Wiki/Database.php	/^        $row = $this->dbFetchOne("SELECT `data` FROM `sessions` WHERE `id` = ?", [$id]);$/;"	v
-row	src/Wiki/Database.php	/^        $row = $this->dbFetchOne("SELECT `id` FROM `shorts` WHERE `name` = ?", [$name]);$/;"	v
-row	src/Wiki/Database.php	/^        $row = $this->dbFetchOne("SELECT `name` FROM `shorts` WHERE `id` = ?", [$code]);$/;"	v
-rows	src/Wiki/Database.php	/^            $rows = array_map($callback, $rows);$/;"	v
-rows	src/Wiki/Database.php	/^        $rows = $sth->fetchAll(\\PDO::FETCH_ASSOC);$/;"	v
-rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `hash` = ?", [$hash]);$/;"	v
-rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `name` = ? OR `hash` = ?", [$name, $name]);$/;"	v
-rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `thumbnails` WHERE `name` = ? AND `type` = ?", [$name, $type]);$/;"	v
-rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");$/;"	v
-rows	src/Wiki/Database.php	/^        $rows = $this->dbFetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
-rows	src/Wiki/Sphinx.php	/^        $rows = $sth->fetchAll(\\PDO::FETCH_ASSOC);$/;"	v
-ruName	src/Wiki/Handlers/Short.php	/^        $ruName = $this->getRussianName($code);$/;"	v
-rufont	src/Wiki/Handlers/Short.php	/^        $rufont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Bold.ttf";$/;"	v
-rufont	src/Wiki/Handlers/ShortImage.php	/^        $rufont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Bold.ttf";$/;"	v
-russian	src/Wiki/Handlers/Short.php	/^                    $russian = $page["title"];$/;"	v
-russian	src/Wiki/Handlers/Short.php	/^            $russian = $page["title"];$/;"	v
-russian	src/Wiki/Handlers/Short.php	/^        $russian = null;$/;"	v
-saveFile	src/Wiki/Database.php	/^    public function saveFile(array $fileInfo)$/;"	f
-saveThumbnail	src/Wiki/Database.php	/^    public function saveThumbnail($name, $type, $body)$/;"	f
-scaleImage	src/Wiki/Handlers/Files.php	/^    protected function scaleImage($img, array $options)$/;"	f
-scaleImage	src/Wiki/Handlers/Thumbnail.php	/^    protected function scaleImage($img, array $options)$/;"	f
-search	src/Wiki/Sphinx.php	/^    public function search($query)$/;"	f
-searchIds	src/Wiki/Sphinx.php	/^    protected function searchIds($query)$/;"	f
-sessionGet	src/Wiki/Database.php	/^    public function sessionGet($id)$/;"	f
-sessionGetId	src/Wiki/CommonHandler.php	/^    protected function sessionGetId()$/;"	f
-sessionSave	src/Wiki/CommonHandler.php	/^    protected function sessionSave(array $data)$/;"	f
-sessionSave	src/Wiki/Database.php	/^    public function sessionSave($id, array $data)$/;"	f
-set	src/Wiki/Handlers/Thumbnail.php	/^        $set = $this->container->get("settings")["thumbnails"];$/;"	v
-settings	src/Wiki/Sphinx.php	/^        $settings = array_merge([$/;"	v
-settings	src/Wiki/Template.php	/^        $settings = $container->get("settings")["templates"];$/;"	v
+md	src/App/Parser.php	/^        $md = new CommonMarkConverter();$/;"	v
+mimeType	src/App/Handlers/Thumbnail.php	/^        $mimeType = "image\/jpeg";$/;"	v
+name	src/App/FileHandler.php	/^        $name = $args["name"];$/;"	v
+name	src/App/Handlers.php	/^        $name = $_POST["page_name"];$/;"	v
+name	src/App/Handlers/EditPage.php	/^        $name = $_POST["page_name"];$/;"	v
+name	src/App/Handlers/File.php	/^        $name = $args["name"];$/;"	v
+name	src/App/Handlers/Page.php	/^        $name = $_POST["page_name"];$/;"	v
+name	src/App/Handlers/Short.php	/^        $name = $_GET["name"];$/;"	v
+name	src/App/Handlers/Short.php	/^        $name = $args["name"];$/;"	v
+name	src/App/Handlers/Short.php	/^        $name = $this->db->shortGetName($code);$/;"	v
+name	src/App/Handlers/ShortImage.php	/^        $name = $this->db->shortGetName($code);$/;"	v
+name	src/App/Handlers/ShortRedirect.php	/^        $name = $this->db->shortGetName($args["code"]);$/;"	v
+name	src/App/Handlers/Thumbnail.php	/^        $name = $m[1] . "." . $m[3];$/;"	v
+name	src/App/Handlers/Upload.php	/^                $name = $files["file"]->getClientFilename();$/;"	v
+name	src/App/Handlers/Upload.php	/^                $name = $this->getFileName($link, $file);$/;"	v
+name	src/App/Handlers/Upload.php	/^        $name = basename($url["path"]);$/;"	v
+name	src/App/Handlers/Upload.php	/^        $name = null;$/;"	v
+name	src/App/Template.php	/^            $name = "wiki:" . $key;$/;"	v
+nameEn	src/App/Handlers/ShortImage.php	/^        $nameEn = $this->getEnglishName($code);$/;"	v
+nameRu	src/App/Handlers/ShortImage.php	/^        $nameRu = $this->getRussianName($code);$/;"	v
+next	src/App/Handlers/Account.php	/^        $next = $_POST["back"];$/;"	v
+next	src/App/Handlers/Page.php	/^            $next = "\/w\/login?back=" . urlencode($back);$/;"	v
+next	src/App/Handlers/Search.php	/^            $next = "\/wiki?name=" . urlencode($short["link"]);$/;"	v
+next	src/App/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($info["link"]);$/;"	v
+nh	src/App/Handlers/Files.php	/^                $nh = round($nw \/ $r);$/;"	v
+nh	src/App/Handlers/Thumbnail.php	/^                $nh = round($nw \/ $r);$/;"	v
+notfound	src/App/CommonHandler.php	/^    protected function notfound(Response $response)$/;"	f
+now	src/App/Database.php	/^        $now = time();$/;"	v
+nw	src/App/Handlers/Files.php	/^                $nw = $options["width"];$/;"	v
+nw	src/App/Handlers/Thumbnail.php	/^                $nw = $options["width"];$/;"	v
+offset	src/App/Handlers/Files.php	/^        $offset = 0;$/;"	v
+offset	src/App/Handlers/Thumbnail.php	/^        $offset = 0;$/;"	v
+old	src/App/Handlers/Upload.php	/^        $old = $this->db->dbFetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);$/;"	v
+onCreate	src/App/Handlers/Short.php	/^    public function onCreate(Request $request, Response $response, array $args)$/;"	f
+onDownload	src/App/Handlers/Files.php	/^    public function onDownload(Request $request, Response $response, array $args)$/;"	f
+onEdit	src/App/Handlers/Page.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/FileHandler.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/EditPage.php	/^    public function onGet(Request $request, Response $response)$/;"	f
+onGet	src/App/Handlers/File.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/FileList.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/Index.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/Page.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/Search.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/Short.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/ShortImage.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/ShortRedirect.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/Sitemap.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/Thumbnail.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGet	src/App/Handlers/Upload.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
+onGetForm	src/App/Handlers/Short.php	/^    public function onGetForm(Request $request, Response $response, array $args)$/;"	f
+onGetImage	src/App/Handlers/Short.php	/^    public function onGetImage(Request $request, Response $response, array $args)$/;"	f
+onGetItem	src/App/Handlers/Storage.php	/^    public function onGetItem(Request $request, Response $response, array $args)$/;"	f
+onGetLoginForm	src/App/Handlers/Account.php	/^    public function onGetLoginForm(Request $request, Response $response, array $args)$/;"	f
+onGetPreview	src/App/Handlers/Short.php	/^    public function onGetPreview(Request $request, Response $response, array $args)$/;"	f
+onGetRecent	src/App/Handlers/Files.php	/^    public function onGetRecent(Request $request, Response $response, array $args)$/;"	f
+onLogin	src/App/Handlers/Account.php	/^    public function onLogin(Request $request, Response $response, array $args)$/;"	f
+onPost	src/App/Handlers/EditPage.php	/^    public function onPost(Request $request, Response $response, array $args)$/;"	f
+onPost	src/App/Handlers/Upload.php	/^    public function onPost(Request $request, Response $response)$/;"	f
+onPost	src/App/UploadHandler.php	/^    public function onPost(Request $request, Response $response)$/;"	f
+onRedirect	src/App/Handlers/Short.php	/^    public function onRedirect(Request $request, Response $response, array $args)$/;"	f
+onSave	src/App/Handlers/Page.php	/^    public function onSave(Request $request, Response $response, array $args)$/;"	f
+onShowFile	src/App/Handlers/Files.php	/^    public function onShowFile(Request $request, Response $response, array $args)$/;"	f
+onShowItem	src/App/Handlers/Short.php	/^    public function onShowItem(Request $request, Response $response, array $args)$/;"	f
+onThumbnail	src/App/Handlers/Files.php	/^    public function onThumbnail(Request $request, Response $response, array $args)$/;"	f
+options	src/App/Handlers/Files.php	/^        $options = array_merge([$/;"	v
+options	src/App/Handlers/Thumbnail.php	/^        $options = array_merge([$/;"	v
+page	src/App/Handlers.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
+page	src/App/Handlers/EditPage.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
+page	src/App/Handlers/Page.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
+page	src/App/Handlers/Short.php	/^                    $page = \\App\\Util::parsePage($tmp);$/;"	v
+page	src/App/Handlers/Short.php	/^        $page = $this->db->getPageByName($name);$/;"	v
+page	src/App/Handlers/Short.php	/^        $page = \\App\\Util::parsePage($page);$/;"	v
+page	src/App/Handlers/ShortImage.php	/^        $page = $this->db->getPageByName($name);$/;"	v
+page	src/App/Handlers/ShortImage.php	/^        $page = \\App\\Util::parsePage($page);$/;"	v
+page	src/App/Sphinx.php	/^            $page = $this->db->getPageById($row["id"]);$/;"	v
+page	src/App/Template.php	/^            $page = $db->getPageByName($name);$/;"	v
+pageName	src/App/Handlers.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
+pageName	src/App/Handlers/EditPage.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
+pageName	src/App/Handlers/Page.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
+pageName	src/App/Template.php	/^        $pageName = $data["page_name"];$/;"	v
+pageText	src/App/Template.php	/^        $pageText = $data["page_source"];$/;"	v
+pages	src/App/Handlers/Index.php	/^        $pages = $this->db->listPages(@$_GET["sort"]);$/;"	v
+pages	src/App/Handlers/Sitemap.php	/^        $pages = $this->db->listPages();$/;"	v
+params	src/App/Handlers/Short.php	/^        $params = [$/;"	v
+params	src/App/Handlers/Short.php	/^        $params = array_merge([$/;"	v
+params	src/App/Handlers/ShortImage.php	/^        $params = [$/;"	v
+parse	src/App/Parser.php	/^    public static function parse($name, $source)$/;"	f
+parseName	src/App/Handlers/Thumbnail.php	/^    protected function parseName($name)$/;"	f
+parsePage	src/App/Util.php	/^    public static function parsePage(array $page)$/;"	f
+part1	src/App/Common.php	/^        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);$/;"	v
+part1	src/App/UploadHandler.php	/^        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);$/;"	v
+part2	src/App/Common.php	/^        $part2 = substr(sha1($salt), 0, 10);$/;"	v
+part2	src/App/UploadHandler.php	/^        $part2 = substr(sha1($res["body"]), 0, 10);$/;"	v
+part3	src/App/Common.php	/^        $part3 = sprintf("%08x", time());$/;"	v
+part3	src/App/UploadHandler.php	/^        $part3 = sprintf("%x", time());$/;"	v
+parts	src/App/Common.php	/^                    $parts = explode(":", $h, 2);$/;"	v
+parts	src/App/Handlers/Page.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
+parts	src/App/Parser.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
+path	src/App/Handlers/Short.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
+path	src/App/Handlers/Storage.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
+pi	src/App/Handlers/Page.php	/^                    $pi = pathinfo($file["name"]);$/;"	v
+png	src/App/Handlers/Short.php	/^        $png = $gen->writeString();$/;"	v
+png	src/App/Handlers/ShortImage.php	/^        $png = $gen->writeString();$/;"	v
+postEdit	src/App/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
+prepareThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function prepareThumbnail($name, $type, array $options)$/;"	f
+props	src/App/Parser.php	/^        $props = array($/;"	v
+props	src/App/Template.php	/^        $props = array($/;"	v
+props	src/App/Util.php	/^        $props = [$/;"	v
+query	src/App/Database.php	/^        $query = "INSERT INTO `{$tableName}` ({$_fields}) VALUES ({$_marks})";$/;"	v
+query	src/App/Handlers/Search.php	/^        $query = @$_GET["query"];$/;"	v
+r	src/App/Handlers/Files.php	/^                $r = $iw \/ $ih;$/;"	v
+r	src/App/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
+re	src/App/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($environment);$/;"	v
+receiveFile	src/App/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
+recent	src/App/Handlers/Short.php	/^        $recent = $this->db->shortsGetRecent();$/;"	v
+render	src/App/CommonHandler.php	/^    protected function render(Response $response, $templateName, array $data = [])$/;"	f
+render	src/App/Template.php	/^    public function render(Response $response, $fileName, array $data = array())$/;"	f
+renderFile	src/App/Template.php	/^    public function renderFile($fileName, array $data)$/;"	f
+renderImage	src/App/Handlers/Short.php	/^    protected function renderImage(array $params)$/;"	f
+renderImage	src/App/Handlers/ShortImage.php	/^    protected function renderImage(array $params)$/;"	f
+renderMarkdown	src/App/Common.php	/^    public static function renderMarkdown($source)$/;"	f
+renderPage	src/App/Handlers/Page.php	/^    protected function renderPage(array $page)$/;"	f
+renderPage	src/App/Template.php	/^    public function renderPage(array $data, $link_cb)$/;"	f
+renderTOC	src/App/Common.php	/^    public static function renderTOC($html)$/;"	f
+requireAdmin	src/App/CommonHandler.php	/^    protected function requireAdmin(Request $request)$/;"	f
+res	src/App/Common.php	/^        $res = array($/;"	v
+res	src/App/Common.php	/^        $res = mb_strtoupper(mb_substr($name, 0, 1))$/;"	v
+res	src/App/Database.php	/^        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `id` = ?", [$id]);$/;"	v
+res	src/App/Database.php	/^        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));$/;"	v
+res	src/App/Database.php	/^        $res = array();$/;"	v
+res	src/App/Handlers/Files.php	/^                $res = imagecopyresampled($dst, $img, 0, 0, 0, 0, $nw, $nh, $iw, $ih);$/;"	v
+res	src/App/Handlers/Search.php	/^            $res = $query ? $this->sphinx->search($query) : null;$/;"	v
+res	src/App/Handlers/Search.php	/^            $res = [];$/;"	v
+res	src/App/Handlers/Thumbnail.php	/^                $res = imagecopyresampled($dst, $img, 0, 0, 0, 0, $nw, $nh, $iw, $ih);$/;"	v
+res	src/App/Handlers/Thumbnail.php	/^        $res = $this->db->getThumbnail($name, $type);$/;"	v
+res	src/App/Sphinx.php	/^        $res = $this->searchIds($query);$/;"	v
+res	src/App/Sphinx.php	/^        $res = array();$/;"	v
+res	src/App/UploadHandler.php	/^        $res = array($/;"	v
+response	src/App/FileHandler.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
+response	src/App/Handlers/File.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
+response	src/App/Handlers/Files.php	/^            $response = $response->withHeader("Content-Type", "image\/jpeg")$/;"	v
+response	src/App/Handlers/Files.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
+response	src/App/Handlers/Short.php	/^        $response = $response->withHeader("Content-Type", "image\/png")$/;"	v
+response	src/App/Handlers/Short.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
+response	src/App/Handlers/ShortImage.php	/^        $response = $response->withHeader("Content-Type", "image\/png")$/;"	v
+response	src/App/Handlers/Sitemap.php	/^        $response = $response->withHeader("Content-Type", "text\/xml; charset=utf-8");$/;"	v
+response	src/App/Handlers/Storage.php	/^        $response = $response->withHeader("Content-Type", $type)$/;"	v
+response	src/App/Handlers/Thumbnail.php	/^        $response = $response->withHeader("Content-Type", $mimeType)$/;"	v
+root	src/App/Template.php	/^        $root = $settings["template_path"];$/;"	v
+row	src/App/Database.php	/^        $row = $this->dbFetchOne("SELECT `data` FROM `sessions` WHERE `id` = ?", [$id]);$/;"	v
+row	src/App/Database.php	/^        $row = $this->dbFetchOne("SELECT `id` FROM `shorts` WHERE `name` = ?", [$name]);$/;"	v
+row	src/App/Database.php	/^        $row = $this->dbFetchOne("SELECT `name` FROM `shorts` WHERE `id` = ?", [$code]);$/;"	v
+rows	src/App/Database.php	/^            $rows = array_map($callback, $rows);$/;"	v
+rows	src/App/Database.php	/^        $rows = $sth->fetchAll(\\PDO::FETCH_ASSOC);$/;"	v
+rows	src/App/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `hash` = ?", [$hash]);$/;"	v
+rows	src/App/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `name` = ? OR `hash` = ?", [$name, $name]);$/;"	v
+rows	src/App/Database.php	/^        $rows = $this->dbFetch("SELECT * FROM `thumbnails` WHERE `name` = ? AND `type` = ?", [$name, $type]);$/;"	v
+rows	src/App/Database.php	/^        $rows = $this->dbFetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");$/;"	v
+rows	src/App/Database.php	/^        $rows = $this->dbFetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
+rows	src/App/Sphinx.php	/^        $rows = $sth->fetchAll(\\PDO::FETCH_ASSOC);$/;"	v
+ruName	src/App/Handlers/Short.php	/^        $ruName = $this->getRussianName($code);$/;"	v
+rufont	src/App/Handlers/Short.php	/^        $rufont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Bold.ttf";$/;"	v
+rufont	src/App/Handlers/ShortImage.php	/^        $rufont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Bold.ttf";$/;"	v
+russian	src/App/Handlers/Short.php	/^                    $russian = $page["title"];$/;"	v
+russian	src/App/Handlers/Short.php	/^            $russian = $page["title"];$/;"	v
+russian	src/App/Handlers/Short.php	/^        $russian = null;$/;"	v
+saveFile	src/App/Database.php	/^    public function saveFile(array $fileInfo)$/;"	f
+saveThumbnail	src/App/Database.php	/^    public function saveThumbnail($name, $type, $body)$/;"	f
+scaleImage	src/App/Handlers/Files.php	/^    protected function scaleImage($img, array $options)$/;"	f
+scaleImage	src/App/Handlers/Thumbnail.php	/^    protected function scaleImage($img, array $options)$/;"	f
+search	src/App/Sphinx.php	/^    public function search($query)$/;"	f
+searchIds	src/App/Sphinx.php	/^    protected function searchIds($query)$/;"	f
+sessionGet	src/App/Database.php	/^    public function sessionGet($id)$/;"	f
+sessionGetId	src/App/CommonHandler.php	/^    protected function sessionGetId()$/;"	f
+sessionSave	src/App/CommonHandler.php	/^    protected function sessionSave(array $data)$/;"	f
+sessionSave	src/App/Database.php	/^    public function sessionSave($id, array $data)$/;"	f
+set	src/App/Handlers/Thumbnail.php	/^        $set = $this->container->get("settings")["thumbnails"];$/;"	v
+settings	src/App/Sphinx.php	/^        $settings = array_merge([$/;"	v
+settings	src/App/Template.php	/^        $settings = $container->get("settings")["templates"];$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['logger'];$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['renderer'];$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['sphinx'];$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['templates'];$/;"	v
-sharpenImage	src/Wiki/Handlers/Files.php	/^    protected function sharpenImage($img)$/;"	f
-sharpenImage	src/Wiki/Handlers/Thumbnail.php	/^    protected function sharpenImage($img)$/;"	f
-sharpenMatrix	src/Wiki/Handlers/Files.php	/^        $sharpenMatrix = array($/;"	v
-sharpenMatrix	src/Wiki/Handlers/Thumbnail.php	/^        $sharpenMatrix = array($/;"	v
-short	src/Wiki/Handlers/Search.php	/^        $short = $this->db->shortsGetByCode($query);$/;"	v
-shortAdd	src/Wiki/Database.php	/^    public function shortAdd($russian, $english, $link)$/;"	f
-shortGetCode	src/Wiki/Database.php	/^    public function shortGetCode($name)$/;"	f
-shortGetName	src/Wiki/Database.php	/^    public function shortGetName($code)$/;"	f
-shortsGetByCode	src/Wiki/Database.php	/^    public function shortsGetByCode($code)$/;"	f
-shortsGetRecent	src/Wiki/Database.php	/^    public function shortsGetRecent()$/;"	f
-sid	src/Wiki/CommonHandler.php	/^            $sid = \\Wiki\\Common::uuid();$/;"	v
-sid	src/Wiki/CommonHandler.php	/^        $sid = $this->sessionGetId();$/;"	v
-small	src/Wiki/Handlers/Page.php	/^                        $small = "\/i\/thumbnails\/{$file["id"]}.jpg";$/;"	v
-snip	src/Wiki/Sphinx.php	/^            $snip = $this->getSnippet($html, $query);$/;"	v
+sharpenImage	src/App/Handlers/Files.php	/^    protected function sharpenImage($img)$/;"	f
+sharpenImage	src/App/Handlers/Thumbnail.php	/^    protected function sharpenImage($img)$/;"	f
+sharpenMatrix	src/App/Handlers/Files.php	/^        $sharpenMatrix = array($/;"	v
+sharpenMatrix	src/App/Handlers/Thumbnail.php	/^        $sharpenMatrix = array($/;"	v
+short	src/App/Handlers/Search.php	/^        $short = $this->db->shortsGetByCode($query);$/;"	v
+shortAdd	src/App/Database.php	/^    public function shortAdd($russian, $english, $link)$/;"	f
+shortGetCode	src/App/Database.php	/^    public function shortGetCode($name)$/;"	f
+shortGetName	src/App/Database.php	/^    public function shortGetName($code)$/;"	f
+shortsGetByCode	src/App/Database.php	/^    public function shortsGetByCode($code)$/;"	f
+shortsGetRecent	src/App/Database.php	/^    public function shortsGetRecent()$/;"	f
+sid	src/App/CommonHandler.php	/^            $sid = \\App\\Common::uuid();$/;"	v
+sid	src/App/CommonHandler.php	/^        $sid = $this->sessionGetId();$/;"	v
+small	src/App/Handlers/Page.php	/^                        $small = "\/i\/thumbnails\/{$file["id"]}.jpg";$/;"	v
+snip	src/App/Sphinx.php	/^            $snip = $this->getSnippet($html, $query);$/;"	v
 stack	src/dependencies.php	/^    $stack = ob_get_clean();$/;"	v
 stack	src/dependencies.php	/^    $stack = str_replace(dirname(__DIR__) . "\/", "", $stack);$/;"	v
-status	src/Wiki/Handlers/Page.php	/^            $status = 200;$/;"	v
-status	src/Wiki/Handlers/Page.php	/^            $status = 404;$/;"	v
-sth	src/Wiki/Database.php	/^        $sth = $db->prepare($query);$/;"	v
-sth	src/Wiki/Database.php	/^        $sth = $this->dbQuery($query, $_params);$/;"	v
-sth	src/Wiki/Sphinx.php	/^        $sth = $this->conn->prepare("CALL SNIPPETS(?, ?, ?, 10 AS around, 500 AS limit)");$/;"	v
-sth	src/Wiki/Sphinx.php	/^        $sth = $this->conn->prepare("SELECT * FROM `{$this->index}` WHERE MATCH (?)");$/;"	v
-stmt	src/Wiki/Database.php	/^        $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));$/;"	v
-target	src/Wiki/Handlers/Page.php	/^                $target = $parts[0];$/;"	v
-target	src/Wiki/Parser.php	/^                $target = $parts[0];$/;"	v
-template	src/Wiki/Template.php	/^        $template = $this->twig->load($fileName);$/;"	v
-text	src/Wiki/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v
-text	src/Wiki/Handlers/EditPage.php	/^        $text = $_POST["page_source"];$/;"	v
-text	src/Wiki/Handlers/Page.php	/^        $text = $_POST["page_source"];$/;"	v
-text	src/Wiki/Parser.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
-text	src/Wiki/Template.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
-text	src/Wiki/Util.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
-text	src/Wiki/Util.php	/^        $text = $page["source"];$/;"	v
-title	src/Wiki/Handlers/Page.php	/^                $title = $parts[0];$/;"	v
-title	src/Wiki/Handlers/Page.php	/^                $title = $parts[1];$/;"	v
-title	src/Wiki/Parser.php	/^                $title = $parts[0];$/;"	v
-title	src/Wiki/Parser.php	/^                $title = $parts[1];$/;"	v
-tmp	src/Wiki/Handlers/Page.php	/^            $tmp = $this->db->getPageByName($target);$/;"	v
-tmp	src/Wiki/Handlers/Upload.php	/^                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
-tmp	src/Wiki/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
-tn	src/Wiki/Handlers/Thumbnail.php	/^            $tn = $this->prepareThumbnail($name, $type, $options);$/;"	v
-tn	src/Wiki/UploadHandler.php	/^                $tn = $fi["filename"] . "_small." . $fi["extension"];$/;"	v
-toc	src/Wiki/Common.php	/^        $toc = "<h2>Содержание<\/h2>";$/;"	v
-tpl	src/dependencies.php	/^    $tpl = new \\Wiki\\Template($c);$/;"	v
-twig	src/Wiki/Template.php	/^        $this->twig = new \\Twig\\Environment($loader);$/;"	v
-twig	src/Wiki/Template.php	/^    protected $twig;$/;"	v
+status	src/App/Handlers/Page.php	/^            $status = 200;$/;"	v
+status	src/App/Handlers/Page.php	/^            $status = 404;$/;"	v
+sth	src/App/Database.php	/^        $sth = $db->prepare($query);$/;"	v
+sth	src/App/Database.php	/^        $sth = $this->dbQuery($query, $_params);$/;"	v
+sth	src/App/Sphinx.php	/^        $sth = $this->conn->prepare("CALL SNIPPETS(?, ?, ?, 10 AS around, 500 AS limit)");$/;"	v
+sth	src/App/Sphinx.php	/^        $sth = $this->conn->prepare("SELECT * FROM `{$this->index}` WHERE MATCH (?)");$/;"	v
+stmt	src/App/Database.php	/^        $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));$/;"	v
+target	src/App/Handlers/Page.php	/^                $target = $parts[0];$/;"	v
+target	src/App/Parser.php	/^                $target = $parts[0];$/;"	v
+template	src/App/Template.php	/^        $template = $this->twig->load($fileName);$/;"	v
+text	src/App/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v
+text	src/App/Handlers/EditPage.php	/^        $text = $_POST["page_source"];$/;"	v
+text	src/App/Handlers/Page.php	/^        $text = $_POST["page_source"];$/;"	v
+text	src/App/Parser.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
+text	src/App/Template.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
+text	src/App/Util.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
+text	src/App/Util.php	/^        $text = $page["source"];$/;"	v
+title	src/App/Handlers/Page.php	/^                $title = $parts[0];$/;"	v
+title	src/App/Handlers/Page.php	/^                $title = $parts[1];$/;"	v
+title	src/App/Parser.php	/^                $title = $parts[0];$/;"	v
+title	src/App/Parser.php	/^                $title = $parts[1];$/;"	v
+tmp	src/App/Handlers/Page.php	/^            $tmp = $this->db->getPageByName($target);$/;"	v
+tmp	src/App/Handlers/Upload.php	/^                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
+tmp	src/App/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
+tn	src/App/Handlers/Thumbnail.php	/^            $tn = $this->prepareThumbnail($name, $type, $options);$/;"	v
+tn	src/App/UploadHandler.php	/^                $tn = $fi["filename"] . "_small." . $fi["extension"];$/;"	v
+toc	src/App/Common.php	/^        $toc = "<h2>Содержание<\/h2>";$/;"	v
+tpl	src/dependencies.php	/^    $tpl = new \\App\\Template($c);$/;"	v
+twig	src/App/Template.php	/^        $this->twig = new \\Twig\\Environment($loader);$/;"	v
+twig	src/App/Template.php	/^    protected $twig;$/;"	v
 twig	src/dependencies.php	/^        $twig = $c->get("template");$/;"	v
-type	src/Wiki/Database.php	/^            $type = $this->conn->getAttribute(\\PDO::ATTR_DRIVER_NAME);$/;"	v
-type	src/Wiki/Handlers/Files.php	/^            $type = $type[0];$/;"	v
-type	src/Wiki/Handlers/Files.php	/^            $type = explode("\/", $em["type"]);$/;"	v
-type	src/Wiki/Handlers/Storage.php	/^        $type = $this->guessType($args["name"]);$/;"	v
-type	src/Wiki/Handlers/Upload.php	/^                $type = $file["headers"]["content-type"];$/;"	v
-type	src/Wiki/Handlers/Upload.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v
-type	src/Wiki/Handlers/Upload.php	/^        $type = null;$/;"	v
-updatePage	src/Wiki/Database.php	/^    public function updatePage($name, $text)$/;"	f
-updatePageHtml	src/Wiki/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
-updated	src/Wiki/Database.php	/^        $updated = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
-url	src/Wiki/Handlers/Upload.php	/^        $url = parse_url($link);$/;"	v
-uuid	src/Wiki/Common.php	/^        $uuid = sprintf("%s_%s_%s", $part1, $part2, $part3);$/;"	v
-uuid	src/Wiki/Common.php	/^    public static function uuid($body = null)$/;"	f
-v	src/Wiki/Common.php	/^                    $v = trim($parts[1]);$/;"	v
-wikiName	src/Wiki/Common.php	/^    public static function wikiName($name)$/;"	f
-wikiName	src/Wiki/Handlers/Search.php	/^        $wikiName = \\Wiki\\Common::wikiName($query);$/;"	v
-xml	src/Wiki/Handlers/Sitemap.php	/^        $xml = "<?xml version='1.0' encoding='utf-8'?".">\\n";$/;"	v
-xxfont	src/Wiki/Handlers/Short.php	/^        $xxfont = __DIR__ . "\/..\/..\/..\/data\/Lato-Regular.ttf";$/;"	v
-xxfont	src/Wiki/Handlers/ShortImage.php	/^        $xxfont = __DIR__ . "\/..\/..\/..\/data\/Lato-Regular.ttf";$/;"	v
+type	src/App/Database.php	/^            $type = $this->conn->getAttribute(\\PDO::ATTR_DRIVER_NAME);$/;"	v
+type	src/App/Handlers/Files.php	/^            $type = $type[0];$/;"	v
+type	src/App/Handlers/Files.php	/^            $type = explode("\/", $em["type"]);$/;"	v
+type	src/App/Handlers/Storage.php	/^        $type = $this->guessType($args["name"]);$/;"	v
+type	src/App/Handlers/Upload.php	/^                $type = $file["headers"]["content-type"];$/;"	v
+type	src/App/Handlers/Upload.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v
+type	src/App/Handlers/Upload.php	/^        $type = null;$/;"	v
+updatePage	src/App/Database.php	/^    public function updatePage($name, $text)$/;"	f
+updatePageHtml	src/App/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
+updated	src/App/Database.php	/^        $updated = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
+url	src/App/Handlers/Upload.php	/^        $url = parse_url($link);$/;"	v
+uuid	src/App/Common.php	/^        $uuid = sprintf("%s_%s_%s", $part1, $part2, $part3);$/;"	v
+uuid	src/App/Common.php	/^    public static function uuid($body = null)$/;"	f
+v	src/App/Common.php	/^                    $v = trim($parts[1]);$/;"	v
+wikiName	src/App/Common.php	/^    public static function wikiName($name)$/;"	f
+wikiName	src/App/Handlers/Search.php	/^        $wikiName = \\App\\Common::wikiName($query);$/;"	v
+xml	src/App/Handlers/Sitemap.php	/^        $xml = "<?xml version='1.0' encoding='utf-8'?".">\\n";$/;"	v
+xxfont	src/App/Handlers/Short.php	/^        $xxfont = __DIR__ . "\/..\/..\/..\/data\/Lato-Regular.ttf";$/;"	v
+xxfont	src/App/Handlers/ShortImage.php	/^        $xxfont = __DIR__ . "\/..\/..\/..\/data\/Lato-Regular.ttf";$/;"	v

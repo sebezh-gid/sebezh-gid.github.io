@@ -3,13 +3,13 @@
  * Handle QR codes.
  **/
 
-namespace Wiki\Handlers;
+namespace App\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Endroid\QrCode\ErrorCorrectionLevel;
 
-use Wiki\CommonHandler;
+use App\CommonHandler;
 
 class Short extends CommonHandler
 {
@@ -197,7 +197,7 @@ class Short extends CommonHandler
         if (empty($page))
             return [$name, null];
 
-        $page = \Wiki\Util::parsePage($page);
+        $page = \App\Util::parsePage($page);
 
         if ($page["language"] == "en") {
             $english = $page["title"];
@@ -206,7 +206,7 @@ class Short extends CommonHandler
                 $link = $page["ru"];
 
                 if ($tmp = $this->db->getPageByName($page["ru"])) {
-                    $page = \Wiki\Util::parsePage($tmp);
+                    $page = \App\Util::parsePage($tmp);
                     $russian = $page["title"];
                 }
             }
@@ -216,7 +216,7 @@ class Short extends CommonHandler
 
             if (!empty($page["en"])) {
                 if ($tmp = $this->db->getPageByName($page["en"])) {
-                    $page = \Wiki\Util::parsePage($tmp);
+                    $page = \App\Util::parsePage($tmp);
                     $english = $page["title"];
                 }
             }

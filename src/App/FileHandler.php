@@ -5,7 +5,7 @@
  * Reads files from the database and serves them.
  **/
 
-namespace Wiki;
+namespace App;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
