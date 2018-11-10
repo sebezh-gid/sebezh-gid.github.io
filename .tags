@@ -43,6 +43,10 @@ _fields	src/App/Database.php	/^        $_fields = implode(", ", $_fields);$/;"	v
 _marks	src/App/Database.php	/^        $_marks = [];$/;"	v
 _marks	src/App/Database.php	/^        $_marks = implode(", ", $_marks);$/;"	v
 _params	src/App/Database.php	/^        $_params = [];$/;"	v
+_set	src/App/Database.php	/^        $_set = [];$/;"	v
+_set	src/App/Database.php	/^        $_set = implode(", ", $_set);$/;"	v
+_where	src/App/Database.php	/^        $_where = [];$/;"	v
+_where	src/App/Database.php	/^        $_where = implode(" AND ", $_where);$/;"	v
 acc	src/App/Handlers/Account.php	/^        $acc = $this->db->accountGet($_POST["login"]);$/;"	v
 accountGet	src/App/Database.php	/^    public function accountGet($login)$/;"	f
 addDefaults	src/App/Template.php	/^    protected function addDefaults(array $data)$/;"	f
@@ -104,6 +108,7 @@ contents	src/App/Handlers/Page.php	/^                $contents = "# {$pageName}\
 contents	src/App/Handlers/Page.php	/^            $contents = $page["source"];$/;"	v
 context	src/App/Common.php	/^        $context = stream_context_create(array($/;"	v
 converter	src/App/Common.php	/^        $converter = new \\League\\CommonMark\\Converter($dp, $re);$/;"	v
+count	src/App/Handlers/Page.php	/^        $count = $this->db->update("pages", [$/;"	v
 data	src/App/Handlers/Page.php	/^        $data = [$/;"	v
 data	src/App/Handlers/Short.php	/^        $data = $gen->writeString();$/;"	v
 data	src/App/Handlers/Short.php	/^        $data = file_get_contents($fn);$/;"	v
@@ -212,7 +217,6 @@ html	src/App/Common.php	/^        $html = $converter->convertToHtml($source);$/;
 html	src/App/Common.php	/^        $html = preg_replace_callback('@<h([12345])>(.+)<\/h([12345])>@', function ($m) use (&$level, &$toc) {$/;"	v
 html	src/App/Common.php	/^        $html = str_replace("<div id=\\"toc\\"><\/div>", "<div id=\\"toc\\">{$toc}<\/div>", $html);$/;"	v
 html	src/App/CommonHandler.php	/^        $html = $this->template->render($templateName, $data);$/;"	v
-html	src/App/Database.php	/^        $html = null;$/;"	v
 html	src/App/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
 html	src/App/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\" data-caption=\\"{$caption}\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
 html	src/App/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
@@ -301,7 +305,7 @@ name	src/App/FileHandler.php	/^        $name = $args["name"];$/;"	v
 name	src/App/Handlers.php	/^        $name = $_POST["page_name"];$/;"	v
 name	src/App/Handlers/EditPage.php	/^        $name = $_POST["page_name"];$/;"	v
 name	src/App/Handlers/File.php	/^        $name = $args["name"];$/;"	v
-name	src/App/Handlers/Page.php	/^        $name = $_POST["page_name"];$/;"	v
+name	src/App/Handlers/Page.php	/^        $name = $request->getParam("page_name");$/;"	v
 name	src/App/Handlers/Short.php	/^        $name = $_GET["name"];$/;"	v
 name	src/App/Handlers/Short.php	/^        $name = $args["name"];$/;"	v
 name	src/App/Handlers/Short.php	/^        $name = $this->db->shortGetName($code);$/;"	v
@@ -322,7 +326,7 @@ next	src/App/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($in
 nh	src/App/Handlers/Files.php	/^                $nh = round($nw \/ $r);$/;"	v
 nh	src/App/Handlers/Thumbnail.php	/^                $nh = round($nw \/ $r);$/;"	v
 notfound	src/App/CommonHandler.php	/^    protected function notfound(Response $response)$/;"	f
-now	src/App/Database.php	/^        $now = time();$/;"	v
+now	src/App/Handlers/Page.php	/^        $now = time();$/;"	v
 nw	src/App/Handlers/Files.php	/^                $nw = $options["width"];$/;"	v
 nw	src/App/Handlers/Thumbnail.php	/^                $nw = $options["width"];$/;"	v
 offset	src/App/Handlers/Files.php	/^        $offset = 0;$/;"	v
@@ -404,6 +408,7 @@ props	src/App/Parser.php	/^        $props = array($/;"	v
 props	src/App/Template.php	/^        $props = array($/;"	v
 props	src/App/Util.php	/^        $props = [$/;"	v
 query	src/App/Database.php	/^        $query = "INSERT INTO `{$tableName}` ({$_fields}) VALUES ({$_marks})";$/;"	v
+query	src/App/Database.php	/^        $query = "UPDATE `{$tableName}` SET {$_set} WHERE {$_where}";$/;"	v
 query	src/App/Handlers/Search.php	/^        $query = @$_GET["query"];$/;"	v
 r	src/App/Handlers/Files.php	/^                $r = $iw \/ $ih;$/;"	v
 r	src/App/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
@@ -502,13 +507,12 @@ sth	src/App/Database.php	/^        $sth = $db->prepare($query);$/;"	v
 sth	src/App/Database.php	/^        $sth = $this->dbQuery($query, $_params);$/;"	v
 sth	src/App/Sphinx.php	/^        $sth = $this->conn->prepare("CALL SNIPPETS(?, ?, ?, 10 AS around, 500 AS limit)");$/;"	v
 sth	src/App/Sphinx.php	/^        $sth = $this->conn->prepare("SELECT * FROM `{$this->index}` WHERE MATCH (?)");$/;"	v
-stmt	src/App/Database.php	/^        $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));$/;"	v
 target	src/App/Handlers/Page.php	/^                $target = $parts[0];$/;"	v
 target	src/App/Parser.php	/^                $target = $parts[0];$/;"	v
 template	src/App/Template.php	/^        $template = $this->twig->load($fileName);$/;"	v
 text	src/App/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v
 text	src/App/Handlers/EditPage.php	/^        $text = $_POST["page_source"];$/;"	v
-text	src/App/Handlers/Page.php	/^        $text = $_POST["page_source"];$/;"	v
+text	src/App/Handlers/Page.php	/^        $text = $request->getParam("page_source");$/;"	v
 text	src/App/Parser.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
 text	src/App/Template.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
 text	src/App/Util.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
@@ -534,7 +538,7 @@ type	src/App/Handlers/Storage.php	/^        $type = $this->guessType($args["name
 type	src/App/Handlers/Upload.php	/^                $type = $file["headers"]["content-type"];$/;"	v
 type	src/App/Handlers/Upload.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v
 type	src/App/Handlers/Upload.php	/^        $type = null;$/;"	v
-updatePage	src/App/Database.php	/^    public function updatePage($name, $text)$/;"	f
+update	src/App/Database.php	/^    public function update($tableName, array $fields, array $where)$/;"	f
 updatePageHtml	src/App/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
 updated	src/App/Database.php	/^        $updated = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
 url	src/App/Handlers/Upload.php	/^        $url = parse_url($link);$/;"	v

@@ -67,25 +67,6 @@ class Database {
         return $res;
     }
 
-    /**
-     * Update page contents.
-     *
-     * Saves current revision in the history table.
-     **/
-    public function updatePage($name, $text)
-    {
-        $now = time();
-        $html = null;
-
-        // Back up current revision.
-        $this->dbQuery("INSERT INTO `history` (`name`, `source`, `created`) SELECT `name`, `source`, `updated` FROM `pages` WHERE `name` = ?", [$name]);
-
-        $stmt = $this->dbQuery("UPDATE `pages` SET `source` = ?, `html` = ?, `updated` = ? WHERE `name` = ?", array($text, $html, $now, $name));
-        if ($stmt->rowCount() == 0) {
-            $this->dbQuery("INSERT INTO `pages` (`name`, `source`, `html`, `created`, `updated`) VALUES (?, ?, ?, ?, ?)", array($name, $text, $html, $now, $now));
-        }
-    }
-
     public function updatePageHtml($pageName, $html)
     {
         // Do not cache pages with broken links (presumably still editing).
@@ -305,5 +286,29 @@ class Database {
         $sth = $this->dbQuery($query, $_params);
 
         return $this->conn->lastInsertId();
+    }
+
+    public function update($tableName, array $fields, array $where)
+    {
+        $_set = [];
+        $_where = [];
+        $_params = [];
+
+        foreach ($fields as $k => $v) {
+            $_set[] = "`{$k}` = ?";
+            $_params[] = $v;
+        }
+
+        foreach ($where as $k => $v) {
+            $_where[] = "`{$k}` = ?";
+            $_params[] = $v;
+        }
+
+        $_set = implode(", ", $_set);
+        $_where = implode(" AND ", $_where);
+
+        $query = "UPDATE `{$tableName}` SET {$_set} WHERE {$_where}";
+        $sth = $this->dbQuery($query, $_params);
+        return $sth->rowCount();
     }
 }

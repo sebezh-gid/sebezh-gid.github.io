@@ -94,10 +94,32 @@ class Page extends CommonHandler
     {
         $this->requireAdmin($request);
 
-        $name = $_POST["page_name"];
-        $text = $_POST["page_source"];
+        $name = $request->getParam("page_name");
+        $text = $request->getParam("page_source");
 
-        $this->db->updatePage($name, $text);
+        // Back up current revision.
+        $this->db->dbQuery("INSERT INTO `history` (`name`, `source`, `created`) SELECT `name`, `source`, `updated` FROM `pages` WHERE `name` = ?", [$name]);
+
+        $now = time();
+
+        $count = $this->db->update("pages", [
+            "source" => $text,
+            "html" => null,
+            "updated" => $now,
+        ], [
+            "name" => $name,
+        ]);
+
+        if ($count == 0) {
+            $this->db->insert("pages", [
+                "name" => $name,
+                "source" => $text,
+                "created" => $now,
+                "updated" => $now,
+            ]);
+        }
+
+        // TODO: update index
 
         return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
     }
