@@ -31,7 +31,7 @@ class Search
             case "mysql":
                 // https://dev.mysql.com/doc/refman/5.5/en/fulltext-boolean.html
                 $query = "+" . str_replace(" ", " +", $query);
-                $sql = "SELECT `key`, `meta`, MATCH(`title`) AGAINST (:query IN BOOLEAN MODE) * 10 AS `trel`, MATCH(`body`) AGAINST (:query IN BOOLEAN MODE) AS `brel` FROM `search` HAVING `trel` > 0 OR `brel` > 0 ORDER BY `trel`, `brel` LIMIT {$limit}";
+                $sql = "SELECT `key`, `meta`, MATCH(`title`) AGAINST (:query IN BOOLEAN MODE) * 10 AS `trel`, MATCH(`body`) AGAINST (:query IN BOOLEAN MODE) AS `brel` FROM `search` HAVING `trel` > 0 OR `brel` > 0 ORDER BY `trel` DESC, `brel` DESC LIMIT {$limit}";
                 $params = [
                     ":query" => $query,
                 ];
