@@ -5,7 +5,7 @@ namespace Wiki;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class Handlers
+class Handlers extends CommonHandler
 {
     protected $container;
 
@@ -63,9 +63,7 @@ class Handlers
 
     public function getHome(Request $request, Response $response)
     {
-        $homePage = $this->container->get("settings")["wiki"]["homePage"];
-        $link = "/wiki?name=" . urlencode($homePage);
-        return $response->withRedirect($link, 303);
+        return $this->render($response, "home.twig", []);
     }
 
     public function __get($key)

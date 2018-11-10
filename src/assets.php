@@ -1,29 +1,31 @@
 <?php
 
 return [
-    "public/app.css" => [
-        "assets/pt-sans.css",
-        "assets/fontawesome-all.min.css",
-        "assets/jquery.fancybox.min.css",
-        "assets/jquery-ui.min.css",
-        "assets/leaflet.css",
-        "assets/Control.FullScreen.css",
-        "assets/Control.Loading.css",
-        "assets/MarkerCluster.Default.css",
-        "assets/MarkerCluster.css",
+    "public/libs.css" => [
+        "assets/fonts/pt-sans.css",
+        "assets/fontawesome/all.min.css",
+        "assets/fancybox/jquery.fancybox.min.css",
+        // "assets/jquery/jquery-ui.min.css",
+        "assets/leaflet/leaflet.css",
+        "assets/leaflet/Control.FullScreen.css",
+        "assets/leaflet/Control.Loading.css",
+        "assets/leaflet/MarkerCluster.Default.css",
+        "assets/leaflet/MarkerCluster.css",
+    ],
 
+    "public/app.css" => [
         "assets/wiki.css",
         "assets/files.css",
     ],
 
     "public/libs.js" => [
-        "assets/jquery-3.3.1.min.js",
-        "assets/jquery-ui.min.js",
-        "assets/jquery.fancybox.min.js",
-        "assets/leaflet.min.js",
-        "assets/leaflet.markercluster.min.js",
-        "assets/Control.FullScreen.js",
-        "assets/Control.Loading.js",
+        "assets/jquery/jquery-3.3.1.min.js",
+        "assets/jquery/jquery-ui.min.js",
+        "assets/fancybox/jquery.fancybox.min.js",
+        "assets/leaflet/leaflet.min.js",
+        "assets/leaflet/leaflet.markercluster.min.js",
+        "assets/leaflet/Control.FullScreen.js",
+        "assets/leaflet/Control.Loading.js",
     ],
 
     "public/app.js" => [

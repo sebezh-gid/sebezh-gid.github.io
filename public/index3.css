@@ -1,0 +1,210 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "PT Sans", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.splash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #ccc;
+    background-position: 50% 50%;
+    background-size: cover;
+    color: #fff;
+    z-index: -1;
+}
+.splash .dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 0;
+}
+.lead {
+    position: absolute;
+    width: 100%;
+    top: calc(50vh - 130px);
+
+    color: #fff;
+    text-align: center;
+}
+.lead a {
+    color: inherit;
+    text-decoration: none;
+}
+.lead h1 {
+    font-weight: normal;
+    font-size: 180px;
+    line-height: 180px;
+    margin: 0;
+}
+.lead .intro {
+    margin: 0 0 30px 15px;
+    width: calc(100% - 15px);
+    font-size: 25px;
+}
+.lead form.search {
+    width: calc(100% - 30px);
+    text-align: center;
+}
+.lead input {
+    border: none;
+    background-color: #fff;
+    color: #33;
+    line-height: 30px;
+    height: 30px;
+    font-size: 14px;
+    padding: 0 10px;
+    width: 300px;
+}
+.lead button {
+    background-color: #ccc;
+    border: none;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+header {
+    height: 40px;
+    padding: 0 15px;
+    color: #333;
+    overflow: hidden;
+}
+body.home header {
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+}
+header h1 {
+    font-size: 20px;
+    line-height: 40px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+}
+header ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-size: 20px;
+    line-height: 40px;
+    width: calc(100% - 100px);
+    text-align: right;
+    text-transform: lowercase;
+}
+header li {
+    display: inline-block;
+}
+header li a {
+    display: block;
+    padding: 0 10px;
+}
+header .search {
+    width: calc(100% - 424px);
+    height: 40px;
+}
+header .search input {
+    background-color: #555;
+    border: none;
+    color: #fff;
+}
+header a {
+    color: inherit;
+    text-decoration: none;
+    line-height: 40px;
+}
+header a:hover {
+    text-decoration: underline;
+}
+
+header .left {
+    display: block;
+    float: left;
+}
+
+.submenu {
+    width: calc(100% - 30px);
+    margin-top: calc(100vh - 80px);
+    padding: 0 15px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, .5);
+    line-height: 40px;
+    font-size: 14px;
+    color: #888;
+}
+.submenu a {
+    color: inherit;
+}
+
+.hnews {
+    background-color: #000;
+    color: #ccc;
+    width: calc(100% - 100px);
+    padding: 0 50px;
+    height: 120px;
+    overflow: hidden;
+}
+.hnews a {
+    float: left;
+    display: block;
+    width: calc(25% - 30px);
+    height: 90px;
+    padding: 15px 15px;
+    text-decoration: none;
+    color: inherit;
+}
+.hnews a:hover {
+    background-color: #ccc;
+    color: #000;
+}
+.hnews .date {
+    display: block;
+    opacity: .75;
+    margin-bottom: 10px;
+}
+
+body.home .bullets {
+    width: auto;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: calc(100vh - 200px);
+    padding: 100px 0 0px;
+}
+body.home .bullet {
+    display: inline-block;
+    padding: 0 50px 0 75px;
+    width: calc(50% - 125px);
+    vertical-align: top;
+    min-height: 150px;
+    font-size: 18px;
+    line-height: 150%;
+}
+body.home .icon {
+    position: absolute;
+    font-size: 50px;
+    color: #888;
+    width: 60px;
+    margin-left: -75px;
+    text-align: right;
+}
+body.home .bullet h2 {
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0 0 10px;
+}
+body.home .bullet p {
+    margin: 0 0 10px;
+}
+body.home .bullet a {
+    color: #0b0080;
+}

@@ -13,7 +13,7 @@ File	src/Wiki/Handlers/File.php	/^class File extends CommonHandler$/;"	c
 FileHandler	src/Wiki/FileHandler.php	/^class FileHandler extends Handlers$/;"	c
 FileList	src/Wiki/Handlers/FileList.php	/^class FileList extends Handlers$/;"	c
 Files	src/Wiki/Handlers/Files.php	/^class Files extends CommonHandler$/;"	c
-Handlers	src/Wiki/Handlers.php	/^class Handlers$/;"	c
+Handlers	src/Wiki/Handlers.php	/^class Handlers extends CommonHandler$/;"	c
 Index	src/Wiki/Handlers/Index.php	/^class Index extends CommonHandler$/;"	c
 Page	src/Wiki/Handlers/Page.php	/^class Page extends CommonHandler$/;"	c
 Page	src/Wiki/Page.php	/^class Page {$/;"	c
@@ -206,7 +206,6 @@ hash	src/Wiki/Handlers/Short.php	/^        $hash = empty($file["hash"])$/;"	v
 hash	src/Wiki/Handlers/Thumbnail.php	/^        $hash = md5($body);$/;"	v
 hash	src/Wiki/Handlers/Upload.php	/^        $hash = md5($body);$/;"	v
 hash	src/Wiki/UploadHandler.php	/^        $hash = md5($res["body"]);$/;"	v
-homePage	src/Wiki/Handlers.php	/^        $homePage = $this->container->get("settings")["wiki"]["homePage"];$/;"	v
 html	src/Wiki/Common.php	/^        $html = $converter->convertToHtml($source);$/;"	v
 html	src/Wiki/Common.php	/^        $html = preg_replace_callback('@<h([12345])>(.+)<\/h([12345])>@', function ($m) use (&$level, &$toc) {$/;"	v
 html	src/Wiki/Common.php	/^        $html = str_replace("<div id=\\"toc\\"><\/div>", "<div id=\\"toc\\">{$toc}<\/div>", $html);$/;"	v
@@ -278,7 +277,6 @@ lines	src/Wiki/Template.php	/^                $lines = array_slice($lines, $idx 
 lines	src/Wiki/Template.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
 lines	src/Wiki/Util.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
 lines	src/Wiki/Util.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
-link	src/Wiki/Handlers.php	/^        $link = "\/wiki?name=" . urlencode($homePage);$/;"	v
 link	src/Wiki/Handlers/Page.php	/^                        $link = "\/files\/{$file["id"]}";$/;"	v
 link	src/Wiki/Handlers/Page.php	/^            $link = "\/wiki?name=" . urlencode($m[1]);$/;"	v
 link	src/Wiki/Handlers/Page.php	/^            $link = sprintf("<a class=\\"wiki %s\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", $cls, urlencode($target), htmlspecialchars($target), htmlspecialchars($title));$/;"	v
