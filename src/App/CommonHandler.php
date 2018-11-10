@@ -89,6 +89,6 @@ class CommonHandler
 
     protected function notfound(Response $response)
     {
-        return $this->template->render($response, "notfound.twig")->withStatus(404);
+        return $this->render($response, "notfound.twig")->withStatus(404);
     }
 }

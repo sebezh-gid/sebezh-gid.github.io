@@ -39,7 +39,7 @@ class Page extends CommonHandler
         if ($page === false) {
             $status = 404;
 
-            return $this->template->render($request, "nopage.twig", [
+            return $this->render($request, "nopage.twig", [
                 "title" => "Page not found",
                 "page_name" => $pageName,
             ]);
@@ -80,7 +80,7 @@ class Page extends CommonHandler
             $contents = $page["source"];
         }
 
-        return $this->template->render($request, "editor.twig", [
+        return $this->render($request, "editor.twig", [
             "page_name" => $pageName,
             "page_source" => $contents,
             "is_editable" => $this->isAdmin($request),

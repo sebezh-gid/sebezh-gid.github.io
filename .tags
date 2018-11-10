@@ -63,6 +63,7 @@ body	src/App/Handlers/Upload.php	/^                $body = file_get_contents($tm
 body	src/App/Handlers/Upload.php	/^        $body = null;$/;"	v
 bw	src/App/Handlers/Short.php	/^        $bw = imagesx($barcode);$/;"	v
 bw	src/App/Handlers/ShortImage.php	/^        $bw = imagesx($barcode);$/;"	v
+cacheControl	src/App/Handlers/Page.php	/^        $cacheControl = @$headers["HTTP_CACHE_CONTROL"][0];$/;"	v
 canvas	src/App/Handlers/Short.php	/^        $canvas = $this->getCanvas();$/;"	v
 canvas	src/App/Handlers/ShortImage.php	/^        $canvas = $this->getCanvas();$/;"	v
 caption	src/App/Handlers/Page.php	/^                $caption = null;$/;"	v
@@ -169,7 +170,7 @@ fn	src/App/Handlers/Short.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/pla
 fn	src/App/Handlers/ShortImage.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
 fname	src/App/Handlers/Page.php	/^                $fname = $m[1];$/;"	v
 fresh	src/App/Handlers/Page.php	/^                $fresh = true;$/;"	v
-fresh	src/App/Handlers/Page.php	/^        $fresh = $request->getQueryParam("cache") == "no";$/;"	v
+fresh	src/App/Handlers/Page.php	/^        $fresh = $this->refresh($request);$/;"	v
 gen	src/App/Handlers/Short.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($link);$/;"	v
 gen	src/App/Handlers/Short.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($params["link"]);$/;"	v
 gen	src/App/Handlers/ShortImage.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($link);$/;"	v
@@ -206,9 +207,11 @@ hash	src/App/Handlers/Short.php	/^        $hash = empty($file["hash"])$/;"	v
 hash	src/App/Handlers/Thumbnail.php	/^        $hash = md5($body);$/;"	v
 hash	src/App/Handlers/Upload.php	/^        $hash = md5($body);$/;"	v
 hash	src/App/UploadHandler.php	/^        $hash = md5($res["body"]);$/;"	v
+headers	src/App/Handlers/Page.php	/^        $headers = $request->getHeaders();$/;"	v
 html	src/App/Common.php	/^        $html = $converter->convertToHtml($source);$/;"	v
 html	src/App/Common.php	/^        $html = preg_replace_callback('@<h([12345])>(.+)<\/h([12345])>@', function ($m) use (&$level, &$toc) {$/;"	v
 html	src/App/Common.php	/^        $html = str_replace("<div id=\\"toc\\"><\/div>", "<div id=\\"toc\\">{$toc}<\/div>", $html);$/;"	v
+html	src/App/CommonHandler.php	/^        $html = $this->template->render($templateName, $data);$/;"	v
 html	src/App/Database.php	/^        $html = null;$/;"	v
 html	src/App/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
 html	src/App/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\" data-caption=\\"{$caption}\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
@@ -407,7 +410,8 @@ r	src/App/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
 re	src/App/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($environment);$/;"	v
 receiveFile	src/App/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
 recent	src/App/Handlers/Short.php	/^        $recent = $this->db->shortsGetRecent();$/;"	v
-render	src/App/CommonHandler.php	/^    protected function render(Response $response, $templateName, array $data = [])$/;"	f
+refresh	src/App/Handlers/Page.php	/^    protected function refresh(Request $request)$/;"	f
+render	src/App/CommonHandler.php	/^    protected function render(Request $request, $templateName, array $data = [])$/;"	f
 render	src/App/Template.php	/^    public function render($fileName, array $data = array())$/;"	f
 renderFile	src/App/Template.php	/^    public function renderFile($fileName, array $data)$/;"	f
 renderImage	src/App/Handlers/Short.php	/^    protected function renderImage(array $params)$/;"	f
@@ -430,6 +434,7 @@ res	src/App/Handlers/Thumbnail.php	/^        $res = $this->db->getThumbnail($nam
 res	src/App/Sphinx.php	/^        $res = $this->searchIds($query);$/;"	v
 res	src/App/Sphinx.php	/^        $res = array();$/;"	v
 res	src/App/UploadHandler.php	/^        $res = array($/;"	v
+response	src/App/CommonHandler.php	/^        $response = new Response(200);$/;"	v
 response	src/App/FileHandler.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
 response	src/App/Handlers/File.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
 response	src/App/Handlers/Files.php	/^            $response = $response->withHeader("Content-Type", "image\/jpeg")$/;"	v

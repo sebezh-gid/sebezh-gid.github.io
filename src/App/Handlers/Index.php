@@ -13,7 +13,7 @@ class Index extends CommonHandler
     {
         $pages = $this->db->listPages(@$_GET["sort"]);
 
-        return $this->template->render($request, "index.twig", [
+        return $this->render($request, "index.twig", [
             "pages" => $pages,
         ]);
     }
