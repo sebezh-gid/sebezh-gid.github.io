@@ -280,7 +280,7 @@ class Page extends CommonHandler
     {
         $html = $page["html"];
 
-        if (preg_match('@<p>(.+?)</p>@', $html, $m)) {
+        if (preg_match('@<p>(.+?)</p>@ms', $html, $m)) {
             $text = strip_tags($m[1]);
             return $text;
         }
