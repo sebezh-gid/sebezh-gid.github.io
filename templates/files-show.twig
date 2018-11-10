@@ -1,0 +1,70 @@
+{% extends "base.twig" %}
+
+{% block page_title %}Просмотр файла{% endblock %}
+
+{% block page_h1 %}Просмотр файла{% endblock %}
+
+{% block page_contents %}
+    {% if file.kind == "photo" %}
+        <div class="row">
+            <div class="col-md-6">
+                <img src="/i/thumbnails/{{ file.id }}.jpg" alt="thumbnail" width="100%"/>
+
+                <div class="form-actions">
+                    <a class="btn btn-primary" href="/files/{{ file.id }}/download"><i class="fas fa-download"></i> Скачать файл</a>
+                    <a class="btn btn-default" href="/files">Другие файлы</a>
+                    <a class="btn btn-default" href="/upload"><i class="fas fa-cloud-upload-alt"></i> Загрузить новый</a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <table class="table grid fileinfo">
+                    <tbody>
+                        <tr>
+                            <th>Код:</th>
+                            <td>{{ file.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Название:</th>
+                            <td>{{ file.real_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Размер:</th>
+                            <td>{{ file.length|filesize }}</td>
+                        </tr>
+                        <tr>
+                            <th>Дата загрузки:</th>
+                            <td>{{ file.uploaded|date_simple }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Код для вставки:</p>
+                <pre>[[file:{{ file.hash }}]]</pre>
+
+                <p>Справа:</p>
+                <pre>&lt;div class="right"&gt;[[file:{{ file.hash }}]]&lt;/div&gt;</pre>
+
+                <p>Адрес миниатюры:</p>
+                <pre>/i/thumbnails/{{ file.id }}.jpg</pre>
+
+                <p>Адрес полного файла:</p>
+                <pre>/files/{{ file.id }}/download</pre>
+            </div>
+        </div>
+    {% elseif file.kind == "audio" %}
+        <audio id="file_{{ file.id }}" controls="controls" preload="metadata">
+            <source src="/files/{{ file.id }}/download" type="{{ file.type }}"/>
+            <p>Ваш браузер не поддерживает аудио, пожалуйста, <a href="/files/{{ file.id }}/download">скачайте файл</a>.</p>
+        </audio>
+
+        <div class="form-actions">
+            <a class="btn btn-primary" href="/files/{{ file.id }}/download"><i class="fas fa-download"></i> Скачать файл ({{ file.length|filesize }})</a>
+            <a class="btn btn-default" href="/files">Другие файлы</a>
+            <a class="btn btn-default" href="/upload"><i class="fas fa-cloud-upload-alt"></i> Загрузить новый</a>
+        </div>
+
+        <p>Код для встраивания проигрывателя:</p>
+        <pre>[[file:{{ file.hash }}]]</pre>
+    {% endif %}
+{% endblock %}

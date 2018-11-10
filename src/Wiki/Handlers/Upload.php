@@ -27,92 +27,83 @@ class Upload extends CommonHandler
     {
         $this->requireAdmin($request);
 
-        $info = $this->getFile($request);
-        if ($info === false)
+        if (!($fid = $this->getFile($request))) {
             return $response->withJSON([
                 "message" => "Не удалось получить файл.",
             ]);
+        }
 
-        $name = "File:{$info["name"]}";
-        $text = "# Файл {$info["real_name"]}\n\nОписание файла отсутствует.\n";
-
-        $this->db->updatePage($name, $text);
         return $response->withJSON([
-            "redirect" => "/wiki?name=" . urlencode($name),
+            "redirect" => "/files/" . $fid,
         ]);
     }
 
     protected function getFile(Request $request)
     {
+        $name = null;
+        $type = null;
+        $body = null;
+
         $link = $request->getParam("link");
         if (!empty($link)) {
             $file = \Wiki\Common::fetch($link);
             if ($file["status"] == 200) {
-                $real_name = $this->getFileName($link, $file);
-
-                $name = \Wiki\Common::uuid($file["data"]);
-                if ($ext = pathinfo($real_name, PATHINFO_EXTENSION))
-                    $name .= "." . $ext;
-
-                $res = [
-                    "name" =>  $name,
-                    "real_name" => $real_name,
-                    "type" => $file["headers"]["content-type"],
-                    "length" => strlen($file["data"]),
-                    "created" => time(),
-                    "body" => $file["data"],
-                ];
-
-                $this->db->saveFile($res);
-                return $res;
+                $name = $this->getFileName($link, $file);
+                $type = $file["headers"]["content-type"];
+                $body = $file["data"];
+            } else {
+                return false;
             }
-        } elseif ($files = $request->getUploadedFiles()) {
-            if (!empty($files["file"]))
-                return $this->receiveFile($files["file"]);
         }
 
-        return false;
+        elseif ($files = $request->getUploadedFiles()) {
+            if (!empty($files["file"])) {
+                $name = $files["file"]->getClientFilename();
+                $type = $files["file"]->getClientMediaType();
+
+                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");
+                $files["file"]->moveTo($tmp);
+                $body = file_get_contents($tmp);
+                unlink($tmp);
+            } else {
+                return false;
+            }
+        }
+
+        $hash = md5($body);
+        $old = $this->db->dbFetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);
+        if ($old)
+            return $old["id"];
+
+        switch (explode("/", $type)[0]) {
+            case "image":
+                $kind = "photo";
+                break;
+            default:
+                $kind = "other";
+                break;
+        }
+
+        return $this->db->insert("files", [
+            "name" => $name,
+            "real_name" => $name,
+            "type" => $type,
+            "kind" => $kind,
+            "created" => time(),
+            "uploaded" => time(),
+            "length" => strlen($body),
+            "body" => $body,
+            "hash" => $hash,
+        ]);
     }
 
     /**
-     * Receive the uploaded file and save it.
+     * Returns the name of the linked file.
+     *
+     * @param string $link File URL.
+     * @param array $file Response headers.
+     * @return string File name.
      **/
-    protected function receiveFile(UploadedFile $file)
-    {
-        $res = array(
-            "name" => null,  // generate me
-            "real_name" => $file->getClientFilename(),
-            "type" => $file->getClientMediaType(),
-            "length" => $file->getSize(),
-            "created" => time(),
-            "body" => null,  // fill me in
-            );
-
-        $ext = mb_strtolower(pathinfo($res["real_name"], PATHINFO_EXTENSION));
-        if (!in_array($ext, ["jpg", "jpeg", "png", "gif"]))
-            throw new RuntimeException("file of unsupported type");
-
-        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");
-        $file->moveTo($tmp);
-
-        $res["body"] = file_get_contents($tmp);
-        unlink($tmp);
-
-        $hash = md5($res["body"]);
-        if ($file = $this->db->getFileByHash($hash))
-            return $file;
-
-        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);
-        $part2 = substr(sha1($res["body"]), 0, 10);
-        $part3 = sprintf("%x", time());
-
-        $res["name"] = sprintf("%s_%s_%s.%s", $part1, $part2, $part3, $ext);
-
-        $this->db->saveFile($res);
-
-        return $res;
-    }
-
     protected function getFileName($link, array $file)
     {
         if (!empty($file["headers"]["content-disposition"])) {

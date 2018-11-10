@@ -138,33 +138,33 @@ class Page extends CommonHandler
                 $title = $parts[1];
             }
 
-            if (preg_match('@^File:(.+)$@', $target, $m)) {
+            if (preg_match('@^File:(.+)$@i', $target, $m)) {
                 $fname = $m[1];
 
-                $file = $this->db->getFileByName($m[1]);
-                if ($file and preg_match('@^image/@', $file["type"])) {
-                    $fd = $this->db->getPageByName("File:" . $m[1]);
-                    if (is_null($fd)) {
-                        $caption = null;
-                    } elseif (preg_match('@^# (.+)$@m', $fd["source"], $n)) {
-                        $caption = htmlspecialchars(trim($n[1]));
-                    } else {
-                        $caption = null;
+                $caption = null;
+
+                if ($file = $this->db->dbFetchOne("SELECT `id`, `kind`, `type` FROM `files` WHERE `hash` = ?", [$fname])) {
+                    if ($file["kind"] == "photo") {
+                        $link = "/files/{$file["id"]}";
+                        $small = "/i/thumbnails/{$file["id"]}.jpg";
+                        $large = "/files/{$file["id"]}/download";
+
+                        if ($caption)
+                            $html = "<a class=\"image\" href=\"{$link}\" data-src=\"{$large}\" data-fancybox=\"gallery\" data-caption=\"{$caption}\"><img src=\"{$small}\" alt=\"{$fname}\"/></a>";
+                        else
+                            $html = "<a class=\"image\" href=\"{$link}\" data-src=\"{$large}\" data-fancybox=\"gallery\"><img src=\"{$small}\" alt=\"{$fname}\"/></a>";
+
+                        return $html;
                     }
 
-                    $link = "/files/" . $fname;
-                    $pagelink = "/wiki?name=" . urlencode($target);
-                    $thumbnail = "/thumbnail/" . str_replace(".jpg", "_small.jpg", $fname);
+                    elseif ($file["kind"] == "audio") {
+                        $html = "<audio id='file_{$file["id"]}' controls='controls' preload='metadata'>";
+                        $html .= "<source src='/files/{$file["id"]}/download' type='{$file["type"]}'/>";
+                        $html .= "Ваш браузер не поддерживает аудио, пожалуйста, <a href='/files/{$file["id"]}/download'>скачайте файл</a>.";
+                        $html .= "</audio>";
 
-                    $pi = pathinfo($fname);
-                    $thumbnail = "/thumbnail/" . $pi["filename"] . "_small." . $pi["extension"];
-
-                    if ($caption)
-                        $html = "<a class=\"image\" href=\"{$pagelink}\" data-src=\"{$link}\" data-fancybox=\"gallery\" data-caption=\"{$caption}\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
-                    else
-                        $html = "<a class=\"image\" href=\"{$pagelink}\" data-src=\"{$link}\" data-fancybox=\"gallery\"><img src=\"{$thumbnail}\" alt=\"{$fname}\"/></a>";
-
-                    return $html;
+                        return $html;
+                    }
                 }
             }
 

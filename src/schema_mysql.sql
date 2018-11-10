@@ -34,18 +34,22 @@ CREATE TABLE IF NOT EXISTS `history` (
 ) DEFAULT CHARSET utf8;
 
 
+-- Generic file storage table.  Uploaded files go here.
 CREATE TABLE IF NOT EXISTS `files` (
-    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255),
-    `real_name` VARCHAR(1024),
-    `type` VARCHAR(255),
-    `length` INTEGER UNSIGNED NOT NULL,
-    `created` INTEGER UNSIGNED NOT NULL,
-    `body` MEDIUMBLOB,
-    `hash` VARCHAR(255),
+    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,    -- unique id for local access
+    `name` VARCHAR(255),                              -- local name for public access (why we need this?)
+    `real_name` VARCHAR(1024),                        -- original name on upload
+    `type` VARCHAR(255),                              -- mime type
+    `kind` ENUM('photo', 'video', 'other') NOT NULL,  -- for quick filtering
+    `length` INTEGER UNSIGNED NOT NULL,               -- body size in bytes
+    `created` INTEGER UNSIGNED NOT NULL,              -- file creation timestamp
+    `uploaded` INTEGER UNSIGNED NOT NULL,             -- file upload timestamp
+    `body` MEDIUMBLOB,                                -- file contents
+    `hash` CHAR(32) NOT NULL,                         -- body hash for synchronizing
     PRIMARY KEY(`id`),
     KEY(`name`),
     KEY(`created`),
+    KEY(`uploaded`),
     KEY(`hash`)
 ) DEFAULT CHARSET utf8;
 

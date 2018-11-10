@@ -4,19 +4,14 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-        <link rel="stylesheet" type="text/css" href="/css/pt-sans.css"/>
-        <link rel="stylesheet" type="text/css" href="/css/fontawesome-all.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/css/wiki.css"/>
-
-        <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="/css/leaflet.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="/css/Control.FullScreen.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="/css/Control.Loading.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="/css/MarkerCluster.Default.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="/css/MarkerCluster.css" type="text/css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/styles.min.css"/>
 
         <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+
+        {% if edit_link %}
+            <link rel="edit" title="Редактировать страницу" href="{{ edit_link }}"/>
+            <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="{{ edit_link }}"/>
+        {% endif %}
 
         {% block more_head %}{% endblock %}
 
@@ -88,19 +83,14 @@
             <ul id="places">
                 <li><a href="/wiki?name=О+сайте">О сайте</a></li>
                 <li><a href="/index">Полный список страниц</a></li>
+                <li><a href="/files">Файлы</a></li>
                 <li><a href="https://bitbucket.org/umonkey/sebezh-gid.ru/src" target="_blank">Исходный код сайта</a></li>
                 <li><a href="https://metrika.yandex.ru/dashboard?id=41793534" target="_blank">Посещаемость</a></li>
             </ul>
         </footer>
 
-        <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
-        <script type="text/javascript" src="/js/leaflet.min.js"></script>
-        <script type="text/javascript" src="/js/leaflet.markercluster.min.js"></script>
-        <script type="text/javascript" src="/js/Control.FullScreen.js"></script>
-        <script type="text/javascript" src="/js/Control.Loading.js"></script>
-        <script type="text/javascript" src="/js/wiki.js"></script>
+        <script type="text/javascript" src="/libs.min.js"></script>
+        <script type="text/javascript" src="/scripts.min.js"></script>
 
         {% if host == "sebezh-gid.ru" %}
             <!-- Yandex.Metrika counter --><script type="text/javascript" > (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter41793534 = new Ya.Metrika({ id:41793534, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/41793534" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->

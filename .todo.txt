@@ -11,3 +11,9 @@
 SEO:
 - link rel=alternate hreflang=XY, see https://en.wikipedia.org/wiki/Sitemaps
 - Яндекс.Турбо https://yandex.ru/support/webmaster/turbo/connection.html
+
+Database info:
+- SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'sebgid';
+
+https://vk.com/wall37062690_586
+https://vk.com/wall-74994489_98128

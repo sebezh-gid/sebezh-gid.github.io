@@ -1,0 +1,26 @@
+.files .file {
+    display: inline-block;
+    width: 200px;
+    height: 230px;
+    vertical-align: top;
+    margin: 0 10px 10px 0;
+}
+.files a.th {
+    display: block;
+}
+.files .thumbnail {
+    display: block;
+    width: 200px;
+    height: 200px;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-color: #eee;
+}
+.files .label {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 30px;
+    text-align: center;
+}

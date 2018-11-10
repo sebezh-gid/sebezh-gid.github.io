@@ -1,0 +1,29 @@
+{% extends "base.twig" %}
+
+{% block page_title %}Последние файлы{% endblock %}
+
+{% block page_header %}
+    <div class="page-header">
+        <h1>Последние загруженные файлы</h1>
+        <p class="lead">Это все файлы, загруженные в базу данных.&nbsp; Самые свежие файлы видны в начале страницы, чтобы увидеть более старые — прокрутите вниз.&nbsp; Вы можете <a href="/upload">загрузить ещё файл</a>.</p>
+    </div>
+{% endblock %}
+
+{% block page_contents %}
+    {% if not files %}
+        <p>Нет загруженных файлов.</p>
+    {% else %}
+        <div class="files">
+            {% for f in files %}
+                <div class="file">
+                    {% if f.type == "audio" %}
+                        <a href="{{ f.link }}" title="{{ f.label }}" class="th"><span class="thumbnail lazy" data-src="/images/audio.png"></span></a>
+                    {% else %}
+                        <a href="{{ f.link }}" title="{{ f.label }}" class="th"><span class="thumbnail lazy" data-src="{{ f.image }}"></span></a>
+                    {% endif %}
+                    <div class="label">{{ f.label }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

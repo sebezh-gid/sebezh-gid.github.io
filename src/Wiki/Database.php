@@ -121,15 +121,16 @@ class Database {
      **/
     public function saveFile(array $fileInfo)
     {
-        $this->dbQuery("INSERT INTO `files` (`name`, `real_name`, `type`, `length`, `created`, `body`, `hash`) VALUES (?, ?, ?, ?, ?, ?, ?)", array(
-            $fileInfo["name"],
-            $fileInfo["real_name"],
-            $fileInfo["type"],
-            $fileInfo["length"],
-            $fileInfo["created"],
-            $fileInfo["body"],
-            md5($fileInfo["body"]),
-            ));
+        return $this->insert("files", [
+            "name" => $fileInfo["name"],
+            "real_name" => $fileInfo["real_name"],
+            "type" => $fileInfo["type"],
+            "length" => $fileInfo["length"],
+            "created" => $fileInfo["created"],
+            "uploaded" => time(),
+            "body" => $fileInfo["body"],
+            "hash" => md5($fileInfo["body"]),
+        ]);
     }
 
     /**
@@ -147,7 +148,7 @@ class Database {
      **/
     public function getFileByName($name)
     {
-        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `name` = ?", [$name]);
+        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `name` = ? OR `hash` = ?", [$name, $name]);
         return count($rows) > 0 ? $rows[0] : null;
     }
 
@@ -256,15 +257,20 @@ class Database {
         return $this->conn;
     }
 
-    protected function dbFetch($query, array $params = array(), $callback = null)
+    public function dbFetch($query, array $params = array(), $callback = null)
     {
         $db = $this->connect();
         $sth = $db->prepare($query);
         $sth->execute($params);
-        return $sth->fetchAll(\PDO::FETCH_ASSOC);
+
+        $rows = $sth->fetchAll(\PDO::FETCH_ASSOC);
+        if ($callback)
+            $rows = array_map($callback, $rows);
+
+        return $rows;
     }
 
-    protected function dbFetchOne($query, array $params = array())
+    public function dbFetchOne($query, array $params = array())
     {
         $db = $this->connect();
         $sth = $db->prepare($query);
@@ -272,11 +278,32 @@ class Database {
         return $sth->fetch(\PDO::FETCH_ASSOC);
     }
 
-    protected function dbQuery($query, array $params = array())
+    public function dbQuery($query, array $params = array())
     {
         $db = $this->connect();
         $sth = $db->prepare($query);
         $sth->execute($params);
         return $sth;
+    }
+
+    public function insert($tableName, array $fields)
+    {
+        $_fields = [];
+        $_marks = [];
+        $_params = [];
+
+        foreach ($fields as $k => $v) {
+            $_fields[] = "`{$k}`";
+            $_params[] = $v;
+            $_marks[] = "?";
+        }
+
+        $_fields = implode(", ", $_fields);
+        $_marks = implode(", ", $_marks);
+
+        $query = "INSERT INTO `{$tableName}` ({$_fields}) VALUES ({$_marks})";
+        $sth = $this->dbQuery($query, $_params);
+
+        return $this->conn->lastInsertId();
     }
 }

@@ -22,11 +22,9 @@
     {% if results %}
         {# nothing #}
     {% elseif search_error %}
-        <p>Извините, поиск временно не работает.</p>
-        <p>Попробуйте <a href="https://yandex.ru/search/site/?searchid=2319971&amp;text={{ query }}&amp;web=0&amp;l10n=ru">поискать Яндексом</a>.</p>
-        {% if host == "localhost:8080" %}
-            <p>Для работы поиска на тестовом сервере нужно параллельно запустить make search.</p>
-        {% endif %}
+        <p>Извините, поиск временно не работает.{% if host == "localhost:8080" %}&nbsp; Для работы поиска на тестовом сервере нужно параллельно запустить <code>make search</code>.{% endif %}</p>
+        <p>Попробуйте <a href="https://yandex.ru/search/site/?searchid=2319971&amp;text={{ query }}&amp;web=0&amp;l10n=ru">поискать Яндексом</a> или найти нужную страницу в <a href="/index">алфавитном указателе</a>.</p>
+        <p>Создать страницу «<a href="/w/edit?name={{ query }}">{{ query }}</a>»</p>
     {% else %}
         <p>К сожалению, по этому запросу ничего не найдено.</p>
     {% endif %}

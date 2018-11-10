@@ -1173,6 +1173,10 @@ a.image.right img {
     background-color: #fff;
 }
 
+a.image img {
+    height: 200px;
+}
+
 .page-header .icons {
     font-size: 1.5em;
     float: right;
@@ -1206,6 +1210,7 @@ form.search input {
 table.table td {
     padding: 4px 10px;
 }
+table.table .nowrap,
 table.table .number {
     text-align: right;
     white-space: nowrap;
@@ -1250,4 +1255,33 @@ input.form-control {
     padding: 0 10px;
     width: calc(100% - 22px);
     background-color: #f8f8f8;
+}
+
+.photos {
+    line-height: 0;
+}
+.photos .photo {
+    display: inline-block;
+    margin: 5px;
+}
+.photos .photo a {
+    display: block;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+}
+.photos img {
+    display: block;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+textarea.code {
+    width: calc(100% - 22px);
+    max-width: calc(100% - 22px);
+    min-width: calc(100% - 22px);
+    padding: 4px 10px;
+    background-color: #eee;
+    border: none;
 }

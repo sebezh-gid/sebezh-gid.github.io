@@ -43,7 +43,7 @@ function enable_edit_hotkey()
             var link = null;
 
             if (window.location.pathname == "/wiki") {
-                var link = "/edit" + window.location.search;
+                var link = "/w/edit" + window.location.search;
                 window.location.href = link;
             }
         }

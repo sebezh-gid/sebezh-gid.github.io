@@ -44,6 +44,7 @@ class Search extends Handlers
             "has_page" => $hasPage,
             "results" => $res,
             "search_error" => $error,
+            "edit_link" => "/w/edit?name=" . urlencode($wikiName),
         ]);
     }
 }

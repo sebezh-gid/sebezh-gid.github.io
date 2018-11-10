@@ -21,7 +21,13 @@ $app->get('/{code:[0-9]{4}}', '\Wiki\Handlers\ShortRedirect');
 
 $app->any("/upload", '\Wiki\Handlers\Upload');
 
-$app->get("/files", \Wiki\Handlers\FileList::class . ":onGet");
+$app->get('/files', '\Wiki\Handlers\Files:onGetRecent');
+$app->get('/files/{id:[0-9]+}', '\Wiki\Handlers\Files:onShowFile');
+$app->get('/files/{id:[0-9]+}/download', '\Wiki\Handlers\Files:onDownload');
+$app->get('/i/thumbnails/{id:[0-9]+}.jpg', '\Wiki\Handlers\Files:onThumbnail');
+
+// $app->get("/files", \Wiki\Handlers\FileList::class . ":onGet");
+
 $app->get("/files/{name:.*}", '\Wiki\Handlers\File');
 $app->get("/thumbnail/{name:.*}", \Wiki\Handlers\Thumbnail::class . ":onGet");
 
