@@ -25,9 +25,9 @@
 {% block page_contents %}
     <div class="formatted">
         {% if page.en %}
-            <p><i>You can read this page <a href="/wiki?name={{ page.en }}">in English</a>.</i></p>
+            <p><i>You can read this page in English: <a href="/wiki?name={{ page.en }}">{{ page.en }}</a>.</i></p>
         {% elseif page.ru %}
-            <p><i>Эта страница есть <a href="/wiki?name={{ page.ru }}">на русском языке</a>.</i></p>
+            <p><i>Эта страница есть на русском языке: <a href="/wiki?name={{ page.ru }}">{{ page.ru }}</a>.</i></p>
         {% endif %}
 
         {{ page.html|raw }}
