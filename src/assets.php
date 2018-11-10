@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "public/styles.css" => [
+    "public/app.css" => [
         "assets/pt-sans.css",
         "assets/fontawesome-all.min.css",
         "assets/jquery.fancybox.min.css",
@@ -26,7 +26,7 @@ return [
         "assets/Control.Loading.js",
     ],
 
-    "public/scripts.js" => [
+    "public/app.js" => [
         "assets/wiki.js",
         "assets/files.js",
     ],

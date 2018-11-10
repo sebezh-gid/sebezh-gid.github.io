@@ -65,6 +65,7 @@ bw	src/Wiki/Handlers/Short.php	/^        $bw = imagesx($barcode);$/;"	v
 bw	src/Wiki/Handlers/ShortImage.php	/^        $bw = imagesx($barcode);$/;"	v
 canvas	src/Wiki/Handlers/Short.php	/^        $canvas = $this->getCanvas();$/;"	v
 canvas	src/Wiki/Handlers/ShortImage.php	/^        $canvas = $this->getCanvas();$/;"	v
+caption	src/Wiki/Handlers/Page.php	/^                $caption = null;$/;"	v
 class.	src/Wiki/Database.php	/^ * Database interface class.$/;"	c
 cleanHtml	src/Wiki/Util.php	/^    public static function cleanHtml($html)$/;"	f
 cls	src/Wiki/Handlers/Page.php	/^            $cls = $tmp ? "good" : "broken";$/;"	v
@@ -211,8 +212,9 @@ html	src/Wiki/Common.php	/^        $html = preg_replace_callback('@<h([12345])>(
 html	src/Wiki/Common.php	/^        $html = str_replace("<div id=\\"toc\\"><\/div>", "<div id=\\"toc\\">{$toc}<\/div>", $html);$/;"	v
 html	src/Wiki/Database.php	/^        $html = null;$/;"	v
 html	src/Wiki/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
-html	src/Wiki/Handlers/Page.php	/^                        $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\" data-caption=\\"{$caption}\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
-html	src/Wiki/Handlers/Page.php	/^                        $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
+html	src/Wiki/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\" data-caption=\\"{$caption}\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
+html	src/Wiki/Handlers/Page.php	/^                            $html = "<a class=\\"image\\" href=\\"{$link}\\" data-src=\\"{$large}\\" data-fancybox=\\"gallery\\"><img src=\\"{$small}\\" alt=\\"{$fname}\\"\/><\/a>";$/;"	v
+html	src/Wiki/Handlers/Page.php	/^                        $html = "<audio id='file_{$file["id"]}' controls='controls' preload='metadata'>";$/;"	v
 html	src/Wiki/Handlers/Page.php	/^            $html = $page["html"];$/;"	v
 html	src/Wiki/Handlers/Page.php	/^            $html = $this->renderPage($page);$/;"	v
 html	src/Wiki/Handlers/Page.php	/^        $html = $this->template->renderPage($data, function ($m) {$/;"	v
@@ -263,6 +265,8 @@ iw	src/Wiki/Handlers/Thumbnail.php	/^        $iw = imagesx($img);$/;"	v
 k	src/Wiki/Common.php	/^                    $k = strtolower(trim($parts[0]));$/;"	v
 key	src/Wiki/Handlers/Thumbnail.php	/^        $key = $m[2];$/;"	v
 keys	src/Wiki/Template.php	/^        $keys = ["header", "footer", "sidebar"];$/;"	v
+kind	src/Wiki/Handlers/Upload.php	/^                $kind = "other";$/;"	v
+kind	src/Wiki/Handlers/Upload.php	/^                $kind = "photo";$/;"	v
 lang	src/Wiki/Template.php	/^        $lang = $dlang = isset($this->defaults["language"]) ? $this->defaults["language"] : "en";$/;"	v
 large	src/Wiki/Handlers/Page.php	/^                        $large = "\/files\/{$file["id"]}\/download";$/;"	v
 length	src/Wiki/Handlers/Thumbnail.php	/^        $length = strlen($tn["body"]);$/;"	v
@@ -276,7 +280,6 @@ lines	src/Wiki/Util.php	/^                $lines = array_slice($lines, $idx + 1)
 lines	src/Wiki/Util.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
 link	src/Wiki/Handlers.php	/^        $link = "\/wiki?name=" . urlencode($homePage);$/;"	v
 link	src/Wiki/Handlers/Page.php	/^                        $link = "\/files\/{$file["id"]}";$/;"	v
-link	src/Wiki/Handlers/Page.php	/^                $link = $small = $large = $caption = null;$/;"	v
 link	src/Wiki/Handlers/Page.php	/^            $link = "\/wiki?name=" . urlencode($m[1]);$/;"	v
 link	src/Wiki/Handlers/Page.php	/^            $link = sprintf("<a class=\\"wiki %s\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", $cls, urlencode($target), htmlspecialchars($target), htmlspecialchars($title));$/;"	v
 link	src/Wiki/Handlers/Search.php	/^            $link = "\/wiki?name=" . urlencode($res[0]["name"]);$/;"	v

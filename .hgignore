@@ -9,5 +9,4 @@
 ^h$
 ^public/f$
 ^public/i$
-^public/styles(\.min)?\.css$
-^public/(scripts|libs)(\.min)?\.js$
+^public/(app|libs)(\.min)?\.(css|js)$
