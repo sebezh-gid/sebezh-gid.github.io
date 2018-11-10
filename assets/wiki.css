@@ -522,34 +522,6 @@ div.right {
     margin: 0 0 10px 20px;
     background-color: white;
 }
-div.right img,
-div.gallery img {
-    padding: 1px;
-    border: solid 1px #ccc;
-    margin: 0 0 5px;
-}
-div.right .map img {
-    border: none;
-}
-div.right a,
-div.gallery a {
-    line-height: 1em;
-    outline: none;
-}
-div.gallery a {
-    display: inline-block;
-    float: left;
-    margin: 0 5px 0 0;
-}
-div.gallery img {
-    float: left;
-    height: 150px;
-}
-div.gallery:after {
-    display: block;
-    content: " ";
-    clear: both;
-}
 
 a {
     color: #0b0080;

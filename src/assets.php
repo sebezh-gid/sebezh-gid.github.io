@@ -17,6 +17,7 @@ return [
         "assets/wiki.css",
         "assets/files.css",
         "assets/search.css",
+        "assets/images.css",
     ],
 
     "public/libs.js" => [
