@@ -146,7 +146,7 @@ class CommonHandler
         $blocks = explode("\n---\n", $source, 2);
 
         if (count($blocks) == 2) {
-            if (preg_match_all('@^([^:]+):\s*(.+)$@', $blocks[0], $m)) {
+            if (preg_match_all('@^([^:]+):\s*(.+)$@m', $blocks[0], $m)) {
                 foreach ($m[1] as $idx => $key)
                     $res[$key] = $m[2][$idx];
             }
