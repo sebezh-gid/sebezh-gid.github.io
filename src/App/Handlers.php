@@ -73,6 +73,8 @@ class Handlers extends CommonHandler
                 return $this->container->get("template");
             case "sphinx":
                 return $this->container->get("sphinx");
+            case "fts":
+                return new \App\Search($this->db);
         }
     }
 }

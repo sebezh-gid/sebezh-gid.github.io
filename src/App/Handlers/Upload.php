@@ -71,7 +71,7 @@ class Upload extends CommonHandler
         }
 
         $hash = md5($body);
-        $old = $this->db->dbFetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);
+        $old = $this->db->fetch("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);
         if ($old)
             return $old["id"];
 

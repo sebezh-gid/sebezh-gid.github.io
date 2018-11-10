@@ -93,3 +93,21 @@ CREATE TABLE IF NOT EXISTS `storage` (
     KEY(`updated`),
     UNIQUE KEY(`name`)
 ) DEFAULT CHARSET utf8;
+
+
+CREATE TABLE IF NOT EXISTS `search` (
+  `key` varchar(255) NOT NULL,
+  `meta` mediumblob,
+  `title` varchar(1024) DEFAULT NULL,
+  `body` mediumtext,
+  PRIMARY KEY (`key`),
+  FULLTEXT KEY `title` (`title`),
+  FULLTEXT KEY `body` (`body`)
+) DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `odict` (
+  `src` varchar(255) NOT NULL,
+  `dst` varchar(255) NOT NULL,
+  PRIMARY KEY (`src`)
+) DEFAULT CHARSET=utf8;

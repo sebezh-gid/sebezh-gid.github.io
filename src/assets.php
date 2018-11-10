@@ -16,6 +16,7 @@ return [
     "public/app.css" => [
         "assets/wiki.css",
         "assets/files.css",
+        "assets/search.css",
     ],
 
     "public/libs.js" => [
@@ -31,5 +32,6 @@ return [
     "public/app.js" => [
         "assets/wiki.js",
         "assets/files.js",
+        "assets/hotkeys.js",
     ],
 ];

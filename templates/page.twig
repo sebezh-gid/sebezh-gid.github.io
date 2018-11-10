@@ -1,11 +1,11 @@
 {% extends "base.twig" %}
 
 {% block more_head %}
- <link rel="edit" title="Редактировать страницу" href="/w/edit?name={{ page_name }}"/>
- <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/w/edit?name={{ page_name }}"/>
+ <link rel="edit" title="Редактировать страницу" href="/w/edit?name={{ page.name }}"/>
+ <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/w/edit?name={{ page.name }}"/>
 {% endblock %}
 
-{% block page_title %}{% if page_name == "Введение" %}Гид по Себежу{% else %}{{ page_title }} — {% if page_props.language == "en" %}Sebezh Guide{% else %}гид по Себежу{% endif %}{% endif %}{% endblock %}
+{% block page_title %}{% if page.name == "Введение" %}Гид по Себежу{% else %}{{ page.title }} — {% if page.language == "en" %}Sebezh Guide{% else %}гид по Себежу{% endif %}{% endif %}{% endblock %}
 
 {% block page_header %}
     <div class="page-header">
@@ -18,17 +18,19 @@
                 <a href="/wiki?name=О+сайте"><i class="fa fa-bars"></i></a>
             </div>
         {% endif %}
-        <h1>{{ page_title }}</h1>
+        <h1>{{ page.title }}</h1>
     </div>
 {% endblock %}
 
 {% block page_contents %}
     <div class="formatted">
-        {% if page_props.en %}
-            <p><i>You can read this page <a href="/wiki?name={{ page_props.en }}">in English</a>.</i></p>
+        {% if page.en %}
+            <p><i>You can read this page <a href="/wiki?name={{ page.en }}">in English</a>.</i></p>
+        {% elseif page.ru %}
+            <p><i>Эта страница есть <a href="/wiki?name={{ page.ru }}">на русском языке</a>.</i></p>
         {% endif %}
 
-        {{ page_html|raw }}
+        {{ page.html|raw }}
 
         {% if file and file.type == "image/jpeg" %}
             <a class="image" data-fancybox="gallery" href="{{ file.link }}">

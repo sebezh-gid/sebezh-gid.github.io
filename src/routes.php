@@ -3,7 +3,12 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-// Routes
+// CLI routes.
+if (PHP_SAPI == "cli") {
+    $app->post('/cli/reindex', '\App\Handlers\Page:onCliReindex');
+}
+
+// Web routes.
 
 $app->get('/wiki', '\App\Handlers\Page');
 $app->get("/w/edit", '\App\Handlers\Page:onEdit');

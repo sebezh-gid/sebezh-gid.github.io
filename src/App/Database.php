@@ -49,7 +49,7 @@ class Database {
      **/
     public function getPageByName($name)
     {
-        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));
+        $res = $this->fetch("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `name` = ?", array($name));
         return $res;
     }
 
@@ -63,7 +63,7 @@ class Database {
      **/
     public function getPageById($id)
     {
-        $res = $this->dbFetchOne("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `id` = ?", [$id]);
+        $res = $this->fetch("SELECT `id`, `name`, `source`, `html`, `created`, `updated` FROM `pages` WHERE `id` = ?", [$id]);
         return $res;
     }
 
@@ -73,14 +73,14 @@ class Database {
         if (preg_match('@"wiki broken"@', $html))
             return;
 
-        $this->dbQuery("UPDATE `pages` SET `html` = ? WHERE `name` = ?", array($html, $pageName));
+        $this->query("UPDATE `pages` SET `html` = ? WHERE `name` = ?", array($html, $pageName));
     }
 
     public function getAllPageNames()
     {
         $res = array();
 
-        $rows = $this->dbFetch("SELECT `name` FROM `pages` ORDER BY `name`");
+        $rows = $this->fetch("SELECT `name` FROM `pages` ORDER BY `name`");
         foreach ($rows as $row)
             $res[] = $row["name"];
 
@@ -90,11 +90,11 @@ class Database {
     public function listPages($sort = null)
     {
         if ($sort == "length")
-            return $this->dbFetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `length` DESC");
+            return $this->fetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `length` DESC");
         elseif ($sort == "updated")
-            return $this->dbFetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `updated` DESC");
+            return $this->fetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `updated` DESC");
         else
-            return $this->dbFetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `name`");
+            return $this->fetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` ORDER BY `name`");
     }
 
     /**
@@ -119,7 +119,7 @@ class Database {
      **/
     public function findFiles()
     {
-        $rows = $this->dbFetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");
+        $rows = $this->fetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");
         return $rows;
     }
 
@@ -129,7 +129,7 @@ class Database {
      **/
     public function getFileByName($name)
     {
-        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `name` = ? OR `hash` = ?", [$name, $name]);
+        $rows = $this->fetch("SELECT * FROM `files` WHERE `name` = ? OR `hash` = ?", [$name, $name]);
         return count($rows) > 0 ? $rows[0] : null;
     }
 
@@ -139,19 +139,19 @@ class Database {
      **/
     public function getFileByHash($hash)
     {
-        $rows = $this->dbFetch("SELECT * FROM `files` WHERE `hash` = ?", [$hash]);
+        $rows = $this->fetch("SELECT * FROM `files` WHERE `hash` = ?", [$hash]);
         return count($rows) > 0 ? $rows[0] : null;
     }
 
     public function getThumbnail($name, $type)
     {
-        $rows = $this->dbFetch("SELECT * FROM `thumbnails` WHERE `name` = ? AND `type` = ?", [$name, $type]);
+        $rows = $this->fetch("SELECT * FROM `thumbnails` WHERE `name` = ? AND `type` = ?", [$name, $type]);
         return $rows ? $rows[0] : null;
     }
 
     public function saveThumbnail($name, $type, $body)
     {
-        $this->dbQuery("INSERT INTO `thumbnails` (`name`, `type`, `body`, `hash`) VALUES (?, ?, ?, ?)", [$name, $type, $body, md5($body)]);
+        $this->query("INSERT INTO `thumbnails` (`name`, `type`, `body`, `hash`) VALUES (?, ?, ?, ?)", [$name, $type, $body, md5($body)]);
     }
 
     public function shortAdd($russian, $english, $link)
@@ -159,36 +159,36 @@ class Database {
         $code = rand(1001, 9999);
         $date = strftime("%Y-%m-%d %H:%M:%S");
 
-        $this->dbQuery("INSERT INTO `shorts` (`id`, `created`, `name1`, `name2`, `link`) VALUES (?, ?, ?, ?, ?)", [$code, $date, $russian, $english, $link]);
+        $this->query("INSERT INTO `shorts` (`id`, `created`, `name1`, `name2`, `link`) VALUES (?, ?, ?, ?, ?)", [$code, $date, $russian, $english, $link]);
 
         return $code;
     }
 
     public function shortGetName($code)
     {
-        $row = $this->dbFetchOne("SELECT `name` FROM `shorts` WHERE `id` = ?", [$code]);
+        $row = $this->fetch("SELECT `name` FROM `shorts` WHERE `id` = ?", [$code]);
         return $row ? $row["name"] : null;
     }
 
     public function shortGetCode($name)
     {
-        $row = $this->dbFetchOne("SELECT `id` FROM `shorts` WHERE `name` = ?", [$name]);
+        $row = $this->fetch("SELECT `id` FROM `shorts` WHERE `name` = ?", [$name]);
         return isset($row["id"]) ? (int)$row["id"] : null;
     }
 
     public function shortsGetByCode($code)
     {
-        return $this->dbFetchOne("SELECT * FROM `shorts` WHERE `id` = ?", [$code]);
+        return $this->fetch("SELECT * FROM `shorts` WHERE `id` = ?", [$code]);
     }
 
     public function shortsGetRecent()
     {
-        return $this->dbFetch("SELECT * FROM `shorts` ORDER BY `created` DESC LIMIT 100");
+        return $this->fetch("SELECT * FROM `shorts` ORDER BY `created` DESC LIMIT 100");
     }
 
     public function sessionGet($id)
     {
-        $row = $this->dbFetchOne("SELECT `data` FROM `sessions` WHERE `id` = ?", [$id]);
+        $row = $this->fetchOne("SELECT `data` FROM `sessions` WHERE `id` = ?", [$id]);
         return $row ? unserialize($row["data"]) : null;
     }
 
@@ -196,23 +196,23 @@ class Database {
     {
         $updated = strftime("%Y-%m-%d %H:%M:%S");
 
-        $this->dbQuery("REPLACE INTO `sessions` (`id`, `updated`, `data`) VALUES (?, ?, ?)", [$id, $updated, serialize($data)]);
+        $this->query("REPLACE INTO `sessions` (`id`, `updated`, `data`) VALUES (?, ?, ?)", [$id, $updated, serialize($data)]);
     }
 
     public function accountGet($login)
     {
-        return $this->dbFetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);
+        return $this->fetch("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);
     }
 
     public function filePut($name, $data)
     {
         $date = strftime("%Y-%m-%d %H:%M:%S");
-        $this->dbQuery("REPLACE INTO `storage` (`updated`, `name`, `body`) VALUES (?, ?, ?)", [$date, $name, $data]);
+        $this->query("REPLACE INTO `storage` (`updated`, `name`, `body`) VALUES (?, ?, ?)", [$date, $name, $data]);
     }
 
     public function fileGet($name)
     {
-        return $this->dbFetchOne("SELECT `body` FROM `storage` WHERE `name` = ?", [$name]);
+        return $this->fetch("SELECT `body` FROM `storage` WHERE `name` = ?", [$name]);
     }
 
     /**
@@ -238,7 +238,7 @@ class Database {
         return $this->conn;
     }
 
-    public function dbFetch($query, array $params = array(), $callback = null)
+    public function fetch($query, array $params = array(), $callback = null)
     {
         $db = $this->connect();
         $sth = $db->prepare($query);
@@ -251,7 +251,7 @@ class Database {
         return $rows;
     }
 
-    public function dbFetchOne($query, array $params = array())
+    public function fetchOne($query, array $params = array())
     {
         $db = $this->connect();
         $sth = $db->prepare($query);
@@ -259,7 +259,20 @@ class Database {
         return $sth->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function dbQuery($query, array $params = array())
+    public function fetchkv($query, array $params = [])
+    {
+        $rows = $this->fetch($query, $params);
+
+        $res = [];
+        foreach ($rows as $row) {
+            $row = array_values($row);
+                $res[$row[0]] = $row[1];
+        }
+
+        return $res;
+    }
+
+    public function query($query, array $params = array())
     {
         $db = $this->connect();
         $sth = $db->prepare($query);
@@ -283,7 +296,7 @@ class Database {
         $_marks = implode(", ", $_marks);
 
         $query = "INSERT INTO `{$tableName}` ({$_fields}) VALUES ({$_marks})";
-        $sth = $this->dbQuery($query, $_params);
+        $sth = $this->query($query, $_params);
 
         return $this->conn->lastInsertId();
     }
@@ -308,7 +321,27 @@ class Database {
         $_where = implode(" AND ", $_where);
 
         $query = "UPDATE `{$tableName}` SET {$_set} WHERE {$_where}";
-        $sth = $this->dbQuery($query, $_params);
+        $sth = $this->query($query, $_params);
         return $sth->rowCount();
+    }
+
+    public function getConnectionType()
+    {
+        return $this->connect()->getAttribute(\PDO::ATTR_DRIVER_NAME);
+    }
+
+    public function beginTransaction()
+    {
+        $this->connect()->beginTransaction();
+    }
+
+    public function commit()
+    {
+        $this->connect()->commit();
+    }
+
+    public function rollback()
+    {
+        $this->connect()->rollback();
     }
 }

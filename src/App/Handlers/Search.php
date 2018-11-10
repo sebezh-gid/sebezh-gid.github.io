@@ -14,7 +14,7 @@ class Search extends Handlers
 {
     public function onGet(Request $request, Response $response, array $args)
     {
-        $query = @$_GET["query"];
+        $query = $request->getParam("query");
 
         $short = $this->db->shortsGetByCode($query);
         if ($short) {
@@ -22,18 +22,7 @@ class Search extends Handlers
             return $response->withRedirect($next, 303);
         }
 
-        try {
-            $res = $query ? $this->sphinx->search($query) : null;
-            $error = false;
-        } catch (\Exception $e) {
-            $res = [];
-            $error = true;
-        }
-
-        if (count($res) == 1) {
-            $link = "/wiki?name=" . urlencode($res[0]["name"]);
-            return $response->withRedirect($link, 303);
-        }
+        $results = $this->search($query);
 
         $wikiName = \App\Common::wikiName($query);
         $hasPage = $this->db->getPageByName($wikiName) ? true : false;
@@ -42,8 +31,7 @@ class Search extends Handlers
             "query" => $query,
             "wikiName" => $wikiName,
             "has_page" => $hasPage,
-            "results" => $res,
-            "search_error" => $error,
+            "results" => $results,
             "edit_link" => "/w/edit?name=" . urlencode($wikiName),
         ]);
     }

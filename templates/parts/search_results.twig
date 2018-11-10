@@ -1,0 +1,16 @@
+{% for res in search_results %}
+    <div class="result{% if res.image %} with_img{% endif %}">
+        {% if res.image %}
+            <a class="img" href="{{ res.link }}" title="{{ res.title }}"><img src="{{ res.image }}" alt="{{ res.title }}"/></a>
+        {% endif %}
+        <p class="title"><a href="{{ res.link }}">{{ res.title }}</a></p>
+        {% if res.snippet %}
+            <p class="snippet">{{ res.snippet }}</p>
+        {% else %}
+            <p class="snippet">Описание этой страницы отсутствует.</p>
+        {% endif %}
+        {% if res.updated %}
+            <p class="meta">Последняя редакция от {{ res.updated|date_simple }}</p>
+        {% endif %}
+    </div>
+{% endfor %}

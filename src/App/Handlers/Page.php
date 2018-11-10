@@ -29,32 +29,30 @@ class Page extends CommonHandler
                 break;
         }
 
-        $page = $this->db->getPageByName($pageName);
+        $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);
+        if (empty($page)) {
+            $search = $this->search($pageName);
 
-        if (preg_match('@^#REDIRECT \[\[(.+)\]\]$@m', $page["source"], $m)) {
-            $link = "/wiki?name=" . urlencode($m[1]);
+            $response = $this->render($request, "nopage.twig", [
+                "title" => "Page not found",
+                "page_name" => $pageName,
+                "search_results" => $search,
+            ]);
+
+            return $response->withStatus(404);
+        }
+
+        $page = $this->processWikiPage($page["name"], $page["source"]);
+
+        if (!empty($page["redirect"])) {
+            // TODO: check if page exists.
+            $link = "/wiki?name=" . urlencode($page["redirect"]);
             return $response->withRedirect($link, 303);
         }
 
-        if ($page === false) {
-            $status = 404;
-
-            return $this->render($request, "nopage.twig", [
-                "title" => "Page not found",
-                "page_name" => $pageName,
-            ]);
-        } elseif (!empty($page["html"]) and !$fresh) {
-            $status = 200;
-            $html = $page["html"];
-        } else {
-            $status = 200;
-            $html = $this->renderPage($page);
-            $this->db->updatePageHtml($pageName, $html);
-        }
-
-        $response->getBody()->write($html);
-
-        return $response->withStatus($status);
+        return $this->render($request, "page.twig", [
+            "page" => $page,
+        ]);
     }
 
     public function onEdit(Request $request, Response $response, array $args)
@@ -69,7 +67,7 @@ class Page extends CommonHandler
             return $response->withRedirect($next, 302);
         }
 
-        $page = $this->db->getPageByName($pageName);
+        $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);
         if ($page === false) {
             if (preg_match('@^\d{4}$@', $pageName)) {
                 $contents = "# sebezh-gid.ru #{$pageName}\n\n- Русский: [[страница]]\n- English: [[something]]";
@@ -98,30 +96,80 @@ class Page extends CommonHandler
         $text = $request->getParam("page_source");
 
         // Back up current revision.
-        $this->db->dbQuery("INSERT INTO `history` (`name`, `source`, `created`) SELECT `name`, `source`, `updated` FROM `pages` WHERE `name` = ?", [$name]);
+        $this->db->query("INSERT INTO `history` (`name`, `source`, `created`) SELECT `name`, `source`, `updated` FROM `pages` WHERE `name` = ?", [$name]);
 
-        $now = time();
+        if (empty($text)) {
+            $this->db->query("DELETE FROM `pages` WHERE `name` = ?", [$name]);
 
-        $count = $this->db->update("pages", [
-            "source" => $text,
-            "html" => null,
-            "updated" => $now,
-        ], [
-            "name" => $name,
-        ]);
+            $this->fts->reindexDocument("page:" . $name, null, null);
 
-        if ($count == 0) {
-            $this->db->insert("pages", [
-                "name" => $name,
+            return $response->withRedirect("/", 303);
+        } else {
+            $now = time();
+
+            $count = $this->db->update("pages", [
                 "source" => $text,
-                "created" => $now,
+                "html" => null,
+                "updated" => $now,
+            ], [
+                "name" => $name,
+            ]);
+
+            if ($count == 0) {
+                $this->db->insert("pages", [
+                    "name" => $name,
+                    "source" => $text,
+                    "created" => $now,
+                    "updated" => $now,
+                ]);
+            }
+
+            $page = $this->processWikiPage($name, $text);
+            $text = $this->getPageText($page);
+            $snippet = $this->getPageSnippet($page);
+
+            $this->fts->reindexDocument("page:" . $name, $page["title"], $text, [
+                "snippet" => $snippet,
                 "updated" => $now,
             ]);
+
+            return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
         }
+    }
 
-        // TODO: update index
+    /**
+     * CLI: reindex all pages.
+     **/
+    public function onCliReindex()
+    {
+        error_log("reindex: preparing pages.");
 
-        return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
+        $pages = $this->db->fetch("SELECT * FROM `pages`", [], function ($row) {
+            $page = $this->processWikiPage($row["name"], $row["source"]);
+
+            $image = null;
+            if (preg_match('@<img[^>]+/>@', $page["html"], $m)) {
+                if (preg_match('@src="([^"]+)"@', $m[0], $m)) {
+                    $image = $m[1];
+                }
+            }
+
+            return [
+                "key" => "page:" . $row["name"],
+                "title" => $page["title"],
+                "body" => $this->getPageText($page),
+                "meta" => [
+                    "snippet" => $this->getPageSnippet($page),
+                    "updated" => $row["updated"],
+                    "image" => $image,
+                ],
+            ];
+        });
+
+        error_log("reindex: updating.");
+        $this->fts->reindexAll($pages);
+
+        error_log("reindex: done.");
     }
 
     /**
@@ -165,7 +213,7 @@ class Page extends CommonHandler
 
                 $caption = null;
 
-                if ($file = $this->db->dbFetchOne("SELECT `id`, `kind`, `type` FROM `files` WHERE `hash` = ?", [$fname])) {
+                if ($file = $this->db->fetch("SELECT `id`, `kind`, `type` FROM `files` WHERE `hash` = ?", [$fname])) {
                     if ($file["kind"] == "photo") {
                         $link = "/files/{$file["id"]}";
                         $small = "/i/thumbnails/{$file["id"]}.jpg";
@@ -218,5 +266,25 @@ class Page extends CommonHandler
             return true;
 
         return false;
+    }
+
+    protected function getPageText(array $page)
+    {
+        $html = $page["html"];
+        $html = str_replace("><", "> <", $html);
+        $text = trim(strip_tags($html));
+        return $text;
+    }
+
+    protected function getPageSnippet(array $page)
+    {
+        $html = $page["html"];
+
+        if (preg_match('@<p>(.+?)</p>@', $html, $m)) {
+            $text = strip_tags($m[1]);
+            return $text;
+        }
+
+        return null;
     }
 }

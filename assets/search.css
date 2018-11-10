@@ -1,0 +1,11 @@
+.result a.img {
+    float: right;
+    display: block;
+    margin-left: 15px;
+}
+.result img {
+    height: 100px;
+}
+.result.with_img {
+    min-height: 100px;
+}

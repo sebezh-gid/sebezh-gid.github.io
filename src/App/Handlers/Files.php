@@ -16,7 +16,7 @@ class Files extends CommonHandler
 {
     public function onGetRecent(Request $request, Response $response, array $args)
     {
-        $files = $this->db->dbFetch("SELECT `id`, `hash`, `real_name`, `kind`, `type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {
+        $files = $this->db->fetch("SELECT `id`, `hash`, `real_name`, `kind`, `type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {
             $type = explode("/", $em["type"]);
             $type = $type[0];
 
@@ -42,7 +42,7 @@ class Files extends CommonHandler
 
     public function onShowFile(Request $request, Response $response, array $args)
     {
-        $file = $this->db->dbFetchOne("SELECT `id`, `hash`, `name`, `real_name`, `kind`, `type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetch("SELECT `id`, `hash`, `name`, `real_name`, `kind`, `type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($response);
 
@@ -53,7 +53,7 @@ class Files extends CommonHandler
 
     public function onDownload(Request $request, Response $response, array $args)
     {
-        $file = $this->db->dbFetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetch("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($response);
 
@@ -69,7 +69,7 @@ class Files extends CommonHandler
 
     public function onThumbnail(Request $request, Response $response, array $args)
     {
-        $file = $this->db->dbFetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetch("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($response);
 

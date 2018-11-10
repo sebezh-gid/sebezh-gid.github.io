@@ -73,6 +73,7 @@ class Common
 
         $html = preg_replace_callback('@<h([12345])>(.+)</h([12345])>@', function ($m) use (&$level, &$toc) {
             list($str, $openLevel, $titleText, $closeLevel) = $m;
+            $titleText = strip_tags($titleText);
 
             if ($openLevel != $closeLevel)
                 return $str;
@@ -87,7 +88,7 @@ class Common
 
             $level = (int)$openLevel;
 
-            $anchor = mb_strtolower(trim(preg_replace('@\s+@', '_', $m[2])));
+            $anchor = mb_strtolower(trim(preg_replace('@\s+@', '_', $titleText)));
 
             $toc .= sprintf("<li><a href='#%s'>%s</a></li>", $anchor, $titleText);
 
