@@ -360,7 +360,7 @@ function enable_map()
  **/
 function enable_wiki_fancybox()
 {
-    $("main img").each(function () {
+    $("formatted img").each(function () {
       if ($(this).parent().is("a")) {
           $(this).parent().attr("data-fancybox", "gallery");
       } else {

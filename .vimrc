@@ -24,6 +24,8 @@ au FileType html.twig set ts=4 sts=4 sw=4 et tw=0
 set list listchars=tab:»·,trail:.,extends:>
 nmap <F8> :set list!<CR>
 
+map <F6> :!hgput %<CR>
+
 " Folding setup.
 set foldenable
 " Close folds when cursor leaves them.
