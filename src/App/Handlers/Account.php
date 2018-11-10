@@ -18,7 +18,7 @@ class Account extends CommonHandler
     {
         $back = @$_GET["back"];
 
-        return $this->render($response, "login.twig", [
+        return $this->render($request, "login.twig", [
             "title" => "Идентификация",
             "back" => $back,
         ]);

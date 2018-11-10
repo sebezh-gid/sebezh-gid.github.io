@@ -21,7 +21,7 @@ class Short extends CommonHandler
 
         list($russian, $english, $link) = $this->getPageNames(@$_GET["name"]);
 
-        return $this->template->render($response, "short-form.twig", [
+        return $this->template->render($request, "short-form.twig", [
             "title" => "Генератор табличек",
             "recent" => $recent,
             "plate_russian" => $russian,
@@ -70,7 +70,7 @@ class Short extends CommonHandler
         if (empty($info))
             return $this->notfound();
 
-        return $this->render($response, "short-show.twig", [
+        return $this->render($request, "short-show.twig", [
             "title" => $info["name1"],
             "info" => $info,
         ]);
@@ -125,7 +125,7 @@ class Short extends CommonHandler
         $name = $_GET["name"];
         $code = $this->getCode($name);
 
-        return $this->template->render($response, "short.twig", [
+        return $this->template->render($request, "short.twig", [
             "code" => $code,
             "name" => $name,
         ]);

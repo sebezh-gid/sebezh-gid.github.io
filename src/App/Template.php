@@ -2,7 +2,6 @@
 
 namespace App;
 
-use \Slim\Http\Response;
 
 class Template
 {
@@ -42,13 +41,11 @@ class Template
         }));
     }
 
-    public function render(Response $response, $fileName, array $data = array())
+    public function render($fileName, array $data = array())
     {
         $data["host"] = $_SERVER["HTTP_HOST"];
-
         $html = $this->renderFile($fileName, $data);
-        $response->getBody()->write($html);
-        return $response;
+        return $html;
     }
 
     public function renderFile($fileName, array $data)

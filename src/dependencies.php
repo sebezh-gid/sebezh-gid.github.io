@@ -23,7 +23,7 @@ $container['sphinx'] = function ($c) {
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         $twig = $c->get("template");
-        return $twig->render($response, "notfound.twig")
+        return $twig->render("notfound.twig")
             ->withStatus(404);
     };
 };

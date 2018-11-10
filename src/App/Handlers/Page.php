@@ -17,7 +17,7 @@ class Page extends CommonHandler
     public function onGet(Request $request, Response $response, array $args)
     {
         $pageName = $request->getQueryParam("name");
-        $fresh = $request->getQueryParam("cache") == "no";
+        $fresh = $this->refresh($request);
 
         if (empty($pageName))
             return $response->withRedirect("/wiki?name=Welcome", 302);
@@ -39,7 +39,7 @@ class Page extends CommonHandler
         if ($page === false) {
             $status = 404;
 
-            return $this->template->render($response, "nopage.twig", [
+            return $this->template->render($request, "nopage.twig", [
                 "title" => "Page not found",
                 "page_name" => $pageName,
             ]);
@@ -80,7 +80,7 @@ class Page extends CommonHandler
             $contents = $page["source"];
         }
 
-        return $this->template->render($response, "editor.twig", [
+        return $this->template->render($request, "editor.twig", [
             "page_name" => $pageName,
             "page_source" => $contents,
             "is_editable" => $this->isAdmin($request),
@@ -177,5 +177,24 @@ class Page extends CommonHandler
         });
 
         return $html;
+    }
+
+    protected function refresh(Request $request)
+    {
+        $headers = $request->getHeaders();
+
+        $cacheControl = @$headers["HTTP_CACHE_CONTROL"][0];
+
+        // Refresh, Firefox
+        /*
+        if ($cacheControl == "max-age=0")
+            return true;
+        */
+
+        // Shift-Refresh, Firefox
+        if ($cacheControl == "no-cache")
+            return true;
+
+        return false;
     }
 }

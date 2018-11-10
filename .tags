@@ -408,7 +408,7 @@ re	src/App/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($en
 receiveFile	src/App/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
 recent	src/App/Handlers/Short.php	/^        $recent = $this->db->shortsGetRecent();$/;"	v
 render	src/App/CommonHandler.php	/^    protected function render(Response $response, $templateName, array $data = [])$/;"	f
-render	src/App/Template.php	/^    public function render(Response $response, $fileName, array $data = array())$/;"	f
+render	src/App/Template.php	/^    public function render($fileName, array $data = array())$/;"	f
 renderFile	src/App/Template.php	/^    public function renderFile($fileName, array $data)$/;"	f
 renderImage	src/App/Handlers/Short.php	/^    protected function renderImage(array $params)$/;"	f
 renderImage	src/App/Handlers/ShortImage.php	/^    protected function renderImage(array $params)$/;"	f

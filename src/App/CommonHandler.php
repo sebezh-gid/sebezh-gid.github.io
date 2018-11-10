@@ -78,9 +78,13 @@ class CommonHandler
         return true;
     }
 
-    protected function render(Response $response, $templateName, array $data = [])
+    protected function render(Request $request, $templateName, array $data = [])
     {
-        return $this->template->render($response, $templateName, $data);
+        $html = $this->template->render($templateName, $data);
+
+        $response = new Response(200);
+        $response->getBody()->write($html);
+        return $response;
     }
 
     protected function notfound(Response $response)

@@ -63,7 +63,7 @@ class Handlers extends CommonHandler
 
     public function getHome(Request $request, Response $response)
     {
-        return $this->render($response, "home.twig", []);
+        return $this->render($request, "home.twig", []);
     }
 
     public function __get($key)

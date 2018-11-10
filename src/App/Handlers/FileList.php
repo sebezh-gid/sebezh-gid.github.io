@@ -12,7 +12,7 @@ class FileList extends Handlers
     {
         $files = $this->db->findFiles();
 
-        return $this->container->get("template")->render($response, "files.twig", array(
+        return $this->container->get("template")->render($request, "files.twig", array(
             "files" => $files,
             ));
     }

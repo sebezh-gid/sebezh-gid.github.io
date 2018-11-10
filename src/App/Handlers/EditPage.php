@@ -29,7 +29,7 @@ class EditPage extends CommonHandler
             $contents = $page["source"];
         }
 
-        return $this->template->render($response, "editor.twig", [
+        return $this->template->render($request, "editor.twig", [
             "page_name" => $pageName,
             "page_source" => $contents,
             "is_editable" => $this->isAdmin($request),

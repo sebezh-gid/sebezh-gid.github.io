@@ -35,7 +35,7 @@ class Files extends CommonHandler
             ];
         });
 
-        return $this->render($response, "files-recent.twig", [
+        return $this->render($request, "files-recent.twig", [
             "files" => $files,
         ]);
     }
@@ -46,7 +46,7 @@ class Files extends CommonHandler
         if (empty($file))
             return $this->notfound($response);
 
-        return $this->render($response, "files-show.twig", [
+        return $this->render($request, "files-show.twig", [
             "file" => $file,
         ]);
     }
