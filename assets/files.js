@@ -32,4 +32,8 @@ jQuery(function ($) {
         $(window).on("scroll", update);
         $(window).on("resize", update);
     }
+
+    $(document).on("paste", "input.uploadLink", function (e) {
+        $(this).closest("form").submit();
+    });
 });
