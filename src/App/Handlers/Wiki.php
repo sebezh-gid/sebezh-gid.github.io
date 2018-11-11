@@ -345,10 +345,14 @@ class Wiki extends CommonHandler
             }
 
             $cls = "good";
-            if (empty($this->db->fetch("SELECT `name` FROM `pages` WHERE `name` = ?", [$link])))
-                $cls = "broken";
+            $title = $link;
 
-            $html = sprintf("<a href='/wiki?name=%s' class='wiki %s'>%s</a>", urlencode($link), $cls, htmlspecialchars($label));
+            if (empty($this->db->fetch("SELECT `name` FROM `pages` WHERE `name` = ?", [$link]))) {
+                $cls = "broken";
+                $title = "Нет такой страницы";
+            }
+
+            $html = sprintf("<a href='/wiki?name=%s' class='wiki %s' title='%s'>%s</a>", urlencode($link), $cls, htmlspecialchars($title), htmlspecialchars($label));
 
             return $html;
         }, $source);
