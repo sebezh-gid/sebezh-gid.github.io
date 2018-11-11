@@ -595,7 +595,7 @@ source	src/App/Handlers/Wiki.php	/^        $source = preg_replace_callback('@\\[
 source	src/App/Handlers/Wiki.php	/^        $source = str_replace("\\r\\n", "\\n", $source);$/;"	v
 splitWords	src/App/Search.php	/^    protected function splitWords($text)$/;"	f
 sql	src/App/Search.php	/^                $sql = "SELECT `key`, `meta` FROM `search` WHERE `search` MATCH ? ORDER BY bm25(`search`, 0, 10) LIMIT {$limit}";$/;"	v
-sql	src/App/Search.php	/^                $sql = "SELECT `key`, `meta`, MATCH(`title`) AGAINST (:query IN BOOLEAN MODE) * 10 AS `trel`, MATCH(`body`) AGAINST (:query IN BOOLEAN MODE) AS `brel` FROM `search` HAVING `trel` > 0 OR `brel` > 0 ORDER BY `trel` DESC, `brel` DESC LIMIT {$limit}";$/;"	v
+sql	src/App/Search.php	/^                $sql = "SELECT `key`, `meta`, MATCH(`title`) AGAINST (:query IN BOOLEAN MODE) * 10 AS `trel`, MATCH(`body`) AGAINST (:query IN BOOLEAN MODE) AS `brel` FROM `search` WHERE `key` NOT LIKE 'page:File:%' HAVING `trel` > 0 OR `brel` > 0 ORDER BY `trel` DESC, `brel` DESC LIMIT {$limit}";$/;"	v
 src	src/App/Handlers/Wiki.php	/^                $src = "public" . str_replace("_small", "", $attrs["src"]);$/;"	v
 stack	src/dependencies.php	/^    $stack = ob_get_clean();$/;"	v
 stack	src/dependencies.php	/^    $stack = str_replace(dirname(__DIR__) . "\/", "", $stack);$/;"	v
