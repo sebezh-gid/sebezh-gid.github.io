@@ -127,10 +127,12 @@ class Page extends CommonHandler
             $page = $this->processWikiPage($name, $text);
             $text = $this->getPageText($page);
             $snippet = $this->getPageSnippet($page);
+            $image = $this->getPageImage($page);
 
             $this->fts->reindexDocument("page:" . $name, $page["title"], $text, [
                 "snippet" => $snippet,
                 "updated" => $now,
+                "image" => $image,
             ]);
 
             return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
@@ -147,13 +149,6 @@ class Page extends CommonHandler
         $pages = $this->db->fetch("SELECT * FROM `pages`", [], function ($row) {
             $page = $this->processWikiPage($row["name"], $row["source"]);
 
-            $image = null;
-            if (preg_match('@<img[^>]+/>@', $page["html"], $m)) {
-                if (preg_match('@src="([^"]+)"@', $m[0], $m)) {
-                    $image = $m[1];
-                }
-            }
-
             return [
                 "key" => "page:" . $row["name"],
                 "title" => $page["title"],
@@ -161,7 +156,7 @@ class Page extends CommonHandler
                 "meta" => [
                     "snippet" => $this->getPageSnippet($page),
                     "updated" => $row["updated"],
-                    "image" => $image,
+                    "image" => $this->getPageImage($page),
                 ],
             ];
         });
@@ -286,5 +281,21 @@ class Page extends CommonHandler
         }
 
         return null;
+    }
+
+    protected function getPageImage(array $page)
+    {
+        $image = null;
+        if (preg_match('@<img[^>]+/>@ms', $page["html"], $m)) {
+            if (preg_match('@src="([^"]+)"@', $m[0], $n)) {
+                $image = $n[1];
+            }
+
+            elseif (preg_match("@src='([^']+)'@", $m[0], $n)) {
+                $image = $n[1];
+            }
+        }
+
+        return $image;
     }
 }

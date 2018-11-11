@@ -215,6 +215,7 @@ getHome	src/App/Handlers.php	/^    public function getHome(Request $request, Res
 getImage	src/App/Handlers/Files.php	/^    protected function getImage($img)$/;"	f
 getPageById	src/App/Database.php	/^    public function getPageById($id)$/;"	f
 getPageByName	src/App/Database.php	/^    public function getPageByName($name)$/;"	f
+getPageImage	src/App/Handlers/Page.php	/^    protected function getPageImage(array $page)$/;"	f
 getPageNames	src/App/Handlers/Short.php	/^    protected function getPageNames($name)$/;"	f
 getPageSnippet	src/App/Handlers/Page.php	/^    protected function getPageSnippet(array $page)$/;"	f
 getPageText	src/App/Handlers/Page.php	/^    protected function getPageText(array $page)$/;"	f
@@ -272,8 +273,9 @@ ih	src/App/Handlers/Files.php	/^        $ih = imagesy($img);$/;"	v
 ih	src/App/Handlers/Thumbnail.php	/^        $ih = imagesy($img);$/;"	v
 image	src/App/Handlers/Files.php	/^                $image = "\/i\/thumbnails\/{$em["id"]}.jpg";$/;"	v
 image	src/App/Handlers/Files.php	/^                $image = null;$/;"	v
-image	src/App/Handlers/Page.php	/^                    $image = $m[1];$/;"	v
-image	src/App/Handlers/Page.php	/^            $image = null;$/;"	v
+image	src/App/Handlers/Page.php	/^                $image = $n[1];$/;"	v
+image	src/App/Handlers/Page.php	/^            $image = $this->getPageImage($page);$/;"	v
+image	src/App/Handlers/Page.php	/^        $image = null;$/;"	v
 image	src/App/Handlers/Short.php	/^        $image = $this->renderImage($params);$/;"	v
 image	src/App/Handlers/Short.php	/^        $image = $this->renderImage([$/;"	v
 image	src/App/Handlers/ShortImage.php	/^        $image = $this->renderImage($params);$/;"	v
