@@ -22,6 +22,9 @@ pull-data:
 reindex:
 	php -f tools/cli.php reindex
 
+reindex-remote:
+	ssh $(REMOTE) php -f wiki/tools/cli.php reindex
+
 serve:
 	php -d upload_max_filesize=100M -S 127.0.0.1:8080 -t public public/router.php
 
