@@ -35,7 +35,6 @@ sql:
 	sqlite3 -header data/database.sqlite
 
 sql-public:
-	#ssh -t $(REMOTE) sqlite3 wiki/data/database.sqlite
 	ssh -t $(REMOTE) mysql
 
 tags:
