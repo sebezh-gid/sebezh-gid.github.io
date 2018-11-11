@@ -61,4 +61,68 @@ jQuery(function ($) {
             this.selectionEnd = s + lines.length;
         }
     });
+
+    $(document).on("keydown", "textarea.wiki", function (e) {
+        // Make wiki link from selection.
+        if (e.altKey && (e.key == "]" || e.key == "ъ" || e.key == "Ъ")) {
+            // TODO: load from outside.
+            var fixmap = {
+                "нацпарк": "Себежский национальный парк",
+                "нацпарка": "Себежский национальный парк",
+                "национального парка": "Себежский национальный парк"
+            };
+
+            var v = this.value,
+                s = this.selectionStart,
+                e = this.selectionEnd,
+                x = v.substring(s, e);
+
+            // Autocorrect things.
+            var _x = x.toLowerCase();
+            for (k in fixmap) {
+                if (k == _x) {
+                    x = fixmap[k] + "|" + x;
+                    break;
+                }
+            }
+
+            // Отдельный случай для годов.
+            x = x.replace(/^(\d{4}) год(|а|у|ом)$/, '$1 год|' + x);
+
+            // Добавляем текст с заглавной буквы.
+            // [[коза]] => [[Коза|коза]]
+            if (x.indexOf("|") < 0) {
+                var title = x[0].toUpperCase() + x.substr(1);
+                if (title != x)
+                    x = title + "|" + x;
+            }
+
+            var text = v.substring(0, s) + "[[" + x + "]]" + v.substring(e);
+            this.value = text;
+
+            if (x.indexOf("|") < 0) {
+                // this.selectionStart = s + x.length + 4;
+                // this.selectionEnd = s + x.length + 4;
+
+                this.selectionStart = s + 2;
+                this.selectionEnd = s + x.length + 2;
+            } else {
+                this.selectionStart = s + 2;
+                this.selectionEnd = s + 2 + x.indexOf("|");
+            }
+        }
+
+        if (e.altKey && (e.key == "." || e.key == "ю")) {
+            var v = this.value,
+                s = this.selectionStart,
+                e = this.selectionEnd;
+
+            var src = v.substring(s, e);
+            var dst = v.substring(0, s) + "«" + src + "»" + v.substring(e);
+
+            this.value = dst;
+            this.selectionStart = s + src.length + 2;
+            this.selectionEnd = s + src.length + 2;
+        }
+    });
 });
