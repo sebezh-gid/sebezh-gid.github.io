@@ -8,7 +8,7 @@
  <form class="pedit" method="post" action="/wiki/edit">
   <input type="hidden" name="page_name" value="{{ page_name }}"/>
 
-  <textarea class="form-control wiki" name="page_source" autofocus="autofocus"{% if not is_editable %} readonly="readonly"{% endif %}>{{ page_source }}</textarea>
+  <textarea class="form-control markdown wiki" name="page_source" autofocus="autofocus"{% if not is_editable %} readonly="readonly"{% endif %}>{{ page_source }}</textarea>
 
   {% if is_editable %}
     <div class="form-actions">
