@@ -26,16 +26,26 @@ class Account extends CommonHandler
 
     public function onLogin(Request $request, Response $response, array $args)
     {
-        $acc = $this->db->accountGet($_POST["login"]);
+        $login = $request->getParam("login");
+        $password = $request->getParam("password");
+        $next = $request->getParam("back");
+
+        $acc = $this->db->fetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);
         if (empty($acc)) {
             return $response->withJSON([
                 "message" => "Нет такого пользователя.",
             ]);
         }
 
-        if ($_POST["password"] != $acc["password"]) {
+        if (!password_verify($password, $acc["password"])) {
             return $response->withJSON([
                 "message" => "Пароль не подходит.",
+            ]);
+        }
+
+        if ($acc["enabled"] == 0) {
+            return $response->withJSON([
+                "message" => "Учётная запись отключена.",
             ]);
         }
 
@@ -43,7 +53,11 @@ class Account extends CommonHandler
             "user_id" => $acc["id"],
         ]);
 
-        $next = $_POST["back"];
+        $this->db->update("accounts", [
+            "last_login" => strftime("%Y-%m-%d %H:%M:%S"),
+        ], [
+            "id" => $acc["id"],
+        ]);
 
         return $response->withJSON([
             "redirect" => $next,
