@@ -9,6 +9,7 @@ CLI	src/App/Handlers/CLI.php	/^class CLI extends CommonHandler$/;"	c
 Common	src/App/Common.php	/^class Common$/;"	c
 CommonHandler	src/App/CommonHandler.php	/^class CommonHandler$/;"	c
 Database	src/App/Database.php	/^class Database {$/;"	c
+Database	src/App/Handlers/Database.php	/^class Database extends CommonHandler$/;"	c
 EditPage	src/App/Handlers/EditPage.php	/^class EditPage extends CommonHandler$/;"	c
 File	src/App/Handlers/File.php	/^class File extends CommonHandler$/;"	c
 FileHandler	src/App/FileHandler.php	/^class FileHandler extends Handlers$/;"	c
@@ -167,6 +168,7 @@ extractProperties	src/App/Parser.php	/^    public static function extractPropert
 fetch	src/App/Common.php	/^    public static function fetch($url)$/;"	f
 fetch	src/App/Database.php	/^    public function fetch($query, array $params = array(), $callback = null)$/;"	f
 fetchOne	src/App/Database.php	/^    public function fetchOne($query, array $params = array())$/;"	f
+fetchcell	src/App/Database.php	/^    public function fetchcell($query, array $params = array())$/;"	f
 fetchkv	src/App/Database.php	/^    public function fetchkv($query, array $params = [])$/;"	f
 fi	src/App/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;"	v
 file	src/App/FileHandler.php	/^        $file = $this->db->getFileByName($name);$/;"	v
@@ -221,6 +223,7 @@ getPageSnippet	src/App/Handlers/Wiki.php	/^    protected function getPageSnippet
 getPageText	src/App/Handlers/Wiki.php	/^    protected function getPageText(array $page)$/;"	f
 getRussianName	src/App/Handlers/Short.php	/^    protected function getRussianName($code)$/;"	f
 getRussianName	src/App/Handlers/ShortImage.php	/^    protected function getRussianName($code)$/;"	f
+getStats	src/App/Handlers/Database.php	/^    protected function getStats()$/;"	f
 getThumbnail	src/App/Database.php	/^    public function getThumbnail($name, $type)$/;"	f
 getWordBase	src/App/Stemmer.php	/^    public static function getWordBase($word)$/;"	f
 guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
@@ -355,6 +358,7 @@ mimeType	src/App/Handlers/Thumbnail.php	/^        $mimeType = "image\/jpeg";$/;"
 name	src/App/CommonHandler.php	/^            $name = substr($em["key"], 5);$/;"	v
 name	src/App/FileHandler.php	/^        $name = $args["name"];$/;"	v
 name	src/App/Handlers.php	/^        $name = $_POST["page_name"];$/;"	v
+name	src/App/Handlers/Database.php	/^                $name = $this->db->fetchcell("SELECT DATABASE()");$/;"	v
 name	src/App/Handlers/EditPage.php	/^        $name = $_POST["page_name"];$/;"	v
 name	src/App/Handlers/File.php	/^        $name = $args["name"];$/;"	v
 name	src/App/Handlers/Short.php	/^        $name = $_GET["name"];$/;"	v
@@ -424,6 +428,7 @@ onRedirect	src/App/Handlers/Short.php	/^    public function onRedirect(Request $
 onSave	src/App/Handlers/Wiki.php	/^    public function onSave(Request $request, Response $response, array $args)$/;"	f
 onShowFile	src/App/Handlers/Files.php	/^    public function onShowFile(Request $request, Response $response, array $args)$/;"	f
 onShowItem	src/App/Handlers/Short.php	/^    public function onShowItem(Request $request, Response $response, array $args)$/;"	f
+onStatus	src/App/Handlers/Database.php	/^    public function onStatus(Request $request, Response $response, array $args)$/;"	f
 onThumbnail	src/App/Handlers/Files.php	/^    public function onThumbnail(Request $request, Response $response, array $args)$/;"	f
 options	src/App/Handlers/Files.php	/^        $options = array_merge([$/;"	v
 options	src/App/Handlers/Thumbnail.php	/^        $options = array_merge([$/;"	v
@@ -545,6 +550,7 @@ rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT * FROM `thumbna
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch($query, $params);$/;"	v
+rows	src/App/Handlers/Database.php	/^                $rows = $this->db->fetch("select name FROM sqlite_master WHERE `type` = 'table' ORDER BY name");$/;"	v
 rows	src/App/Search.php	/^        $rows = $this->db->fetch($sql, $params, function ($em) {$/;"	v
 ruName	src/App/Handlers/Short.php	/^        $ruName = $this->getRussianName($code);$/;"	v
 rufont	src/App/Handlers/Short.php	/^        $rufont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Bold.ttf";$/;"	v
@@ -605,6 +611,9 @@ state	src/App/Stemmer.php	/^        $state = 0;$/;"	v
 sth	src/App/Database.php	/^        $sth = $db->prepare($query);$/;"	v
 sth	src/App/Database.php	/^        $sth = $this->query($query, $_params);$/;"	v
 stopWords	src/App/Search.php	/^    static private $stopWords = ["а", "и", "о", "об", "в", "на", "под", "из"];$/;"	v
+tables	src/App/Handlers/Database.php	/^                $tables = $this->db->fetch("SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? ORDER BY `table_name`", [$name], function ($row) {$/;"	v
+tables	src/App/Handlers/Database.php	/^                $tables = [];$/;"	v
+tables	src/App/Handlers/Database.php	/^        $tables = $this->getStats();$/;"	v
 target	src/App/Parser.php	/^                $target = $parts[0];$/;"	v
 template	src/App/Template.php	/^        $template = $this->twig->load($fileName);$/;"	v
 text	src/App/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v
@@ -621,6 +630,7 @@ title	src/App/Parser.php	/^                $title = $parts[0];$/;"	v
 title	src/App/Parser.php	/^                $title = $parts[1];$/;"	v
 title	src/App/Search.php	/^            $title = $this->normalizeText($title);$/;"	v
 titleText	src/App/Common.php	/^            $titleText = strip_tags($titleText);$/;"	v
+tmp	src/App/Handlers/Database.php	/^                    $tmp = $this->db->fetchOne("SELECT COUNT(1) AS `count` FROM `{$row["name"]}`");$/;"	v
 tmp	src/App/Handlers/Upload.php	/^                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
 tmp	src/App/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
 tn	src/App/Handlers/Thumbnail.php	/^            $tn = $this->prepareThumbnail($name, $type, $options);$/;"	v

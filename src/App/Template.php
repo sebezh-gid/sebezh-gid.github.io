@@ -36,6 +36,10 @@ class Template
                 return sprintf("%.02f KB", $size / 1024);
         }));
 
+        $this->twig->addFilter(new \Twig\TwigFilter("megabytes", function ($size) {
+            return sprintf("%.02f MB", $size / 1048576);
+        }));
+
         $this->twig->addFilter(new \Twig\TwigFilter("date_simple", function ($ts) {
             return strftime("%d.%m.%y, %H:%M", $ts);
         }));

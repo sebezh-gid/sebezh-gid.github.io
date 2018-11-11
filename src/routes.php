@@ -43,6 +43,8 @@ $app->get("/thumbnail/{name:.*}", \App\Handlers\Thumbnail::class . ":onGet");
 $app->get("/login", '\App\Handlers\Account:onGetLoginForm');
 $app->post("/login", '\App\Handlers\Account:onLogin');
 
+$app->get('/admin/database', '\App\Handlers\Database:onStatus');
+
 $app->get("/f/{name}", '\App\Handlers\Storage:onGetItem');
 
 $app->get("/search", \App\Handlers\Search::class . ":onGet");

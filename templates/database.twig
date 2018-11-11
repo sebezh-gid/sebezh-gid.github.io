@@ -1,0 +1,31 @@
+{% extends "base.twig" %}
+
+{% block page_h1 %}Состояние базы данных{% endblock %}
+
+{% block page_contents %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Таблица</th>
+                <th class="number">Записей</th>
+                <th class="number">Размер</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td>Всего</td>
+                <td class="number">{{ db_rows }}</td>
+                <td class="number">{{ db_length|filesize }}</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for t in tables %}
+                <tr>
+                    <td>{{ t.name }}</td>
+                    <td class="number">{{ t.rows }}</td>
+                    <td class="number">{{ t.length|filesize }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

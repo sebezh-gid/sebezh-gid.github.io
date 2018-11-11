@@ -1,0 +1,52 @@
+{% extends "base.twig" %}
+
+{% block page_title %}Database stats{% endblock %}
+
+{% block page_header %}
+    <div class="page-header">
+        <h1>Состояние базы данных</h1>
+    </div>
+{% endblock %}
+
+{% block page_contents %}
+    <p>Тип базы данных: {{ dbtype }}.</p>
+
+    <table class="table grid">
+        <thead>
+            <tr>
+                <th>Таблица</th>
+                <th class="number">Записей</th>
+                <th class="number">Размер</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in tables %}
+                <tr>
+                    <td>{{ t.name }}</td>
+                    <td class="number">{{ t.row_count }}</td>
+                    <td class="number">{{ t.length|megabytes }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="formatted">
+        {% if "wiki:" in page.name %}
+            <pre>{{ page.text }}</pre>
+        {% else %}
+            {{ page.html|raw }}
+        {% endif %}
+
+        {% if file and file.thumbnail %}
+            <a class="image" data-fancybox="gallery" href="{{ file.link }}">
+                <img src="{{ file.thumbnail }}"/>
+            </a>
+
+            <p>Код для вставки этого изображения:</p>
+            <pre>[[File:{{ file.name }}]]</pre>
+
+            <p>Код для вставки этого изображения справа:</p>
+            <pre>&lt;div class="right"&gt;[[File:{{ file.name }}]]&lt;/div&gt;</pre>
+        {% endif %}
+    </div>
+{% endblock %}

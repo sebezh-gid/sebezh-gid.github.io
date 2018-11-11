@@ -302,6 +302,15 @@ class Database {
         return $res;
     }
 
+    public function fetchcell($query, array $params = array())
+    {
+        $db = $this->connect();
+        $sth = $db->prepare($query);
+        $sth->execute($params);
+
+        return $sth->fetchColumn(0);
+    }
+
     public function query($query, array $params = array())
     {
         $db = $this->connect();
