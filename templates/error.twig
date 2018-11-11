@@ -1,0 +1,10 @@
+{% extends "base.twig" %}
+
+{% block page_title %}Ошибка{% endblock %}
+
+{% block page_h1 %}Ошибка{% endblock %}
+
+{% block page_contents %}
+    <p>Произошёл сбой в работе сайта.</p>
+    <p>Ошибка: {{ e.class }}: {{ e.message }}</p>
+{% endblock %}

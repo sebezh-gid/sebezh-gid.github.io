@@ -15,3 +15,8 @@ div.right a {
 a.image {
     line-height: 0;
 }
+
+a.image.left {
+    float: left;
+    margin: 0 10px 5px 0;
+}

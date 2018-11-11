@@ -256,7 +256,7 @@ html	src/App/Handlers/Wiki.php	/^                    $html = "[[" . implode(":",
 html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http:\/\/schema.org\/ImageObject'>";$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $this->renderHTML($request, "page.twig", [$/;"	v
-html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s' class='wiki %s'>%s<\/a>", urlencode($link), $cls, htmlspecialchars($label));$/;"	v
+html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s' class='wiki %s' title='%s'>%s<\/a>", urlencode($link), $cls, htmlspecialchars($title), htmlspecialchars($label));$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderMarkdown($source);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderTOC($html);$/;"	v
