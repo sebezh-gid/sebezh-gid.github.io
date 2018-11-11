@@ -253,10 +253,8 @@ class Wiki extends CommonHandler
         $cacheControl = @$headers["HTTP_CACHE_CONTROL"][0];
 
         // Refresh, Firefox
-        /*
         if ($cacheControl == "max-age=0")
             return true;
-        */
 
         // Shift-Refresh, Firefox
         if ($cacheControl == "no-cache")
