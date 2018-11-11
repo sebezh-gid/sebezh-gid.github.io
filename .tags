@@ -139,12 +139,14 @@ db	src/App/Template.php	/^        $db = $this->container->get("database");$/;"	v
 debug	src/dependencies.php	/^function debug()$/;"	f
 defaults	src/App/Template.php	/^        $this->defaults = isset($settings["defaults"])$/;"	v
 defaults	src/App/Template.php	/^    protected $defaults;$/;"	v
+dir	src/App/Handlers/Files.php	/^        $dir = dirname($dst);$/;"	v
 divisor	src/App/Handlers/Files.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
 divisor	src/App/Handlers/Thumbnail.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
 dp	src/App/Common.php	/^        $dp = new \\League\\CommonMark\\DocParser($environment);$/;"	v
 dsn	src/App/Database.php	/^        $this->dsn = $dsn;$/;"	v
 dsn	src/App/Database.php	/^    protected $dsn;$/;"	v
 dst	src/App/Handlers/Files.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
+dst	src/App/Handlers/Files.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $path;$/;"	v
 dst	src/App/Handlers/ShortImage.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 dst	src/App/Handlers/Thumbnail.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
 dst	src/App/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v

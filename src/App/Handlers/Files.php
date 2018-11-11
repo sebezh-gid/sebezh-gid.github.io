@@ -98,6 +98,12 @@ class Files extends CommonHandler
             ]);
         }
 
+        $dst = $_SERVER["DOCUMENT_ROOT"] . $path;
+        $dir = dirname($dst);
+        if (is_dir($dir) and is_writable($dir)) {
+            file_put_contents($dst, $body);
+        }
+
         return $this->sendCached($request, $body, $hash, "image/jpeg");
     }
 
