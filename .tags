@@ -48,7 +48,7 @@ _set	src/App/Database.php	/^        $_set = [];$/;"	v
 _set	src/App/Database.php	/^        $_set = implode(", ", $_set);$/;"	v
 _where	src/App/Database.php	/^        $_where = [];$/;"	v
 _where	src/App/Database.php	/^        $_where = implode(" AND ", $_where);$/;"	v
-acc	src/App/Handlers/Account.php	/^        $acc = $this->db->accountGet($_POST["login"]);$/;"	v
+acc	src/App/Handlers/Account.php	/^        $acc = $this->db->fetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);$/;"	v
 accountGet	src/App/Database.php	/^    public function accountGet($login)$/;"	f
 addDefaults	src/App/Template.php	/^    protected function addDefaults(array $data)$/;"	f
 addFile	src/App/Database.php	/^    public function addFile($name, $type, $body)$/;"	f
@@ -220,6 +220,7 @@ getThumbnail	src/App/Database.php	/^    public function getThumbnail($name, $typ
 getWordBase	src/App/Stemmer.php	/^    public static function getWordBase($word)$/;"	f
 guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
 hasPage	src/App/Handlers/Search.php	/^        $hasPage = $this->db->getPageByName($wikiName) ? true : false;$/;"	v
+hash	src/App/Common.php	/^        $hash = sha1($_SERVER["DOCUMENT_ROOT"] . rand(1111, 9999) . microtime(true));$/;"	v
 hash	src/App/Database.php	/^        $hash = md5($body);$/;"	v
 hash	src/App/FileHandler.php	/^        $hash = empty($file["hash"])$/;"	v
 hash	src/App/Handlers/File.php	/^        $hash = empty($file["hash"])$/;"	v
@@ -334,6 +335,7 @@ listPages	src/App/Database.php	/^    public function listPages($sort = null)$/;"
 loadThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function loadThumbnail($name, $type)$/;"	f
 loader	src/App/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
 logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
+login	src/App/Handlers/Account.php	/^        $login = $request->getParam("login");$/;"	v
 md	src/App/Parser.php	/^        $md = new CommonMarkConverter();$/;"	v
 meta	src/App/Search.php	/^        $meta = $meta ? serialize($meta) : null;$/;"	v
 mimeType	src/App/Handlers/Thumbnail.php	/^        $mimeType = "image\/jpeg";$/;"	v
@@ -357,7 +359,7 @@ name	src/App/Handlers/Wiki.php	/^        $name = $request->getParam("page_name")
 name	src/App/Template.php	/^            $name = "wiki:" . $key;$/;"	v
 nameEn	src/App/Handlers/ShortImage.php	/^        $nameEn = $this->getEnglishName($code);$/;"	v
 nameRu	src/App/Handlers/ShortImage.php	/^        $nameRu = $this->getRussianName($code);$/;"	v
-next	src/App/Handlers/Account.php	/^        $next = $_POST["back"];$/;"	v
+next	src/App/Handlers/Account.php	/^        $next = $request->getParam("back");$/;"	v
 next	src/App/Handlers/Search.php	/^            $next = "\/wiki?name=" . urlencode($short["link"]);$/;"	v
 next	src/App/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($info["link"]);$/;"	v
 next	src/App/Handlers/Wiki.php	/^            $next = "\/login?back=" . urlencode($back);$/;"	v
@@ -442,16 +444,14 @@ parse	src/App/Parser.php	/^    public static function parse($name, $source)$/;"	
 parseHtmlAttrs	src/App/Util.php	/^    public static function parseHtmlAttrs($tag)$/;"	f
 parseName	src/App/Handlers/Thumbnail.php	/^    protected function parseName($name)$/;"	f
 parsePage	src/App/Util.php	/^    public static function parsePage(array $page)$/;"	f
-part1	src/App/Common.php	/^        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);$/;"	v
 part1	src/App/UploadHandler.php	/^        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);$/;"	v
-part2	src/App/Common.php	/^        $part2 = substr(sha1($salt), 0, 10);$/;"	v
 part2	src/App/UploadHandler.php	/^        $part2 = substr(sha1($res["body"]), 0, 10);$/;"	v
-part3	src/App/Common.php	/^        $part3 = sprintf("%08x", time());$/;"	v
 part3	src/App/UploadHandler.php	/^        $part3 = sprintf("%x", time());$/;"	v
 parts	src/App/Common.php	/^                    $parts = explode(":", $h, 2);$/;"	v
 parts	src/App/CommonHandler.php	/^            $parts = explode(":", $m[1]);$/;"	v
 parts	src/App/Handlers/Wiki.php	/^                    $parts = ["image"];$/;"	v
 parts	src/App/Parser.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
+password	src/App/Handlers/Account.php	/^        $password = $request->getParam("password");$/;"	v
 path	src/App/Handlers/Files.php	/^        $path = $request->getUri()->getPath();$/;"	v
 path	src/App/Handlers/Short.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 path	src/App/Handlers/Storage.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
@@ -625,7 +625,6 @@ update	src/App/Database.php	/^    public function update($tableName, array $fiel
 updatePageHtml	src/App/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
 updated	src/App/Database.php	/^        $updated = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
 url	src/App/Handlers/Upload.php	/^        $url = parse_url($link);$/;"	v
-uuid	src/App/Common.php	/^        $uuid = sprintf("%s_%s_%s", $part1, $part2, $part3);$/;"	v
 uuid	src/App/Common.php	/^    public static function uuid($body = null)$/;"	f
 v	src/App/Common.php	/^                    $v = trim($parts[1]);$/;"	v
 wikiName	src/App/Common.php	/^    public static function wikiName($name)$/;"	f
