@@ -24,6 +24,25 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
+$container['errorHandler'] = function ($c) {
+    return function ($request, $response, $e) use ($c) {
+        $tpl = "error.twig";
+        $status = 500;
+        $data = [];
+        $data["path"] = $request->getUri()->getPath();
+
+        if ($e instanceof \App\Errors\Unauthorized) {
+            $tpl = "unauthorized.twig";
+            $status = 401;
+        }
+
+        $twig = $c->get("template");
+        $html = $twig->render($tpl, $data);
+        $response->getBody()->write($html);
+        return $response->withStatus($status);
+    };
+};
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];

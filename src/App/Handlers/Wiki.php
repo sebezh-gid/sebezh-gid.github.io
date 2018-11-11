@@ -64,15 +64,11 @@ class Wiki extends CommonHandler
 
     public function onEdit(Request $request, Response $response, array $args)
     {
+        $this->requireAdmin($request);
+
         $pageName = $request->getQueryParam("name");
         if (empty($pageName))
             return $this->notfound();
-
-        if (!$this->isAdmin($request)) {
-            $back = "/wiki/edit?name=" . urlencode($pageName);
-            $next = "/login?back=" . urlencode($back);
-            return $response->withRedirect($next, 302);
-        }
 
         $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);
         if ($page === false) {

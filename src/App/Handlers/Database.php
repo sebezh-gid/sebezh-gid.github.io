@@ -13,6 +13,8 @@ class Database extends CommonHandler
 {
     public function onStatus(Request $request, Response $response, array $args)
     {
+        $this->requireAdmin($request);
+
         $tables = $this->getStats();
 
         return $this->render($request, "dbstats.twig", [

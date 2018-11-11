@@ -63,7 +63,7 @@ class CommonHandler
     {
         if ($this->isAdmin($request))
             return true;
-        throw new \RuntimeException("access denied");
+        throw new \App\Errors\Unauthorized();
     }
 
     protected function isAdmin(Request $request)

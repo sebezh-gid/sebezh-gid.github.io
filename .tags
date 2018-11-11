@@ -28,6 +28,7 @@ Stemmer	src/App/Stemmer.php	/^class Stemmer$/;"	c
 Storage	src/App/Handlers/Storage.php	/^class Storage extends CommonHandler$/;"	c
 Template	src/App/Template.php	/^class Template$/;"	c
 Thumbnail	src/App/Handlers/Thumbnail.php	/^class Thumbnail extends Handlers$/;"	c
+Unauthorized	src/App/Errors/Unauthorized.php	/^class Unauthorized extends \\RuntimeException { }$/;"	c
 Upload	src/App/Handlers/Upload.php	/^class Upload extends CommonHandler$/;"	c
 UploadHandler	src/App/UploadHandler.php	/^class UploadHandler extends Handlers$/;"	c
 Util	src/App/Util.php	/^class Util$/;"	c
@@ -60,7 +61,6 @@ all	src/App/Util.php	/^        $all = "html|head|body|header|main|footer|aside|n
 anchor	src/App/Common.php	/^            $anchor = mb_strtolower(trim(preg_replace('@\\s+@', '_', $titleText)));$/;"	v
 attrs	src/App/Handlers/Wiki.php	/^                $attrs = \\App\\Util::parseHtmlAttrs($m[0]);$/;"	v
 back	src/App/Handlers/Account.php	/^        $back = @$_GET["back"];$/;"	v
-back	src/App/Handlers/Wiki.php	/^            $back = "\/wiki\/edit?name=" . urlencode($pageName);$/;"	v
 barcode	src/App/Handlers/Short.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
 barcode	src/App/Handlers/ShortImage.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
 base	src/App/Handlers/Short.php	/^        $base = $this->container->get("settings")["websiteBase"];$/;"	v
@@ -131,6 +131,7 @@ data	src/App/Handlers/ShortImage.php	/^        $data = file_get_contents($fn);$/
 data	src/App/Template.php	/^        $data = $this->addDefaults($data);$/;"	v
 data	src/App/Template.php	/^        $data = $this->addSpecialPages($data);$/;"	v
 data	src/App/Template.php	/^        $data = array_merge($this->defaults, $data);$/;"	v
+data	src/dependencies.php	/^        $data = [];$/;"	v
 date	src/App/Database.php	/^        $date = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
 date	src/App/Handlers/Sitemap.php	/^            $date = strftime("%Y-%m-%d", $page["updated"]);$/;"	v
 db	src/App/Database.php	/^        $db = $this->connect();$/;"	v
@@ -279,6 +280,7 @@ html	src/App/Util.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— 
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/([a-z0-9]+)>@', '<\/\\1>', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $html);$/;"	v
 html	src/dependencies.php	/^        $html = $twig->render("notfound.twig");$/;"	v
+html	src/dependencies.php	/^        $html = $twig->render($tpl, $data);$/;"	v
 id	src/App/Database.php	/^        $id = $this->insert("files", [$/;"	v
 ih	src/App/Handlers/Files.php	/^        $ih = imagesy($img);$/;"	v
 ih	src/App/Handlers/Thumbnail.php	/^        $ih = imagesy($img);$/;"	v
@@ -381,7 +383,6 @@ next	src/App/Handlers/Account.php	/^        $next = $request->getParam("back");$
 next	src/App/Handlers/Search.php	/^            $next = "\/wiki?name=" . urlencode($short["link"]);$/;"	v
 next	src/App/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($info["link"]);$/;"	v
 next	src/App/Handlers/Upload.php	/^        $next = "\/wiki\/edit?name=" . urlencode($name);$/;"	v
-next	src/App/Handlers/Wiki.php	/^            $next = "\/login?back=" . urlencode($back);$/;"	v
 nh	src/App/Handlers/Files.php	/^                $nh = round($nw \/ $r);$/;"	v
 nh	src/App/Handlers/Thumbnail.php	/^                $nh = round($nw \/ $r);$/;"	v
 normalizeText	src/App/Search.php	/^    public function normalizeText($text)$/;"	f
@@ -608,6 +609,8 @@ stack	src/dependencies.php	/^    $stack = str_replace(dirname(__DIR__) . "\/", "
 state	src/App/Stemmer.php	/^                        $state = 1;$/;"	v
 state	src/App/Stemmer.php	/^                        $state = 2;$/;"	v
 state	src/App/Stemmer.php	/^        $state = 0;$/;"	v
+status	src/dependencies.php	/^            $status = 401;$/;"	v
+status	src/dependencies.php	/^        $status = 500;$/;"	v
 sth	src/App/Database.php	/^        $sth = $db->prepare($query);$/;"	v
 sth	src/App/Database.php	/^        $sth = $this->query($query, $_params);$/;"	v
 stopWords	src/App/Search.php	/^    static private $stopWords = ["а", "и", "о", "об", "в", "на", "под", "из"];$/;"	v
@@ -636,6 +639,8 @@ tmp	src/App/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"]
 tn	src/App/Handlers/Thumbnail.php	/^            $tn = $this->prepareThumbnail($name, $type, $options);$/;"	v
 tn	src/App/UploadHandler.php	/^                $tn = $fi["filename"] . "_small." . $fi["extension"];$/;"	v
 toc	src/App/Common.php	/^        $toc = "<h2>Содержание<\/h2>";$/;"	v
+tpl	src/dependencies.php	/^            $tpl = "unauthorized.twig";$/;"	v
+tpl	src/dependencies.php	/^        $tpl = "error.twig";$/;"	v
 tpl	src/dependencies.php	/^    $tpl = new \\App\\Template($c);$/;"	v
 twig	src/App/Template.php	/^        $this->twig = new \\Twig\\Environment($loader);$/;"	v
 twig	src/App/Template.php	/^    protected $twig;$/;"	v
