@@ -10,6 +10,7 @@ autoload:
 
 deploy:
 	rsync -avz -e ssh src templates vendor $(REMOTE):wiki/
+	hgput public/libs.* public/app.*
 
 flush:
 	echo "UPDATE pages SET html = null;" | sqlite3 data/database.sqlite

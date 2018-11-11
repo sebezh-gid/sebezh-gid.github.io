@@ -74,6 +74,13 @@ body {
     cursor: pointer;
 }
 
+.lead .small {
+    opacity: .5;
+}
+.lead .small a {
+    text-decoration: underline;
+}
+
 header {
     height: 40px;
     padding: 0 15px;
