@@ -51,12 +51,8 @@ class Common
      **/
     public static function uuid($body = null)
     {
-        $part1 = substr(sha1($_SERVER["DOCUMENT_ROOT"]), 0, 10);
-        $part2 = substr(sha1($salt), 0, 10);
-        $part3 = sprintf("%08x", time());
-
-        $uuid = sprintf("%s_%s_%s", $part1, $part2, $part3);
-        return $uuid;
+        $hash = sha1($_SERVER["DOCUMENT_ROOT"] . rand(1111, 9999) . microtime(true));
+        return $hash;
     }
 
     public static function wikiName($name)
