@@ -33,8 +33,30 @@ class Upload extends CommonHandler
             ]);
         }
 
+        $file = $this->db->fetchOne("SELECT `id`, `name`, `real_name`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fid]);
+
+        $name = "File:" . $fid;
+        if (!($page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$name]))) {
+            $source = "# {$file["real_name"]}\n\n";
+
+            if ($file["kind"] == "photo")
+                $source .= "[[image:{$fid}]]\n\n";
+
+            if ($link = $request->getParam("link"))
+                $source .= "Файл загружен [по ссылке]({$link}).\n\n";
+
+            $this->db->insert("pages", [
+                "name" => $name,
+                "source" => $source,
+                "created" => time(),
+                "updated" => time(),
+            ]);
+        }
+
+        $next = "/wiki/edit?name=" . urlencode($name);
+
         return $response->withJSON([
-            "redirect" => "/files/" . $fid,
+            "redirect" => $next,
         ]);
     }
 
@@ -71,7 +93,7 @@ class Upload extends CommonHandler
         }
 
         $hash = md5($body);
-        $old = $this->db->fetch("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);
+        $old = $this->db->fetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);
         if ($old)
             return $old["id"];
 
