@@ -15,16 +15,12 @@ $container['template'] = function ($c) {
     return $tpl;
 };
 
-$container['sphinx'] = function ($c) {
-    $settings = $c->get('settings')['sphinx'];
-    return new \App\Sphinx($settings, $c->get('database'));
-};
-
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         $twig = $c->get("template");
-        return $twig->render("notfound.twig")
-            ->withStatus(404);
+        $html = $twig->render("notfound.twig");
+        $response->getBody()->write($html);
+        return $response->withStatus(404);
     };
 };
 

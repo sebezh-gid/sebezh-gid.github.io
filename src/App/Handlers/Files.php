@@ -44,7 +44,7 @@ class Files extends CommonHandler
     {
         $file = $this->db->fetch("SELECT `id`, `hash`, `name`, `real_name`, `kind`, `type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
-            return $this->notfound($response);
+            return $this->notfound($request);
 
         return $this->render($request, "files-show.twig", [
             "file" => $file,
@@ -55,7 +55,7 @@ class Files extends CommonHandler
     {
         $file = $this->db->fetch("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
-            return $this->notfound($response);
+            return $this->notfound($request);
 
         $response = $response->withHeader("Content-Type", $file["type"])
             ->withHeader("Content-Length", $file["length"])
@@ -69,28 +69,74 @@ class Files extends CommonHandler
 
     public function onThumbnail(Request $request, Response $response, array $args)
     {
-        $file = $this->db->fetch("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
-        if (empty($file))
-            return $this->notfound($response);
+        $path = $request->getUri()->getPath();
 
-        $img = imagecreatefromstring($file["body"]);
-        if ($img === false)
-            return $this->notfound($response);
+        if ($cached = $this->db->fetchOne("SELECT * FROM `thumbnails` WHERE `name` = ?", [$path])) {
+            $body = $cached["body"];
+            $hash = $cached["hash"];
+        } else {
+            $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+            if (empty($file))
+                return $this->notfound($request);
 
-        if ($body = $this->getImage($img)) {
-            $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();
-            if (is_dir($dir = dirname($dst)))
-                file_put_contents($dst, $body);
+            $img = imagecreatefromstring($file["body"]);
+            if ($img === false) {
+                error_log("file {$args["id"]} is not an image.");
+                return $this->notfound($request);
+            }
 
-            $response = $response->withHeader("Content-Type", "image/jpeg")
-                ->withHeader("Content-Length", strlen($body))
-                ->withHeader("Cache-Control", "public, max-age=31536000");
-            $response->getBody()->write($body);
+            if (!($body = $this->getImage($img)))
+                return $this->notfound($request);
 
-            return $response;
+            $hash = md5($body);
+
+            $this->db->insert("thumbnails", [
+                "name" => $path,
+                "type" => "image/jpeg",
+                "body" => $body,
+                "hash" => $hash,
+            ]);
         }
 
-        return $this->notfound($response);
+        return $this->sendCached($request, $body, $hash, "image/jpeg");
+    }
+
+    public function onPhoto(Request $request, Response $response, array $args)
+    {
+        $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        if (empty($file))
+            return $this->notfound($request);
+
+        $body = $file["body"];
+        $hash = $file["hash"];
+
+        return $this->sendCached($request, $body, $hash, "image/jpeg");
+    }
+
+    /**
+     * Sends a file with caching enabled.
+     *
+     * Supports ETag.
+     **/
+    protected function sendCached(Request $request, $body, $hash, $type)
+    {
+        $etag = '"' . $hash . '"';
+        $response = new Response(200);
+
+        $headers = $request->getHeaders();
+        if (@$headers["HTTP_IF_NONE_MATCH"][0] == $etag) {
+            return $response->withStatus(304)
+                ->withHeader("ETag", $etag)
+                ->withHeader("Cache-Control", "public, max-age=31536000");
+        }
+
+        $response = $response->withHeader("Content-Type", "image/jpeg")
+            ->withHeader("ETag", "\"{$hash}\"")
+            ->withHeader("Content-Length", strlen($body))
+            ->withHeader("Cache-Control", "public, max-age=31536000");
+        $response->getBody()->write($body);
+
+        return $response;
     }
 
     protected function getImage($img)

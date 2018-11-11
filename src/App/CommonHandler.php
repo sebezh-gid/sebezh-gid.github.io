@@ -82,11 +82,17 @@ class CommonHandler
 
     protected function render(Request $request, $templateName, array $data = [])
     {
-        $html = $this->template->render($templateName, $data);
+        $html = $this->renderHTML($request, $templateName, $data);
 
         $response = new Response(200);
         $response->getBody()->write($html);
         return $response;
+    }
+
+    protected function renderHTML(Request $request, $templateName, array $data = [])
+    {
+        $html = $this->template->render($templateName, $data);
+        return $html;
     }
 
     /**
@@ -140,6 +146,8 @@ class CommonHandler
         $res = [
             "name" => $name,
             "title" => $name,
+            "image" => null,
+            "summary" => null,
         ];
 
         $source = str_replace("\r\n", "\n", $source);
@@ -156,6 +164,10 @@ class CommonHandler
 
         // Process wiki links.
         $source = preg_replace_callback('@\[\[([^]]+)\]\]@', function ($m) {
+            // Embed images later.
+            if (0 === strpos($m[1], "image:"))
+                return $m[0];
+
             $link = $m[1];
             $label = $m[1];
 
@@ -170,18 +182,69 @@ class CommonHandler
 
             $html = sprintf("<a href='/wiki?name=%s' class='wiki %s'>%s</a>", urlencode($link), $cls, htmlspecialchars($label));
 
-            // TODO: embed files
-
             return $html;
         }, $source);
 
         $html = \App\Common::renderMarkdown($source);
         $html = \App\Common::renderTOC($html);
 
+        // Embed images.
+        $html = preg_replace_callback('@\[\[image:([^]]+)\]\]@', function ($m) use ($name) {
+            $parts = explode(":", $m[1]);
+            $fileId = array_shift($parts);
+
+            $info = $this->db->fetchOne("SELECT `id`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fileId]);
+            if (empty($info))
+                return "<!-- file {$fileid} does not exist -->";
+            elseif ($info["kind"] != "photo")
+                return "<!-- file {$fileid} is not an image -->";
+
+            $className = "image";
+            $iw = "auto";
+            $ih = "auto";
+
+            foreach ($parts as $part) {
+                if (preg_match('@^width=(\d+)$@', $part, $m)) {
+                    $iw = $m[1] . "px";
+                }
+
+                elseif (preg_match('@^height=(\d+)$@', $part, $m)) {
+                    $ih = $m[1] . "px";
+                }
+
+                else {
+                    $className .= " " . $part;
+                }
+            }
+
+            if ($iw == "auto" and $ih == "auto")
+                $ih = "150px";
+
+            $small = "/i/thumbnails/{$fileId}.jpg";
+            $large = "/i/photos/{$fileId}.jpg";
+            $page = "/wiki?name=File:{$fileId}";
+
+            // TODO: add caption from page
+            // TODO: add lazy loading
+
+            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http://schema.org/ImageObject'>";
+            $html .= "<meta itemprop='contentUrl' content='{$large}'/>";
+            $html .= "<img src='{$small}' style='width: {$iw}; height: {$ih}' itemprop='thumbnailUrl'/>";
+            $html .= "</a>";
+
+            return $html;
+        }, $html);
+
         $html = preg_replace_callback('@<h1>(.+)</h1>@', function ($m) use ($res) {
             $res["title"] = $m[1];
             return "";
         }, $html);
+
+        if (empty($res["summary"])) {
+            if (preg_match('@<p>(.+?)</p>@', $html, $m)) {
+                $res["summary"] = strip_tags($m[1]);
+            }
+        }
 
         $html = \App\Util::cleanHtml($html);
         $res["html"] = $html;
@@ -189,9 +252,9 @@ class CommonHandler
         return $res;
     }
 
-    protected function notfound(Response $response)
+    protected function notfound(Request $request)
     {
-        return $this->render($response, "notfound.twig")->withStatus(404);
+        return $this->render($request, "notfound.twig")->withStatus(404);
     }
 
     protected function search($query)

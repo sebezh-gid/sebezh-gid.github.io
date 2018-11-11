@@ -32,7 +32,7 @@ class Search extends Handlers
             "wikiName" => $wikiName,
             "has_page" => $hasPage,
             "results" => $results,
-            "edit_link" => "/w/edit?name=" . urlencode($wikiName),
+            "edit_link" => "/wiki/edit?name=" . urlencode($wikiName),
         ]);
     }
 }

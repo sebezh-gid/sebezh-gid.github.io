@@ -1,6 +1,7 @@
 ^vendor$
 ^logs$
 ^data/database\.sqlite$
+^data/remote\.sql$
 ^pages\.json$
 \.fossil$
 ^public/photo$

@@ -15,9 +15,8 @@ flush:
 	echo "UPDATE pages SET html = null;" | sqlite3 data/database.sqlite
 
 pull-data:
-	rm -f data/database.sqlite~
-	cp data/database.sqlite data/database.sqlite~
-	hgget data/database.sqlite
+	ssh $(REMOTE) mysqldump sebgid | pv > data/remote.sql
+	mysql < remote.sql
 
 reindex:
 	php -f tools/cli.php reindex

@@ -5,14 +5,17 @@ use Slim\Http\Response;
 
 // CLI routes.
 if (PHP_SAPI == "cli") {
-    $app->post('/cli/reindex', '\App\Handlers\Page:onCliReindex');
+    $app->post('/cli/reindex', '\App\Handlers\Wiki:onCliReindex');
+    $app->post('/cli/update-images', '\App\Handlers\Wiki:onCliUpdateImages');
+    $app->post('/cli/{action:.+}', '\App\Handlers\CLI:onDefault');
 }
 
 // Web routes.
 
-$app->get('/wiki', '\App\Handlers\Page');
-$app->get("/w/edit", '\App\Handlers\Page:onEdit');
-$app->post("/w/edit", '\App\Handlers\Page:onSave');
+$app->get('/wiki', '\App\Handlers\Wiki:onRead');
+$app->get("/wiki/edit", '\App\Handlers\Wiki:onEdit');
+$app->post("/wiki/edit", '\App\Handlers\Wiki:onSave');
+$app->get("/wiki/index", '\App\Handlers\Wiki:onIndex');
 
 $app->get('/short', '\App\Handlers\Short:onGetForm');
 $app->post('/short', '\App\Handlers\Short:onCreate');
@@ -30,20 +33,19 @@ $app->get('/files', '\App\Handlers\Files:onGetRecent');
 $app->get('/files/{id:[0-9]+}', '\App\Handlers\Files:onShowFile');
 $app->get('/files/{id:[0-9]+}/download', '\App\Handlers\Files:onDownload');
 $app->get('/i/thumbnails/{id:[0-9]+}.jpg', '\App\Handlers\Files:onThumbnail');
+$app->get('/i/photos/{id:[0-9]+}.jpg', '\App\Handlers\Files:onPhoto');
 
 // $app->get("/files", \App\Handlers\FileList::class . ":onGet");
 
 $app->get("/files/{name:.*}", '\App\Handlers\File');
 $app->get("/thumbnail/{name:.*}", \App\Handlers\Thumbnail::class . ":onGet");
 
-$app->get("/w/login", '\App\Handlers\Account:onGetLoginForm');
-$app->post("/w/login", '\App\Handlers\Account:onLogin');
+$app->get("/login", '\App\Handlers\Account:onGetLoginForm');
+$app->post("/login", '\App\Handlers\Account:onLogin');
 
 $app->get("/f/{name}", '\App\Handlers\Storage:onGetItem');
 
 $app->get("/search", \App\Handlers\Search::class . ":onGet");
-
-$app->get("/index", '\App\Handlers\Index');
 
 $app->get("/sitemap.xml", '\App\Handlers\Sitemap');
 

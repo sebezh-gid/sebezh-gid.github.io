@@ -16,10 +16,10 @@ return [
             'defaults' => [
                 'language' => 'ru',
                 'strings_ru' => [
-                    'site_name' => 'База знаний',
+                    'site_name' => 'Гид по Себежу',
                 ],
                 'strings_en' => [
-                    'site_name' => 'Knowledge Base',
+                    'site_name' => 'Sebezh Guide',
                 ],
             ]
         ],

@@ -55,4 +55,21 @@ class Util
         $props["text"] = $text;
         return $props;
     }
+
+    public static function parseHtmlAttrs($tag)
+    {
+        $res = [];
+
+        if (preg_match_all('@([a-z-]+)="([^"]+)"@', $tag, $m)) {
+            foreach ($m[1] as $idx => $key)
+                $res[$key] = trim($m[2][$idx]);
+        }
+
+        if (preg_match_all("@([a-z-]+)='([^']+)'@", $tag, $m)) {
+            foreach ($m[1] as $idx => $key)
+                $res[$key] = trim($m[2][$idx]);
+        }
+
+        return $res;
+    }
 }

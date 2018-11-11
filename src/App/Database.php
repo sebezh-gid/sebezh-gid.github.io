@@ -215,6 +215,36 @@ class Database {
         return $this->fetch("SELECT `body` FROM `storage` WHERE `name` = ?", [$name]);
     }
 
+    public function addFile($name, $type, $body)
+    {
+        $hash = md5($body);
+
+        if ($old = $this->fetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]))
+            return $old["id"];
+
+        $kind = "other";
+        if (0 === strpos($type, "image/"))
+            $kind = "photo";
+        elseif (0 === strpos($type, "video/"))
+            $kind = "video";
+
+        $now = time();
+
+        $id = $this->insert("files", [
+            "name" => $name,
+            "real_name" => $name,
+            "type" => $type,
+            "kind" => $kind,
+            "length" => strlen($body),
+            "created" => $now,
+            "uploaded" => $now,
+            "body" => $body,
+            "hash" => $hash,
+        ]);
+
+        return $id;
+    }
+
     /**
      * Connect to the database.
      *

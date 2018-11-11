@@ -1,8 +1,17 @@
 {% extends "base.twig" %}
 
 {% block more_head %}
- <link rel="edit" title="Редактировать страницу" href="/w/edit?name={{ page.name }}"/>
- <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/w/edit?name={{ page.name }}"/>
+    <link rel="edit" title="Редактировать страницу" href="/wiki/edit?name={{ page.name }}"/>
+    <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/wiki/edit?name={{ page.name }}"/>
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    {% if page.image %}
+        <meta property="og:image" content="{{ page.image|replace({"/i/thumbnails/": "/i/photos/"}) }}"/>
+    {% endif %}
+    {% if page.summary %}
+        <meta name="description" property="og:description" content="{{ page.summary }}"/>
+    {% endif %}
 {% endblock %}
 
 {% block page_title %}{% if page.name == "Введение" %}Гид по Себежу{% else %}{{ page.title }} — {% if page.language == "en" %}Sebezh Guide{% else %}гид по Себежу{% endif %}{% endif %}{% endblock %}

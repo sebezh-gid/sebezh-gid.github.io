@@ -65,59 +65,6 @@ class Template
         return $html;
     }
 
-    public function renderPage(array $data, $link_cb)
-    {
-        $pageName = $data["page_name"];
-        $pageText = $data["page_source"];
-
-        // Extract properties.
-        list($props, $pageText) = self::extractProperties($pageName, $pageText);
-
-        $html = \App\Common::renderMarkdown($pageText);
-
-        $html = \App\Common::renderTOC($html);
-
-        // Extract page title.
-        $html = preg_replace_callback('@<h1>(.+)</h1>@', function ($m) use (&$props) {
-            $props["title"] = $m[1];
-            return "";
-        }, $html, 1);
-
-        // Wiki links.
-        $html = preg_replace_callback('@\[\[(.+?)\]\]@', $link_cb, $html);
-
-        $html = \App\Util::cleanHtml($html);
-
-        $data["page_title"] = $props["title"];
-        $data["page_html"] = $html;
-        $data["page_props"] = $props;
-
-        $html = $this->renderFile("page.twig", $data);
-
-        return $html;
-    }
-
-    public static function extractProperties($pageName, $text)
-    {
-        $props = array(
-            "language" => "ru",
-            "title" => $pageName,
-            );
-
-        $lines = preg_split('@(\r\n|\n)@', $text);
-        foreach ($lines as $idx => $line) {
-            if (preg_match('@^([a-z0-9_]+):\s+(.+)$@', $line, $m)) {
-                $props[$m[1]] = $m[2];
-            } elseif ($line == "---") {
-                $lines = array_slice($lines, $idx + 1);
-                $text = implode("\r\n", $lines);
-                break;
-            }
-        }
-
-        return [$props, $text];
-    }
-
     protected function addDefaults(array $data)
     {
         $lang = $dlang = isset($this->defaults["language"]) ? $this->defaults["language"] : "en";

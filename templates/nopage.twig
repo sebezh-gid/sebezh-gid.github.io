@@ -5,12 +5,12 @@
 {% block page_h1 %}{{ page_name }}{% endblock %}
 
 {% block more_head %}
- <link rel="edit" title="Edit this page" href="/w/edit?name={{ page_name }}"/>
+ <link rel="edit" title="Edit this page" href="/wiki/edit?name={{ page_name }}"/>
  <link rel="alternate" type="application/x-wiki" title="Edit this page" href="/edit?name={{ page_name }}"/>
 {% endblock %}
 
 {% block page_contents %}
- <p>В путеводителе <strong>нет такой статьи</strong>, но вы можете <a href="/w/edit?name={{ page_name }}">её создать</a>.</p>
+ <p>В путеводителе <strong>нет такой статьи</strong>, но вы можете <a href="/wiki/edit?name={{ page_name }}">её создать</a>.</p>
 
  {% if search_results %}
   <hr/>
