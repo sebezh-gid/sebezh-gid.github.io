@@ -43,6 +43,8 @@ jQuery(function ($) {
     $(document).on("click", ".showUpload", function (e) {
         e.preventDefault();
         $("#dlg-upload, #block").show();
+        $("#dlg-upload")[0].reset();
+        $(".uploadLink").focus();
     });
 });
 
