@@ -259,7 +259,7 @@ html	src/App/CommonHandler.php	/^        $html = \\App\\Common::renderTOC($html)
 html	src/App/CommonHandler.php	/^        $html = \\App\\Util::cleanHtml($html);$/;"	v
 html	src/App/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
 html	src/App/Handlers/Wiki.php	/^                    $html = "[[" . implode(":", $parts) . "]]";$/;"	v
-html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http:\/\/schema.org\/ImageObject'>";$/;"	v
+html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http:\/\/schema.org\/ImageObject' title='{$title}'>";$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $this->renderHTML($request, "page.twig", [$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s' class='wiki %s' title='%s'>%s<\/a>", urlencode($link), $cls, htmlspecialchars($title), htmlspecialchars($label));$/;"	v
@@ -640,7 +640,9 @@ text	src/App/Parser.php	/^                $text = implode("\\r\\n", $lines);$/;"
 text	src/App/Search.php	/^        $text = mb_strtolower($text);$/;"	v
 text	src/App/Util.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
 text	src/App/Util.php	/^        $text = $page["source"];$/;"	v
+title	src/App/Handlers/Wiki.php	/^                    $title = htmlspecialchars($n[1]);$/;"	v
 title	src/App/Handlers/Wiki.php	/^                $title = "Нет такой страницы";$/;"	v
+title	src/App/Handlers/Wiki.php	/^            $title = "untitled";$/;"	v
 title	src/App/Handlers/Wiki.php	/^            $title = $link;$/;"	v
 title	src/App/Parser.php	/^                $title = $parts[0];$/;"	v
 title	src/App/Parser.php	/^                $title = $parts[1];$/;"	v

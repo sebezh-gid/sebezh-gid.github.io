@@ -405,7 +405,9 @@ class Wiki extends CommonHandler
             $cls = "good";
             $title = $link;
 
-            if (empty($this->db->fetch("SELECT `name` FROM `pages` WHERE `name` = ?", [$link]))) {
+            if ($fpage = $this->db->fetchOne("SELECT `name`, `source` FROM `pages` WHERE `name` = ?", [$link])) {
+                // nothing
+            } else {
                 $cls = "broken";
                 $title = "Нет такой страницы";
             }
@@ -453,13 +455,19 @@ class Wiki extends CommonHandler
             $small = "/i/thumbnails/{$fileId}.jpg";
             $large = "/i/photos/{$fileId}.jpg";
             $page = "/wiki?name=File:{$fileId}";
+            $title = "untitled";
 
-            // TODO: add caption from page
+            if ($fpage = $this->db->fetchOne("SELECT `source` FROM `pages` WHERE `name` = ?", ["File:" . $fileId])) {
+                if (preg_match('@^# (.+)$@m', $fpage["source"], $n)) {
+                    $title = htmlspecialchars($n[1]);
+                }
+            }
+
             // TODO: add lazy loading
 
-            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http://schema.org/ImageObject'>";
+            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http://schema.org/ImageObject' title='{$title}'>";
             $html .= "<meta itemprop='contentUrl' content='{$large}'/>";
-            $html .= "<img src='{$small}' style='width: {$iw}; height: {$ih}' itemprop='thumbnailUrl'/>";
+            $html .= "<img src='{$small}' style='width: {$iw}; height: {$ih}' itemprop='thumbnailUrl' alt='{$title}'/>";
             $html .= "</a>";
 
             return $html;
