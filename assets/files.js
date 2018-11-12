@@ -64,4 +64,5 @@ window.editor_insert = function (text)
     ta.selectionEnd = e + text.length;
 
     $("#block, .dialog").hide();
+    $("textarea.wiki").focus();
 }
