@@ -59,6 +59,7 @@ aliases	src/App/Search.php	/^            $aliases = $this->db->fetchkv("SELECT `
 aliases	src/App/Search.php	/^        static $aliases = null;$/;"	v
 all	src/App/Util.php	/^        $all = "html|head|body|header|main|footer|aside|nav|div|p|ul|ol|li|input|label|textarea|button|meta|title|h1|h2|h3|h4|h5|script|style|link|table|thead|tfoot|tbody|tr|th|td|img";$/;"	v
 anchor	src/App/Common.php	/^            $anchor = mb_strtolower(trim(preg_replace('@\\s+@', '_', $titleText)));$/;"	v
+attrs	src/App/Handlers/Wiki.php	/^                    $attrs = \\App\\Util::parseHtmlAttrs($tag);$/;"	v
 attrs	src/App/Handlers/Wiki.php	/^                $attrs = \\App\\Util::parseHtmlAttrs($m[0]);$/;"	v
 back	src/App/Handlers/Account.php	/^        $back = @$_GET["back"];$/;"	v
 barcode	src/App/Handlers/Short.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
@@ -288,6 +289,9 @@ html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $h
 html	src/dependencies.php	/^        $html = $twig->render("notfound.twig");$/;"	v
 html	src/dependencies.php	/^        $html = $twig->render($tpl, $data);$/;"	v
 id	src/App/Database.php	/^        $id = $this->insert("files", [$/;"	v
+id	src/App/Handlers/Wiki.php	/^                $id = $this->db->insert("pages", [$/;"	v
+id	src/App/Handlers/Wiki.php	/^            $id = $page["id"];$/;"	v
+id	src/App/Handlers/Wiki.php	/^            $id = null;$/;"	v
 ih	src/App/Handlers/Files.php	/^        $ih = imagesy($img);$/;"	v
 ih	src/App/Handlers/Thumbnail.php	/^        $ih = imagesy($img);$/;"	v
 ih	src/App/Handlers/Wiki.php	/^                    $ih = $m[1] . "px";$/;"	v
@@ -351,10 +355,12 @@ link	src/App/Handlers/Short.php	/^        $link = null;$/;"	v
 link	src/App/Handlers/ShortRedirect.php	/^        $link = "\/wiki?name=" . urlencode($name);$/;"	v
 link	src/App/Handlers/Sitemap.php	/^            $link = $base . "\/wiki?name=" . urlencode($page["name"]);$/;"	v
 link	src/App/Handlers/Upload.php	/^        $link = $request->getParam("link");$/;"	v
+link	src/App/Handlers/Wiki.php	/^                        $link = urldecode(substr($attrs["href"], 11));$/;"	v
 link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . urlencode($page["redirect"]);$/;"	v
 link	src/App/Handlers/Wiki.php	/^                $link = $parts[0];$/;"	v
 link	src/App/Handlers/Wiki.php	/^            $link = $m[1];$/;"	v
 link	src/App/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
+links	src/App/Handlers/Wiki.php	/^                $links = [];$/;"	v
 listPages	src/App/Database.php	/^    public function listPages($sort = null)$/;"	f
 loadThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function loadThumbnail($name, $type)$/;"	f
 loader	src/App/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v

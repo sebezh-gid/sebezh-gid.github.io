@@ -246,8 +246,13 @@ class Wiki extends CommonHandler
     protected function savePage($name, $text)
     {
         $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$name]);
-        if (empty($page))
+        if (empty($page)) {
             $page = ["name" => $name];
+            $id = null;
+        } else {
+            $id = $page["id"];
+        }
+
         $page["source"] = $text;
 
         // Back up current revision.
@@ -256,6 +261,10 @@ class Wiki extends CommonHandler
         if (!trim($text)) {
             $this->db->query("DELETE FROM `pages` WHERE `name` = ?", [$name]);
             $this->fts->reindexDocument("page:" . $name, null, null);
+            if ($id) {
+                $this->db->query("UPDATE pages SET html = null WHERE id IN (SELECT page_id FROM backlinks WHERE link = ?)", [$name]);
+                $this->db->query("DELETE FROM `backlinks` WHERE `page_id` = ?", [$id]);
+            }
             return null;
         } else {
             $now = time();
@@ -269,7 +278,7 @@ class Wiki extends CommonHandler
             ]);
 
             if ($count == 0) {
-                $this->db->insert("pages", [
+                $id = $this->db->insert("pages", [
                     "name" => $name,
                     "source" => $text,
                     "created" => $now,
@@ -287,6 +296,31 @@ class Wiki extends CommonHandler
                 "updated" => $now,
                 "image" => $image,
             ]);
+
+            // Update backlinks.
+            if (preg_match_all('@<a\s+([^>]+)>@', $page["html"], $m)) {
+                $links = [];
+
+                foreach ($m[0] as $tag) {
+                    $attrs = \App\Util::parseHtmlAttrs($tag);
+                    if (!empty($attrs["href"]) and 0 === strpos($attrs["href"], "/wiki?name=")) {
+                        $link = urldecode(substr($attrs["href"], 11));
+                        if (!in_array($link, $links))
+                            $links[] = $link;
+                    }
+                }
+
+                $this->db->query("DELETE FROM `backlinks` WHERE `page_id` = ?", [$id]);
+                foreach ($links as $link) {
+                    $this->db->insert("backlinks", [
+                        "page_id" => $id,
+                        "link" => $link,
+                    ]);
+                }
+            }
+
+            // Reset linked cache.
+            $this->db->query("UPDATE pages SET html = null WHERE id IN (SELECT page_id FROM backlinks WHERE link = ?)", [$name]);
 
             return $name;
         }

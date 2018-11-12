@@ -111,3 +111,11 @@ CREATE TABLE IF NOT EXISTS `odict` (
   `dst` varchar(255) NOT NULL,
   PRIMARY KEY (`src`)
 ) DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `backlinks` (
+    `page_id` INTEGER UNSIGNED NOT NULL,
+    `link` VARCHAR(1024),
+    KEY(`page_id`),
+    KEY(`link`)
+) DEFAULT CHARSET=utf8;
