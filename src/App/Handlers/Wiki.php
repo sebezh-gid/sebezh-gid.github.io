@@ -89,6 +89,64 @@ class Wiki extends CommonHandler
     }
 
     /**
+     * Specific file upload.
+     **/
+    public function onUpload(Request $request, Response $response, array $args)
+    {
+        $this->requireAdmin($request);
+
+        $comment = null;
+
+        if ($link = $request->getParam("link")) {
+            $file = \App\Common::fetch($link);
+            if ($file["status"] == 200) {
+                $name = basename(explode("?", $link)[0]);
+                $type = $file["headers"]["content-type"];
+                $body = $file["data"];
+
+                $comment = "Файл загружен [по ссылке]({$link}).\n\n";
+            } else {
+                return $response->withJSON([
+                    "message" => "Не удалось загрузить файл.",
+                ]);
+            }
+        }
+
+        elseif ($files = $request->getUploadedFiles()) {
+            if (!empty($files["file"])) {
+                $name = $files["file"]->getClientFilename();
+                $type = $files["file"]->getClientMediaType();
+
+                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");
+                $files["file"]->moveTo($tmp);
+                $body = file_get_contents($tmp);
+                unlink($tmp);
+            } else {
+                return $response->withJSON([
+                    "message" => "Не удалось принять файл.",
+                ]);
+            }
+        }
+
+        $fid = $this->db->addFile($name, $type, $body);
+
+        $pname = "File:" . $fid;
+        if (!($page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pname]))) {
+            $text = "# {$name}\n\n";
+            $text .= "[[image:{$fid}]]\n\n";
+            if ($comment)
+                $text .= $comment;
+
+            $this->savePage($pname, $text);
+        }
+
+        return $response->withJSON([
+            "callback" => "editor_insert",
+            "callback_args" => "[[image:{$fid}]]",
+        ]);
+    }
+
+    /**
      * Update page contents.
      **/
     public function onSave(Request $request, Response $response, array $args)

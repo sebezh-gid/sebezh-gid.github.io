@@ -16,6 +16,7 @@ $app->get('/wiki', '\App\Handlers\Wiki:onRead');
 $app->get("/wiki/edit", '\App\Handlers\Wiki:onEdit');
 $app->post("/wiki/edit", '\App\Handlers\Wiki:onSave');
 $app->get("/wiki/index", '\App\Handlers\Wiki:onIndex');
+$app->post("/wiki/upload", '\App\Handlers\Wiki:onUpload');
 
 $app->get('/short', '\App\Handlers\Short:onGetForm');
 $app->post('/short', '\App\Handlers\Short:onCreate');

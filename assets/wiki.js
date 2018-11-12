@@ -27,7 +27,6 @@ function sfmt(format) {
 
 
 jQuery(function ($) {
-    enable_async_forms();
     enable_wiki_fancybox();
     enable_map();
     enable_toolbar();
@@ -315,122 +314,6 @@ function enable_toolbar()
 
     $(document).on("change", "#filePhoto", function (e) {
         $(this).closest("form").submit();
-    });
-}
-
-
-function enable_async_forms()
-{
-    $(document).on("submit", "form.async", function (e) {
-        e.preventDefault();
-        var form = $(this);
-
-        if (window.FormData === undefined) {
-            alert("This function does not work in your old browser.");
-            return;
-        }
-
-        $("body").addClass("wait");
-
-        var buttons = form.find("buttons");
-        var msgbox = form.find(".msgbox");
-        var pgbar = form.find(".progressbar");
-
-        buttons.prop("disabled", true);
-
-        msgbox.hide();
-
-        var fd = new FormData($(this)[0]);
-
-        var show_progress = function (percent, loaded, total) {
-            if ("console" in window) console.log("upload progress: " + percent + "%");
-
-            if (true || total >= 102400) {
-                var mbs = function (bytes) { return Math.round(bytes / 1048576 * 100) / 100; };
-
-                var label = mbs(loaded) + " MB / " + mbs(total) + " MB";
-                pgbar.find(".label").html(label);
-
-                pgbar.find(".done").css("width", parseInt(percent) + "%");
-
-                pgbar.show();
-            }
-        };
-
-        var show_message = function (msg) {
-            if (msgbox.length > 0) {
-                msgbox.text(msg);
-                msgbox.show();
-            } else {
-                alert(msg);
-            }
-        };
-
-        $.ajax({
-            url: $(this).attr("action"),
-            type: "POST",
-            data: fd,
-            processData: false,
-            contentType: false,
-            cache: false,
-            dataType: "json",
-            xhr: function () {
-                var xhr = $.ajaxSettings.xhr();
-                xhr.upload.onprogress = function (e) {
-                    var pc = Math.round(e.loaded / e.total * 100);
-                    show_progress(pc, e.loaded, e.total);
-                };
-                return xhr;
-            }
-        }).done(function (res) {
-            res = $.extend({
-                code: null,
-                message: null,
-                direct: null
-            }, res);
-
-            if (res.redirect) {
-                window.location.href = res.redirect;
-                return;
-            }
-
-            if (res.message) {
-                msgbox.text(res.message);
-                msgbox.show();
-            }
-
-            if (res.code) {
-                var ta = $("textarea.wiki")[0],
-                    tv = ta.value,
-                    ss = ta.selectionStart,
-                    se = ta.selectionEnd,
-                    tt = tv.substring(ss, se);
-
-                var text = tv.substring(0, ss) + res.code + tv.substring(ss);
-                ta.value = text;
-                ta.selectionStart = ss + res.code.length;
-                ta.selectionEnd = ss + res.code.length;
-                ta.focus();
-
-                $(".dlg").dialog("close");
-                ta.focus();
-            }
-        }).always(function () {
-            $("body").removeClass("wait");
-            pgbar.hide();
-            buttons.prop("disabled", false);
-        }).fail(function (xhr, status, message) {
-            if (xhr.status == 404)
-                show_message("Form handler not found.");
-            else if (message == "Debug Output")
-                show_message(xhr.responseText);
-            else if (status == "error" && message == "")
-                ;  // aborted, e.g. F5 pressed.
-            else if (xhr.responseText)
-                show_message("Request failed: " + xhr.responseText);
-            else
-                show_message(sfmt("Request failed: {0}\n\n{1}", message, xhr.responseText));
-        });
     });
 }
 

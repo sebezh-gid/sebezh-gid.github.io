@@ -76,6 +76,8 @@ body	src/App/Handlers/Thumbnail.php	/^        $body = ob_get_clean();$/;"	v
 body	src/App/Handlers/Upload.php	/^                $body = $file["data"];$/;"	v
 body	src/App/Handlers/Upload.php	/^                $body = file_get_contents($tmp);$/;"	v
 body	src/App/Handlers/Upload.php	/^        $body = null;$/;"	v
+body	src/App/Handlers/Wiki.php	/^                $body = $file["data"];$/;"	v
+body	src/App/Handlers/Wiki.php	/^                $body = file_get_contents($tmp);$/;"	v
 body	src/App/Search.php	/^            $body = $this->normalizeText($body);$/;"	v
 bw	src/App/Handlers/Short.php	/^        $bw = imagesx($barcode);$/;"	v
 bw	src/App/Handlers/ShortImage.php	/^        $bw = imagesx($barcode);$/;"	v
@@ -101,6 +103,8 @@ code	src/App/Handlers/ShortImage.php	/^            $code = rand(1001, 9999);$/;"
 code	src/App/Handlers/ShortImage.php	/^        $code = $args["code"];$/;"	v
 code	src/App/Handlers/ShortImage.php	/^        $code = $this->db->shortGetCode($name);$/;"	v
 code	src/App/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["real_name"]}'\/><\/a>";$/;"	v
+comment	src/App/Handlers/Wiki.php	/^                $comment = "Файл загружен [по ссылке]({$link}).\\n\\n";$/;"	v
+comment	src/App/Handlers/Wiki.php	/^        $comment = null;$/;"	v
 commit	src/App/Database.php	/^    public function commit()$/;"	f
 conn	src/App/Database.php	/^            $this->conn = new \\PDO($this->dsn["name"], $this->dsn["user"], $this->dsn["password"]);$/;"	v
 conn	src/App/Database.php	/^        $this->conn = null;$/;"	v
@@ -172,6 +176,7 @@ fetchOne	src/App/Database.php	/^    public function fetchOne($query, array $para
 fetchcell	src/App/Database.php	/^    public function fetchcell($query, array $params = array())$/;"	f
 fetchkv	src/App/Database.php	/^    public function fetchkv($query, array $params = [])$/;"	f
 fi	src/App/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;"	v
+fid	src/App/Handlers/Wiki.php	/^        $fid = $this->db->addFile($name, $type, $body);$/;"	v
 file	src/App/FileHandler.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 file	src/App/Handlers/File.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 file	src/App/Handlers/Files.php	/^            $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
@@ -183,6 +188,7 @@ file	src/App/Handlers/Storage.php	/^        $file = $this->db->fileGet($args["na
 file	src/App/Handlers/Thumbnail.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 file	src/App/Handlers/Upload.php	/^            $file = \\App\\Common::fetch($link);$/;"	v
 file	src/App/Handlers/Upload.php	/^        $file = $this->db->fetchOne("SELECT `id`, `name`, `real_name`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fid]);$/;"	v
+file	src/App/Handlers/Wiki.php	/^            $file = \\App\\Common::fetch($link);$/;"	v
 fileGet	src/App/Database.php	/^    public function fileGet($name)$/;"	f
 fileId	src/App/Handlers/Wiki.php	/^            $fileId = array_shift($parts);$/;"	v
 filePut	src/App/Database.php	/^    public function filePut($name, $data)$/;"	f
@@ -375,6 +381,8 @@ name	src/App/Handlers/Upload.php	/^        $name = "File:" . $fid;$/;"	v
 name	src/App/Handlers/Upload.php	/^        $name = basename($url["path"]);$/;"	v
 name	src/App/Handlers/Upload.php	/^        $name = null;$/;"	v
 name	src/App/Handlers/Wiki.php	/^                    $name = basename($src);$/;"	v
+name	src/App/Handlers/Wiki.php	/^                $name = $files["file"]->getClientFilename();$/;"	v
+name	src/App/Handlers/Wiki.php	/^                $name = basename(explode("?", $link)[0]);$/;"	v
 name	src/App/Handlers/Wiki.php	/^        $name = $request->getParam("page_name");$/;"	v
 name	src/App/Template.php	/^            $name = "wiki:" . $key;$/;"	v
 nameEn	src/App/Handlers/ShortImage.php	/^        $nameEn = $this->getEnglishName($code);$/;"	v
@@ -431,6 +439,7 @@ onShowFile	src/App/Handlers/Files.php	/^    public function onShowFile(Request $
 onShowItem	src/App/Handlers/Short.php	/^    public function onShowItem(Request $request, Response $response, array $args)$/;"	f
 onStatus	src/App/Handlers/Database.php	/^    public function onStatus(Request $request, Response $response, array $args)$/;"	f
 onThumbnail	src/App/Handlers/Files.php	/^    public function onThumbnail(Request $request, Response $response, array $args)$/;"	f
+onUpload	src/App/Handlers/Wiki.php	/^    public function onUpload(Request $request, Response $response, array $args)$/;"	f
 options	src/App/Handlers/Files.php	/^        $options = array_merge([$/;"	v
 options	src/App/Handlers/Thumbnail.php	/^        $options = array_merge([$/;"	v
 originalInternalEncoding	src/App/Stemmer.php	/^        $originalInternalEncoding = mb_internal_encoding();$/;"	v
@@ -476,6 +485,7 @@ password	src/App/Handlers/Account.php	/^        $password = $request->getParam("
 path	src/App/Handlers/Files.php	/^        $path = $request->getUri()->getPath();$/;"	v
 path	src/App/Handlers/Short.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 path	src/App/Handlers/Storage.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
+pname	src/App/Handlers/Wiki.php	/^        $pname = "File:" . $fid;$/;"	v
 png	src/App/Handlers/Short.php	/^        $png = $gen->writeString();$/;"	v
 png	src/App/Handlers/ShortImage.php	/^        $png = $gen->writeString();$/;"	v
 postEdit	src/App/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
@@ -621,6 +631,7 @@ target	src/App/Parser.php	/^                $target = $parts[0];$/;"	v
 template	src/App/Template.php	/^        $template = $this->twig->load($fileName);$/;"	v
 text	src/App/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v
 text	src/App/Handlers/EditPage.php	/^        $text = $_POST["page_source"];$/;"	v
+text	src/App/Handlers/Wiki.php	/^            $text = "# {$name}\\n\\n";$/;"	v
 text	src/App/Handlers/Wiki.php	/^            $text = $this->getPageText($page);$/;"	v
 text	src/App/Handlers/Wiki.php	/^            $text = strip_tags($m[1]);$/;"	v
 text	src/App/Handlers/Wiki.php	/^        $text = $request->getParam("page_source");$/;"	v
@@ -637,6 +648,7 @@ title	src/App/Search.php	/^            $title = $this->normalizeText($title);$/;
 titleText	src/App/Common.php	/^            $titleText = strip_tags($titleText);$/;"	v
 tmp	src/App/Handlers/Database.php	/^                    $tmp = $this->db->fetchOne("SELECT COUNT(1) AS `count` FROM `{$row["name"]}`");$/;"	v
 tmp	src/App/Handlers/Upload.php	/^                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
+tmp	src/App/Handlers/Wiki.php	/^                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
 tmp	src/App/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
 tn	src/App/Handlers/Thumbnail.php	/^            $tn = $this->prepareThumbnail($name, $type, $options);$/;"	v
 tn	src/App/UploadHandler.php	/^                $tn = $fi["filename"] . "_small." . $fi["extension"];$/;"	v
@@ -655,6 +667,8 @@ type	src/App/Handlers/Upload.php	/^                $type = $file["headers"]["con
 type	src/App/Handlers/Upload.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v
 type	src/App/Handlers/Upload.php	/^        $type = null;$/;"	v
 type	src/App/Handlers/Wiki.php	/^                    $type = mime_content_type($src);$/;"	v
+type	src/App/Handlers/Wiki.php	/^                $type = $file["headers"]["content-type"];$/;"	v
+type	src/App/Handlers/Wiki.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v
 update	src/App/Database.php	/^    public function update($tableName, array $fields, array $where)$/;"	f
 updatePageHtml	src/App/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
 updated	src/App/Database.php	/^        $updated = strftime("%Y-%m-%d %H:%M:%S");$/;"	v

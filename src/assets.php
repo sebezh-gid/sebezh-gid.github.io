@@ -14,10 +14,12 @@ return [
     ],
 
     "public/app.css" => [
+        "assets/async.css",
         "assets/wiki.css",
         "assets/files.css",
         "assets/search.css",
         "assets/images.css",
+        "assets/dialogs.css",
     ],
 
     "public/libs.js" => [
@@ -31,8 +33,10 @@ return [
     ],
 
     "public/app.js" => [
+        "assets/async.js",
         "assets/wiki.js",
         "assets/files.js",
         "assets/hotkeys.js",
+        "assets/dialogs.js",
     ],
 ];

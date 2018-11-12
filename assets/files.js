@@ -34,6 +34,31 @@ jQuery(function ($) {
     }
 
     $(document).on("paste", "input.uploadLink", function (e) {
-        $(this).closest("form").submit();
+        var f = $(this).closest("form");
+        setTimeout(function () {
+            f.submit();
+        }, 100);
+    });
+
+    $(document).on("click", ".showUpload", function (e) {
+        e.preventDefault();
+        $("#dlg-upload, #block").show();
     });
 });
+
+
+window.editor_insert = function (text)
+{
+    var ta = $("textarea.wiki")[0];
+
+    var v = ta.value,
+        s = ta.selectionStart,
+        e = ta.selectionEnd;
+
+    var ntext = v.substring(0, s) + text + v.substring(e);
+    ta.value = ntext;
+    ta.selectionStart = e + text.length;
+    ta.selectionEnd = e + text.length;
+
+    $("#block, .dialog").hide();
+}
