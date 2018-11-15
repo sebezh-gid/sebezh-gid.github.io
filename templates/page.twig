@@ -39,7 +39,7 @@
             <p><i>Эта страница есть на русском языке: <a href="/wiki?name={{ page.ru }}">{{ page.ru }}</a>.</i></p>
         {% endif %}
 
-        {{ page.html|raw }}
+        {{ page.html|typo }}
 
         {% if file and file.type == "image/jpeg" %}
             <a class="image" data-fancybox="gallery" href="{{ file.link }}">

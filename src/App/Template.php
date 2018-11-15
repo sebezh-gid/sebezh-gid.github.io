@@ -47,6 +47,22 @@ class Template
         $this->twig->addFilter(new \Twig\TwigFilter("date_rfc", function ($ts) {
             return date(DATE_RSS, $ts);
         }));
+
+        $this->twig->addFilter(new \Twig\TwigFilter("typo", function ($text) {
+            // Обрабатываем только текст между тэгами.
+            $text = preg_replace_callback('@>([^<]+)<@', function ($m) {
+                $html = $m[1];
+
+                $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
+                $html = preg_replace('@\.  @', '.&nbsp; ', $html);
+
+                $html = preg_replace('@(По|Во|При|Из)\s+@', '\1 ', $html);
+                $html = preg_replace('@\s+(по|во|в|на|под|при|из|вы|с|к)\s+@', ' \1 ', $html);
+                return ">" . $html . "<";
+            }, $text);
+
+            return $text;
+        }, array("is_safe" => array("html"))));
     }
 
     public function render($fileName, array $data = array())

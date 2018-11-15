@@ -6,9 +6,7 @@ class Util
 {
     public static function cleanHtml($html)
     {
-        // Some typography.
-        $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
-        $html = preg_replace('@\.  @', '.&nbsp; ', $html);
+        // See also the |type markdown filter.
 
         // Closing tags should never have leading space.
         $html = preg_replace('@\s+</([a-z0-9]+)>@', '</\1>', $html);
