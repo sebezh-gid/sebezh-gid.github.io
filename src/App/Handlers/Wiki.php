@@ -172,6 +172,54 @@ class Wiki extends CommonHandler
         ]);
     }
 
+    public function onFilesRSS(Request $request, Response $response, array $args)
+    {
+        $files = $this->db->fetch("SELECT id, name, real_name, type, kind, length, created, hash FROM files ORDER BY created DESC LIMIT 20");
+
+        // Load descriptions.
+        $files = array_map(function ($row) {
+            $row["title"] = $row["name"];
+
+            $pname = "File:" . $row["id"];
+            if ($page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pname])) {
+                if (preg_match('@^#\s+(.+)$@m', $page["source"], $m)) {
+                    $row["title"] = trim($m[1]);
+                }
+            }
+
+            return $row;
+        }, $files);
+
+        return $this->renderXML($request, "files-rss.twig", [
+            "files" => $files,
+            "last_update" => $files[0]["created"],
+        ]);
+    }
+
+    public function onPagesRSS(Request $request, Response $response, array $args)
+    {
+        $pages = $this->db->fetch("SELECT * FROM `pages` WHERE name NOT LIKE 'File:%' ORDER BY `created` DESC LIMIT 20");
+
+        $pages = array_map(function ($em) {
+            $p = $this->processWikiPage($em["name"], $em["source"]);
+
+            return [
+                "name" => $em["name"],
+                "title" => $p["title"],
+                "created" => $em["created"],
+                "link" => "/wiki?name=" . urlencode($em["name"]),
+                "html" => $p["html"],
+            ];
+        }, $pages);
+
+        $lastUpdate = $this->db->fetchCell("SELECT MAX(updated) FROM `pages`");
+
+        return $this->renderXML($request, "pages-rss.twig", [
+            "pages" => $pages,
+            "last_update" => $lastUpdate,
+        ]);
+    }
+
     /**
      * CLI: reindex all pages.
      **/
@@ -522,5 +570,20 @@ class Wiki extends CommonHandler
         $res["html"] = $html;
 
         return $res;
+    }
+
+    protected function renderXML(Request $request, $templateName, array $data)
+    {
+        $def = $this->container->get("settings")["templates"];
+        if (!empty($def["defaults"]))
+            $data = array_merge($def["defaults"], $data);
+
+        $xml = $this->template->render($templateName, $data);
+
+        $xml = preg_replace('@>\s*<@', "><", $xml);
+
+        $response = new Response(200);
+        $response->getBody()->write($xml);
+        return $response->withHeader("Content-Type", "text/xml; charset=utf-8");
     }
 }

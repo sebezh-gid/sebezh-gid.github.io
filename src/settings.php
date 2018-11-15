@@ -14,6 +14,7 @@ return [
         'templates' => [
             'template_path' => __DIR__ . '/../templates',
             'defaults' => [
+                'base_url' => 'https://sebezh-gid.ru',
                 'language' => 'ru',
                 'strings_ru' => [
                     'site_name' => 'Гид по Себежу',

@@ -43,6 +43,10 @@ class Template
         $this->twig->addFilter(new \Twig\TwigFilter("date_simple", function ($ts) {
             return strftime("%d.%m.%y, %H:%M", $ts);
         }));
+
+        $this->twig->addFilter(new \Twig\TwigFilter("date_rfc", function ($ts) {
+            return date(DATE_RSS, $ts);
+        }));
     }
 
     public function render($fileName, array $data = array())
