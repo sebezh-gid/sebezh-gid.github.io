@@ -10,11 +10,11 @@
 {% endblock %}
 
 {% block page_contents %}
- <p>В путеводителе <strong>нет такой статьи</strong>, но вы можете <a href="/wiki/edit?name={{ page_name }}">её создать</a>.</p>
+ <p>Статьи «<strong>{{ page_name }}</strong>» в путеводителе нет, но вы можете <a href="/wiki/edit?name={{ page_name }}">создать её</a>.</p>
 
  {% if search_results %}
   <hr/>
-  <p>Вот другие статьи, в которых удалось <a href="/search?query={{ page_name }}">найти</a> «{{ page_name }}»:</p>
+  <p>Вот другие статьи, в которых удалось <a href="/search?query={{ page_name }}">найти</a> текст «{{ page_name }}»:</p>
   {% include "parts/search_results.twig" %}
  {% endif %}
 {% endblock %}
