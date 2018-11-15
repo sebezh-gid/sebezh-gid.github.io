@@ -53,7 +53,7 @@ class Files extends CommonHandler
 
     public function onDownload(Request $request, Response $response, array $args)
     {
-        $file = $this->db->fetch("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($request);
 

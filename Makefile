@@ -19,6 +19,9 @@ pull-data:
 	ssh $(REMOTE) mysqldump sebgid | pv > data/remote.sql
 	mysql < remote.sql
 
+pull-files:
+	php -f tools/cli.php pull-files
+
 reindex:
 	php -f tools/cli.php reindex
 

@@ -196,6 +196,26 @@ class Wiki extends CommonHandler
         ]);
     }
 
+    public function onFilesJSON(Request $request, Response $response, array $args)
+    {
+        $files = $this->db->fetch("SELECT id, name, real_name, type, kind, length, created, hash FROM files ORDER BY created");
+
+        $files = array_map(function ($em) {
+            return [
+                "id" => (int)$em["id"],
+                "name" => $em["name"],
+                "type" => $em["type"],
+                "created" => (int)$em["created"],
+                "length" => (int)$em["length"],
+                "hash" => $em["hash"],
+            ];
+        }, $files);
+
+        return $response->withJSON([
+            "files" => $files,
+        ]);
+    }
+
     public function onPagesRSS(Request $request, Response $response, array $args)
     {
         $pages = $this->db->fetch("SELECT * FROM `pages` WHERE name NOT LIKE 'File:%' ORDER BY `created` DESC LIMIT 20");
