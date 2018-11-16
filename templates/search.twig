@@ -11,6 +11,12 @@
 {% block page_contents %}
     <form class="search" method="get" action="/search"><input type="text" name="query" value="{{ query }}" autofocus="focus" autocomplete="off"/><button>Найти</button></form>
 
+    {% if has_page %}
+        <p>Есть страница «<a href="/wiki?name={{ wikiName }}">{{ wikiName }}</a>».</p>
+    {% else %}
+        <p>Страницы «{{ wikiName }}» нет, но вы можете <a href="/wiki/edit?name={{ wikiName }}">создать её</a>.</p>
+    {% endif %}
+
     {% for res in results %}
         <div class="result{% if res.image %} with_img{% endif %}">
             {% if res.image %}
