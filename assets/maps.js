@@ -184,8 +184,10 @@ jQuery(function ($) {
                 image: null
                 }, points[idx]);
 
+            /*
             if (p.link == null)
                 p.link = "/wiki?name=" + encodeURI(p.title);
+            */
 
             markers.push(p);
         }
