@@ -116,6 +116,13 @@ jQuery(function ($) {
         var map = create_map(div_id);
         var marker = L.marker(ll).addTo(map);
         map.setView(ll, zoom);
+
+        map.on("click", function (e) {
+            console.log(sfmt("lat={0} lng={1}", e.latlng.lat, e.latlng.lng));
+            console.log(sfmt("[1] <div class='map' data-center='{0},{1}' data-zoom='13'></div>", e.latlng.lat, e.latlng.lng));
+            console.log(sfmt("[2] <div class='map' data-center='{0},{1}' data-zoom='13'></div>", e.latlng.lat, e.latlng.lng));
+            console.log(sfmt("[3] <div class='map' data-points='[{\n \"latlng\": [{0}, {1}],\n \"title\": \"название места\",\n \"link\": \"/wiki?name=Карты\",\n \"image\": \"/i/thumbnails/1.jpg\"\n}]'></div>", e.latlng.lat, e.latlng.lng));
+        });
     };
 
     $(".map").each(function () {
