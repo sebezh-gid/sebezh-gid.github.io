@@ -434,9 +434,12 @@ class Wiki extends CommonHandler
     {
         $html = $page["html"];
 
-        if (preg_match('@<p>(.+?)</p>@ms', $html, $m)) {
-            $text = strip_tags($m[1]);
-            return $text;
+        if (preg_match_all('@<p>(.+?)</p>@ms', $html, $m)) {
+            foreach ($m[0] as $_html) {
+                if ($text = strip_tags($_html)) {
+                    return $text;
+                }
+            }
         }
 
         return null;

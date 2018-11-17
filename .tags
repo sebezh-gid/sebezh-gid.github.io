@@ -663,7 +663,6 @@ text	src/App/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v
 text	src/App/Handlers/EditPage.php	/^        $text = $_POST["page_source"];$/;"	v
 text	src/App/Handlers/Wiki.php	/^            $text = "# {$name}\\n\\n";$/;"	v
 text	src/App/Handlers/Wiki.php	/^            $text = $this->getPageText($page);$/;"	v
-text	src/App/Handlers/Wiki.php	/^            $text = strip_tags($m[1]);$/;"	v
 text	src/App/Handlers/Wiki.php	/^        $text = $request->getParam("page_source");$/;"	v
 text	src/App/Handlers/Wiki.php	/^        $text = trim(strip_tags($html));$/;"	v
 text	src/App/Parser.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
