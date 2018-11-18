@@ -26,6 +26,12 @@ class Search extends Handlers
 
         $results = $this->search($query);
 
+        $this->db->insert("search_log", [
+            "date" => strftime("%Y-%m-%d %H:%M:%S"),
+            "query" => $query,
+            "results" => count($results),
+        ]);
+
         $wikiName = \App\Common::wikiName($query);
         $hasPage = $this->db->getPageByName($wikiName) ? true : false;
 

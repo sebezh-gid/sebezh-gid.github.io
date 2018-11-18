@@ -119,3 +119,13 @@ CREATE TABLE IF NOT EXISTS `backlinks` (
     KEY(`page_id`),
     KEY(`link`)
 ) DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `search_log` (
+    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+    `date` DATETIME NOT NULL,
+    `query` VARCHAR(1024) NOT NULL,
+    `results` INTEGER UNSIGNED NOT NULL,
+    PRIMARY KEY(`id`),
+    KEY(`date`)
+) DEFAULT CHARSET=utf8;
