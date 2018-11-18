@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom' xmlns:itunes='http://www.itunes.com/dtds/podcast-1.0.dtd'>
+<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom' xmlns:turbo='http://turbo.yandex.ru'>
     <channel>
-        <atom:link href='https://sebezh-gid.ru/wiki/files.rss' rel='self' type='application/rss+xml'/>
+        <atom:link href='https://sebezh-gid.ru/wiki/pages.rss' rel='self' type='application/rss+xml'/>
         <language>ru-RU</language>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>{{ host }}</generator>
@@ -10,10 +10,11 @@
         <pubDate>{{ last_update|date_rfc }}</pubDate>
         <lastBuildDate>{{ last_update|date_rfc }}</lastBuildDate>
         {% for page in pages %}
-            <item>
+            <item turbo="true">
                 <pubDate>{{ page.created|date_rfc }}</pubDate>
                 <title>{{ page.title }}</title>
                 <description>{{ page.html }}</description>
+                <turbo:content>{{ page.html }}</turbo:content>
                 <link>https://sebezh-gid.ru{{ page.link }}</link>
                 <guid>{{ host }}:page:name={{ page.name }}</guid>
             </item>
