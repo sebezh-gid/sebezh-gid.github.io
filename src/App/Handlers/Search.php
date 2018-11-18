@@ -15,6 +15,8 @@ class Search extends Handlers
     public function onGet(Request $request, Response $response, array $args)
     {
         $query = $request->getParam("query");
+        if (!trim($query))
+            return $response->withRedirect("/wiki?name=%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5");
 
         $short = $this->db->shortsGetByCode($query);
         if ($short) {
