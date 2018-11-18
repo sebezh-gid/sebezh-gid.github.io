@@ -1023,6 +1023,20 @@ aside .logo {
 aside .logo a {
     display: inline-block;
     line-height: 0;
+    z-index: 1;
+    text-decoration: none;
+    color: inherit;
+}
+aside .logo .sub {
+    display: block;
+    text-align: center;
+    margin-top: -20px;
+    line-height: 20px;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 2;
+    color: #fff;
+    position: relative;
+    width: 100%;
 }
 aside ul {
     list-style-type: none;
