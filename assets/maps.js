@@ -39,6 +39,23 @@ jQuery(function ($) {
       "Google Satellite": google_hybrid_layer
     }).addTo(map);
 
+    // https://github.com/gokertanrisever/leaflet-ruler
+    L.control.ruler({
+        position: "topleft",
+        lengthUnit: {
+            display: "км",
+            decimal: 2,
+            factor: null,
+            label: "Расстояние:"
+        },
+        angleUnit: {
+            display: "&deg;",
+            decimal: 2,
+            factor: null,
+            label: "Азимут:"
+        }
+    }).addTo(map);
+
     map.on("focus", function () {
         map.scrollWheelZoom.enable();
     });
@@ -89,8 +106,12 @@ jQuery(function ($) {
                     html = sfmt("<p><a href='{0}'>{1}</a></p>", m.link, m.title);
                 else if (m.title)
                     html = sfmt("<p>{0}</p>", m.title);
-                if (m.image)
+
+                if (m.image && m.link) {
                     html += sfmt("<p><a href='{0}'><img src='{1}' width='300'/></a></p>", m.link, m.image);
+                } else if (m.image) {
+                    html += sfmt("<p><img src='{0}' width='300'/></p>", m.image);
+                }
 
                 if (html !== null)
                     m2.bindPopup(html);

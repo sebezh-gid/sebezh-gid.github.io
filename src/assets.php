@@ -11,6 +11,7 @@ return [
         "assets/leaflet/Control.Loading.css",
         "assets/leaflet/MarkerCluster.Default.css",
         "assets/leaflet/MarkerCluster.css",
+        "assets/leaflet/leaflet-ruler.css",
     ],
 
     "public/app.css" => [
@@ -30,6 +31,7 @@ return [
         "assets/leaflet/leaflet.markercluster.min.js",
         "assets/leaflet/Control.FullScreen.js",
         "assets/leaflet/Control.Loading.js",
+        "assets/leaflet/leaflet-ruler.js",
     ],
 
     "public/app.js" => [
