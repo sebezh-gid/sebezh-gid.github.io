@@ -15,6 +15,9 @@ deploy:
 flush:
 	echo "UPDATE pages SET html = null;" | sqlite3 data/database.sqlite
 
+flush-remote:
+	echo "UPDATE pages SET html = null;" | ssh $(REMOTE) mysql
+
 pull-data:
 	ssh $(REMOTE) mysqldump sebgid | pv > data/remote.sql
 	mysql < remote.sql
