@@ -125,4 +125,15 @@ jQuery(function ($) {
             this.selectionEnd = s + src.length + 2;
         }
     });
+
+    $(document).on("keydown", function (e) {
+        if (e.keyCode == 191) {
+            if (!$(document.activeElement).is("input.search")) {
+                console.log(e.keyCode);
+                e.preventDefault();
+                $("input.search:first").focus();
+                return false;
+            }
+        }
+    });
 });
