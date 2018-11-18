@@ -80,6 +80,7 @@ body	src/App/Handlers/Upload.php	/^                $body = file_get_contents($tm
 body	src/App/Handlers/Upload.php	/^        $body = null;$/;"	v
 body	src/App/Handlers/Wiki.php	/^                $body = $file["data"];$/;"	v
 body	src/App/Handlers/Wiki.php	/^                $body = file_get_contents($tmp);$/;"	v
+body	src/App/Handlers/Wiki.php	/^        $body = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$fileId]);$/;"	v
 body	src/App/Search.php	/^            $body = $this->normalizeText($body);$/;"	v
 bw	src/App/Handlers/Short.php	/^        $bw = imagesx($barcode);$/;"	v
 bw	src/App/Handlers/ShortImage.php	/^        $bw = imagesx($barcode);$/;"	v
@@ -230,6 +231,7 @@ getFileByName	src/App/Database.php	/^    public function getFileByName($name)$/;
 getFileName	src/App/Handlers/Upload.php	/^    protected function getFileName($link, array $file)$/;"	f
 getHome	src/App/Handlers.php	/^    public function getHome(Request $request, Response $response)$/;"	f
 getImage	src/App/Handlers/Files.php	/^    protected function getImage($img)$/;"	f
+getImageRate	src/App/Handlers/Wiki.php	/^    protected function getImageRate($fileId)$/;"	f
 getPageById	src/App/Database.php	/^    public function getPageById($id)$/;"	f
 getPageByName	src/App/Database.php	/^    public function getPageByName($name)$/;"	f
 getPageImage	src/App/Handlers/Wiki.php	/^    protected function getPageImage(array $page)$/;"	f
@@ -242,6 +244,7 @@ getStats	src/App/Handlers/Database.php	/^    protected function getStats()$/;"	f
 getThumbnail	src/App/Database.php	/^    public function getThumbnail($name, $type)$/;"	f
 getWordBase	src/App/Stemmer.php	/^    public static function getWordBase($word)$/;"	f
 guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
+h	src/App/Handlers/Wiki.php	/^        $h = imagesy($img);$/;"	v
 hasPage	src/App/Handlers/Search.php	/^        $hasPage = $this->db->getPageByName($wikiName) ? true : false;$/;"	v
 hash	src/App/Common.php	/^        $hash = sha1($_SERVER["DOCUMENT_ROOT"] . rand(1111, 9999) . microtime(true));$/;"	v
 hash	src/App/Database.php	/^        $hash = md5($body);$/;"	v
@@ -305,6 +308,7 @@ id	src/App/Handlers/Wiki.php	/^            $id = null;$/;"	v
 ih	src/App/Handlers/Files.php	/^        $ih = imagesy($img);$/;"	v
 ih	src/App/Handlers/Thumbnail.php	/^        $ih = imagesy($img);$/;"	v
 ih	src/App/Handlers/Wiki.php	/^                    $ih = $m[1] . "px";$/;"	v
+ih	src/App/Handlers/Wiki.php	/^                    $ih = round($m[1] \/ $rate) . "px";$/;"	v
 ih	src/App/Handlers/Wiki.php	/^                $ih = "150px";$/;"	v
 ih	src/App/Handlers/Wiki.php	/^            $ih = "auto";$/;"	v
 image	src/App/Handlers/Files.php	/^                $image = "\/i\/thumbnails\/{$em["id"]}.jpg";$/;"	v
@@ -324,6 +328,7 @@ img	src/App/Handlers/ShortImage.php	/^        $img = imagecreatefromstring($png)
 img	src/App/Handlers/Thumbnail.php	/^                $img = $dst;$/;"	v
 img	src/App/Handlers/Thumbnail.php	/^        $img = $this->scaleImage($img, $options);$/;"	v
 img	src/App/Handlers/Thumbnail.php	/^        $img = imageCreateFromString($file["body"]);$/;"	v
+img	src/App/Handlers/Wiki.php	/^        $img = imagecreatefromstring($body);$/;"	v
 info	src/App/Handlers/Short.php	/^        $info = $this->db->shortsGetByCode($code);$/;"	v
 info	src/App/Handlers/Wiki.php	/^            $info = $this->db->fetchOne("SELECT `id`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fileId]);$/;"	v
 info	src/App/UploadHandler.php	/^                $info = $this->receiveFile($file);$/;"	v
@@ -334,6 +339,8 @@ items	src/App/Search.php	/^        $items = array_map(function ($item) {$/;"	v
 iw	src/App/Handlers/Files.php	/^        $iw = imagesx($img);$/;"	v
 iw	src/App/Handlers/Thumbnail.php	/^        $iw = imagesx($img);$/;"	v
 iw	src/App/Handlers/Wiki.php	/^                    $iw = $m[1] . "px";$/;"	v
+iw	src/App/Handlers/Wiki.php	/^                    $iw = round($m[1] * $rate) . "px";$/;"	v
+iw	src/App/Handlers/Wiki.php	/^                $iw = round(150 * $rate) . "px";$/;"	v
 iw	src/App/Handlers/Wiki.php	/^            $iw = "auto";$/;"	v
 k	src/App/Common.php	/^                    $k = strtolower(trim($parts[0]));$/;"	v
 key	src/App/Handlers/Thumbnail.php	/^        $key = $m[2];$/;"	v
@@ -531,6 +538,7 @@ query	src/App/Search.php	/^                $query = "+" . str_replace(" ", " +",
 query	src/App/Search.php	/^        $query = $this->normalizeText($query);$/;"	v
 r	src/App/Handlers/Files.php	/^                $r = $iw \/ $ih;$/;"	v
 r	src/App/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
+rate	src/App/Handlers/Wiki.php	/^            $rate = $this->getImageRate($fileId);$/;"	v
 re	src/App/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($environment);$/;"	v
 receiveFile	src/App/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
 recent	src/App/Handlers/Short.php	/^        $recent = $this->db->shortsGetRecent();$/;"	v
@@ -710,6 +718,7 @@ url	src/App/Handlers/CLI.php	/^                $url = "https:\/\/sebezh-gid.ru\/
 url	src/App/Handlers/Upload.php	/^        $url = parse_url($link);$/;"	v
 uuid	src/App/Common.php	/^    public static function uuid($body = null)$/;"	f
 v	src/App/Common.php	/^                    $v = trim($parts[1]);$/;"	v
+w	src/App/Handlers/Wiki.php	/^        $w = imagesx($img);$/;"	v
 wikiName	src/App/Common.php	/^    public static function wikiName($name)$/;"	f
 wikiName	src/App/Handlers/Search.php	/^        $wikiName = \\App\\Common::wikiName($query);$/;"	v
 word	src/App/Stemmer.php	/^                $word = $prefix . preg_replace('\/' . $regex[0] . '\/ui', '', $ending);$/;"	v

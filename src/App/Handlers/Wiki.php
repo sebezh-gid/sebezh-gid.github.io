@@ -540,13 +540,17 @@ class Wiki extends CommonHandler
             $iw = "auto";
             $ih = "auto";
 
+            $rate = $this->getImageRate($fileId);
+
             foreach ($parts as $part) {
                 if (preg_match('@^width=(\d+)$@', $part, $m)) {
                     $iw = $m[1] . "px";
+                    $ih = round($m[1] / $rate) . "px";
                 }
 
                 elseif (preg_match('@^height=(\d+)$@', $part, $m)) {
                     $ih = $m[1] . "px";
+                    $iw = round($m[1] * $rate) . "px";
                 }
 
                 else {
@@ -554,8 +558,10 @@ class Wiki extends CommonHandler
                 }
             }
 
-            if ($iw == "auto" and $ih == "auto")
+            if ($iw == "auto" and $ih == "auto") {
                 $ih = "150px";
+                $iw = round(150 * $rate) . "px";
+            }
 
             $small = "/i/thumbnails/{$fileId}.jpg";
             $large = "/i/photos/{$fileId}.jpg";
@@ -608,5 +614,16 @@ class Wiki extends CommonHandler
         $response = new Response(200);
         $response->getBody()->write($xml);
         return $response->withHeader("Content-Type", "text/xml; charset=utf-8");
+    }
+
+    protected function getImageRate($fileId)
+    {
+        $body = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$fileId]);
+
+        $img = imagecreatefromstring($body);
+        $w = imagesx($img);
+        $h = imagesy($img);
+
+        return $w / $h;
     }
 }
