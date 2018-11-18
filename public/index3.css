@@ -65,11 +65,12 @@ body {
     font-size: 14px;
     padding: 0 10px;
     width: 300px;
+    border: 2px solid #ccc;
 }
 .lead button {
     background-color: #ccc;
     border: none;
-    height: 30px;
+    height: 34px;
     line-height: 30px;
     cursor: pointer;
 }
@@ -141,7 +142,7 @@ header .left {
 
 .submenu {
     width: calc(100% - 30px);
-    margin-top: calc(100vh - 80px);
+    margin-top: calc(100vh - 40px);
     padding: 0 15px;
     height: 40px;
     background-color: rgba(0, 0, 0, .5);
@@ -151,6 +152,12 @@ header .left {
 }
 .submenu a {
     color: inherit;
+}
+.submenu .left {
+    float: left;
+}
+.submenu .right {
+    float: right;
 }
 
 .hnews {

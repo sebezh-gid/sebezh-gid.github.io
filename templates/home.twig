@@ -13,30 +13,33 @@
             <div class="dark"></div>
         </div>
 
-        <header>
-            <h1 class="left"><a href="/wiki?name=Введение">Себеж</a></h1>
-            <ul class="menu left">
-                <li><a href="/wiki?name=История Себежа">История</a></li>
-                <li><a href="/wiki?name=Куда сходить">Места</a></li>
-                <li><a href="/wiki?name=Люди">Люди</a></li>
-                <li><a href="/wiki?name=Гид">Гид</a></li>
-            </ul>
-        </header>
+        {% if false %}
+            <header>
+                <h1 class="left"><a href="/wiki?name=Введение">Себеж</a></h1>
+                <ul class="menu left">
+                    <li><a href="/wiki?name=История Себежа">История</a></li>
+                    <li><a href="/wiki?name=Куда сходить">Места</a></li>
+                    <li><a href="/wiki?name=Люди">Люди</a></li>
+                    <li><a href="/wiki?name=Гид">Гид</a></li>
+                </ul>
+            </header>
+        {% endif %}
 
         <div class="lead">
             <h1>Себеж</h1>
             <p class="intro">Путеводитель по <a href="/wiki?name=Небесное место на земле">небесному месту на земле</a></p>
 
             <form class="search" action="/search">
-                <input type="text" name="query" placeholder="Введите интересующий текст или крутите вниз"/>
+                <input type="text" name="query" placeholder="Введите интересующий текст или крутите вниз" autocomplete="off"/>
                 <button type="submit">Найти</button>
             </form>
 
-            <p class="small">На фотографии изображена <a href="/wiki?name=Себежская набережная">себежская набережная</a>.</p>
+            <p class="small">Например: <a href="/wiki?name=История Себежа">история</a>, <a href="/wiki?name=Куда сходить">куда сходить</a>, <a href="/wiki?name=Список людей">люди</a>, <a href="/wiki?name=Достопримечательности">достопримечательности</a>.</p>
         </div>
 
         <div class="submenu">
             <div class="left">&copy; 2017-2018 <a href="/wiki?name=О сайте">Местные жители</a></div>
+            <div class="right">На фото: <a href="/wiki?name=Себежская набережная">себежская набережная</a></div>
         </div>
 
         <div class="hnews" style="display: none">
