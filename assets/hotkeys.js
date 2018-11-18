@@ -128,7 +128,8 @@ jQuery(function ($) {
 
     $(document).on("keydown", function (e) {
         if (e.keyCode == 191) {
-            if (!$(document.activeElement).is("input.search")) {
+            var a = $(document.activeElement);
+            if (!a.is("input.search") && !a.is("input") && !a.is("textarea")) {
                 console.log(e.keyCode);
                 e.preventDefault();
                 $("input.search:first").focus();
