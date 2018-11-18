@@ -52,6 +52,7 @@ $app->get('/admin/database', '\App\Handlers\Database:onStatus');
 $app->get("/f/{name}", '\App\Handlers\Storage:onGetItem');
 
 $app->get("/search", \App\Handlers\Search::class . ":onGet");
+$app->get("/search/log", \App\Handlers\Search::class . ":onLog");
 
 $app->get("/sitemap.xml", '\App\Handlers\Sitemap');
 

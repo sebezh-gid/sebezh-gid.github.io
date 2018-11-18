@@ -448,6 +448,7 @@ onGetLoginForm	src/App/Handlers/Account.php	/^    public function onGetLoginForm
 onGetPreview	src/App/Handlers/Short.php	/^    public function onGetPreview(Request $request, Response $response, array $args)$/;"	f
 onGetRecent	src/App/Handlers/Files.php	/^    public function onGetRecent(Request $request, Response $response, array $args)$/;"	f
 onIndex	src/App/Handlers/Wiki.php	/^    public function onIndex(Request $request, Response $response, array $args)$/;"	f
+onLog	src/App/Handlers/Search.php	/^    public function onLog(Request $request, Response $response, array $args)$/;"	f
 onLogin	src/App/Handlers/Account.php	/^    public function onLogin(Request $request, Response $response, array $args)$/;"	f
 onPagesRSS	src/App/Handlers/Wiki.php	/^    public function onPagesRSS(Request $request, Response $response, array $args)$/;"	f
 onPhoto	src/App/Handlers/Files.php	/^    public function onPhoto(Request $request, Response $response, array $args)$/;"	f
@@ -592,6 +593,7 @@ rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `id`, `name`, `
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch($query, $params);$/;"	v
 rows	src/App/Handlers/Database.php	/^                $rows = $this->db->fetch("select name FROM sqlite_master WHERE `type` = 'table' ORDER BY name");$/;"	v
+rows	src/App/Handlers/Search.php	/^        $rows = $this->db->fetch("SELECT * FROM `search_log` ORDER BY `date` DESC LIMIT 100");$/;"	v
 rows	src/App/Search.php	/^        $rows = $this->db->fetch($sql, $params, function ($em) {$/;"	v
 ruName	src/App/Handlers/Short.php	/^        $ruName = $this->getRussianName($code);$/;"	v
 rufont	src/App/Handlers/Short.php	/^        $rufont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Bold.ttf";$/;"	v

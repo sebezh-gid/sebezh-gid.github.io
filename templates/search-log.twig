@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% block page_title %}История поиска — гид по Себежу{% endblock %}
+
+{% block page_h1 %}История поиска{% endblock %}
+
+{% block more_head %}
+    <meta name="robots" contents="noindex, follow"/>
+{% endblock %}
+
+{% block page_contents %}
+    <table class="table grid">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Запрос</th>
+                <th>Ответов</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in entries %}
+                <tr>
+                    <td>{{ e.date }}</td>
+                    <td><a href="/search?query={{ e.query }}">{{ e.query }}</a></td>
+                    <td class="number">{{ e.results }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

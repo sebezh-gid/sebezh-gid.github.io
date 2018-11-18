@@ -43,4 +43,15 @@ class Search extends Handlers
             "edit_link" => "/wiki/edit?name=" . urlencode($wikiName),
         ]);
     }
+
+    public function onLog(Request $request, Response $response, array $args)
+    {
+        $this->requireAdmin($request);
+
+        $rows = $this->db->fetch("SELECT * FROM `search_log` ORDER BY `date` DESC LIMIT 100");
+
+        return $this->render($request, "search-log.twig", [
+            "entries" => $rows,
+        ]);
+    }
 }
