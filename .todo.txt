@@ -25,3 +25,4 @@ http://www.rusarch.ru/golikova1.htm
 - https://gohugo.io/
 - https://www.chromium.org/quic -- содержимое в цельном квадрате, заголовок сайта и поиск в шапке, контент внутри квадрата
 - logo: https://i.pinimg.com/originals/c1/b6/37/c1b63778cdbebfbf13f3dcdf2256bd65.jpg
+- главная: блоки зима - весна - лето - осень
