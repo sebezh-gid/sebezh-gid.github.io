@@ -478,6 +478,7 @@ class Wiki extends CommonHandler
             "name" => $name,
             "title" => $name,
             "image" => null,
+            "images" => [],
             "summary" => null,
         ];
 
@@ -526,7 +527,7 @@ class Wiki extends CommonHandler
         $html = \App\Common::renderTOC($html);
 
         // Embed images.
-        $html = preg_replace_callback('@\[\[image:([^]]+)\]\]@', function ($m) use ($name) {
+        $html = preg_replace_callback('@\[\[image:([^]]+)\]\]@', function ($m) use ($name, &$res) {
             $parts = explode(":", $m[1]);
             $fileId = array_shift($parts);
 
@@ -540,7 +541,8 @@ class Wiki extends CommonHandler
             $iw = "auto";
             $ih = "auto";
 
-            $rate = $this->getImageRate($fileId);
+            list($w, $h) = $this->getImageSize($fileId);
+            $rate = $w / $h;
 
             foreach ($parts as $part) {
                 if (preg_match('@^width=(\d+)$@', $part, $m)) {
@@ -567,6 +569,12 @@ class Wiki extends CommonHandler
             $large = "/i/photos/{$fileId}.jpg";
             $page = "/wiki?name=File:{$fileId}";
             $title = "untitled";
+
+            $res["images"][] = [
+                "src" => $large,
+                "width" => $w,
+                "height" => $h,
+            ];
 
             if ($fpage = $this->db->fetchOne("SELECT `source` FROM `pages` WHERE `name` = ?", ["File:" . $fileId])) {
                 if (preg_match('@^# (.+)$@m', $fpage["source"], $n)) {
@@ -595,6 +603,12 @@ class Wiki extends CommonHandler
             }
         }
 
+        if (preg_match_all('@<img[^>]+>@', $html, $m)) {
+            foreach ($m[0] as $_img) {
+                $attrs = \App\Util::parseHtmlAttrs($_img);
+            }
+        }
+
         $html = \App\Util::cleanHtml($html);
         $res["html"] = $html;
 
@@ -616,7 +630,7 @@ class Wiki extends CommonHandler
         return $response->withHeader("Content-Type", "text/xml; charset=utf-8");
     }
 
-    protected function getImageRate($fileId)
+    protected function getImageSize($fileId)
     {
         $body = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$fileId]);
 
@@ -624,6 +638,6 @@ class Wiki extends CommonHandler
         $w = imagesx($img);
         $h = imagesy($img);
 
-        return $w / $h;
+        return [$w, $h];
     }
 }

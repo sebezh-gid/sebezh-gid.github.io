@@ -60,6 +60,7 @@ aliases	src/App/Search.php	/^        static $aliases = null;$/;"	v
 all	src/App/Util.php	/^        $all = "html|head|body|header|main|footer|aside|nav|div|p|ul|ol|li|input|label|textarea|button|meta|title|h1|h2|h3|h4|h5|script|style|link|table|thead|tfoot|tbody|tr|th|td|img";$/;"	v
 anchor	src/App/Common.php	/^            $anchor = mb_strtolower(trim(preg_replace('@\\s+@', '_', $titleText)));$/;"	v
 attrs	src/App/Handlers/Wiki.php	/^                    $attrs = \\App\\Util::parseHtmlAttrs($tag);$/;"	v
+attrs	src/App/Handlers/Wiki.php	/^                $attrs = \\App\\Util::parseHtmlAttrs($_img);$/;"	v
 attrs	src/App/Handlers/Wiki.php	/^                $attrs = \\App\\Util::parseHtmlAttrs($m[0]);$/;"	v
 back	src/App/Handlers/Account.php	/^        $back = @$_GET["back"];$/;"	v
 barcode	src/App/Handlers/Short.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
@@ -231,7 +232,7 @@ getFileByName	src/App/Database.php	/^    public function getFileByName($name)$/;
 getFileName	src/App/Handlers/Upload.php	/^    protected function getFileName($link, array $file)$/;"	f
 getHome	src/App/Handlers.php	/^    public function getHome(Request $request, Response $response)$/;"	f
 getImage	src/App/Handlers/Files.php	/^    protected function getImage($img)$/;"	f
-getImageRate	src/App/Handlers/Wiki.php	/^    protected function getImageRate($fileId)$/;"	f
+getImageSize	src/App/Handlers/Wiki.php	/^    protected function getImageSize($fileId)$/;"	f
 getPageById	src/App/Database.php	/^    public function getPageById($id)$/;"	f
 getPageByName	src/App/Database.php	/^    public function getPageByName($name)$/;"	f
 getPageImage	src/App/Handlers/Wiki.php	/^    protected function getPageImage(array $page)$/;"	f
@@ -279,7 +280,7 @@ html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderMarkdown($
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderTOC($html);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Util::cleanHtml($html);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$res) {$/;"	v
-html	src/App/Handlers/Wiki.php	/^        $html = preg_replace_callback('@\\[\\[image:([^]]+)\\]\\]@', function ($m) use ($name) {$/;"	v
+html	src/App/Handlers/Wiki.php	/^        $html = preg_replace_callback('@\\[\\[image:([^]]+)\\]\\]@', function ($m) use ($name, &$res) {$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = str_replace("><", "> <", $html);$/;"	v
 html	src/App/Parser.php	/^        $html = $md->convertToHtml($source);$/;"	v
 html	src/App/Parser.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
@@ -538,7 +539,7 @@ query	src/App/Search.php	/^                $query = "+" . str_replace(" ", " +",
 query	src/App/Search.php	/^        $query = $this->normalizeText($query);$/;"	v
 r	src/App/Handlers/Files.php	/^                $r = $iw \/ $ih;$/;"	v
 r	src/App/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
-rate	src/App/Handlers/Wiki.php	/^            $rate = $this->getImageRate($fileId);$/;"	v
+rate	src/App/Handlers/Wiki.php	/^            $rate = $w \/ $h;$/;"	v
 re	src/App/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($environment);$/;"	v
 receiveFile	src/App/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
 recent	src/App/Handlers/Short.php	/^        $recent = $this->db->shortsGetRecent();$/;"	v
