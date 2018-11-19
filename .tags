@@ -11,11 +11,13 @@ CommonHandler	src/App/CommonHandler.php	/^class CommonHandler$/;"	c
 Database	src/App/Database.php	/^class Database {$/;"	c
 Database	src/App/Handlers/Database.php	/^class Database extends CommonHandler$/;"	c
 EditPage	src/App/Handlers/EditPage.php	/^class EditPage extends CommonHandler$/;"	c
+Error	src/App/Handlers/Error.php	/^class Error extends CommonHandler$/;"	c
 File	src/App/Handlers/File.php	/^class File extends CommonHandler$/;"	c
 FileHandler	src/App/FileHandler.php	/^class FileHandler extends Handlers$/;"	c
 FileList	src/App/Handlers/FileList.php	/^class FileList extends Handlers$/;"	c
 Files	src/App/Handlers/Files.php	/^class Files extends CommonHandler$/;"	c
 Handlers	src/App/Handlers.php	/^class Handlers extends CommonHandler$/;"	c
+NotFound	src/App/Handlers/NotFound.php	/^class NotFound extends CommonHandler$/;"	c
 Page	src/App/Page.php	/^class Page {$/;"	c
 Parser	src/App/Parser.php	/^class Parser$/;"	c
 Search	src/App/Handlers/Search.php	/^class Search extends Handlers$/;"	c
@@ -41,6 +43,8 @@ __construct	src/App/Template.php	/^    public function __construct($container)$/
 __get	src/App/CommonHandler.php	/^    public function __get($key)$/;"	f
 __get	src/App/Handlers.php	/^    public function __get($key)$/;"	f
 __invoke	src/App/CommonHandler.php	/^    public function __invoke(Request $request, Response $response, array $args)$/;"	f
+__invoke	src/App/Handlers/Error.php	/^    public function __invoke(Request $request, Response $response, array $args)$/;"	f
+__invoke	src/App/Handlers/NotFound.php	/^    public function __invoke(Request $request, Response $response, array $args)$/;"	f
 _fields	src/App/Database.php	/^        $_fields = [];$/;"	v
 _fields	src/App/Database.php	/^        $_fields = implode(", ", $_fields);$/;"	v
 _marks	src/App/Database.php	/^        $_marks = [];$/;"	v
@@ -132,6 +136,7 @@ context	src/App/Common.php	/^        $context = stream_context_create(array($/;"
 converter	src/App/Common.php	/^        $converter = new \\League\\CommonMark\\Converter($dp, $re);$/;"	v
 count	src/App/Handlers/Wiki.php	/^            $count = $this->db->update("pages", [$/;"	v
 data	src/App/CommonHandler.php	/^        $data = array_merge($defaults, $data);$/;"	v
+data	src/App/Handlers/Error.php	/^        $data = [];$/;"	v
 data	src/App/Handlers/Short.php	/^        $data = $gen->writeString();$/;"	v
 data	src/App/Handlers/Short.php	/^        $data = file_get_contents($fn);$/;"	v
 data	src/App/Handlers/ShortImage.php	/^        $data = $gen->writeString();$/;"	v
@@ -139,7 +144,6 @@ data	src/App/Handlers/ShortImage.php	/^        $data = file_get_contents($fn);$/
 data	src/App/Handlers/Wiki.php	/^            $data = array_merge($def["defaults"], $data);$/;"	v
 data	src/App/Template.php	/^        $data = $this->addDefaults($data);$/;"	v
 data	src/App/Template.php	/^        $data = array_merge($this->defaults, $data);$/;"	v
-data	src/dependencies.php	/^        $data = [];$/;"	v
 date	src/App/Database.php	/^        $date = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
 date	src/App/Handlers/Sitemap.php	/^            $date = strftime("%Y-%m-%d", $page["updated"]);$/;"	v
 db	src/App/Database.php	/^        $db = $this->connect();$/;"	v
@@ -163,6 +167,7 @@ dst	src/App/Handlers/Files.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $pat
 dst	src/App/Handlers/ShortImage.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 dst	src/App/Handlers/Thumbnail.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
 dst	src/App/Handlers/Thumbnail.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
+e	src/App/Handlers/Error.php	/^        $e = $args["exception"];$/;"	v
 enName	src/App/Handlers/Short.php	/^        $enName = $this->getEnglishName($ruName);$/;"	v
 ending	src/App/Stemmer.php	/^        $ending = mb_substr($word, mb_strlen($prefix, 'UTF-8'), null, 'UTF-8');$/;"	v
 enfont	src/App/Handlers/Short.php	/^        $enfont = __DIR__ . "\/..\/..\/..\/data\/Oswald-Regular.ttf";$/;"	v
@@ -245,6 +250,8 @@ getThumbnail	src/App/Database.php	/^    public function getThumbnail($name, $typ
 getWordBase	src/App/Stemmer.php	/^    public static function getWordBase($word)$/;"	f
 guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
 h	src/App/Handlers/Wiki.php	/^        $h = imagesy($img);$/;"	v
+h	src/dependencies.php	/^        $h = new \\App\\Handlers\\Error($c);$/;"	v
+h	src/dependencies.php	/^        $h = new \\App\\Handlers\\NotFound($c);$/;"	v
 hasPage	src/App/Handlers/Search.php	/^        $hasPage = $this->db->getPageByName($wikiName) ? true : false;$/;"	v
 hash	src/App/Common.php	/^        $hash = sha1($_SERVER["DOCUMENT_ROOT"] . rand(1111, 9999) . microtime(true));$/;"	v
 hash	src/App/Database.php	/^        $hash = md5($body);$/;"	v
@@ -299,8 +306,6 @@ html	src/App/Util.php	/^        $html = preg_replace('@<\/a>\\s+@', '<\/a> ', $h
 html	src/App/Util.php	/^        $html = preg_replace('@\\s*<\/(' . $all . ')>\\s*@ms', '<\/\\1>', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/([a-z0-9]+)>@', '<\/\\1>', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $html);$/;"	v
-html	src/dependencies.php	/^        $html = $twig->render("notfound.twig");$/;"	v
-html	src/dependencies.php	/^        $html = $twig->render($tpl, $data);$/;"	v
 id	src/App/Database.php	/^        $id = $this->insert("files", [$/;"	v
 id	src/App/Handlers/Wiki.php	/^                $id = $this->db->insert("pages", [$/;"	v
 id	src/App/Handlers/Wiki.php	/^            $id = $page["id"];$/;"	v
@@ -573,10 +578,12 @@ res	src/App/UploadHandler.php	/^        $res = array($/;"	v
 res	src/App/Util.php	/^        $res = [];$/;"	v
 response	src/App/CommonHandler.php	/^        $response = new Response(200);$/;"	v
 response	src/App/FileHandler.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
+response	src/App/Handlers/Error.php	/^        $response = $this->render($request, $tpl, $data);$/;"	v
 response	src/App/Handlers/File.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
 response	src/App/Handlers/Files.php	/^        $response = $response->withHeader("Content-Type", "image\/jpeg")$/;"	v
 response	src/App/Handlers/Files.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
 response	src/App/Handlers/Files.php	/^        $response = new Response(200);$/;"	v
+response	src/App/Handlers/NotFound.php	/^        $response = $this->render($request, "notfound.twig");$/;"	v
 response	src/App/Handlers/Short.php	/^        $response = $response->withHeader("Content-Type", "image\/png")$/;"	v
 response	src/App/Handlers/Short.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
 response	src/App/Handlers/ShortImage.php	/^        $response = $response->withHeader("Content-Type", "image\/png")$/;"	v
@@ -659,8 +666,8 @@ stack	src/dependencies.php	/^    $stack = str_replace(dirname(__DIR__) . "\/", "
 state	src/App/Stemmer.php	/^                        $state = 1;$/;"	v
 state	src/App/Stemmer.php	/^                        $state = 2;$/;"	v
 state	src/App/Stemmer.php	/^        $state = 0;$/;"	v
-status	src/dependencies.php	/^            $status = 401;$/;"	v
-status	src/dependencies.php	/^        $status = 500;$/;"	v
+status	src/App/Handlers/Error.php	/^            $status = 401;$/;"	v
+status	src/App/Handlers/Error.php	/^        $status = 500;$/;"	v
 sth	src/App/Database.php	/^        $sth = $db->prepare($query);$/;"	v
 sth	src/App/Database.php	/^        $sth = $this->query($query, $_params);$/;"	v
 stopWords	src/App/Search.php	/^    static private $stopWords = ["а", "и", "о", "об", "в", "на", "под", "из"];$/;"	v
@@ -695,12 +702,11 @@ tmp	src/App/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"]
 tn	src/App/Handlers/Thumbnail.php	/^            $tn = $this->prepareThumbnail($name, $type, $options);$/;"	v
 tn	src/App/UploadHandler.php	/^                $tn = $fi["filename"] . "_small." . $fi["extension"];$/;"	v
 toc	src/App/Common.php	/^        $toc = "<h2>Содержание<\/h2>";$/;"	v
-tpl	src/dependencies.php	/^            $tpl = "unauthorized.twig";$/;"	v
-tpl	src/dependencies.php	/^        $tpl = "error.twig";$/;"	v
+tpl	src/App/Handlers/Error.php	/^            $tpl = "unauthorized.twig";$/;"	v
+tpl	src/App/Handlers/Error.php	/^        $tpl = "error.twig";$/;"	v
 tpl	src/dependencies.php	/^    $tpl = new \\App\\Template($c);$/;"	v
 twig	src/App/Template.php	/^        $this->twig = new \\Twig\\Environment($loader);$/;"	v
 twig	src/App/Template.php	/^    protected $twig;$/;"	v
-twig	src/dependencies.php	/^        $twig = $c->get("template");$/;"	v
 type	src/App/Database.php	/^            $type = $this->conn->getAttribute(\\PDO::ATTR_DRIVER_NAME);$/;"	v
 type	src/App/Handlers/Files.php	/^            $type = $type[0];$/;"	v
 type	src/App/Handlers/Files.php	/^            $type = explode("\/", $em["type"]);$/;"	v

@@ -17,29 +17,15 @@ $container['template'] = function ($c) {
 
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
-        $twig = $c->get("template");
-        $html = $twig->render("notfound.twig");
-        $response->getBody()->write($html);
-        return $response->withStatus(404);
+        $h = new \App\Handlers\NotFound($c);
+        return $h($request, $response, []);
     };
 };
 
 $container['errorHandler'] = function ($c) {
     return function ($request, $response, $e) use ($c) {
-        $tpl = "error.twig";
-        $status = 500;
-        $data = [];
-        $data["path"] = $request->getUri()->getPath();
-
-        if ($e instanceof \App\Errors\Unauthorized) {
-            $tpl = "unauthorized.twig";
-            $status = 401;
-        }
-
-        $twig = $c->get("template");
-        $html = $twig->render($tpl, $data);
-        $response->getBody()->write($html);
-        return $response->withStatus($status);
+        $h = new \App\Handlers\Error($c);
+        return $h($request, $response, ["exception" => $e]);
     };
 };
 

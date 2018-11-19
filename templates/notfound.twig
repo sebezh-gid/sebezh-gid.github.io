@@ -6,5 +6,6 @@
 
 {% block page_contents %}
     <p>Запрошенная страница не найдена.&nbsp; Это даже не похоже на адрес статьи.</p>
-    <p>Воспользуйтесь поиском.</p>
+    <p>Попробуйте поиск.</p>
+    <form class="search" method="get" action="/search"><input type="text" name="query" value="" placeholder="Текст для поиска..." autofocus="focus" autocomplete="off"/><button>Найти</button></form>
 {% endblock %}
