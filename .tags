@@ -334,6 +334,7 @@ info	src/App/Handlers/Wiki.php	/^            $info = $this->db->fetchOne("SELECT
 info	src/App/UploadHandler.php	/^                $info = $this->receiveFile($file);$/;"	v
 insert	src/App/Database.php	/^    public function insert($tableName, array $fields)$/;"	f
 isAdmin	src/App/CommonHandler.php	/^    protected function isAdmin(Request $request)$/;"	f
+isSpecial	src/App/Handlers/Wiki.php	/^        $isSpecial = preg_match('@^wiki:@', $name);$/;"	v
 isVowel	src/App/Stemmer.php	/^    private static function isVowel($char)$/;"	f
 items	src/App/Search.php	/^        $items = array_map(function ($item) {$/;"	v
 iw	src/App/Handlers/Files.php	/^        $iw = imagesx($img);$/;"	v

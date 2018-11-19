@@ -314,6 +314,8 @@ class Wiki extends CommonHandler
 
     protected function savePage($name, $text)
     {
+        $isSpecial = preg_match('@^wiki:@', $name);
+
         $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$name]);
         if (empty($page)) {
             $page = ["name" => $name];
@@ -360,11 +362,13 @@ class Wiki extends CommonHandler
             $snippet = $this->getPageSnippet($page);
             $image = $this->getPageImage($page);
 
-            $this->fts->reindexDocument("page:" . $name, $page["title"], $text, [
-                "snippet" => $snippet,
-                "updated" => $now,
-                "image" => $image,
-            ]);
+            if (!$isSpecial) {
+                $this->fts->reindexDocument("page:" . $name, $page["title"], $text, [
+                    "snippet" => $snippet,
+                    "updated" => $now,
+                    "image" => $image,
+                ]);
+            }
 
             // Update backlinks.
             if (preg_match_all('@<a\s+([^>]+)>@', $page["html"], $m)) {
