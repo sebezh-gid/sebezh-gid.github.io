@@ -46,6 +46,7 @@ class Wiki extends CommonHandler
             }
 
             $html = $this->renderHTML($request, "page.twig", [
+                "language" => $page["language"],
                 "page" => $page,
             ]);
 
@@ -480,6 +481,7 @@ class Wiki extends CommonHandler
             "image" => null,
             "images" => [],
             "summary" => null,
+            "language" => "ru",
         ];
 
         $source = str_replace("\r\n", "\n", $source);

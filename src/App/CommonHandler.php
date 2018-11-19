@@ -80,6 +80,16 @@ class CommonHandler
         return true;
     }
 
+    /**
+     * Renders the page using a template.
+     *
+     * Calls renderHTML(), then wraps the result in a Response(200).
+     *
+     * @param Request $request Request info, used to get host, path information, etc.
+     * @param string $templateName File name, e.g. "pages.twig".
+     * @param array $data Template variables.
+     * @return Response ready to use response.
+     **/
     protected function render(Request $request, $templateName, array $data = [])
     {
         $html = $this->renderHTML($request, $templateName, $data);
@@ -89,8 +99,39 @@ class CommonHandler
         return $response;
     }
 
+    /**
+     * Renders the page using a template.
+     *
+     * @param Request $request Request info, used to get host, path information, etc.
+     * @param string $templateName File name, e.g. "pages.twig".
+     * @param array $data Template variables.
+     * @return Response ready to use response.
+     **/
     protected function renderHTML(Request $request, $templateName, array $data = [])
     {
+        $defaults = [
+            "host" => $request->getUri()->getHost(),
+            "path" => $request->getUri()->getPath(),
+            "get" => $request->getQueryParams(),
+            "language" => "ru",
+        ];
+
+        $data = array_merge($defaults, $data);
+
+        $lang = $data["language"];
+
+        $lmap = [
+            "wiki:footer:{$lang}" => "wiki_footer",
+            "wiki:footer" => "wiki_footer",
+            "wiki:sidebar:{$lang}" => "wiki_sidebar",
+            "wiki:sidebar" => "wiki_sidebar",
+        ];
+
+        foreach ($lmap as $k => $v) {
+            if (empty($data[$v]) and ($src = $this->db->fetchCell("SELECT `source` FROM `pages` WHERE `name` = ?", [$k])))
+                $data[$v] = $src;
+        }
+
         $html = $this->template->render($templateName, $data);
         return $html;
     }

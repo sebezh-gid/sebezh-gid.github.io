@@ -77,8 +77,6 @@ class Template
         $data = $this->addDefaults($data);
         $data = array_merge($this->defaults, $data);
 
-        $data = $this->addSpecialPages($data);
-
         if (@$_GET["debug"] == "tpl")
             debug($data);
 
@@ -97,20 +95,6 @@ class Template
             $data["strings"] = $this->defaults[$k];
         elseif (isset($this->defaults[$k = "strings_" . $dlang]))
             $data["strings"] = $this->defaults[$k];
-
-        return $data;
-    }
-
-    protected function addSpecialPages(array $data)
-    {
-        $db = $this->container->get("database");
-
-        $keys = ["header", "footer", "sidebar"];
-        foreach ($keys as $key) {
-            $name = "wiki:" . $key;
-            $page = $db->getPageByName($name);
-            $data["page_" . $key] = $page ? $page["source"] : null;
-        }
 
         return $data;
     }

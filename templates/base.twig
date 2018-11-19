@@ -38,30 +38,11 @@
 
         <div class="container">
             <aside>
-                <div class="logo"><a href="/wiki?name=Введение" title="Открыть главную страницу"><img src="/images/logo.jpg" width="150" height="266" alt="logo"/><span class="sub">Гид по Себежу</span></a></div>
-
-                <ul>
-                    {% if page_props.language == "en" %}
-                        <li><a href="/wiki?name=Welcome">Home page</a></li>
-                        <li><a href="/wiki/index?sort=updated">Recent edits</a></li>
-                        <li><a href="/wiki?name=About this guide">About this guide</a></li>
-                        {% if page_name %}
-                            <li><a href="/short?name={{ page_name }}">QR-code for this page</a></li>
-                        {% endif %}
-                    {% else %}
-                        <li><a href="/">Главная страница</a></li>
-                        <li><a href="/wiki?name=История Себежа">История Себежа</a></li>
-                        <li><a href="/wiki?name=Куда сходить">Куда сходить</a></li>
-                        <li><a href="/wiki?name=Список людей">Интересные люди</a></li>
-                        <li><a href="/wiki?name=Гид">Путеводитель</a></li>
-                        <li><a href="/wiki?name=Лента обновлений">Лента обновлений</a></li>
-                        <li><a href="/wiki?name=О+сайте">О сайте</a></li>
-                    {% endif %}
-                </ul>
-
-                <form method="get" action="/search">
-                    <input class="search" type="text" name="query" value="{{ query }}" placeholder="Поиск" autocomplete="off" style="width: 140px; margin: 10px 0 0; padding: 2px 4px; border: solid 1px #ccc"/>
-                </form>
+                {% if wiki_sidebar %}
+                    {{ wiki_sidebar|raw }}
+                {% else %}
+                    <p>Edit sidebar <a href="/wiki/edit?name=wiki:sidebar&amp;back={{ path }}">here</a>.
+                {% endif %}
             </aside>
 
             <main class="container" role="main">
@@ -82,14 +63,11 @@
         </div>
 
         <footer>
-            <p>Текст путеводителя доступен по лицензии <a href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike</a>.  Разрешено копирование в любом объёме и влюбом виде, при указании ссылки на первоисточник.</p>
-            <ul id="places">
-                <li><a href="/wiki?name=О+сайте">О сайте</a></li>
-                <li><a href="/wiki/index">Полный список страниц</a></li>
-                <li><a href="/files">Файлы</a></li>
-                <li><a href="https://bitbucket.org/umonkey/sebezh-gid.ru/src" target="_blank">Исходный код сайта</a></li>
-                <li><a href="https://metrika.yandex.ru/dashboard?id=41793534" target="_blank">Посещаемость</a></li>
-            </ul>
+            {% if not wiki_footer %}
+                <p>Установите подвал по <a href="/wiki/edit?name=wiki:footer&amp;back={{ path }}">этой ссылке</a>.</p>
+            {% else %}
+                {{ wiki_footer|raw }}
+            {% endif %}
         </footer>
 
         <div id="block" style="display: none"></div>

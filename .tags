@@ -54,7 +54,6 @@ acc	src/App/Handlers/Account.php	/^        $acc = $this->db->fetchOne("SELECT * 
 accountGet	src/App/Database.php	/^    public function accountGet($login)$/;"	f
 addDefaults	src/App/Template.php	/^    protected function addDefaults(array $data)$/;"	f
 addFile	src/App/Database.php	/^    public function addFile($name, $type, $body)$/;"	f
-addSpecialPages	src/App/Template.php	/^    protected function addSpecialPages(array $data)$/;"	f
 aliases	src/App/Search.php	/^            $aliases = $this->db->fetchkv("SELECT `src`, `dst` FROM `odict` LIMIT 10000");$/;"	v
 aliases	src/App/Search.php	/^        static $aliases = null;$/;"	v
 all	src/App/Util.php	/^        $all = "html|head|body|header|main|footer|aside|nav|div|p|ul|ol|li|input|label|textarea|button|meta|title|h1|h2|h3|h4|h5|script|style|link|table|thead|tfoot|tbody|tr|th|td|img";$/;"	v
@@ -132,13 +131,13 @@ contents	src/App/Handlers/Wiki.php	/^            $contents = $page["source"];$/;
 context	src/App/Common.php	/^        $context = stream_context_create(array($/;"	v
 converter	src/App/Common.php	/^        $converter = new \\League\\CommonMark\\Converter($dp, $re);$/;"	v
 count	src/App/Handlers/Wiki.php	/^            $count = $this->db->update("pages", [$/;"	v
+data	src/App/CommonHandler.php	/^        $data = array_merge($defaults, $data);$/;"	v
 data	src/App/Handlers/Short.php	/^        $data = $gen->writeString();$/;"	v
 data	src/App/Handlers/Short.php	/^        $data = file_get_contents($fn);$/;"	v
 data	src/App/Handlers/ShortImage.php	/^        $data = $gen->writeString();$/;"	v
 data	src/App/Handlers/ShortImage.php	/^        $data = file_get_contents($fn);$/;"	v
 data	src/App/Handlers/Wiki.php	/^            $data = array_merge($def["defaults"], $data);$/;"	v
 data	src/App/Template.php	/^        $data = $this->addDefaults($data);$/;"	v
-data	src/App/Template.php	/^        $data = $this->addSpecialPages($data);$/;"	v
 data	src/App/Template.php	/^        $data = array_merge($this->defaults, $data);$/;"	v
 data	src/dependencies.php	/^        $data = [];$/;"	v
 date	src/App/Database.php	/^        $date = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
@@ -148,9 +147,9 @@ db	src/App/Handlers.php	/^        $this->db = $container->get("database");$/;"	v
 db	src/App/Handlers.php	/^    protected $db;$/;"	v
 db	src/App/Search.php	/^        $this->db = $database;$/;"	v
 db	src/App/Search.php	/^    protected $db;$/;"	v
-db	src/App/Template.php	/^        $db = $this->container->get("database");$/;"	v
 debug	src/dependencies.php	/^function debug()$/;"	f
 def	src/App/Handlers/Wiki.php	/^        $def = $this->container->get("settings")["templates"];$/;"	v
+defaults	src/App/CommonHandler.php	/^        $defaults = [$/;"	v
 defaults	src/App/Template.php	/^        $this->defaults = isset($settings["defaults"])$/;"	v
 defaults	src/App/Template.php	/^    protected $defaults;$/;"	v
 dir	src/App/Handlers/Files.php	/^        $dir = dirname($dst);$/;"	v
@@ -345,7 +344,6 @@ iw	src/App/Handlers/Wiki.php	/^                $iw = round(150 * $rate) . "px";$
 iw	src/App/Handlers/Wiki.php	/^            $iw = "auto";$/;"	v
 k	src/App/Common.php	/^                    $k = strtolower(trim($parts[0]));$/;"	v
 key	src/App/Handlers/Thumbnail.php	/^        $key = $m[2];$/;"	v
-keys	src/App/Template.php	/^        $keys = ["header", "footer", "sidebar"];$/;"	v
 kind	src/App/Database.php	/^            $kind = "photo";$/;"	v
 kind	src/App/Database.php	/^            $kind = "video";$/;"	v
 kind	src/App/Database.php	/^        $kind = "other";$/;"	v
@@ -357,6 +355,7 @@ label	src/App/CommonHandler.php	/^                $label = $parts[1];$/;"	v
 label	src/App/CommonHandler.php	/^            $label = $m[1];$/;"	v
 label	src/App/Handlers/Wiki.php	/^                $label = $parts[1];$/;"	v
 label	src/App/Handlers/Wiki.php	/^            $label = $m[1];$/;"	v
+lang	src/App/CommonHandler.php	/^        $lang = $data["language"];$/;"	v
 lang	src/App/Template.php	/^        $lang = $dlang = isset($this->defaults["language"]) ? $this->defaults["language"] : "en";$/;"	v
 large	src/App/Handlers/Wiki.php	/^            $large = "\/i\/photos\/{$fileId}.jpg";$/;"	v
 lastUpdate	src/App/Handlers/Wiki.php	/^        $lastUpdate = $this->db->fetchCell("SELECT MAX(updated) FROM `pages`");$/;"	v
@@ -383,6 +382,7 @@ link	src/App/Handlers/Wiki.php	/^            $link = $m[1];$/;"	v
 link	src/App/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
 links	src/App/Handlers/Wiki.php	/^                $links = [];$/;"	v
 listPages	src/App/Database.php	/^    public function listPages($sort = null)$/;"	f
+lmap	src/App/CommonHandler.php	/^        $lmap = [$/;"	v
 loadThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function loadThumbnail($name, $type)$/;"	f
 loader	src/App/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
 logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
@@ -411,7 +411,6 @@ name	src/App/Handlers/Wiki.php	/^                    $name = basename($src);$/;"
 name	src/App/Handlers/Wiki.php	/^                $name = $files["file"]->getClientFilename();$/;"	v
 name	src/App/Handlers/Wiki.php	/^                $name = basename(explode("?", $link)[0]);$/;"	v
 name	src/App/Handlers/Wiki.php	/^        $name = $request->getParam("page_name");$/;"	v
-name	src/App/Template.php	/^            $name = "wiki:" . $key;$/;"	v
 nameEn	src/App/Handlers/ShortImage.php	/^        $nameEn = $this->getEnglishName($code);$/;"	v
 nameRu	src/App/Handlers/ShortImage.php	/^        $nameRu = $this->getRussianName($code);$/;"	v
 next	src/App/Handlers/Account.php	/^        $next = $request->getParam("back");$/;"	v
@@ -490,7 +489,6 @@ page	src/App/Handlers/Wiki.php	/^            $page = $this->processWikiPage($row
 page	src/App/Handlers/Wiki.php	/^            $page = ["name" => $name];$/;"	v
 page	src/App/Handlers/Wiki.php	/^        $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$name]);$/;"	v
 page	src/App/Handlers/Wiki.php	/^        $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);$/;"	v
-page	src/App/Template.php	/^            $page = $db->getPageByName($name);$/;"	v
 pageName	src/App/Handlers.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
 pageName	src/App/Handlers/EditPage.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
 pageName	src/App/Handlers/Wiki.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
