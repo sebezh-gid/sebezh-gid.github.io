@@ -24,7 +24,7 @@ class Wiki extends CommonHandler
             return $response->withRedirect("/wiki?name=Welcome", 302);
 
         $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);
-        if (empty($page)) {
+        if (empty($page) or empty($page["source"])) {
             $search = $this->search($pageName);
 
             $response = $this->render($request, "nopage.twig", [
