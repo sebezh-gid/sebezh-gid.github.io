@@ -20,6 +20,8 @@ Database info:
 https://vk.com/wall37062690_586
 https://vk.com/wall-74994489_98128
 http://www.rusarch.ru/golikova1.htm
+http://www.mgorskikh.com/14-culture/15140-v-shenderovich-pamyati-zinoviya-efimovicha-gerdta?fbclid=IwAR2V5gchuTD1hL-0zofUkXjSM-mFv7-3Y_tBmVf2MY3AS-sfH3i1H2WoIjE
+https://vk.com/wall-68489_262032
 
 оформление:
 - https://gohugo.io/
