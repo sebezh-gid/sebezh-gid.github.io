@@ -8,12 +8,12 @@ body {
     color: #333;
 }
 
-h2 {
+section > h2 {
     font-size: 30px;
     text-align: center;
     font-weight: normal;
     color: #444;
-    margin: 100px 0 10px;
+    margin: 0 0 50px;
 }
 
 .splash {
@@ -39,11 +39,12 @@ h2 {
 }
 .lead {
     position: absolute;
-    width: 100%;
-    top: calc(50vh - 130px);
+    width: calc(100% - 20px);
+    top: calc(50vh - 180px);
 
     color: #fff;
     text-align: center;
+    padding: 0 10px;
 }
 .lead a {
     color: inherit;
@@ -56,12 +57,13 @@ h2 {
     margin: 0;
 }
 .lead .intro {
-    margin: 0 0 30px 15px;
-    width: calc(100% - 15px);
+    margin: 0 0 30px;
+    width: 100%;
     font-size: 25px;
+    line-height: 30px;
 }
 .lead form.search {
-    width: calc(100% - 30px);
+    width: 100%;
     text-align: center;
 }
 .lead input {
@@ -74,6 +76,7 @@ h2 {
     padding: 0 10px;
     width: 300px;
     border: 2px solid #ccc;
+    vertical-align: top;
 }
 .lead button {
     background-color: #ccc;
@@ -81,6 +84,7 @@ h2 {
     height: 34px;
     line-height: 30px;
     cursor: pointer;
+    vertical-align: top;
 }
 
 .lead .small {
@@ -88,6 +92,12 @@ h2 {
 }
 .lead .small a {
     text-decoration: underline;
+}
+
+@media (max-width: 400px) {
+    .lead {
+        top: calc(50vh - 180px);
+    }
 }
 
 header {
@@ -195,18 +205,27 @@ header .left {
     margin-bottom: 10px;
 }
 
-body.home .bullets {
+section {
+    padding: 0 10px;
+    margin: 50px auto 0;
+    position: relative;
+}
+section.about,
+section.seasons {
+    padding: 0;
+}
+
+section.bullets {
     width: auto;
     max-width: 1000px;
-    margin: 0 auto;
-    min-height: calc(100vh - 200px);
-    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 16px;
 }
 .bullets .text {
     margin-bottom: 50px;
 }
-body.home .bullet {
+.bullet {
     display: inline-block;
     padding: 0 50px 0 75px;
     width: calc(50% - 125px);
@@ -215,7 +234,7 @@ body.home .bullet {
     font-size: 18px;
     line-height: 150%;
 }
-body.home .icon {
+.bullet .icon {
     position: absolute;
     font-size: 50px;
     color: #888;
@@ -223,17 +242,41 @@ body.home .icon {
     margin-left: -75px;
     text-align: right;
 }
-body.home .bullet h2 {
+.bullet h2 {
     font-size: 20px;
     font-weight: normal;
     text-align: left;
     margin: 0 0 10px;
 }
-body.home .bullet p {
+.bullet p {
     margin: 0 0 40px;
 }
-body.home .bullet a {
+.bullet a {
     color: #0b0080;
+}
+@media (max-width: 600px) {
+    .bullet {
+        font-size: 14px;
+        padding: 0 10px 0 50px;
+        width: calc(50% - 65px);
+    }
+    .bullet h2 {
+        font-size: 16px;
+    }
+    .bullet .icon {
+        font-size: 30px;
+    }
+}
+@media (max-width: 450px) {
+    .bullet {
+        display: block;
+        width: calc(100% - 60px);
+        min-height: auto;
+        margin-bottom: 20px;
+    }
+    .bullet p {
+        margin-bottom: 0;
+    }
 }
 
 .about {
@@ -241,7 +284,7 @@ body.home .bullet a {
     background-size: cover;
     min-height: 100px;
     font-size: 16px;
-    margin: 50px 0;
+    margin: 100px 0 50px;
 }
 .about .text {
     background-color: rgba(255, 255, 255, 0.8);
@@ -249,39 +292,70 @@ body.home .bullet a {
     margin: 0 0 0 50%;
     width: calc(50% - 100px);
 }
+section.about h2 {
+    position: absolute;
+    top: -50px;
+    width: 100%;
+}
+@media (max-width: 800px) {
+    .about .text {
+        width: calc(75% - 100px);
+        margin-left: 25%;
+    }
+}
+@media (max-width: 600px) {
+    .about .text {
+        width: calc(100% - 100px);
+        margin-left: 0;
+    }
+}
+@media (max-width: 400px) {
+    .about .text {
+        padding: 10px 10px;
+        width: calc(100% - 20px);
+    }
+}
 
 .seasons {
-    margin-top: 150px;
     font-size: 16px;
 }
 .seasons > div {
     width: 25%;
     display: inline-block;
     vertical-align: top;
-    background-position: 50% 50%;
-    background-size: cover;
-    min-height: 400px;
     position: relative;
+    margin-top: 50px;
 }
-.seasons .spring {
-    background-image: url("/images/home_spring.jpg");
+.seasons h2 {
+    margin-bottom: 0;
 }
-.seasons .summer {
-    background-image: url("/images/home_summer.jpg");
-}
-.seasons .autumn {
-    background-image: url("/images/home_autumn.jpg");
-}
-.seasons .winter {
-    background-image: url("/images/home_winter.jpg");
+.seasons img {
+    width: 100%;
 }
 .seasons p {
-    margin: -120px 0 0;
+    margin: 0;
     padding: 10px;
-    min-height: 100px;
 }
+@media (max-width: 700px) {
+    .seasons > div {
+        width: 50%;
+    }
+}
+
 
 section.next {
     font-size: 16px;
     text-align: center;
+}
+
+@media (max-width: 400px) {
+    .lead form.search input {
+        width: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .lead h1 {
+        font-size: 100px;
+    }
 }
