@@ -1,0 +1,47 @@
+{% extends "base.twig" %}
+
+{% block more_head %}
+    <link rel="edit" title="Редактировать страницу" href="/wiki/edit?name={{ page.name }}"/>
+    <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/wiki/edit?name={{ page.name }}"/>
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    {% if page.image %}
+        <meta property="og:image" content="{{ page.image|replace({"/i/thumbnails/": "/i/photos/"}) }}"/>
+    {% endif %}
+    {% if page.images %}
+        {% for image in page.images %}
+            <meta property="og:image" content="{{ image.src }}"/>
+            {% if image.width %}
+                <meta property="og:image:width" content="{{ image.width }}"/>
+            {% endif %}
+            {% if image.height %}
+                <meta property="og:image:height" content="{{ image.height }}"/>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if page.summary %}
+        <meta name="description" property="og:description" content="{{ page.summary }}"/>
+    {% endif %}
+{% endblock %}
+
+{% block page_title %}{% if page.name == "Введение" %}Гид по Себежу{% else %}{{ page.title }} — {% if page.language == "en" %}Sebezh Guide{% else %}гид по Себежу{% endif %}{% endif %}{% endblock %}
+
+{% block page_header %}
+    <div class="page-header">
+        <h1>Обратные ссылки</h1>
+    </div>
+{% endblock %}
+
+{% block page_contents %}
+    {% if pages %}
+        <p>На страницу «<a href="/wiki?name={{ name }}">{{ name }}</a>» ссылаются:</p>
+        <ul>
+            {% for p in pages %}
+                <li><a href="/wiki?name={{ p.name }}">{{ p.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>На эту страницу нет ссылок.</p>
+    {% endif %}
+{% endblock %}

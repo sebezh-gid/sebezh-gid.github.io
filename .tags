@@ -420,6 +420,7 @@ name	src/App/Handlers/Wiki.php	/^                $name = basename(explode("?", $
 name	src/App/Handlers/Wiki.php	/^        $name = $request->getParam("page_name");$/;"	v
 nameEn	src/App/Handlers/ShortImage.php	/^        $nameEn = $this->getEnglishName($code);$/;"	v
 nameRu	src/App/Handlers/ShortImage.php	/^        $nameRu = $this->getRussianName($code);$/;"	v
+names	src/App/Handlers/Wiki.php	/^        $names = $this->db->fetch("SELECT `name` FROM `pages` WHERE `id` IN (SELECT `page_id` FROM `backlinks` WHERE `link` = ?) ORDER BY `name`", [$name]);$/;"	v
 next	src/App/Handlers/Account.php	/^        $next = $request->getParam("back");$/;"	v
 next	src/App/Handlers/Search.php	/^            $next = "\/wiki?name=" . urlencode($short["link"]);$/;"	v
 next	src/App/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($info["link"]);$/;"	v
@@ -436,6 +437,7 @@ nw	src/App/Handlers/Thumbnail.php	/^                $nw = $options["width"];$/;"
 offset	src/App/Handlers/Files.php	/^        $offset = 0;$/;"	v
 offset	src/App/Handlers/Thumbnail.php	/^        $offset = 0;$/;"	v
 old	src/App/Handlers/Upload.php	/^        $old = $this->db->fetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);$/;"	v
+onBacklinks	src/App/Handlers/Wiki.php	/^    public function onBacklinks(Request $request, Response $response, array $args)$/;"	f
 onCliReindex	src/App/Handlers/Wiki.php	/^    public function onCliReindex()$/;"	f
 onCliUpdateImages	src/App/Handlers/Wiki.php	/^    public function onCliUpdateImages(Request $request, Response $response, array $args)$/;"	f
 onCreate	src/App/Handlers/Short.php	/^    public function onCreate(Request $request, Response $response, array $args)$/;"	f
@@ -595,6 +597,7 @@ response	src/App/Handlers/Wiki.php	/^            $response = $this->render($requ
 response	src/App/Handlers/Wiki.php	/^        $response = new Response(200);$/;"	v
 results	src/App/Handlers/Search.php	/^        $results = $this->search($query);$/;"	v
 rollback	src/App/Database.php	/^    public function rollback()$/;"	f
+root	src/App/Handlers/Error.php	/^        $root = dirname(dirname(dirname(__DIR__)));$/;"	v
 root	src/App/Template.php	/^        $root = $settings["template_path"];$/;"	v
 row	src/App/Database.php	/^            $row = array_values($row);$/;"	v
 row	src/App/Database.php	/^        $row = $this->fetch("SELECT `id` FROM `shorts` WHERE `name` = ?", [$name]);$/;"	v
@@ -662,6 +665,8 @@ splitWords	src/App/Search.php	/^    protected function splitWords($text)$/;"	f
 sql	src/App/Search.php	/^                $sql = "SELECT `key`, `meta` FROM `search` WHERE `search` MATCH ? ORDER BY bm25(`search`, 0, 10) LIMIT {$limit}";$/;"	v
 sql	src/App/Search.php	/^                $sql = "SELECT `key`, `meta`, MATCH(`title`) AGAINST (:query IN BOOLEAN MODE) * 10 AS `trel`, MATCH(`body`) AGAINST (:query IN BOOLEAN MODE) AS `brel` FROM `search` WHERE `key` NOT LIKE 'page:File:%' HAVING `trel` > 0 OR `brel` > 0 ORDER BY `trel` DESC, `brel` DESC LIMIT {$limit}";$/;"	v
 src	src/App/Handlers/Wiki.php	/^                $src = "public" . str_replace("_small", "", $attrs["src"]);$/;"	v
+stack	src/App/Handlers/Error.php	/^        $stack = $e->getTraceAsString();$/;"	v
+stack	src/App/Handlers/Error.php	/^        $stack = str_replace($root . "\/", "", $stack);$/;"	v
 stack	src/dependencies.php	/^    $stack = ob_get_clean();$/;"	v
 stack	src/dependencies.php	/^    $stack = str_replace(dirname(__DIR__) . "\/", "", $stack);$/;"	v
 state	src/App/Stemmer.php	/^                        $state = 1;$/;"	v

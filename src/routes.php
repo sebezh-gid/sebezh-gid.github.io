@@ -20,6 +20,7 @@ $app->post("/wiki/upload", '\App\Handlers\Wiki:onUpload');
 $app->get("/wiki/files.rss", '\App\Handlers\Wiki:onFilesRSS');
 $app->get("/wiki/files.json", '\App\Handlers\Wiki:onFilesJSON');
 $app->get("/wiki/pages.rss", '\App\Handlers\Wiki:onPagesRSS');
+$app->get("/wiki/backlinks", '\App\Handlers\Wiki:onBacklinks');
 
 $app->get('/short', '\App\Handlers\Short:onGetForm');
 $app->post('/short', '\App\Handlers\Short:onCreate');

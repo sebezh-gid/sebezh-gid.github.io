@@ -180,6 +180,18 @@ class Wiki extends CommonHandler
         ]);
     }
 
+    public function onBacklinks(Request $request, Response $response, array $args)
+    {
+        if (!($name = $request->getParam("name")))
+            return $this->notfound($request);
+
+        $names = $this->db->fetch("SELECT `name` FROM `pages` WHERE `id` IN (SELECT `page_id` FROM `backlinks` WHERE `link` = ?) ORDER BY `name`", [$name]);
+        return $this->render($request, "backlinks.twig", [
+            "name" => $name,
+            "pages" => $names,
+        ]);
+    }
+
     public function onFilesRSS(Request $request, Response $response, array $args)
     {
         $files = $this->db->fetch("SELECT id, name, real_name, type, kind, length, created, hash FROM files ORDER BY created DESC LIMIT 20");
