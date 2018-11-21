@@ -382,6 +382,7 @@ link	src/App/Handlers/ShortRedirect.php	/^        $link = "\/wiki?name=" . urlen
 link	src/App/Handlers/Sitemap.php	/^            $link = $base . "\/wiki?name=" . urlencode($page["name"]);$/;"	v
 link	src/App/Handlers/Upload.php	/^        $link = $request->getParam("link");$/;"	v
 link	src/App/Handlers/Wiki.php	/^                        $link = urldecode(substr($attrs["href"], 11));$/;"	v
+link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . urlencode($page["name"]);$/;"	v
 link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . urlencode($page["redirect"]);$/;"	v
 link	src/App/Handlers/Wiki.php	/^                $link = $parts[0];$/;"	v
 link	src/App/Handlers/Wiki.php	/^            $link = $m[1];$/;"	v

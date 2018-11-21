@@ -54,6 +54,7 @@ class Wiki extends CommonHandler
             $html = $this->renderHTML($request, "page.twig", [
                 "language" => $page["language"],
                 "page" => $page,
+                "canonical_link" => "/wiki?name=" . urlencode($page["name"]),
             ]);
 
             $this->db->update("pages", [
