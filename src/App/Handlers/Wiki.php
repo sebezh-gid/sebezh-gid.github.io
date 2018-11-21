@@ -319,6 +319,14 @@ class Wiki extends CommonHandler
         $this->db->commit();
     }
 
+    /**
+     * Update page contents.
+     *
+     * Sends current revision to history.
+     * Saves the new revision.
+     * Updates backlinks.
+     * Flushes cache for the edited page and all that links here.
+     **/
     protected function savePage($name, $text)
     {
         $isSpecial = preg_match('@^wiki:@', $name);
@@ -335,6 +343,9 @@ class Wiki extends CommonHandler
 
         // Back up current revision.
         $this->db->query("INSERT INTO `history` (`name`, `source`, `created`) SELECT `name`, `source`, `updated` FROM `pages` WHERE `name` = ?", [$name]);
+
+        // Flush cache of linking pages.
+        $this->db->query("UPDATE pages SET html = NULL WHERE id IN (SELECT page_id FROM backlinks WHERE name = ?)", [$name]);
 
         if (!trim($text)) {
             $this->db->query("DELETE FROM `pages` WHERE `name` = ?", [$name]);
