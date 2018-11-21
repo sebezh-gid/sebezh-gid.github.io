@@ -45,6 +45,12 @@ class Wiki extends CommonHandler
                 return $response->withRedirect($link, 303);
             }
 
+            // Fix case.
+            if ($page["name"] != $pageName) {
+                $link = "/wiki?name=" . urlencode($page["name"]);
+                return $response->withRedirect($link, 301);
+            }
+
             $html = $this->renderHTML($request, "page.twig", [
                 "language" => $page["language"],
                 "page" => $page,
