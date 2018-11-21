@@ -4,7 +4,6 @@
 - Redirect pages.
 - Collapse maps by default, open on click.
 - Track backlinks.
-- On edit, reset cached html for current page and backlinks.
 
 - Главная страница: как https://welcome.mosreg.ru/stories/magic-trees
   - большая фотография, под ней блоки как сейчас, но с более развёрнутыми текстами.
