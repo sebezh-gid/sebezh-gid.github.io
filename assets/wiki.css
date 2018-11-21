@@ -1007,47 +1007,6 @@ main.container {
     min-height: calc(100vh - 140px);
 }
 
-aside {
-    color: #4d4d4d;
-    float: left;
-    font-size: 14px;
-    width: 160px;
-    padding-top: 10px;
-}
-aside a {
-    color: #0645ad;
-}
-aside .logo {
-    margin-bottom: 20px;
-}
-aside .logo a {
-    display: inline-block;
-    line-height: 0;
-    z-index: 1;
-    text-decoration: none;
-    color: inherit;
-}
-aside .logo .sub {
-    display: block;
-    text-align: center;
-    margin-top: -20px;
-    line-height: 20px;
-    background-color: rgba(0, 0, 0, .5);
-    z-index: 2;
-    color: #fff;
-    position: relative;
-    width: 100%;
-}
-aside ul {
-    list-style-type: none;
-    margin: 0 0 10px;
-    padding: 0;
-}
-aside h2 {
-    font-size: inherit;
-    margin: 20px 0 .25em;
-}
-
 main {
     background-color: #fff;
     color: #222;
@@ -1145,24 +1104,6 @@ table.grid thead th {
 }
 table.grid tbody td {
     border: solid 1px #ccc;
-}
-
-a.image {
-    display: inline-block;
-    line-height: 0;
-}
-a.image.right {
-    float: right;
-    margin: 0 0 10px 20px;
-}
-a.image.right img {
-    padding: 1px;
-    border: solid 1px #ccc;
-    background-color: #fff;
-}
-
-a.image img {
-    height: 200px;
 }
 
 .page-header .icons {
