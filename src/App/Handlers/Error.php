@@ -21,6 +21,16 @@ class Error extends CommonHandler
         $data = [];
         $data["path"] = $request->getUri()->getPath();
 
+        $stack = $e->getTraceAsString();
+        $root = dirname(dirname(dirname(__DIR__)));
+        $stack = str_replace($root . "/", "", $stack);
+
+        $data["e"] = [
+            "class" => get_class($e),
+            "message" => $e->getMessage(),
+            "stack" => $stack,
+        ];
+
         if ($e instanceof \App\Errors\Unauthorized) {
             $tpl = "unauthorized.twig";
             $status = 401;

@@ -7,4 +7,7 @@
 {% block page_contents %}
     <p>Произошёл сбой в работе сайта.</p>
     <p>Ошибка: {{ e.class }}: {{ e.message }}</p>
+    {% if e.stack %}
+        <pre>{{ e.stack }}</pre>
+    {% endif %}
 {% endblock %}
