@@ -261,6 +261,44 @@ class Wiki extends CommonHandler
     }
 
     /**
+     * Process clipboard text.
+     *
+     * Detects links to images, replaces with an [[image:N]], returns replacement text.
+     **/
+    public function onEmbedClipboard(Request $request, Response $response, array $args)
+    {
+        $res = [
+            "replace" => [],
+            "open" => [],
+        ];
+
+        $text = $request->getParam("text");
+
+        if (preg_match('@^https?://[^\s]+$@', $text, $m)) {
+            $url = $m[0];
+            $doc = \App\Common::fetch($url);
+
+            if ($type = @$doc["headers"]["content-type"]) {
+                if (0 === strpos($type, "image/")) {
+                    $name = basename(explode("?", $url)[0]);
+                    $type = explode(";", $type)[0];
+                    $id = $this->db->addFile($name, $type, $doc["data"]);
+                    $res["replace"][] = [
+                        "src" => $url,
+                        "dst" => "[[image:{$id}]]",
+                    ];
+
+                    $pageName = "File:{$id}";
+                    if (!$this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]))
+                        $res["open"][] = "/wiki/edit?name=File:{$id}";
+                }
+            }
+        }
+
+        return $response->withJSON($res);
+    }
+
+    /**
      * CLI: reindex all pages.
      **/
     public function onCliReindex()

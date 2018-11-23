@@ -17,6 +17,7 @@ $app->get("/wiki/edit", '\App\Handlers\Wiki:onEdit');
 $app->post("/wiki/edit", '\App\Handlers\Wiki:onSave');
 $app->get("/wiki/index", '\App\Handlers\Wiki:onIndex');
 $app->post("/wiki/upload", '\App\Handlers\Wiki:onUpload');
+$app->post("/wiki/embed-clipboard", '\App\Handlers\Wiki:onEmbedClipboard');
 $app->get("/wiki/files.rss", '\App\Handlers\Wiki:onFilesRSS');
 $app->get("/wiki/files.json", '\App\Handlers\Wiki:onFilesJSON');
 $app->get("/wiki/pages.rss", '\App\Handlers\Wiki:onPagesRSS');

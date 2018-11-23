@@ -160,6 +160,7 @@ defaults	src/App/Template.php	/^    protected $defaults;$/;"	v
 dir	src/App/Handlers/Files.php	/^        $dir = dirname($dst);$/;"	v
 divisor	src/App/Handlers/Files.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
 divisor	src/App/Handlers/Thumbnail.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
+doc	src/App/Handlers/Wiki.php	/^            $doc = \\App\\Common::fetch($url);$/;"	v
 dp	src/App/Common.php	/^        $dp = new \\League\\CommonMark\\DocParser($environment);$/;"	v
 dsn	src/App/Database.php	/^        $this->dsn = $dsn;$/;"	v
 dsn	src/App/Database.php	/^    protected $dsn;$/;"	v
@@ -313,6 +314,7 @@ id	src/App/Database.php	/^        $id = $this->insert("files", [$/;"	v
 id	src/App/Handlers/Maps.php	/^            $id = $form["id"];$/;"	v
 id	src/App/Handlers/Maps.php	/^            $id = $this->db->insert("map_poi", [$/;"	v
 id	src/App/Handlers/Maps.php	/^        $id = $request->getParam("id");$/;"	v
+id	src/App/Handlers/Wiki.php	/^                    $id = $this->db->addFile($name, $type, $doc["data"]);$/;"	v
 id	src/App/Handlers/Wiki.php	/^                $id = $this->db->insert("pages", [$/;"	v
 id	src/App/Handlers/Wiki.php	/^                $id = mt_rand(1111, 9999);$/;"	v
 id	src/App/Handlers/Wiki.php	/^            $id = $page["id"];$/;"	v
@@ -423,6 +425,7 @@ name	src/App/Handlers/Upload.php	/^        $name = "File:" . $fid;$/;"	v
 name	src/App/Handlers/Upload.php	/^        $name = basename($url["path"]);$/;"	v
 name	src/App/Handlers/Upload.php	/^        $name = null;$/;"	v
 name	src/App/Handlers/Wiki.php	/^                    $name = basename($src);$/;"	v
+name	src/App/Handlers/Wiki.php	/^                    $name = basename(explode("?", $url)[0]);$/;"	v
 name	src/App/Handlers/Wiki.php	/^                $name = $files["file"]->getClientFilename();$/;"	v
 name	src/App/Handlers/Wiki.php	/^                $name = basename(explode("?", $link)[0]);$/;"	v
 name	src/App/Handlers/Wiki.php	/^        $name = $request->getParam("page_name");$/;"	v
@@ -455,6 +458,7 @@ onDefault	src/App/Handlers/CLI.php	/^    public function onDefault(Request $requ
 onDownload	src/App/Handlers/Files.php	/^    public function onDownload(Request $request, Response $response, array $args)$/;"	f
 onEdit	src/App/Handlers/Maps.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
 onEdit	src/App/Handlers/Wiki.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
+onEmbedClipboard	src/App/Handlers/Wiki.php	/^    public function onEmbedClipboard(Request $request, Response $response, array $args)$/;"	f
 onFilesJSON	src/App/Handlers/Wiki.php	/^    public function onFilesJSON(Request $request, Response $response, array $args)$/;"	f
 onFilesRSS	src/App/Handlers/Wiki.php	/^    public function onFilesRSS(Request $request, Response $response, array $args)$/;"	f
 onGet	src/App/FileHandler.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
@@ -514,6 +518,7 @@ page	src/App/Handlers/Wiki.php	/^        $page = $this->db->fetchOne("SELECT * F
 page	src/App/Handlers/Wiki.php	/^        $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);$/;"	v
 pageName	src/App/Handlers.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
 pageName	src/App/Handlers/EditPage.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
+pageName	src/App/Handlers/Wiki.php	/^                    $pageName = "File:{$id}";$/;"	v
 pageName	src/App/Handlers/Wiki.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
 pages	src/App/Handlers/Sitemap.php	/^        $pages = $this->db->listPages();$/;"	v
 pages	src/App/Handlers/Wiki.php	/^        $pages = $this->db->fetch("SELECT * FROM `pages` WHERE name NOT LIKE 'File:%' ORDER BY `created` DESC LIMIT 20");$/;"	v
@@ -709,6 +714,7 @@ text	src/App/Handlers/EditPage.php	/^        $text = $_POST["page_source"];$/;"	
 text	src/App/Handlers/Wiki.php	/^            $text = "# {$name}\\n\\n";$/;"	v
 text	src/App/Handlers/Wiki.php	/^            $text = $this->getPageText($page);$/;"	v
 text	src/App/Handlers/Wiki.php	/^        $text = $request->getParam("page_source");$/;"	v
+text	src/App/Handlers/Wiki.php	/^        $text = $request->getParam("text");$/;"	v
 text	src/App/Handlers/Wiki.php	/^        $text = trim(strip_tags($html));$/;"	v
 text	src/App/Parser.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
 text	src/App/Search.php	/^        $text = mb_strtolower($text);$/;"	v
@@ -742,6 +748,7 @@ type	src/App/Handlers/Storage.php	/^        $type = $this->guessType($args["name
 type	src/App/Handlers/Upload.php	/^                $type = $file["headers"]["content-type"];$/;"	v
 type	src/App/Handlers/Upload.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v
 type	src/App/Handlers/Upload.php	/^        $type = null;$/;"	v
+type	src/App/Handlers/Wiki.php	/^                    $type = explode(";", $type)[0];$/;"	v
 type	src/App/Handlers/Wiki.php	/^                    $type = mime_content_type($src);$/;"	v
 type	src/App/Handlers/Wiki.php	/^                $type = $file["headers"]["content-type"];$/;"	v
 type	src/App/Handlers/Wiki.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v
@@ -750,6 +757,7 @@ updatePageHtml	src/App/Database.php	/^    public function updatePageHtml($pageNa
 updated	src/App/Database.php	/^        $updated = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
 url	src/App/Handlers/CLI.php	/^                $url = "https:\/\/sebezh-gid.ru\/files\/{$rfile["id"]}\/download";$/;"	v
 url	src/App/Handlers/Upload.php	/^        $url = parse_url($link);$/;"	v
+url	src/App/Handlers/Wiki.php	/^            $url = $m[0];$/;"	v
 uuid	src/App/Common.php	/^    public static function uuid($body = null)$/;"	f
 v	src/App/Common.php	/^                    $v = trim($parts[1]);$/;"	v
 w	src/App/Handlers/Wiki.php	/^        $w = imagesx($img);$/;"	v

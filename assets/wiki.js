@@ -102,5 +102,69 @@ function enable_qrcode_form()
 
         update_preview();
     }
-
 }
+
+
+/**
+ * Embed contents by URL.
+ *
+ * Sends all pasted clipboard data to the server.  If it detects and URL and handles it,
+ * replaces the inserted text with an embed code.  Works for images.
+ **/
+jQuery(function ($) {
+    $(document).on("paste", "textarea.wiki", function (e) {
+        var text = e.originalEvent.clipboardData.getData("text"),
+            ctl = $(this);
+
+        $.ajax({
+            url: "/wiki/embed-clipboard",
+            data: {text: text},
+            type: "POST",
+            dataType: "json"
+        }).done(function (res) {
+            res = $.extend({
+                replace: [],
+                open: []
+            }, res);
+
+            var ta = ctl[0],
+                tass = ta.selectionStart,
+                tase = ta.selectionEnd,
+                text = ta.value;
+
+            for (var idx in res.replace) {
+                var src = res.replace[idx].src,
+                    dst = res.replace[idx].dst;
+
+                var i = text.indexOf(src);
+                if (i >= 0) {
+                    // selection inside the url
+                    if (tass >= i && tass < i + src.length) {
+                        tass = i;
+                        tase = i;
+                    }
+
+                    // selection after the url, shift by length difference
+                    if (tass >= i + src.length) {
+                        var diff = src.length - dst.length;
+                        tass -= diff;
+                        tase -= diff;
+                    }
+                }
+
+                text = text.replace(src, dst);
+            }
+
+            ta.value = text;
+            ta.selectionStart = tass;
+            ta.selectionEnd = tase;
+
+            for (var idx in res.open) {
+                var url = res.open[idx];
+                window.open(url, "_blank");
+            }
+
+            $(ctl).focus();
+        });
+    });
+});
