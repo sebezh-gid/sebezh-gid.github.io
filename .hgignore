@@ -11,3 +11,4 @@
 ^public/f$
 ^public/i$
 ^public/(app|libs)(\.min)?\.(css|js)$
+^public/images/map/src

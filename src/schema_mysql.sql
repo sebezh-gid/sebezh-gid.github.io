@@ -129,3 +129,24 @@ CREATE TABLE IF NOT EXISTS `search_log` (
     PRIMARY KEY(`id`),
     KEY(`date`)
 ) DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `map_poi` (
+    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+    `created` DATETIME NOT NULL,
+    `ll` VARCHAR(255) NOT NULL,
+    `title` VARCHAR(1024) NOT NULL,
+    `link` VARCHAR(1024) NOT NULL,
+    `description` TEXT NULL,
+    `icon` VARCHAR(255),
+    `tags` VARCHAR(255),
+    PRIMARY KEY (`id`),
+    KEY (`tags`)
+);
+
+CREATE TABLE IF NOT EXISTS `map_tags` (
+    `poi_id` INTEGER UNSIGNED NOT NULL,
+    `tag` VARCHAR(255) NOT NULL,
+    KEY(`poi_id`),
+    KEY(`tag`)
+);

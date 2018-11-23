@@ -1,0 +1,13 @@
+.twocol {
+    position: relative;
+    margin-left: -10px;
+    width: calc(100% + 10px);
+}
+.twocol .col {
+    display: inline-block;
+    width: calc(50% - 10px);
+    vertical-align: top;
+}
+.twocol > * {
+    padding-left: 10px;
+}

@@ -1,3 +1,5 @@
+window.leaflet_icons = {};
+
 jQuery(function ($) {
   var create_map = function (div_id) {
     var osm_layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -74,6 +76,12 @@ jQuery(function ($) {
             console.log(sfmt("[1] <div class='map' data-center='{0},{1}' data-zoom='13'></div>", e.latlng.lat, e.latlng.lng));
             console.log(sfmt("[2] <div class='map' data-center='{0},{1}' data-zoom='13'></div>", e.latlng.lat, e.latlng.lng));
             console.log(sfmt("[3] <div class='map' data-points='[{\n \"latlng\": [{0}, {1}],\n \"title\": \"название места\",\n \"link\": \"/wiki?name=Карты\",\n \"image\": \"/i/thumbnails/1.jpg\"\n}]'></div>", e.latlng.lat, e.latlng.lng));
+
+            var ctl = $("#map_ll");
+            if (ctl.length > 0) {
+                ctl.val(e.latlng.lat + "," + e.latlng.lng);
+                window.map_marker.setLatLng(e.latlng);
+            }
         });
     };
 
@@ -135,6 +143,7 @@ jQuery(function ($) {
         var map = create_map(div_id);
         var marker = L.marker(ll).addTo(map);
         map.setView(ll, zoom);
+        window.map_marker = marker;
         clickr(map);
     };
 
@@ -167,14 +176,39 @@ jQuery(function ($) {
           var cluster = L.markerClusterGroup();
 
           for (var idx in res.markers) {
-            var tree = res.markers[idx];
+            var tree = $.extend({
+                latlng: null,
+                title: null,
+                description: null,
+                icon: null
+            }, res.markers[idx]);
+
             if (tree.latlng) {
               points.push(tree.latlng);
 
-              var m = L.marker(tree.latlng);
-              m.addTo(cluster);
+              if (tree.icon) {
+                var icon;
+                if (tree.icon in window.leaflet_icons) {
+                  icon = window.leaflet_icons[tree.icon];
+                } else {
+                  icon = L.icon({
+                    iconUrl: "/images/map/" + tree.icon + ".png",
+                    iconSize: [32, 37],
+                    iconAnchor: [16, 37]
+                  });
+                  window.leaflet_icons[tree.icon] = icon;
+                }
+
+                var m = L.marker(tree.latlng, {icon: icon});
+                m.addTo(cluster);
+              } else {
+                var m = L.marker(tree.latlng);
+                m.addTo(cluster);
+              }
 
               var html = "<p><a href='" + tree.link + "'>" + tree.title + "</a></p>";
+              if (tree.description)
+                html += "<div class='poi-description'>" + tree.description + "</div>";
               m.bindPopup(html);
             }
           }

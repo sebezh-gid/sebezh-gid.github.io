@@ -1,0 +1,41 @@
+{% set icons = {
+    "": "(обычная)",
+    "bank": "банк",
+    "atm": "банкомат",
+    "bar": "бар",
+    "hut": "беседка",
+    "bigcity": "город",
+    "home": "домик",
+    "corral": "загон",
+    "fuel-station": "заправка (азс)",
+    "cemetary": "кладбище",
+    "campfire-2": "костёр",
+    "coffee": "кофе",
+    "summercamp": "летний лагерь",
+    "supermarket": "магазин",
+    "barbecue": "мангал",
+    "lake": "озеро",
+    "busstop": "остановка",
+    "memorial": "памятник",
+    "anchorpier": "пирс",
+    "beach": "пляж",
+    "grocery": "продукты",
+    "ruins": "руины",
+    "statue": "статуя",
+    "theater": "театр",
+    "ducks": "уточки",
+    "fastfood": "фастфуд",
+    "fountain": "фонтан",
+    "hostel-2": "хостел",
+    "church": "церковь",
+    "apple": "яблоко",
+} %}<div class="form-group">
+    <div class="form-group">
+        <label>Иконка</label>
+        <select class="form-control" name="form[icon]">
+            {% for k, v in icons %}
+                <option value="{{ k }}"{% if k == poi.icon %} selected="selected"{% endif %}>{{ v }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>

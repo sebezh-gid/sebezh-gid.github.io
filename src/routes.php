@@ -22,6 +22,13 @@ $app->get("/wiki/files.json", '\App\Handlers\Wiki:onFilesJSON');
 $app->get("/wiki/pages.rss", '\App\Handlers\Wiki:onPagesRSS');
 $app->get("/wiki/backlinks", '\App\Handlers\Wiki:onBacklinks');
 
+$app->get("/map", '\App\Handlers\Maps:onList');
+$app->get("/map/add", '\App\Handlers\Maps:onAdd');
+$app->get("/map/edit", '\App\Handlers\Maps:onEdit');
+$app->post("/map/save", '\App\Handlers\Maps:onSave');
+$app->get("/map/all.json", '\App\Handlers\Maps:onAllJSON');
+$app->get("/map/points.json", '\App\Handlers\Maps:onPoints');
+
 $app->get('/short', '\App\Handlers\Short:onGetForm');
 $app->post('/short', '\App\Handlers\Short:onCreate');
 $app->get('/short/preview', '\App\Handlers\Short:onGetPreview');

@@ -17,6 +17,9 @@ return [
     "public/app.css" => [
         "assets/async.css",
         "assets/wiki.css",
+        "assets/layout.css",
+        "assets/forms.css",
+        "assets/maps.css",
         "assets/sidebar.css",
         "assets/files.css",
         "assets/search.css",

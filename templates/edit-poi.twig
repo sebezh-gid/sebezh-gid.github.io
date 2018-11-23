@@ -1,0 +1,52 @@
+{% extends "base.twig" %}
+
+{% block more_head %}
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block page_title %}Карты — {{ strings_ru.site_name }}{% endblock %}
+
+{% block page_header %}
+    <div class="page-header">
+        <h1>Редактирование точки на карте</h1>
+    </div>
+{% endblock %}
+
+{% block page_contents %}
+    <form method="post" class="form async twocol" action="/map/save">
+        <input type="hidden" name="form[id]" value="{{ poi.id }}"/>
+
+        <div class="col">
+            <div class="form-group">
+                <label>Название</label>
+                <input class="form-control" type="text" name="form[title]" value="{{ poi.title }}"/>
+            </div>
+            <div class="form-group">
+                <label>Ссылка</label>
+                <input class="form-control" type="text" name="form[link]" value="{{ poi.link }}"/>
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <textarea class="form-control wiki markdown" name="form[description]" style="height: 100px">{{ poi.description }}</textarea>
+                <p class="help-block">Можно использовать вики-разметку.</p>
+            </div>
+            <div class="form-group">
+                <label>Координаты</label>
+                <input id="map_ll" class="form-control" type="text" name="form[ll]" value="{{ poi.ll }}"/>
+            </div>
+            {% include "parts/map_icon.twig" %}
+            <div class="form-group">
+                <label>Метки</label>
+                <input class="form-control" type="text" name="form[tags]" value="{{ poi.tags }}" autocomplete="off"/>
+            </div>
+        </div>
+
+        <div class="col">
+            <div id="map_editor" class="map" data-center="{{ poi.ll }}" data-zoom="12"></div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary">Сохранить</button>
+        </div>
+    </form>
+{% endblock %}

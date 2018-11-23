@@ -941,33 +941,6 @@ h4 a[name] {
     width: calc(100% - 20px);
 }
 
-/**
- * Настройка форм.
- **/
-.form-group {
-    margin: 10px 0;
-}
-.form-control {
-    display: block;
-}
-form .msgbox {
-    margin-top: 10px;
-}
-
-/**
- * Настройка карт.
- **/
-.map {
-    display: block;
-    width: 100%;
-    height: 300px;
-    background-color: #eee;
-}
-.leaflet-popup-content img {
-    max-width: 100%;
-    min-width: 200px;
-}
-
 
 /**
  * Настройки диалогов.
@@ -1053,12 +1026,6 @@ main textarea.wiki {
   line-height: 1.5em;
   border: solid 1px #ccc;
   height: calc(100vh - 150px);
-}
-main .form-actions {
-    margin-top: 10px;
-}
-main .form-actions .btn {
-    margin-right: 5px;
 }
 main pre {
     border: solid 1px #eee;
@@ -1175,15 +1142,6 @@ img.short {
 }
 img.qrplate {
     border: solid 1px #ccc;
-}
-
-input.form-control {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    line-height: 30px;
-    padding: 0 10px;
-    width: calc(100% - 22px);
-    background-color: #f8f8f8;
 }
 
 .photos {

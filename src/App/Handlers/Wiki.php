@@ -536,6 +536,17 @@ class Wiki extends CommonHandler
             if (0 === strpos($m[1], "image:"))
                 return $m[0];
 
+            // Embed maps.
+            if (0 === strpos($m[1], "map:")) {
+                $parts = explode(":", $m[1]);
+
+                $id = mt_rand(1111, 9999);
+                $tag = $parts[1];
+
+                $html = "<div id='map_{$id}' class='map' data-src='/map/points.json?tag=" . $tag . "'></div>";
+                return $html;
+            }
+
             $link = $m[1];
             $label = $m[1];
 

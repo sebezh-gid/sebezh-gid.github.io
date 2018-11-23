@@ -1,0 +1,50 @@
+{% extends "base.twig" %}
+
+{% block more_head %}
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block page_title %}Карты — {{ strings_ru.site_name }}{% endblock %}
+
+{% block page_header %}
+    <div class="page-header">
+        <h1>Добавление точки на карту</h1>
+    </div>
+{% endblock %}
+
+{% block page_contents %}
+    <form method="post" class="form async twocol" action="/map/save">
+        <div class="col">
+            <div class="form-group">
+                <label>Название</label>
+                <input class="form-control" type="text" name="form[title]"/>
+            </div>
+            <div class="form-group">
+                <label>Ссылка</label>
+                <input class="form-control" type="text" name="form[link]"/>
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <textarea class="form-control wiki markdown" name="form[description]" style="height: 100px"></textarea>
+                <p class="help-block">Можно использовать вики-разметку.</p>
+            </div>
+            <div class="form-group">
+                <label>Координаты</label>
+                <input id="map_ll" class="form-control" type="text" name="form[ll]"/>
+            </div>
+            {% include "parts/map_icon.twig" %}
+            <div class="form-group">
+                <label>Метки</label>
+                <input class="form-control" type="text" name="form[tags]" value="public"/>
+            </div>
+        </div>
+
+        <div class="col">
+            <div id="map_editor" class="map" data-center="56.16972,28.73091"></div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary">Сохранить</button>
+        </div>
+    </form>
+{% endblock %}

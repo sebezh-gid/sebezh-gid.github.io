@@ -17,6 +17,7 @@ FileHandler	src/App/FileHandler.php	/^class FileHandler extends Handlers$/;"	c
 FileList	src/App/Handlers/FileList.php	/^class FileList extends Handlers$/;"	c
 Files	src/App/Handlers/Files.php	/^class Files extends CommonHandler$/;"	c
 Handlers	src/App/Handlers.php	/^class Handlers extends CommonHandler$/;"	c
+Maps	src/App/Handlers/Maps.php	/^class Maps extends CommonHandler$/;"	c
 NotFound	src/App/Handlers/NotFound.php	/^class NotFound extends CommonHandler$/;"	c
 Page	src/App/Page.php	/^class Page {$/;"	c
 Parser	src/App/Parser.php	/^class Parser$/;"	c
@@ -213,6 +214,7 @@ findFiles	src/App/Database.php	/^    public function findFiles()$/;"	f
 findRegions	src/App/Stemmer.php	/^    private static function findRegions($word)$/;"	f
 fn	src/App/Handlers/Short.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
 fn	src/App/Handlers/ShortImage.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
+form	src/App/Handlers/Maps.php	/^        $form = $request->getParam("form");$/;"	v
 fresh	src/App/Handlers/Wiki.php	/^        $fresh = $this->refresh($request);$/;"	v
 gen	src/App/Handlers/Short.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($link);$/;"	v
 gen	src/App/Handlers/Short.php	/^        $gen = new \\Endroid\\QrCode\\QrCode($params["link"]);$/;"	v
@@ -277,6 +279,7 @@ html	src/App/CommonHandler.php	/^        $html = \\App\\Common::renderTOC($html)
 html	src/App/CommonHandler.php	/^        $html = \\App\\Util::cleanHtml($html);$/;"	v
 html	src/App/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
 html	src/App/Handlers/Wiki.php	/^                    $html = "[[" . implode(":", $parts) . "]]";$/;"	v
+html	src/App/Handlers/Wiki.php	/^                $html = "<div id='map_{$id}' class='map' data-src='\/map\/points.json?tag=" . $tag . "'><\/div>";$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http:\/\/schema.org\/ImageObject' title='{$title}'>";$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $this->renderHTML($request, "page.twig", [$/;"	v
@@ -307,7 +310,11 @@ html	src/App/Util.php	/^        $html = preg_replace('@\\s*<\/(' . $all . ')>\\s
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/([a-z0-9]+)>@', '<\/\\1>', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $html);$/;"	v
 id	src/App/Database.php	/^        $id = $this->insert("files", [$/;"	v
+id	src/App/Handlers/Maps.php	/^            $id = $form["id"];$/;"	v
+id	src/App/Handlers/Maps.php	/^            $id = $this->db->insert("map_poi", [$/;"	v
+id	src/App/Handlers/Maps.php	/^        $id = $request->getParam("id");$/;"	v
 id	src/App/Handlers/Wiki.php	/^                $id = $this->db->insert("pages", [$/;"	v
+id	src/App/Handlers/Wiki.php	/^                $id = mt_rand(1111, 9999);$/;"	v
 id	src/App/Handlers/Wiki.php	/^            $id = $page["id"];$/;"	v
 id	src/App/Handlers/Wiki.php	/^            $id = null;$/;"	v
 ih	src/App/Handlers/Files.php	/^        $ih = imagesy($img);$/;"	v
@@ -394,6 +401,7 @@ loadThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function loadThumbn
 loader	src/App/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
 logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
 login	src/App/Handlers/Account.php	/^        $login = $request->getParam("login");$/;"	v
+markers	src/App/Handlers/Maps.php	/^        $markers = array_map(function ($row) {$/;"	v
 md	src/App/Parser.php	/^        $md = new CommonMarkConverter();$/;"	v
 meta	src/App/Search.php	/^        $meta = $meta ? serialize($meta) : null;$/;"	v
 mimeType	src/App/Handlers/Thumbnail.php	/^        $mimeType = "image\/jpeg";$/;"	v
@@ -437,12 +445,15 @@ nw	src/App/Handlers/Thumbnail.php	/^                $nw = $options["width"];$/;"
 offset	src/App/Handlers/Files.php	/^        $offset = 0;$/;"	v
 offset	src/App/Handlers/Thumbnail.php	/^        $offset = 0;$/;"	v
 old	src/App/Handlers/Upload.php	/^        $old = $this->db->fetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]);$/;"	v
+onAdd	src/App/Handlers/Maps.php	/^    public function onAdd(Request $request, Response $response, array $args)$/;"	f
+onAllJSON	src/App/Handlers/Maps.php	/^    public function onAllJSON(Request $request, Response $response, array $args)$/;"	f
 onBacklinks	src/App/Handlers/Wiki.php	/^    public function onBacklinks(Request $request, Response $response, array $args)$/;"	f
 onCliReindex	src/App/Handlers/Wiki.php	/^    public function onCliReindex()$/;"	f
 onCliUpdateImages	src/App/Handlers/Wiki.php	/^    public function onCliUpdateImages(Request $request, Response $response, array $args)$/;"	f
 onCreate	src/App/Handlers/Short.php	/^    public function onCreate(Request $request, Response $response, array $args)$/;"	f
 onDefault	src/App/Handlers/CLI.php	/^    public function onDefault(Request $request, Response $response, array $args)$/;"	f
 onDownload	src/App/Handlers/Files.php	/^    public function onDownload(Request $request, Response $response, array $args)$/;"	f
+onEdit	src/App/Handlers/Maps.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
 onEdit	src/App/Handlers/Wiki.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
 onFilesJSON	src/App/Handlers/Wiki.php	/^    public function onFilesJSON(Request $request, Response $response, array $args)$/;"	f
 onFilesRSS	src/App/Handlers/Wiki.php	/^    public function onFilesRSS(Request $request, Response $response, array $args)$/;"	f
@@ -464,16 +475,19 @@ onGetLoginForm	src/App/Handlers/Account.php	/^    public function onGetLoginForm
 onGetPreview	src/App/Handlers/Short.php	/^    public function onGetPreview(Request $request, Response $response, array $args)$/;"	f
 onGetRecent	src/App/Handlers/Files.php	/^    public function onGetRecent(Request $request, Response $response, array $args)$/;"	f
 onIndex	src/App/Handlers/Wiki.php	/^    public function onIndex(Request $request, Response $response, array $args)$/;"	f
+onList	src/App/Handlers/Maps.php	/^    public function onList(Request $request, Response $response, array $args)$/;"	f
 onLog	src/App/Handlers/Search.php	/^    public function onLog(Request $request, Response $response, array $args)$/;"	f
 onLogin	src/App/Handlers/Account.php	/^    public function onLogin(Request $request, Response $response, array $args)$/;"	f
 onPagesRSS	src/App/Handlers/Wiki.php	/^    public function onPagesRSS(Request $request, Response $response, array $args)$/;"	f
 onPhoto	src/App/Handlers/Files.php	/^    public function onPhoto(Request $request, Response $response, array $args)$/;"	f
+onPoints	src/App/Handlers/Maps.php	/^    public function onPoints(Request $request, Response $response, array $args)$/;"	f
 onPost	src/App/Handlers/EditPage.php	/^    public function onPost(Request $request, Response $response, array $args)$/;"	f
 onPost	src/App/Handlers/Upload.php	/^    public function onPost(Request $request, Response $response)$/;"	f
 onPost	src/App/UploadHandler.php	/^    public function onPost(Request $request, Response $response)$/;"	f
 onPullFiles	src/App/Handlers/CLI.php	/^    public function onPullFiles(Request $request, Response $response, array $args)$/;"	f
 onRead	src/App/Handlers/Wiki.php	/^    public function onRead(Request $request, Response $response, array $args)$/;"	f
 onRedirect	src/App/Handlers/Short.php	/^    public function onRedirect(Request $request, Response $response, array $args)$/;"	f
+onSave	src/App/Handlers/Maps.php	/^    public function onSave(Request $request, Response $response, array $args)$/;"	f
 onSave	src/App/Handlers/Wiki.php	/^    public function onSave(Request $request, Response $response, array $args)$/;"	f
 onShowFile	src/App/Handlers/Files.php	/^    public function onShowFile(Request $request, Response $response, array $args)$/;"	f
 onShowItem	src/App/Handlers/Short.php	/^    public function onShowItem(Request $request, Response $response, array $args)$/;"	f
@@ -521,6 +535,7 @@ part2	src/App/UploadHandler.php	/^        $part2 = substr(sha1($res["body"]), 0,
 part3	src/App/UploadHandler.php	/^        $part3 = sprintf("%x", time());$/;"	v
 parts	src/App/Common.php	/^                    $parts = explode(":", $h, 2);$/;"	v
 parts	src/App/Handlers/Wiki.php	/^                    $parts = ["image"];$/;"	v
+parts	src/App/Handlers/Wiki.php	/^                $parts = explode(":", $m[1]);$/;"	v
 parts	src/App/Handlers/Wiki.php	/^            $parts = explode(":", $m[1]);$/;"	v
 parts	src/App/Parser.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
 password	src/App/Handlers/Account.php	/^        $password = $request->getParam("password");$/;"	v
@@ -531,6 +546,10 @@ pname	src/App/Handlers/Wiki.php	/^            $pname = "File:" . $row["id"];$/;"
 pname	src/App/Handlers/Wiki.php	/^        $pname = "File:" . $fid;$/;"	v
 png	src/App/Handlers/Short.php	/^        $png = $gen->writeString();$/;"	v
 png	src/App/Handlers/ShortImage.php	/^        $png = $gen->writeString();$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, icon, tags FROM map_poi ORDER BY created DESC");$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, tags FROM map_poi ORDER BY created DESC");$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, tags FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) ORDER BY created DESC", [$tag]);$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetchOne("SELECT * FROM `map_poi` WHERE `id` = ?", [$id]);$/;"	v
 postEdit	src/App/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
 prefix	src/App/Stemmer.php	/^        $prefix = mb_substr($word, 0, $region, 'UTF-8');$/;"	v
 prepareThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function prepareThumbnail($name, $type, array $options)$/;"	f
@@ -680,6 +699,9 @@ stopWords	src/App/Search.php	/^    static private $stopWords = ["а", "и", "о"
 tables	src/App/Handlers/Database.php	/^                $tables = $this->db->fetch("SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? ORDER BY `table_name`", [$name], function ($row) {$/;"	v
 tables	src/App/Handlers/Database.php	/^                $tables = [];$/;"	v
 tables	src/App/Handlers/Database.php	/^        $tables = $this->getStats();$/;"	v
+tag	src/App/Handlers/Maps.php	/^        $tag = $request->getParam("tag");$/;"	v
+tag	src/App/Handlers/Wiki.php	/^                $tag = $parts[1];$/;"	v
+tags	src/App/Handlers/Maps.php	/^        $tags = preg_split('@,\\s*@', $form["tags"], -1, PREG_SPLIT_NO_EMPTY);$/;"	v
 target	src/App/Parser.php	/^                $target = $parts[0];$/;"	v
 template	src/App/Template.php	/^        $template = $this->twig->load($fileName);$/;"	v
 text	src/App/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v

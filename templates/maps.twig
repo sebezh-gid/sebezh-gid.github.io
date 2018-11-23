@@ -1,0 +1,40 @@
+{% extends "base.twig" %}
+
+{% block more_head %}
+    <link rel="edit" title="Редактировать страницу" href="/map/add"/>
+    <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/map/add"/>
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block page_title %}Карты — {{ strings_ru.site_name }}{% endblock %}
+
+{% block page_header %}
+    <div class="page-header">
+        <h1>Карты</h1>
+    </div>
+{% endblock %}
+
+{% block page_contents %}
+    <div class="twocol">
+        <div class="col">
+            <table class="table grid">
+                <tbody>
+                    {% for p in poi %}
+                        <tr>
+                            <td>#{{ p.id }}</td>
+                            <td>{% if p.icon %}<img src="/images/map/{{ p.icon }}.png" alt="icon"/>{% endif %}</td>
+                            <td><a href="/map/edit?id={{ p.id }}">{{ p.title }}</a></td>
+                            <td>{{ p.tags }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <p><a class="btn btn-primary" href="/map/add">Добавить</a></p>
+        </div>
+
+        <div class="col">
+            <div id="whole_map" class="map" data-src="/map/all.json"></div>
+        </div>
+    </div>
+{% endblock %}
