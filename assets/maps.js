@@ -1,6 +1,31 @@
 window.leaflet_icons = {};
 
 jQuery(function ($) {
+
+    /**
+     * Returns the named icon.
+     **/
+    var get_icon = function (name) {
+        if (name in window.leaflet_icons)
+            return window.leaflet_icons[name];
+
+        else if (name == "") {
+            icon = new L.Icon.Default();
+            window.leaflet_icons[name] = icon;
+            return icon;
+        }
+
+        else {
+            icon = L.icon({
+                iconUrl: "/images/map/" + name + ".png",
+                iconSize: [32, 37],
+                iconAnchor: [16, 37]
+            });
+            window.leaflet_icons[name] = icon;
+            return icon;
+        }
+    };
+
   var create_map = function (div_id) {
     var osm_layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -72,13 +97,9 @@ jQuery(function ($) {
 
     var clickr = function (map) {
         map.on("click", function (e) {
-            console.log(sfmt("lat={0} lng={1}", e.latlng.lat, e.latlng.lng));
-            console.log(sfmt("[1] <div class='map' data-center='{0},{1}' data-zoom='13'></div>", e.latlng.lat, e.latlng.lng));
-            console.log(sfmt("[2] <div class='map' data-center='{0},{1}' data-zoom='13'></div>", e.latlng.lat, e.latlng.lng));
-            console.log(sfmt("[3] <div class='map' data-points='[{\n \"latlng\": [{0}, {1}],\n \"title\": \"название места\",\n \"link\": \"/wiki?name=Карты\",\n \"image\": \"/i/thumbnails/1.jpg\"\n}]'></div>", e.latlng.lat, e.latlng.lng));
-
             var ctl = $("#map_ll");
             if (ctl.length > 0) {
+                console.log(sfmt("map: new ll: {0},{1}", e.latlng.lat, e.latlng.lng));
                 ctl.val(e.latlng.lat + "," + e.latlng.lng);
                 window.map_marker.setLatLng(e.latlng);
             }
@@ -140,9 +161,24 @@ jQuery(function ($) {
 
 
     var center_map = function (div_id, ll, zoom) {
+        var draggable = $("#map_ll:first").length == 1;
+
         var map = create_map(div_id);
-        var marker = L.marker(ll).addTo(map);
+        var marker = L.marker(ll, {
+            draggable: draggable
+        }).addTo(map);
+
+        marker.on("dragend", function (e) {
+            var ll = marker.getLatLng(),
+                text = ll.lat + "," + ll.lng;
+            $("#map_ll").val(text);
+            console.log("map: new ll: " + text);
+        });
+
         map.setView(ll, zoom);
+
+        $("#map_ll").val(ll[0] + "," + ll[1]);
+
         window.map_marker = marker;
         clickr(map);
     };
@@ -187,18 +223,7 @@ jQuery(function ($) {
               points.push(tree.latlng);
 
               if (tree.icon) {
-                var icon;
-                if (tree.icon in window.leaflet_icons) {
-                  icon = window.leaflet_icons[tree.icon];
-                } else {
-                  icon = L.icon({
-                    iconUrl: "/images/map/" + tree.icon + ".png",
-                    iconSize: [32, 37],
-                    iconAnchor: [16, 37]
-                  });
-                  window.leaflet_icons[tree.icon] = icon;
-                }
-
+                var icon = get_icon(tree.icon);
                 var m = L.marker(tree.latlng, {icon: icon});
                 m.addTo(cluster);
               } else {
@@ -246,6 +271,9 @@ jQuery(function ($) {
         var ll = center.split(/,\s*/);
         if (ll.length == 2) {
             center_map(div.attr("id"), ll, zoom);
+            var icon = div.attr("data-icon");
+            if (icon)
+                window.map_marker.setIcon(get_icon(icon));
         }
       }
 
@@ -253,4 +281,62 @@ jQuery(function ($) {
           console && console.log("Map center not defined.");
       }
     });
+
+    $(document).on("click", "#addmap", function (e) {
+        var ctl = $(this).closest("form").find("textarea"),
+            ta = ctl[0],
+            dlg = $("#dlg-map");
+
+        if (dlg.length == 0)
+            return;
+
+        e.preventDefault();
+
+        if (dlg.is(":visible"))
+            return;
+
+        // Insert the tag if necessary.
+        if (ta.value.indexOf("[[map:") < 0) {
+            var name = $(this).closest("form").find("input[name=page_name]").val(),
+                code = "[[map:" + name + "]]";
+
+            var ts = ta.selectionStart;
+            text = ta.value.substring(0, ts);
+            text += code;
+            text += ta.value.substring(ts);
+            ta.value = text;
+            ta.selectionStart = ts + code.length;
+            ta.selectionEnd = ta.selectionStart;
+            ctl.focus();
+        }
+
+        $.ajax({
+            url: "/map/suggest-ll",
+            data: {tag: name},
+            type: "POST",
+            dataType: "json"
+        }).done(function (res) {
+            $("#dlg-map .msgbox").hide();
+            $("#dlg-map").show();
+            $("#dlg-map .title").focus();
+
+            if (!$("#map_dlg").hasClass("leaflet-container")) {
+                center_map("map_dlg", res.ll, 12);
+            }
+        });
+    });
+
+    $(document).on("change", "select.map_icon", function (e) {
+        var name = $(this).val();
+
+        var marker = window.map_marker,
+            icon = get_icon(name);
+        marker.setIcon(icon);
+    });
 });
+
+
+window.map_embed_close = function () {
+    $("#dlg-map").hide();
+    $("textarea.wiki").focus();
+};

@@ -313,8 +313,9 @@ html	src/App/Util.php	/^        $html = preg_replace('@\\s*<\/(' . $all . ')>\\s
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/([a-z0-9]+)>@', '<\/\\1>', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $html);$/;"	v
 id	src/App/Database.php	/^        $id = $this->insert("files", [$/;"	v
+id	src/App/Handlers/Maps.php	/^                $id = $form["id"];$/;"	v
+id	src/App/Handlers/Maps.php	/^                $id = $this->db->insert("map_poi", [$/;"	v
 id	src/App/Handlers/Maps.php	/^            $id = $form["id"];$/;"	v
-id	src/App/Handlers/Maps.php	/^            $id = $this->db->insert("map_poi", [$/;"	v
 id	src/App/Handlers/Maps.php	/^        $id = $request->getParam("id");$/;"	v
 id	src/App/Handlers/Wiki.php	/^                    $id = $this->db->addFile($name, $type, $doc["data"]);$/;"	v
 id	src/App/Handlers/Wiki.php	/^                $id = $this->db->insert("pages", [$/;"	v
@@ -376,6 +377,8 @@ lang	src/App/CommonHandler.php	/^        $lang = $data["language"];$/;"	v
 lang	src/App/Template.php	/^        $lang = $dlang = isset($this->defaults["language"]) ? $this->defaults["language"] : "en";$/;"	v
 large	src/App/Handlers/Wiki.php	/^            $large = "\/i\/photos\/{$fileId}.jpg";$/;"	v
 lastUpdate	src/App/Handlers/Wiki.php	/^        $lastUpdate = $this->db->fetchCell("SELECT MAX(updated) FROM `pages`");$/;"	v
+lat	src/App/Handlers/Maps.php	/^            $lat = $lng = [];$/;"	v
+lat	src/App/Handlers/Maps.php	/^            $lat = array_sum($lat) \/ count($lat);$/;"	v
 length	src/App/Handlers/Thumbnail.php	/^        $length = strlen($tn["body"]);$/;"	v
 level	src/App/Common.php	/^            $level = (int)$openLevel;$/;"	v
 level	src/App/Common.php	/^        $level = 1;$/;"	v
@@ -400,7 +403,9 @@ link	src/App/Handlers/Wiki.php	/^            $link = $m[1];$/;"	v
 link	src/App/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
 links	src/App/Handlers/Wiki.php	/^                $links = [];$/;"	v
 listPages	src/App/Database.php	/^    public function listPages($sort = null)$/;"	f
+ll	src/App/Handlers/Maps.php	/^            $ll = explode(",", $em["ll"]);$/;"	v
 lmap	src/App/CommonHandler.php	/^        $lmap = [$/;"	v
+lng	src/App/Handlers/Maps.php	/^            $lng = array_sum($lng) \/ count($lng);$/;"	v
 loadThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function loadThumbnail($name, $type)$/;"	f
 loader	src/App/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
 logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
@@ -409,6 +414,7 @@ markers	src/App/Handlers/Maps.php	/^        $markers = array_map(function ($row)
 md	src/App/Parser.php	/^        $md = new CommonMarkConverter();$/;"	v
 meta	src/App/Search.php	/^        $meta = $meta ? serialize($meta) : null;$/;"	v
 mimeType	src/App/Handlers/Thumbnail.php	/^        $mimeType = "image\/jpeg";$/;"	v
+mode	src/App/Handlers/Maps.php	/^        $mode = $request->getParam("mode");$/;"	v
 name	src/App/CommonHandler.php	/^            $name = substr($em["key"], 5);$/;"	v
 name	src/App/FileHandler.php	/^        $name = $args["name"];$/;"	v
 name	src/App/Handlers.php	/^        $name = $_POST["page_name"];$/;"	v
@@ -498,6 +504,7 @@ onSave	src/App/Handlers/Wiki.php	/^    public function onSave(Request $request, 
 onShowFile	src/App/Handlers/Files.php	/^    public function onShowFile(Request $request, Response $response, array $args)$/;"	f
 onShowItem	src/App/Handlers/Short.php	/^    public function onShowItem(Request $request, Response $response, array $args)$/;"	f
 onStatus	src/App/Handlers/Database.php	/^    public function onStatus(Request $request, Response $response, array $args)$/;"	f
+onSuggestLL	src/App/Handlers/Maps.php	/^    public function onSuggestLL(Request $request, Response $response, array $args)$/;"	f
 onThumbnail	src/App/Handlers/Files.php	/^    public function onThumbnail(Request $request, Response $response, array $args)$/;"	f
 onUpload	src/App/Handlers/Wiki.php	/^    public function onUpload(Request $request, Response $response, array $args)$/;"	f
 options	src/App/Handlers/Files.php	/^        $options = array_merge([$/;"	v
@@ -541,6 +548,7 @@ part1	src/App/UploadHandler.php	/^        $part1 = substr(sha1($_SERVER["DOCUMEN
 part2	src/App/UploadHandler.php	/^        $part2 = substr(sha1($res["body"]), 0, 10);$/;"	v
 part3	src/App/UploadHandler.php	/^        $part3 = sprintf("%x", time());$/;"	v
 parts	src/App/Common.php	/^                    $parts = explode(":", $h, 2);$/;"	v
+parts	src/App/Handlers/Maps.php	/^                $parts = explode(",", $row["ll"]);$/;"	v
 parts	src/App/Handlers/Wiki.php	/^                    $parts = ["image"];$/;"	v
 parts	src/App/Handlers/Wiki.php	/^                $parts = explode(":", $m[1]);$/;"	v
 parts	src/App/Handlers/Wiki.php	/^            $parts = explode(":", $m[1]);$/;"	v
@@ -553,10 +561,11 @@ pname	src/App/Handlers/Wiki.php	/^            $pname = "File:" . $row["id"];$/;"
 pname	src/App/Handlers/Wiki.php	/^        $pname = "File:" . $fid;$/;"	v
 png	src/App/Handlers/Short.php	/^        $png = $gen->writeString();$/;"	v
 png	src/App/Handlers/ShortImage.php	/^        $png = $gen->writeString();$/;"	v
-poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) ORDER BY created DESC", [$tag]);$/;"	v
-poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, icon, tags FROM map_poi ORDER BY created DESC");$/;"	v
-poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, tags FROM map_poi ORDER BY created DESC");$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ? AND `ll` <> '') ORDER BY created DESC", [$tag]);$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, ll, title, link, icon, tags FROM map_poi ORDER BY created DESC");$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, tags FROM map_poi WHERE ll <> '' ORDER BY created DESC");$/;"	v
 poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetchOne("SELECT * FROM `map_poi` WHERE `id` = ?", [$id]);$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = array_map(function ($em) {$/;"	v
 postEdit	src/App/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
 prefix	src/App/Stemmer.php	/^        $prefix = mb_substr($word, 0, $region, 'UTF-8');$/;"	v
 prepareThumbnail	src/App/Handlers/Thumbnail.php	/^    protected function prepareThumbnail($name, $type, array $options)$/;"	f
@@ -600,6 +609,7 @@ res	src/App/Database.php	/^        $res = $this->fetch("SELECT `id`, `name`, `so
 res	src/App/Database.php	/^        $res = [];$/;"	v
 res	src/App/Database.php	/^        $res = array();$/;"	v
 res	src/App/Handlers/Files.php	/^                $res = imagecopyresampled($dst, $img, 0, 0, 0, 0, $nw, $nh, $iw, $ih);$/;"	v
+res	src/App/Handlers/Maps.php	/^            $res = [$/;"	v
 res	src/App/Handlers/Thumbnail.php	/^                $res = imagecopyresampled($dst, $img, 0, 0, 0, 0, $nw, $nh, $iw, $ih);$/;"	v
 res	src/App/Handlers/Thumbnail.php	/^        $res = $this->db->getThumbnail($name, $type);$/;"	v
 res	src/App/Handlers/Wiki.php	/^        $res = [$/;"	v
@@ -638,6 +648,9 @@ rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `id`, `name`, `
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch($query, $params);$/;"	v
 rows	src/App/Handlers/Database.php	/^                $rows = $this->db->fetch("select name FROM sqlite_master WHERE `type` = 'table' ORDER BY name");$/;"	v
+rows	src/App/Handlers/Maps.php	/^            $rows = $this->db->fetch("SELECT ll FROM map_poi t1 INNER JOIN map_tags t2 ON t2.poi_id = t1.id WHERE t2.tag = ?", ["public"]);$/;"	v
+rows	src/App/Handlers/Maps.php	/^            $rows = $this->db->fetch("SELECT ll FROM map_poi");$/;"	v
+rows	src/App/Handlers/Maps.php	/^        $rows = $this->db->fetch("SELECT ll FROM map_poi t1 INNER JOIN map_tags t2 ON t2.poi_id = t1.id WHERE t2.tag = ?", [$tag]);$/;"	v
 rows	src/App/Handlers/Search.php	/^        $rows = $this->db->fetch("SELECT * FROM `search_log` ORDER BY `date` DESC LIMIT 100");$/;"	v
 rows	src/App/Search.php	/^        $rows = $this->db->fetch($sql, $params, function ($em) {$/;"	v
 ruName	src/App/Handlers/Short.php	/^        $ruName = $this->getRussianName($code);$/;"	v
@@ -708,7 +721,7 @@ tables	src/App/Handlers/Database.php	/^                $tables = [];$/;"	v
 tables	src/App/Handlers/Database.php	/^        $tables = $this->getStats();$/;"	v
 tag	src/App/Handlers/Maps.php	/^        $tag = $request->getParam("tag");$/;"	v
 tag	src/App/Handlers/Wiki.php	/^                $tag = $parts[1];$/;"	v
-tags	src/App/Handlers/Maps.php	/^        $tags = preg_split('@,\\s*@', $form["tags"], -1, PREG_SPLIT_NO_EMPTY);$/;"	v
+tags	src/App/Handlers/Maps.php	/^            $tags = preg_split('@,\\s*@', $form["tags"], -1, PREG_SPLIT_NO_EMPTY);$/;"	v
 target	src/App/Parser.php	/^                $target = $parts[0];$/;"	v
 template	src/App/Template.php	/^        $template = $this->twig->load($fileName);$/;"	v
 text	src/App/Handlers.php	/^        $text = $_POST["page_source"];$/;"	v

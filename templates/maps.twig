@@ -17,14 +17,16 @@
 {% block page_contents %}
     <div class="twocol">
         <div class="col">
-            <table class="table grid">
+            <table class="table grid pois">
                 <tbody>
                     {% for p in poi %}
                         <tr>
-                            <td>#{{ p.id }}</td>
-                            <td>{% if p.icon %}<img src="/images/map/{{ p.icon }}.png" alt="icon"/>{% endif %}</td>
-                            <td><a href="/map/edit?id={{ p.id }}">{{ p.title }}</a></td>
-                            <td>{{ p.tags }}</td>
+                            <td class="rowid">{{ p.id }}</td>
+                            <td>{% if p.link %}<a href="{{ p.link }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</td>
+                            <td><a href="/map/edit?id={{ p.id }}">edit</a></td>
+                            <td class="number">{{ p.lat }}</td>
+                            <td class="number">{{ p.lng }}</td>
+                            <td class="tags">{{ p.tags }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

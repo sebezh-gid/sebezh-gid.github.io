@@ -18,6 +18,7 @@ return [
         "assets/async.css",
         "assets/wiki.css",
         "assets/layout.css",
+        "assets/tables.css",
         "assets/forms.css",
         "assets/maps.css",
         "assets/sidebar.css",

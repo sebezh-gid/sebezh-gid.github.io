@@ -9,7 +9,7 @@
     "corral": "загон",
     "fuel-station": "заправка (азс)",
     "cemetary": "кладбище",
-    "campfire-2": "костёр",
+    "campfire": "костёр",
     "coffee": "кофе",
     "summercamp": "летний лагерь",
     "supermarket": "магазин",
@@ -26,13 +26,13 @@
     "ducks": "уточки",
     "fastfood": "фастфуд",
     "fountain": "фонтан",
-    "hostel-2": "хостел",
+    "hostel": "хостел",
     "church": "церковь",
     "apple": "яблоко",
 } %}<div class="form-group">
     <div class="form-group">
         <label>Иконка</label>
-        <select class="form-control" name="form[icon]">
+        <select class="form-control map_icon" name="form[icon]">
             {% for k, v in icons %}
                 <option value="{{ k }}"{% if k == poi.icon %} selected="selected"{% endif %}>{{ v }}</option>
             {% endfor %}

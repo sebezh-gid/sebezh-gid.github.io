@@ -12,9 +12,11 @@ form .msgbox {
 }
 main .form-actions {
     margin-top: 10px;
+    line-height: 40px;
 }
 main .form-actions .btn {
     margin-right: 5px;
+    vertical-align: top;
 }
 
 input.form-control,

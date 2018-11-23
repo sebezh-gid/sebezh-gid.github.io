@@ -11,3 +11,37 @@
     max-width: 100%;
     min-width: 200px;
 }
+
+#dlg-map {
+    width: 700px;
+}
+#dlg-map .map {
+    display: inline-block;
+    width: 400px;
+    vertical-align: top;
+}
+#dlg-map .controls {
+    display: inline-block;
+    width: 290px;
+    margin-left: 10px;
+    vertical-align: top;
+}
+#dlg-map .form-group {
+    margin-top: 0;
+}
+#dlg-map .map {
+    height: 340px;
+}
+#dlg-map textarea {
+    height: 65px;
+    min-height: 65px;
+    max-height: 65px;
+    line-height: 1.25em;
+}
+
+table.pois td {
+    font-size: 14px;
+}
+table.pois td.tags {
+    color: #888;
+}

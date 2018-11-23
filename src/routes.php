@@ -29,6 +29,7 @@ $app->get("/map/edit", '\App\Handlers\Maps:onEdit');
 $app->post("/map/save", '\App\Handlers\Maps:onSave');
 $app->get("/map/all.json", '\App\Handlers\Maps:onAllJSON');
 $app->get("/map/points.json", '\App\Handlers\Maps:onPoints');
+$app->post("/map/suggest-ll", '\App\Handlers\Maps:onSuggestLL');
 
 $app->get('/short', '\App\Handlers\Short:onGetForm');
 $app->post('/short', '\App\Handlers\Short:onCreate');
