@@ -546,9 +546,9 @@ pname	src/App/Handlers/Wiki.php	/^            $pname = "File:" . $row["id"];$/;"
 pname	src/App/Handlers/Wiki.php	/^        $pname = "File:" . $fid;$/;"	v
 png	src/App/Handlers/Short.php	/^        $png = $gen->writeString();$/;"	v
 png	src/App/Handlers/ShortImage.php	/^        $png = $gen->writeString();$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) ORDER BY created DESC", [$tag]);$/;"	v
 poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, icon, tags FROM map_poi ORDER BY created DESC");$/;"	v
 poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, tags FROM map_poi ORDER BY created DESC");$/;"	v
-poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, tags FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) ORDER BY created DESC", [$tag]);$/;"	v
 poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetchOne("SELECT * FROM `map_poi` WHERE `id` = ?", [$id]);$/;"	v
 postEdit	src/App/Handlers.php	/^    public function postEdit(Request $request, Response $response)$/;"	f
 prefix	src/App/Stemmer.php	/^        $prefix = mb_substr($word, 0, $region, 'UTF-8');$/;"	v

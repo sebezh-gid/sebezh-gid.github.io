@@ -52,7 +52,7 @@ class Maps extends CommonHandler
     public function onPoints(Request $request, Response $response, array $args)
     {
         $tag = $request->getParam("tag");
-        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, tags FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) ORDER BY created DESC", [$tag]);
+        $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) ORDER BY created DESC", [$tag]);
 
         $markers = array_map(function ($row) {
             return [
