@@ -241,8 +241,12 @@ jQuery(function ($) {
 
           map.addLayer(cluster);
 
-          var bounds = L.latLngBounds(points);
-          map.fitBounds(bounds);
+          if (points.length == 1) {
+            map.setView(points[0], 12);
+          } else {
+            var bounds = L.latLngBounds(points);
+            map.fitBounds(bounds);
+          }
         });
       }
 
