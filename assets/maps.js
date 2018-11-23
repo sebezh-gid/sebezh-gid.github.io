@@ -91,6 +91,7 @@ jQuery(function ($) {
         map.scrollWheelZoom.disable();
     });
 
+    window.my_map = map;
     return map;
   };
 
@@ -332,6 +333,13 @@ jQuery(function ($) {
         var marker = window.map_marker,
             icon = get_icon(name);
         marker.setIcon(icon);
+    });
+
+    $(document).on("change", "#map_ll", function (e) {
+        var parts = $(this).val().split(","),
+            ll = [parseFloat(parts[0]), parseFloat(parts[1])];
+        window.map_marker.setLatLng(ll);
+        window.my_map.setView(ll, my_map.getZoom());
     });
 });
 
