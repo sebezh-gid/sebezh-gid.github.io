@@ -20,6 +20,7 @@ http://www.rusarch.ru/golikova1.htm
 http://www.mgorskikh.com/14-culture/15140-v-shenderovich-pamyati-zinoviya-efimovicha-gerdta?fbclid=IwAR2V5gchuTD1hL-0zofUkXjSM-mFv7-3Y_tBmVf2MY3AS-sfH3i1H2WoIjE
 https://vk.com/wall-68489_262032
 https://www.province.ru/pskov/k-otvetu/nadziratelju-sebezhskoj-kolonii-grozit-vosem-let-tjur-my-za-poluchenie-vzjatki.html
+http://www.aif.ru/society/people/39358
 
 оформление:
 - https://gohugo.io/
