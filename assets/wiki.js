@@ -113,24 +113,32 @@ function enable_qrcode_form()
  **/
 jQuery(function ($) {
     $(document).on("paste", "textarea.wiki", function (e) {
-        var text = e.originalEvent.clipboardData.getData("text"),
+        var clip = e.originalEvent.clipboardData.getData("text"),
             ctl = $(this);
+
+        var ta = ctl[0],
+            tass = ta.selectionStart,
+            tase = ta.selectionEnd,
+            text = ta.value;
+
+        if (tass > 0 && text[tass-1] == '"')
+            return;
 
         $.ajax({
             url: "/wiki/embed-clipboard",
-            data: {text: text},
+            data: {text: clip},
             type: "POST",
             dataType: "json"
         }).done(function (res) {
-            res = $.extend({
-                replace: [],
-                open: []
-            }, res);
-
             var ta = ctl[0],
                 tass = ta.selectionStart,
                 tase = ta.selectionEnd,
                 text = ta.value;
+
+            res = $.extend({
+                replace: [],
+                open: []
+            }, res);
 
             for (var idx in res.replace) {
                 var src = res.replace[idx].src,
