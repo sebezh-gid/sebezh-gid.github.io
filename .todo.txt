@@ -22,6 +22,9 @@ https://vk.com/wall-68489_262032
 https://www.province.ru/pskov/k-otvetu/nadziratelju-sebezhskoj-kolonii-grozit-vosem-let-tjur-my-za-poluchenie-vzjatki.html
 http://www.aif.ru/society/people/39358
 https://sebezh-gid.ru/wiki?name=%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9+%D0%A1%D0%B5%D0%BC%D1%91%D0%BD%D0%BE%D0%B2
+http://moyaokruga.ru/prizyvgazeta/Articles.aspx?articleId=143769
+http://moyaokruga.ru/prizyvgazeta/Articles.aspx?articleId=148532
+http://moyaokruga.ru/prizyvgazeta/Articles.aspx?articleId=127911
 
 оформление:
 - https://gohugo.io/
