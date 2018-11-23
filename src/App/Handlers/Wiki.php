@@ -303,6 +303,8 @@ class Wiki extends CommonHandler
                         $res["open"][] = "/wiki/edit?name=File:{$id}";
                 }
             }
+        } else {
+            error_log("clipboard: no links.");
         }
 
         return $response->withJSON($res);
