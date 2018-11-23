@@ -82,6 +82,16 @@ class Wiki extends CommonHandler
         if ($page === false) {
             if (preg_match('@^\d{4}$@', $pageName)) {
                 $contents = "# sebezh-gid.ru #{$pageName}\n\n- Русский: [[страница]]\n- English: [[something]]";
+            } elseif (preg_match('@^File:(\d+)$@', $pageName, $m)) {
+                if ($file = $this->db->fetchOne("SELECT name, type FROM files WHERE id = ?", [$m[1]])) {
+                    if (0 === strpos($file["type"], "image/")) {
+                        $contents = "# {$file["name"]}\n\n[[image:{$m[1]}]]";
+                    } else {
+                        $contents = "# other";
+                    }
+                } else {
+                    return $this->notfound($request);
+                }
             } else {
                 $contents = "# {$pageName}\n\n**{$pageName}** -- something that we don't have information on, yet.\n";
             }
