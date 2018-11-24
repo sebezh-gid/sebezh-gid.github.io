@@ -216,6 +216,7 @@ jQuery(function ($) {
             var tree = $.extend({
                 latlng: null,
                 title: null,
+                link: null,
                 description: null,
                 icon: null
             }, res.markers[idx]);
@@ -232,9 +233,15 @@ jQuery(function ($) {
                 m.addTo(cluster);
               }
 
-              var html = "<p><a href='" + tree.link + "'>" + tree.title + "</a></p>";
+              var html;
+              if (tree.link)
+                  html = "<p><a href='" + tree.link + "'>" + tree.title + "</a></p>";
+              else
+                  html = "<p>" + tree.title + "</p>";
+
               if (tree.description)
-                html += "<div class='poi-description'>" + tree.description + "</div>";
+                  html += "<div class='poi-description'>" + tree.description + "</div>";
+
               m.bindPopup(html);
             }
           }
