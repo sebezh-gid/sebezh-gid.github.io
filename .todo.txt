@@ -27,6 +27,7 @@ http://moyaokruga.ru/prizyvgazeta/Articles.aspx?articleId=148532
 http://moyaokruga.ru/prizyvgazeta/Articles.aspx?articleId=127911
 https://kuscheyder.livejournal.com/3425.html
 https://lit-ops.livejournal.com/13131.html
+http://sebezh-resource.ru/blogs/?page_id=12459
 
 оформление:
 - https://gohugo.io/
