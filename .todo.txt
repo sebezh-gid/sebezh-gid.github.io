@@ -25,6 +25,7 @@ https://sebezh-gid.ru/wiki?name=%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9+%D0%A1%D0%B
 http://moyaokruga.ru/prizyvgazeta/Articles.aspx?articleId=143769
 http://moyaokruga.ru/prizyvgazeta/Articles.aspx?articleId=148532
 http://moyaokruga.ru/prizyvgazeta/Articles.aspx?articleId=127911
+https://kuscheyder.livejournal.com/3425.html
 
 оформление:
 - https://gohugo.io/
