@@ -681,10 +681,17 @@ class Wiki extends CommonHandler
 
             // TODO: add lazy loading
 
-            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http://schema.org/ImageObject' title='{$title}'>";
-            $html .= "<meta itemprop='contentUrl' content='{$large}'/>";
-            $html .= "<img src='{$small}' style='width: {$iw}; height: {$ih}' itemprop='thumbnailUrl' alt='{$title}'/>";
+            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' title='{$title}'>";
+            $html .= "<img src='{$small}' style='width: {$iw}; height: {$ih}' alt='{$title}'/>";
             $html .= "</a>";
+
+            $html .= "<script type='application/ld+json'>" . json_encode([
+                "@context" => "http://schema.org",
+                "@type" => "ImageObject",
+                "contentUrl" => $large,
+                "name" => $title,
+                "thumbnail" => $small,
+            ]) . "</script>";
 
             return $html;
         }, $html);
