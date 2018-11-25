@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /edit
 Disallow: /w/
 Disallow: /wiki/edit
+Disallow: /wiki?name=File:
 
 Sitemap: https://sebezh-gid.ru/sitemap.xml
 Host: https://sebezh-gid.ru/
