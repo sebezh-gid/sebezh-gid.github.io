@@ -26,6 +26,10 @@
     {% if page.summary %}
         <meta name="description" property="og:description" content="{{ page.summary }}"/>
     {% endif %}
+
+    {% if "File:" in page.name %}
+        <meta name="robots" content="noindex"/>
+    {% endif %}
 {% endblock %}
 
 {% block page_title %}{% if page.name == "Введение" %}Гид по Себежу{% else %}{{ page.title }} — {% if page.language == "en" %}Sebezh Guide{% else %}гид по Себежу{% endif %}{% endif %}{% endblock %}
