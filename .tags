@@ -283,7 +283,7 @@ html	src/App/CommonHandler.php	/^        $html = \\App\\Util::cleanHtml($html);$
 html	src/App/Handlers.php	/^        $html = Template::renderFile("editor.twig", array($/;"	v
 html	src/App/Handlers/Wiki.php	/^                    $html = "[[" . implode(":", $parts) . "]]";$/;"	v
 html	src/App/Handlers/Wiki.php	/^                $html = "<div id='map_{$id}' class='map' data-src='\/map\/points.json?tag=" . $tag . "'><\/div>";$/;"	v
-html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' itemscope itemtype='http:\/\/schema.org\/ImageObject' title='{$title}'>";$/;"	v
+html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' title='{$title}'>";$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $this->renderHTML($request, "page.twig", [$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s' class='wiki %s' title='%s'>%s<\/a>", urlencode($link), $cls, htmlspecialchars($title), htmlspecialchars($label));$/;"	v
