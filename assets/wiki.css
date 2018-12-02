@@ -1178,4 +1178,12 @@ textarea.code {
     font-weight: normal;
     color: #080;
     margin-left: 10px;
+    display: none;
+}
+.formatted h1:hover a.edit,
+.formatted h2:hover a.edit,
+.formatted h3:hover a.edit,
+.formatted h4:hover a.edit,
+.formatted h5:hover a.edit {
+    display: inline;
 }
