@@ -51,7 +51,7 @@ class Wiki extends CommonHandler
                 return $response->withRedirect($link, 301);
             }
 
-            $html = $this->renderHTML($request, "page.twig", [
+            $html = $this->renderHTML($request, "wiki-page.twig", [
                 "language" => $page["language"],
                 "page" => $page,
                 "canonical_link" => "/wiki?name=" . urlencode($page["name"]),
@@ -109,7 +109,7 @@ class Wiki extends CommonHandler
                 $contents = $tmp["wanted"];
         }
 
-        return $this->render($request, "editor.twig", [
+        return $this->render($request, "wiki-edit.twig", [
             "page_name" => $pageName,
             "page_section" => $section,
             "page_source" => $contents,
