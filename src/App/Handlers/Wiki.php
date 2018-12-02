@@ -78,6 +78,8 @@ class Wiki extends CommonHandler
         if (empty($pageName))
             return $this->notfound();
 
+        $section = $request->getQueryParam("section");
+
         $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);
         if ($page === false) {
             if (preg_match('@^\d{4}$@', $pageName)) {
@@ -99,8 +101,17 @@ class Wiki extends CommonHandler
             $contents = $page["source"];
         }
 
+        if ($section) {
+            $tmp = $this->findSection($contents, $section);
+            if (empty($tmp["wanted"]))
+                $section = "";
+            else
+                $contents = $tmp["wanted"];
+        }
+
         return $this->render($request, "editor.twig", [
             "page_name" => $pageName,
+            "page_section" => $section,
             "page_source" => $contents,
             "is_editable" => $this->isAdmin($request),
         ]);
@@ -173,6 +184,16 @@ class Wiki extends CommonHandler
 
         $name = $request->getParam("page_name");
         $text = $request->getParam("page_source");
+        $section = $request->getParam("page_section");
+
+        if ($section) {
+            if ($page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$name])) {
+                $parts = $this->findSection($page["source"], $section);
+                $parts["wanted"] = rtrim($text) . PHP_EOL . PHP_EOL;
+
+                $text = implode("", $parts);
+            }
+        }
 
         if ($next = $this->savePage($name, $text))
             return $response->withRedirect("/wiki?name=" . urlencode($next), 303);
@@ -743,5 +764,58 @@ class Wiki extends CommonHandler
         $h = imagesy($img);
 
         return [$w, $h];
+    }
+
+    /**
+     * Find specific section in page source.
+     *
+     * @param string $text Page source.
+     * @param string $sectionName The name of desired section.
+     * @return array Keys: before, wanted, after.
+     **/
+    protected function findSection($text, $sectionName)
+    {
+        // Simplify line endings.
+        $text = str_replace("\r\n", "\n", $text);
+
+        $before = null;
+        $wanted = null;
+        $after = null;
+
+        $lines = explode("\n", $text);
+        foreach ($lines as $line) {
+            if ($after !== null) {
+                $after .= $line . PHP_EOL;
+                continue;
+            }
+
+            $found = preg_match('@^#+\s*(.+)$@', $line, $m);
+
+            if ($wanted !== null) {
+                if ($found) {
+                    $after .= $line . PHP_EOL;
+                    continue;
+                } else {
+                    $wanted .= $line . PHP_EOL;
+                }
+            }
+
+            else {
+                if ($found and trim($m[1]) == $sectionName) {
+                    $wanted .= $line . PHP_EOL;
+                    continue;
+                } else {
+                    $before .= $line . PHP_EOL;
+                }
+            }
+        }
+
+        $res = [
+            "before" => $before,
+            "wanted" => $wanted,
+            "after" => $after,
+        ];
+
+        return $res;
     }
 }

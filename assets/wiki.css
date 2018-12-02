@@ -1172,3 +1172,10 @@ textarea.code {
     background-color: #eee;
     border: none;
 }
+
+.formatted a.edit {
+    font-size: 14px;
+    font-weight: normal;
+    color: #080;
+    margin-left: 10px;
+}
