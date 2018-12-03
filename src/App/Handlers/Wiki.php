@@ -540,6 +540,10 @@ class Wiki extends CommonHandler
     {
         $html = $page["html"];
 
+        // strip_tags mishandles scripts, and we use them heavily for microdata,
+        // so just strip them off in advance.
+        $html = preg_replace('@<script.*?</script>@', '', $html);
+
         if (preg_match_all('@<p>(.+?)</p>@ms', $html, $m)) {
             foreach ($m[0] as $_html) {
                 if ($text = strip_tags($_html)) {
