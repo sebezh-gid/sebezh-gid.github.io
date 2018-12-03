@@ -296,6 +296,7 @@ html	src/App/Handlers/Wiki.php	/^        $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderMarkdown($source);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderTOC($html);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Util::cleanHtml($html);$/;"	v
+html	src/App/Handlers/Wiki.php	/^        $html = preg_replace('@<script.*?<\/script>@', '', $html);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$res) {$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = preg_replace_callback('@\\[\\[image:([^]]+)\\]\\]@', function ($m) use ($name, &$res) {$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = str_replace("><", "> <", $html);$/;"	v

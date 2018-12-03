@@ -95,6 +95,9 @@ class Search
 
         foreach ($items as $item) {
             error_log("index: adding {$item["key"]}");
+
+            $this->db->query("DELETE FROM `search` WHERE `key` = ?", [$item["key"]]);
+
             $this->db->insert("search", [
                 "key" => $item["key"],
                 "meta" => serialize($item["meta"]),
