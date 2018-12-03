@@ -437,19 +437,22 @@ class Wiki extends CommonHandler
                 $this->db->query("UPDATE pages SET html = null WHERE id IN (SELECT page_id FROM backlinks WHERE link = ?)", [$name]);
                 $this->db->query("DELETE FROM `backlinks` WHERE `page_id` = ?", [$id]);
             }
-            return null;
+
+            return $name;
         } else {
             $now = time();
 
-            $count = $this->db->update("pages", [
-                "source" => $text,
-                "html" => null,
-                "updated" => $now,
-            ], [
-                "name" => $name,
-            ]);
+            if ($id) {
+                $this->db->update("pages", [
+                    "source" => $text,
+                    "html" => null,
+                    "updated" => $now,
+                ], [
+                    "id" => $page["id"],
+                ]);
 
-            if ($count == 0) {
+                $this->db->query("DELETE FROM `pages` WHERE `name` = ? AND `id` != ?", [$name, $page["id"]]);
+            } else {
                 $id = $this->db->insert("pages", [
                     "name" => $name,
                     "source" => $text,

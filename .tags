@@ -140,7 +140,6 @@ contents	src/App/Handlers/Wiki.php	/^                $contents = $tmp["wanted"];
 contents	src/App/Handlers/Wiki.php	/^            $contents = $page["source"];$/;"	v
 context	src/App/Common.php	/^        $context = stream_context_create(array($/;"	v
 converter	src/App/Common.php	/^        $converter = new \\League\\CommonMark\\Converter($dp, $re);$/;"	v
-count	src/App/Handlers/Wiki.php	/^            $count = $this->db->update("pages", [$/;"	v
 data	src/App/CommonHandler.php	/^        $data = array_merge($defaults, $data);$/;"	v
 data	src/App/Handlers/Error.php	/^        $data = [];$/;"	v
 data	src/App/Handlers/Short.php	/^        $data = $gen->writeString();$/;"	v
