@@ -40,3 +40,5 @@ http://foto-planeta.com/photo/771687.html
   - музыка, квартирник
 - отлично: https://greenpeace.ru/expert-opinions/2018/11/16/ocherednoj-zakonoproekt-ugrozhaet-zapovednoj-sisteme-rossii/
   - и меню, и боковушка с картинкой и названием
+- общий внешний вид: https://css-tricks.com/the-difference-between-throttling-and-debouncing/
+  https://umonkey.net/s/PtACRh
