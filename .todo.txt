@@ -42,3 +42,4 @@ http://foto-planeta.com/photo/771687.html
   - и меню, и боковушка с картинкой и названием
 - общий внешний вид: https://css-tricks.com/the-difference-between-throttling-and-debouncing/
   https://umonkey.net/s/PtACRh
+- ещё хороший чистый простой вид: https://umonkey.net/s/qFyTf4
