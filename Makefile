@@ -28,6 +28,7 @@ pull-files:
 pull-pages:
 	ssh $(REMOTE) mysqldump sebgid pages history backlinks map_poi map_tags | pv > data/pages.sql
 	mysql < data/pages.sql
+	rm -f data/pages.sql
 
 reindex:
 	php -f tools/cli.php reindex
