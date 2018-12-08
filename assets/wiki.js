@@ -226,7 +226,7 @@ jQuery(function ($) {
 
         $.ajax({
             url: "/wiki/embed-clipboard",
-            data: {id: id, title: title},
+            data: {id: id, title: title, link: link},
             type: "POST",
             dataType: "json"
         }).done(function (res) {

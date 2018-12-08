@@ -319,7 +319,9 @@ class Wiki extends CommonHandler
             if ($page) {
                 // update title
             } else {
-                $source = "# {$name}\n\nSource: {$link}\n";
+                $source = "# {$name}\n\n";
+                $source .= "[[image:{$id}]]\n\n";
+                $source .= "Source: {$link}\n";
 
                 $this->db->insert("pages", [
                     "name" => $name,
