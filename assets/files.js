@@ -47,6 +47,10 @@ jQuery(function ($) {
         $("#dlg-upload")[0].reset();
         $(".uploadLink").focus();
     });
+
+    $(document).on("click", "form#dlg-embed-photo button[type=reset]", function (e) {
+        $("#block, .dialog").hide();
+    });
 });
 
 

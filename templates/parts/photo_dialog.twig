@@ -1,0 +1,36 @@
+{##
+ # Диалог для подтверждения вставки фотографии.
+ ##}
+<form id="dlg-embed-photo" class="dialog" action="/wiki/embed-clipboard" method="post" style="display: none">
+    <input class="id" type="hidden" name="id" value=""/>
+
+    <div class="twocol">
+        <div class="col lcol">
+            <div class="form-group">
+                <label>Адрес изображения:</label>
+                <input class="form-control link" type="text" name="link" placeholder="https://example.com/foobar.jpg"/>
+            </div>
+
+            <div class="form-group">
+                <label>Код для вставки:</label>
+                <input class="form-control code" type="text" name="code" placeholder="[[image:123]]"/>
+            </div>
+
+            <div class="form-group">
+                <label>Заголовок:</label>
+                <input class="form-control title" type="text" name="title" placeholder="foobar.jpg"/>
+            </div>
+        </div>
+
+        <div class="col rcol">
+            <a class="page" href="/files" target="_blank">
+                <img src="/images/placeholder.png" alt="image preview"/>
+            </a>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+        <button class="btn btn-default" type="reset">Отмена</button>
+    </div>
+</form>

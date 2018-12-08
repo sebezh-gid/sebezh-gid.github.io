@@ -116,6 +116,12 @@ jQuery(function ($) {
         var clip = e.originalEvent.clipboardData.getData("text"),
             ctl = $(this);
 
+        var dlg = $("form#dlg-embed-photo");
+        if (dlg.length == 0) {
+            console.log("form#dlg-embed-photo not found.");
+            return;
+        }
+
         var ta = ctl[0],
             tass = ta.selectionStart,
             tase = ta.selectionEnd,
@@ -130,6 +136,20 @@ jQuery(function ($) {
             type: "POST",
             dataType: "json"
         }).done(function (res) {
+            if (res.type == "image") {
+                dlg.find("input.id").val(res.id);
+                dlg.find(".link").val(res.link);
+                dlg.find(".code").val(res.code);
+                dlg.find(".title").val(res.title);
+                dlg.find("img").attr("src", res.image);
+                dlg.find("a.page").attr("href", res.page);
+                $("#block").show();
+                dlg.show();
+                dlg.find(".title").focus();
+            }
+
+            return;
+
             var ta = ctl[0],
                 tass = ta.selectionStart,
                 tase = ta.selectionEnd,
@@ -174,6 +194,48 @@ jQuery(function ($) {
 
             $(ctl).focus();
         });
+    });
+
+    $(document).on("submit", "form#dlg-embed-photo", function (e) {
+        e.preventDefault();
+
+        var ctl = $("textarea.wiki"),
+            ta = ctl[0],
+            s = ta.selectionStart,
+            e = ta.selectionEnd,
+            v = ta.value;
+
+        var id = $(this).find("input.id").val(),
+            link = $(this).find("input.link").val(),
+            code = $(this).find("input.code").val(),
+            title = $(this).find("input.title").val();
+
+        var idx = v.indexOf(link);
+        if (idx >= 0) {
+            var text = v.substring(0, idx);
+            text += code;
+            text += v.substring(idx + link.length);
+
+            ta.value = text;
+
+            ta.selectionStart = idx + code.length;
+            ta.selectionEnd = idx + code.length;
+
+            ctl.focus();
+        }
+
+        $.ajax({
+            url: "/wiki/embed-clipboard",
+            data: {id: id, title: title},
+            type: "POST",
+            dataType: "json"
+        }).done(function (res) {
+            // console.log(res);
+        });
+
+        $(this)[0].reset();
+
+        $(".dialog, #block").hide();
     });
 });
 

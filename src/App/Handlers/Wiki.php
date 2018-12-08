@@ -298,34 +298,75 @@ class Wiki extends CommonHandler
     public function onEmbedClipboard(Request $request, Response $response, array $args)
     {
         $res = [
-            "replace" => [],
-            "open" => [],
+            "type" => null,
+            "link" => null,
+            "code" => null,
+            "image" => null,
+            "title" => null,
+            "id" => null,
         ];
 
-        $text = $request->getParam("text");
+        // Save the title, trigger the callback.
+        if ($id = $request->getParam("id")) {
+            $title = $request->getParam("title");
+            $link = $request->getParam("link");
 
-        if (preg_match('@^https?://[^\s]+$@', $text, $m)) {
-            $url = $m[0];
-            $doc = \App\Common::fetch($url);
+            $name = "File:" . $id;
+            $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$name]);
 
-            if ($type = @$doc["headers"]["content-type"]) {
-                if (0 === strpos($type, "image/")) {
-                    $name = basename(explode("?", $url)[0]);
-                    $type = explode(";", $type)[0];
-                    $id = $this->db->addFile($name, $type, $doc["data"]);
-                    $res["replace"][] = [
-                        "src" => $url,
-                        "dst" => "[[image:{$id}]]",
-                    ];
+            $now = time();
 
-                    $pageName = "File:{$id}";
-                    if (!$this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]))
-                        $res["open"][] = "/wiki/edit?name=File:{$id}";
-                }
+            if ($page) {
+                // update title
+            } else {
+                $source = "# {$name}\n\nSource: {$link}\n";
+
+                $this->db->insert("pages", [
+                    "name" => $name,
+                    "source" => $source,
+                    "created" => $now,
+                    "updated" => $now,
+                ]);
             }
-        } else {
-            error_log("clipboard: no links.");
+
+            $res = [
+                "success" => true,
+            ];
         }
+
+        else {
+            $text = $request->getParam("text");
+
+            if (preg_match('@^https?://[^\s]+$@', $text, $m)) {
+                $url = $m[0];
+                $doc = \App\Common::fetch($url);
+
+                if ($type = @$doc["headers"]["content-type"]) {
+                    if (0 === strpos($type, "image/")) {
+                        $name = basename(explode("?", $url)[0]);
+                        $type = explode(";", $type)[0];
+                        $id = $this->db->addFile($name, $type, $doc["data"]);
+
+                        $res["id"] = $id;
+                        $res["type"] = "image";
+                        $res["link"] = $url;
+                        $res["code"] = "[[image:{$id}]]";
+                        $res["image"] = "/i/thumbnails/{$id}.jpg";
+                        $res["page"] = "/wiki?name=File:{$id}";
+                        $res["title"] = $name;
+
+                        /*
+                        $pageName = "File:{$id}";
+                        if (!$this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]))
+                            $res["open"][] = "/wiki/edit?name=File:{$id}";
+                        */
+                    }
+                }
+            } else {
+                error_log("clipboard: no links.");
+            }
+        }
+
 
         return $response->withJSON($res);
     }
