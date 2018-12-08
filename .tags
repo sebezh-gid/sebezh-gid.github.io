@@ -92,7 +92,6 @@ bw	src/App/Handlers/Short.php	/^        $bw = imagesx($barcode);$/;"	v
 bw	src/App/Handlers/ShortImage.php	/^        $bw = imagesx($barcode);$/;"	v
 cacheControl	src/App/Handlers/Wiki.php	/^        $cacheControl = @$headers["HTTP_CACHE_CONTROL"][0];$/;"	v
 cacheGet	src/App/Database.php	/^    public function cacheGet($key)$/;"	f
-cacheKey	src/App/Handlers/Wiki.php	/^        $cacheKey = "wiki:" . md5($pageName);$/;"	v
 cacheSet	src/App/Database.php	/^    public function cacheSet($key, $value)$/;"	f
 canvas	src/App/Handlers/Short.php	/^        $canvas = $this->getCanvas();$/;"	v
 canvas	src/App/Handlers/ShortImage.php	/^        $canvas = $this->getCanvas();$/;"	v
@@ -284,10 +283,10 @@ html	src/App/Handlers.php	/^        $html = Template::renderFile("editor.twig", 
 html	src/App/Handlers/Wiki.php	/^                    $html = "[[" . implode(":", $parts) . "]]";$/;"	v
 html	src/App/Handlers/Wiki.php	/^                $html = "<div id='map_{$id}' class='map' data-src='\/map\/points.json?tag=" . $tag . "'><\/div>";$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' title='{$title}'>";$/;"	v
-html	src/App/Handlers/Wiki.php	/^            $html = $this->db->cacheGet($cacheKey);$/;"	v
+html	src/App/Handlers/Wiki.php	/^            $html = $page["html"];$/;"	v
+html	src/App/Handlers/Wiki.php	/^            $html = $this->renderHTML($request, "wiki-page.twig", [$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s' class='wiki %s' title='%s'>%s<\/a>", urlencode($link), $cls, htmlspecialchars($title), htmlspecialchars($label));$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = $page["html"];$/;"	v
-html	src/App/Handlers/Wiki.php	/^        $html = $this->renderHTML($request, "wiki-page.twig", [$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderMarkdown($source);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderTOC($html);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Util::cleanHtml($html);$/;"	v
@@ -392,9 +391,9 @@ link	src/App/Handlers/ShortRedirect.php	/^        $link = "\/wiki?name=" . urlen
 link	src/App/Handlers/Sitemap.php	/^            $link = $base . "\/wiki?name=" . urlencode($page["name"]);$/;"	v
 link	src/App/Handlers/Upload.php	/^        $link = $request->getParam("link");$/;"	v
 link	src/App/Handlers/Wiki.php	/^                        $link = urldecode(substr($attrs["href"], 11));$/;"	v
+link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . urlencode($page["name"]);$/;"	v
+link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . urlencode($page["redirect"]);$/;"	v
 link	src/App/Handlers/Wiki.php	/^                $link = $parts[0];$/;"	v
-link	src/App/Handlers/Wiki.php	/^            $link = "\/wiki?name=" . urlencode($page["name"]);$/;"	v
-link	src/App/Handlers/Wiki.php	/^            $link = "\/wiki?name=" . urlencode($page["redirect"]);$/;"	v
 link	src/App/Handlers/Wiki.php	/^            $link = $m[1];$/;"	v
 link	src/App/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
 links	src/App/Handlers/Wiki.php	/^                $links = [];$/;"	v
@@ -508,11 +507,11 @@ page	src/App/Handlers/ShortImage.php	/^        $page = $this->db->getPageByName(
 page	src/App/Handlers/ShortImage.php	/^        $page = \\App\\Util::parsePage($page);$/;"	v
 page	src/App/Handlers/Wiki.php	/^            $page = "\/wiki?name=File:{$fileId}";$/;"	v
 page	src/App/Handlers/Wiki.php	/^            $page = $this->processWikiPage($name, $text);$/;"	v
+page	src/App/Handlers/Wiki.php	/^            $page = $this->processWikiPage($page["name"], $page["source"]);$/;"	v
 page	src/App/Handlers/Wiki.php	/^            $page = $this->processWikiPage($row["name"], $row["source"]);$/;"	v
 page	src/App/Handlers/Wiki.php	/^            $page = ["name" => $name];$/;"	v
 page	src/App/Handlers/Wiki.php	/^        $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$name]);$/;"	v
 page	src/App/Handlers/Wiki.php	/^        $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);$/;"	v
-page	src/App/Handlers/Wiki.php	/^        $page = $this->processWikiPage($page["name"], $page["source"]);$/;"	v
 pageName	src/App/Handlers.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
 pageName	src/App/Handlers/EditPage.php	/^        $pageName = $request->getQueryParam("name");$/;"	v
 pageName	src/App/Handlers/Wiki.php	/^                    $pageName = "File:{$id}";$/;"	v

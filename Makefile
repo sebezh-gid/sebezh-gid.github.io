@@ -28,6 +28,7 @@ pull-files:
 pull-pages:
 	ssh $(REMOTE) mysqldump sebgid pages history backlinks map_poi map_tags | pv > data/pages.sql
 	mysql < data/pages.sql
+	echo "UPDATE pages SET html = null;" | mysql sebgid
 	rm -f data/pages.sql
 
 reindex:
