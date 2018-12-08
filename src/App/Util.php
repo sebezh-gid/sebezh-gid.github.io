@@ -19,6 +19,14 @@ class Util
         $html = preg_replace('@</a>\s+@', '</a> ', $html);
         $html = preg_replace('@\s+</a>@', ' </a>', $html);
 
+        // Типографику обрабатываем только внутри страницы.
+        $html = preg_replace_callback('@<body.+</body>@ms', function ($m) {
+            $html = $m[0];
+            $html = preg_replace('@\s+(по|во|о|об|от|но|в|на|под|при|из|вы|с|к|и|или|а|для)\s+@ui', ' \1 ', $html);
+            $html = preg_replace('@([.?!])\s+@', '\1  ', $html);
+            return $html;
+        }, $html);
+
         return $html;
     }
 
