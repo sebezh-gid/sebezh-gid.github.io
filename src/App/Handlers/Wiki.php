@@ -23,6 +23,15 @@ class Wiki extends CommonHandler
         if (empty($pageName))
             return $response->withRedirect("/wiki?name=Welcome", 302);
 
+        $cacheKey = "wiki:" . md5($pageName);
+        if (!$fresh) {
+            $html = $this->db->cacheGet($cacheKey);
+            if (!empty($html)) {
+                $response->getBody()->write($html);
+                return $response->withHeader("Content-Type", "text/html; charset=utf-8");
+            }
+        }
+
         $page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pageName]);
         if (empty($page) or empty($page["source"])) {
             $search = $this->search($pageName);
@@ -36,35 +45,27 @@ class Wiki extends CommonHandler
             return $response->withStatus(404);
         }
 
-        if (empty($page["html"]) or $fresh) {
-            $page = $this->processWikiPage($page["name"], $page["source"]);
+        $page = $this->processWikiPage($page["name"], $page["source"]);
 
-            if (!empty($page["redirect"])) {
-                // TODO: check if page exists.
-                $link = "/wiki?name=" . urlencode($page["redirect"]);
-                return $response->withRedirect($link, 303);
-            }
-
-            // Fix case.
-            if ($page["name"] != $pageName) {
-                $link = "/wiki?name=" . urlencode($page["name"]);
-                return $response->withRedirect($link, 301);
-            }
-
-            $html = $this->renderHTML($request, "wiki-page.twig", [
-                "language" => $page["language"],
-                "page" => $page,
-                "canonical_link" => "/wiki?name=" . urlencode($page["name"]),
-            ]);
-
-            $this->db->update("pages", [
-                "html" => $html,
-            ], [
-                "name" => $page["name"],
-            ]);
-        } else {
-            $html = $page["html"];
+        if (!empty($page["redirect"])) {
+            // TODO: check if page exists.
+            $link = "/wiki?name=" . urlencode($page["redirect"]);
+            return $response->withRedirect($link, 303);
         }
+
+        // Fix case.
+        if ($page["name"] != $pageName) {
+            $link = "/wiki?name=" . urlencode($page["name"]);
+            return $response->withRedirect($link, 301);
+        }
+
+        $html = $this->renderHTML($request, "wiki-page.twig", [
+            "language" => $page["language"],
+            "page" => $page,
+            "canonical_link" => "/wiki?name=" . urlencode($page["name"]),
+        ]);
+
+        $this->db->cacheSet($cacheKey, $html);
 
         $response->getBody()->write($html);
         return $response->withHeader("Content-Type", "text/html; charset=utf-8");

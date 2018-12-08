@@ -54,16 +54,6 @@ CREATE TABLE IF NOT EXISTS `files` (
 ) DEFAULT CHARSET utf8;
 
 
-CREATE TABLE IF NOT EXISTS `thumbnails` (
-    `name` VARCHAR(255),
-    `type` VARCHAR(255),
-    `body` MEDIUMBLOB,
-    `hash` VARCHAR(255),
-    KEY(`name`),
-    KEY(`type`)
-) DEFAULT CHARSET utf8;
-
-
 CREATE TABLE IF NOT EXISTS `shorts` (
     `id` INTEGER UNSIGNED NOT NULL,
     `created` DATETIME NOT NULL,
@@ -150,3 +140,11 @@ CREATE TABLE IF NOT EXISTS `map_tags` (
     KEY(`poi_id`),
     KEY(`tag`)
 );
+
+
+CREATE TABLE IF NOT EXISTS `cache` (
+    `key` VARCHAR(255) NOT NULL,
+    `added` INTEGER UNSIGNED NOT NULL,
+    `value` MEDIUMBLOB,
+    PRIMARY KEY(`key`)
+) DEFAULT CHARSET utf8 COMMENT='Generic cache table, key-value.';

@@ -71,9 +71,8 @@ class Files extends CommonHandler
     {
         $path = $request->getUri()->getPath();
 
-        if ($cached = $this->db->fetchOne("SELECT * FROM `thumbnails` WHERE `name` = ?", [$path])) {
-            $body = $cached["body"];
-            $hash = $cached["hash"];
+        if ($cached = $this->db->cacheGet($path)) {
+            $body = $cached;
         } else {
             $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
             if (empty($file))
@@ -88,21 +87,16 @@ class Files extends CommonHandler
             if (!($body = $this->getImage($img)))
                 return $this->notfound($request);
 
-            $hash = md5($body);
-
-            $this->db->insert("thumbnails", [
-                "name" => $path,
-                "type" => "image/jpeg",
-                "body" => $body,
-                "hash" => $hash,
-            ]);
+            $dst = $_SERVER["DOCUMENT_ROOT"] . $path;
+            $dir = dirname($dst);
+            if (is_dir($dir) and is_writable($dir)) {
+                file_put_contents($dst, $body);
+            } else {
+                $this->db->cacheSet($path, $body);
+            }
         }
 
-        $dst = $_SERVER["DOCUMENT_ROOT"] . $path;
-        $dir = dirname($dst);
-        if (is_dir($dir) and is_writable($dir)) {
-            file_put_contents($dst, $body);
-        }
+        $hash = md5($body);
 
         return $this->sendCached($request, $body, $hash, "image/jpeg");
     }

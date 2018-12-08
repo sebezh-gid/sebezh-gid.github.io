@@ -52,7 +52,6 @@ $app->get('/i/photos/{id:[0-9]+}.jpg', '\App\Handlers\Files:onPhoto');
 // $app->get("/files", \App\Handlers\FileList::class . ":onGet");
 
 $app->get("/files/{name:.*}", '\App\Handlers\File');
-$app->get("/thumbnail/{name:.*}", \App\Handlers\Thumbnail::class . ":onGet");
 
 $app->get("/login", '\App\Handlers\Account:onGetLoginForm');
 $app->post("/login", '\App\Handlers\Account:onLogin');

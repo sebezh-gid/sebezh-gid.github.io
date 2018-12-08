@@ -143,17 +143,6 @@ class Database {
         return count($rows) > 0 ? $rows[0] : null;
     }
 
-    public function getThumbnail($name, $type)
-    {
-        $rows = $this->fetch("SELECT * FROM `thumbnails` WHERE `name` = ? AND `type` = ?", [$name, $type]);
-        return $rows ? $rows[0] : null;
-    }
-
-    public function saveThumbnail($name, $type, $body)
-    {
-        $this->query("INSERT INTO `thumbnails` (`name`, `type`, `body`, `hash`) VALUES (?, ?, ?, ?)", [$name, $type, $body, md5($body)]);
-    }
-
     public function shortAdd($russian, $english, $link)
     {
         $code = rand(1001, 9999);
@@ -382,5 +371,16 @@ class Database {
     public function rollback()
     {
         $this->connect()->rollback();
+    }
+
+    public function cacheSet($key, $value)
+    {
+        $now = time();
+        $this->query("REPLACE INTO `cache` (`key`, `added`, `value`) VALUES (?, ?, ?)", [$key, $now, $value]);
+    }
+
+    public function cacheGet($key)
+    {
+        return $this->fetchCell("SELECT `value` FROM `cache` WHERE `key` = ?", [$key]);
     }
 }

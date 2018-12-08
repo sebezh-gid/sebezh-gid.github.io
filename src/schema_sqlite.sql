@@ -49,15 +49,6 @@ CREATE INDEX IF NOT EXISTS IDX_files_uploaded ON files (uploaded);
 CREATE INDEX IF NOT EXISTS IDX_files_hash ON files (hash);
 
 
-CREATE TABLE IF NOT EXISTS `thumbnails` (
-    `name` TEXT PRIMARY KEY,
-    `type` TEXT,
-    `body` BLOB,
-    `hash` TEXT
-);
-CREATE INDEX IF NOT EXISTS IDX_thumbnails_type ON thumbnails (type);
-
-
 CREATE TABLE IF NOT EXISTS `shorts` (
     `id` INTEGER PRIMARY KEY,
     `created` DATETIME NOT NULL,
@@ -95,3 +86,10 @@ CREATE TABLE IF NOT EXISTS `odict` (
   `dst` TEXT NOT NULL
 );
 CREATE UNIQUE INDEX IF NOT EXISTS IDX_odict_src ON odict (src);
+
+
+CREATE TABLE IF NOT EXISTS `cache` (
+    `key` TEXT,
+    `value` BLOB
+);
+CREATE UNIQUE INDEX IF NOT EXISTS `IDX_cache_key` ON `cache` (`key`);
