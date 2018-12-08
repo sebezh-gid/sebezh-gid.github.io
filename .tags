@@ -259,6 +259,7 @@ getStats	src/App/Handlers/Database.php	/^    protected function getStats()$/;"	f
 getThumbnail	src/App/Database.php	/^    public function getThumbnail($name, $type)$/;"	f
 getWordBase	src/App/Stemmer.php	/^    public static function getWordBase($word)$/;"	f
 guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
+h	src/App/Handlers/Wiki.php	/^                $h = $_size[1];$/;"	v
 h	src/App/Handlers/Wiki.php	/^        $h = imagesy($img);$/;"	v
 h	src/dependencies.php	/^        $h = new \\App\\Handlers\\Error($c);$/;"	v
 h	src/dependencies.php	/^        $h = new \\App\\Handlers\\NotFound($c);$/;"	v
@@ -590,7 +591,6 @@ query	src/App/Search.php	/^                $query = "+" . str_replace(" ", " +",
 query	src/App/Search.php	/^        $query = $this->normalizeText($query);$/;"	v
 r	src/App/Handlers/Files.php	/^                $r = $iw \/ $ih;$/;"	v
 r	src/App/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
-rate	src/App/Handlers/Wiki.php	/^                $rate = $_size[0] \/ $_size[1];$/;"	v
 rate	src/App/Handlers/Wiki.php	/^                $rate = $w \/ $h;$/;"	v
 re	src/App/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($environment);$/;"	v
 receiveFile	src/App/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
@@ -793,6 +793,7 @@ url	src/App/Handlers/Upload.php	/^        $url = parse_url($link);$/;"	v
 url	src/App/Handlers/Wiki.php	/^            $url = $m[0];$/;"	v
 uuid	src/App/Common.php	/^    public static function uuid($body = null)$/;"	f
 v	src/App/Common.php	/^                    $v = trim($parts[1]);$/;"	v
+w	src/App/Handlers/Wiki.php	/^                $w = $_size[0];$/;"	v
 w	src/App/Handlers/Wiki.php	/^        $w = imagesx($img);$/;"	v
 wanted	src/App/Handlers/Wiki.php	/^        $wanted = null;$/;"	v
 wikiName	src/App/Common.php	/^    public static function wikiName($name)$/;"	f

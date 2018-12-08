@@ -668,7 +668,9 @@ class Wiki extends CommonHandler
                 $title = "File missing.";
 
                 $_size = getimagesize($_SERVER["DOCUMENT_ROOT"] . "/images/placeholder.png");
-                $rate = $_size[0] / $_size[1];
+                $w = $_size[0];
+                $h = $_size[1];
+                $rate = $w / $h;
             } elseif ($info["kind"] != "photo") {
                 return "<!-- file {$fileid} is not an image -->";
             } else {
