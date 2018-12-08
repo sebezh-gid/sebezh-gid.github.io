@@ -36,6 +36,36 @@ jQuery(function ($) {
             this.selectionEnd = e + 3;
         }
 
+        // Bold.
+        if (e.ctrlKey && e.key == 'b') {
+            var v = this.value,
+                s = this.selectionStart,
+                e = this.selectionEnd;
+
+            var src = v.substring(s, e);
+            if (src == "") {
+                console.log("empty selection");
+            }
+
+            else if (v[s] == "*") {
+                console.log("already bold");
+            }
+
+            else if (s > 0 && v[s-1] == "*") {
+                console.log("already bold");
+            }
+
+            else {
+                v = v.substring(0, s) + "**" + v.substring(s, e) + "**" + v.substring(e);
+                this.value = v;
+                this.selectionStart = s;
+                this.selectionEnd = e + 4;
+                console.log("making bold");
+            }
+
+            return false;
+        }
+
         // Make itemized list from selected lines
         if (e.altKey && e.key == "-") {
             var v = this.value,
