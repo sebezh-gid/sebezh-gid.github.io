@@ -902,7 +902,7 @@ main textarea.wiki {
   font-family: monospace;
   line-height: 1.5em;
   border: solid 1px #ccc;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 200px);
 }
 main pre {
     border: solid 1px #eee;
