@@ -666,7 +666,8 @@ class Wiki extends CommonHandler
                 $large = "/images/placeholder.png";
                 $title = "File missing.";
 
-                $_size = getimagesize($_SERVER["DOCUMENT_ROOT"] . "/images/placeholder.png");
+                $root = __DIR__ . "/../../../public";
+                $_size = getimagesize($root . "/images/placeholder.png");
                 $w = $_size[0];
                 $h = $_size[1];
                 $rate = $w / $h;
