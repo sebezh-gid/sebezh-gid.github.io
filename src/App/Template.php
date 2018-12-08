@@ -49,14 +49,7 @@ class Template
         }));
 
         $this->twig->addFilter(new \Twig\TwigFilter("typo", function ($text) {
-            // Обрабатываем только текст между тэгами.
-            $text = preg_replace_callback('@>([^<]+)<@', function ($m) {
-                $html = $m[1];
-                $html = \App\Util::typo($html);
-                return ">" . $html . "<";
-            }, $text);
-
-            return $text;
+            return \App\Util::typo($text);
         }, array("is_safe" => array("html"))));
     }
 
