@@ -4,6 +4,7 @@ return [
     "public/libs.css" => [
         "assets/fonts/pt-sans.css",
         "assets/fontawesome/all.min.css",
+        "assets/fonts/fira.css",
         "assets/fancybox/jquery.fancybox.min.css",
         // "assets/jquery/jquery-ui.min.css",
         "assets/leaflet/leaflet.css",
@@ -19,6 +20,8 @@ return [
         "assets/wiki.css",
         "assets/layout.css",
         "assets/tables.css",
+        "assets/header.css",
+        "assets/footer.css",
         "assets/forms.css",
         "assets/maps.css",
         "assets/sidebar.css",
@@ -42,6 +45,7 @@ return [
     "public/app.js" => [
         "assets/async.js",
         "assets/wiki.js",
+        "assets/header.js",
         "assets/files.js",
         "assets/hotkeys.js",
         "assets/dialogs.js",

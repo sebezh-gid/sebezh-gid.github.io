@@ -127,15 +127,35 @@ jQuery(function ($) {
         }
     });
 
+    // Show search on slash.
     $(document).on("keydown", function (e) {
+        var a = $(document.activeElement);
+
         if (e.keyCode == 191) {
-            var a = $(document.activeElement);
-            if (!a.is("input.search") && !a.is("input") && !a.is("textarea")) {
+            if (!a.is("input") && !a.is("textarea")) {
                 console.log(e.keyCode);
                 e.preventDefault();
-                $("input.search:first").focus();
+                $("#showsearch").click();
+                // $("input.search:first").focus();
                 return false;
             }
+        }
+
+        else if (e.keyCode == 27) {
+            if (a.is("input.search")) {
+                e.preventDefault();
+                $("header button[type=reset]").click();
+            }
+        }
+
+        else if (e.keyCode == 61) {
+            if (!a.is("input") && !a.is("textarea")) {
+                $("header #showmap").click();
+            }
+        }
+
+        else {
+            // console.log(e.keyCode);
         }
     });
 });

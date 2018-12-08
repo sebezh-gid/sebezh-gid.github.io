@@ -23,49 +23,73 @@
         <title>{% block page_title %}{% if title %}{{ title }}{% else %}Wiki{% endif %} — {{ strings.site_name }}{% endblock %}</title>
     </head>
     <body>
-        {% if false %}
-            <header>
-                <div class="wrapper">
-                    <h1><a href="/wiki?name=Введение">Гид по <b>Себежу</b></a></h1>
-                    <ul>
-                        <li><a href="/wiki?name=Список+мест">Места</a></li>
-                        <li><a href="/wiki?name=Чем+заняться">Занятия</a></li>
-                        <li><a href="/wiki?name=Куда+сходить">Афиша</a></li>
+        <header>
+            <div class="sep">
+                <div id="hlinks" class="corsette">
+                    <ul class="links">
+                        <li><a class="logo" href="/wiki?name=Введение"><strong>Гид по Себежу</strong></a></li>
+                        <li class="toggle"><a href="/wiki?name=История+Себежа">История</a></li>
+                        <li class="toggle"><a href="/wiki?name=Природа">Природа</a></li>
+                        <li class="toggle"><a href="/wiki?name=Культура">Культура</a></li>
+                        <li class="toggle"><a href="/wiki?name=Куда+сходить">Гид</a></li>
+                        <li class="toggle hidden">
+                            <form method="get" action="/search">
+                                <input class="search" type="text" name="search" placeholder="Поиск по сайту..." autocomplete="off"/>
+                                <button type="reset"><i class="fas fa-times"></i></button>
+                            </form>
+                        </li>
                     </ul>
-                    <ul class="last">
-                        <li><a href="/wiki?name=Welcome">ENGLISH</a></li>
+                    <ul class="buttons">
+                        <li><a id="showsearch" href="/search"><i class="fas fa-search"></i></a></li>
+                        <li><a id="showmap" href="/wiki?name=Карта+сайта"><i class="fas fa-bars"></i></a></li>
                     </ul>
                 </div>
-            </header>
-        {% endif %}
+            </div>
+            <div id="hmap" class="corsette">
+                <ul class>
+                    <li><a href="/wiki?name=Как+добраться">Как добраться</a></li>
+                    <li><a href="/wiki?name=Куда+сходить">Куда сходить</a></li>
+                    <li><a href="/wiki?name=Где+остановиться">Где остановиться</a></li>
+                    <li><a href="/wiki?name=Список+людей">Интересные люди</a></li>
+                </ul>
+                <ul class>
+                    <li><a href="/wiki?name=Достопримечательности">Достопримечательности</a></li>
+                    <li><a href="/wiki?name=Где+поесть">Где поесть</a></li>
+                    <li><a href="/wiki?name=Ночная+жизнь">Ночная жизнь</a></li>
+                    <li><a href="/wiki?name=Меры+предосторожности">Меры предосторожности</a></li>
+                </ul>
+                <ul class>
+                    <li><a href="/wiki?name=Себеж">Себеж</a></li>
+                    <li><a href="/wiki?name=Себежский+район">Себежский район</a></li>
+                    <li><a href="/wiki?name=Себежский+национальный+парк">Национальный парк</a></li>
+                    <li><a href="/wiki?name=Озёра">Озёра</a></li>
+                </ul>
+                <ul class>
+                    <li><a href="/wiki?name=О+сайте">О сайте</a></li>
+                    <li><a href="/wiki?name=Редакторам">Прислать информацию</a></li>
+                    <li><a href="/wiki?name=Лента+обновлений">Лента обновлений</a></li>
+                    <li><a href="/wiki/index">Все страницы</a></li>
+                </ul>
+            </div>
+        </header>
 
-        <div class="container">
-            <aside>
-                {% if wiki_sidebar %}
-                    {{ wiki_sidebar|raw }}
-                {% else %}
-                    <p>Edit sidebar <a href="/wiki/edit?name=wiki:sidebar&amp;back={{ path }}">here</a>.
-                {% endif %}
-            </aside>
+        <main class="container" role="main">
+            <div class="row"{% if page %} itemscope itemtype="http://schema.org/Article"{% endif %}>
+                <div class="col-md-12">
+                    {% block page_header %}
+                        <div class="page-header">
+                            <h1>{% block page_h1 %}{% if title %}{{ title }}{% else %}It Works!{% endif %}{% endblock %}</h1>
+                        </div>
+                    {% endblock %}
 
-            <main class="container" role="main">
-                <div class="row"{% if page %} itemscope itemtype="http://schema.org/Article"{% endif %}>
-                    <div class="col-md-12">
-                        {% block page_header %}
-                            <div class="page-header">
-                                <h1>{% block page_h1 %}{% if title %}{{ title }}{% else %}It Works!{% endif %}{% endblock %}</h1>
-                            </div>
-                        {% endblock %}
-
-                        {% block page_contents %}
-                            <p>На этой странице пусто.</p>
-                        {% endblock %}
-                    </div>
+                    {% block page_contents %}
+                        <p>На этой странице пусто.</p>
+                    {% endblock %}
                 </div>
-            </main>
-        </div>
+            </div>
+        </main>
 
-        <footer>
+        <footer class="corsette">
             {% if not wiki_footer %}
                 <p>Установите подвал по <a href="/wiki/edit?name=wiki:footer&amp;back={{ path }}">этой ссылке</a>.</p>
             {% else %}

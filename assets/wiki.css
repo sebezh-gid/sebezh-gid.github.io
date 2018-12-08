@@ -1,56 +1,10 @@
 body {
-    background-color: #f6f6f6;
-    color: #4d4d4d;
-    font: 16px/1.35 "PT Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    width: 100%;
-    border-bottom: solid 1px #ccc;
     background-color: #fff;
-}
-header .wrapper {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 15px;
-    line-height: 40px;
-    height: 40px;
-}
-header h1 {
-    display: inline-block;
-    font-size: 20px !important;
-    text-transform: uppercase;
+    color: #333;
+    font: 16px/1.35 "Fira Sans", "PT Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-weight: 400;
     margin: 0;
     padding: 0;
-    font-weight: bold;
-    letter-spacing: 0;
-    width: 160px;
-}
-header a {
-    text-decoration: none;
-    color: #000;
-}
-header b {
-    color: #080;
-}
-header ul {
-    display: inline-block;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    vertical-align: top;
-}
-header li {
-    display: inline-block;
-    margin: 0 0 0 40px;
-    vertical-align: top;
-}
-header .last {
-    float: right;
 }
 
 .row {
@@ -109,22 +63,6 @@ header .last {
 .submenu a {
   display: inline-block;
   margin: 0 10px 0 0;
-}
-
-.page-header {
-  border-bottom: 1px solid #ddd;
-  margin: 0 0 20px;
-}
-.page-header h1 {
-  margin: 0 0 5px;
-  font-size: 29px;
-  font-weight: normal;
-  line-height: 1.3em;
-}
-.page-header p.lead {
-    font-size: 125%;
-    line-height: 150%;
-    margin: -5px 0 10px;
 }
 
 .clear {
@@ -288,14 +226,6 @@ margin-bottom:2em;
   text-decoration: none;
 }
 
-.footer {
-margin:1em 0;
-padding:15px;
-color:#666866;
-/*border-top: 1px solid #ccd4cc;*/
-text-align: right;
-}
-
 div.sidebox{
 padding-left: 10px !important;
 border: none !important;
@@ -322,50 +252,6 @@ white-space: nowrap;
 
 .timelineTime {
 color: #666866;
-}
-
-.header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-}
-
-.title-header {
-  float: left;
-}
-
-.header .title {
-  display: none;
-}
-
-.page-title {
-  position: absolute;
-  top: 60px;
-  left: 15px;
-  height: 30px;
-  line-height: 30px;
-  margin: 0;
-  padding: 0;
-  color: #000;
-
-  font-size: 28px;
-  font-weight: normal;
-
-}
-body.wiki .page-title {
-  display: none;
-}
-body.wiki h1 {
-  font-size: 29px;
-  font-weight: normal;
-  line-height: 1.3em;
-  border-bottom: 1px solid #ddd;
-  margin: 0 0 20px;
 }
 
 .content {
@@ -981,23 +867,10 @@ h4 a[name] {
     text-align: center;
 }
 
-.container {
-    padding: 0 0 0 10px;
-}
 main.container {
     min-height: calc(100vh - 140px);
 }
 
-main {
-    background-color: #fff;
-    color: #222;
-    margin-left: 160px;
-    border-left: 1px solid #a7d7f9;
-    border-bottom: 1px solid #a7d7f9;
-}
-main.container {
-    padding: 10px 15px 30px 15px;
-}
 main h2 {
     font-size: 21px;
     font-weight: normal;
@@ -1045,21 +918,6 @@ main p.lang {
     margin-left: 2em;
 }
 
-footer {
-    font-size: 13px;
-    padding: 0;
-    margin: 30px 0 15px 185px;
-}
-footer ul#places {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-footer ul#places li {
-    display: inline-block;
-    margin: 0 10px 0 0;
-}
-
 .ui-widget-overlay {
     background-color: #000 !important;
     opacity: .5 !important;
@@ -1079,16 +937,6 @@ table.grid thead th {
 }
 table.grid tbody td {
     border: solid 1px #ccc;
-}
-
-.page-header .icons {
-    font-size: 1.5em;
-    float: right;
-    margin-right: -5px;
-}
-.page-header .icons a {
-    color: inherit;
-    padding: 0 5px;
 }
 
 form.search {

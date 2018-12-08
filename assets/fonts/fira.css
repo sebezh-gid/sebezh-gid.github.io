@@ -1,0 +1,33 @@
+/**
+ * https://mozilla.github.io/Fira/
+ * https://github.com/bBoxType/FiraSans
+ **/
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Fira Sans'),
+        url('/fonts/FiraSans-Light.woff2') format('woff2'),
+        url('/fonts/FiraSans-Light.woff') format('woff'),
+        url('/fonts/FiraSans-Light.eot') format ('embedded-opentype');
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Fira Sans'),
+        url('/fonts/FiraSans-Regular.woff2') format('woff2'),
+        url('/fonts/FiraSans-Regular.woff') format('woff'),
+        url('/fonts/FiraSans-Regular.eot') format ('embedded-opentype');
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 800;
+    src: local('Fira Sans'),
+        url('/fonts/FiraSans-Bold.woff2') format('woff2'),
+        url('/fonts/FiraSans-Bold.woff') format('woff'),
+        url('/fonts/FiraSans-Bold.eot') format ('embedded-opentype');
+}
