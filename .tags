@@ -53,6 +53,7 @@ _marks	src/App/Database.php	/^        $_marks = implode(", ", $_marks);$/;"	v
 _params	src/App/Database.php	/^        $_params = [];$/;"	v
 _set	src/App/Database.php	/^        $_set = [];$/;"	v
 _set	src/App/Database.php	/^        $_set = implode(", ", $_set);$/;"	v
+_size	src/App/Handlers/Wiki.php	/^                $_size = getimagesize($_SERVER["DOCUMENT_ROOT"] . "\/images\/placeholder.png");$/;"	v
 _where	src/App/Database.php	/^        $_where = [];$/;"	v
 _where	src/App/Database.php	/^        $_where = implode(" AND ", $_where);$/;"	v
 acc	src/App/Handlers/Account.php	/^        $acc = $this->db->fetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);$/;"	v
@@ -380,6 +381,7 @@ label	src/App/Handlers/Wiki.php	/^                $label = $parts[1];$/;"	v
 label	src/App/Handlers/Wiki.php	/^            $label = $m[1];$/;"	v
 lang	src/App/CommonHandler.php	/^        $lang = $data["language"];$/;"	v
 lang	src/App/Template.php	/^        $lang = $dlang = isset($this->defaults["language"]) ? $this->defaults["language"] : "en";$/;"	v
+large	src/App/Handlers/Wiki.php	/^                $large = "\/images\/placeholder.png";$/;"	v
 large	src/App/Handlers/Wiki.php	/^            $large = "\/i\/photos\/{$fileId}.jpg";$/;"	v
 lastUpdate	src/App/Handlers/Wiki.php	/^        $lastUpdate = $this->db->fetchCell("SELECT MAX(updated) FROM `pages`");$/;"	v
 lat	src/App/Handlers/Maps.php	/^            $lat = $lng = [];$/;"	v
@@ -588,7 +590,8 @@ query	src/App/Search.php	/^                $query = "+" . str_replace(" ", " +",
 query	src/App/Search.php	/^        $query = $this->normalizeText($query);$/;"	v
 r	src/App/Handlers/Files.php	/^                $r = $iw \/ $ih;$/;"	v
 r	src/App/Handlers/Thumbnail.php	/^                $r = $iw \/ $ih;$/;"	v
-rate	src/App/Handlers/Wiki.php	/^            $rate = $w \/ $h;$/;"	v
+rate	src/App/Handlers/Wiki.php	/^                $rate = $_size[0] \/ $_size[1];$/;"	v
+rate	src/App/Handlers/Wiki.php	/^                $rate = $w \/ $h;$/;"	v
 re	src/App/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($environment);$/;"	v
 receiveFile	src/App/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
 recent	src/App/Handlers/Short.php	/^        $recent = $this->db->shortsGetRecent();$/;"	v
@@ -701,6 +704,7 @@ shortsGetByCode	src/App/Database.php	/^    public function shortsGetByCode($code
 shortsGetRecent	src/App/Database.php	/^    public function shortsGetRecent()$/;"	f
 sid	src/App/CommonHandler.php	/^            $sid = \\App\\Common::uuid();$/;"	v
 sid	src/App/CommonHandler.php	/^        $sid = $this->sessionGetId();$/;"	v
+small	src/App/Handlers/Wiki.php	/^                $small = "\/images\/placeholder.png";$/;"	v
 small	src/App/Handlers/Wiki.php	/^            $small = "\/i\/thumbnails\/{$fileId}.jpg";$/;"	v
 snippet	src/App/Handlers/Wiki.php	/^            $snippet = $this->getPageSnippet($page);$/;"	v
 sort	src/App/Handlers/Wiki.php	/^        $sort = $request->getParam("sort");$/;"	v
@@ -749,6 +753,7 @@ text	src/App/Template.php	/^            $text = preg_replace_callback('@>([^<]+)
 text	src/App/Util.php	/^                $text = implode("\\r\\n", $lines);$/;"	v
 text	src/App/Util.php	/^        $text = $page["source"];$/;"	v
 title	src/App/Handlers/Wiki.php	/^                    $title = htmlspecialchars($n[1]);$/;"	v
+title	src/App/Handlers/Wiki.php	/^                $title = "File missing.";$/;"	v
 title	src/App/Handlers/Wiki.php	/^                $title = "Нет такой страницы";$/;"	v
 title	src/App/Handlers/Wiki.php	/^            $title = "untitled";$/;"	v
 title	src/App/Handlers/Wiki.php	/^            $title = $link;$/;"	v

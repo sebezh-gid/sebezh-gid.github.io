@@ -1,7 +1,7 @@
 a.image {
     display: inline-block;
     line-height: 0;
-    margin-right: 1px;
+    margin-right: 5px;
 }
 a.image.right {
     float: right;

@@ -656,18 +656,29 @@ class Wiki extends CommonHandler
             $parts = explode(":", $m[1]);
             $fileId = array_shift($parts);
 
+            $small = "/i/thumbnails/{$fileId}.jpg";
+            $large = "/i/photos/{$fileId}.jpg";
+            $page = "/wiki?name=File:{$fileId}";
+            $title = "untitled";
+
             $info = $this->db->fetchOne("SELECT `id`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fileId]);
-            if (empty($info))
-                return "<!-- file {$fileid} does not exist -->";
-            elseif ($info["kind"] != "photo")
+            if (empty($info)) {
+                $small = "/images/placeholder.png";
+                $large = "/images/placeholder.png";
+                $title = "File missing.";
+
+                $_size = getimagesize($_SERVER["DOCUMENT_ROOT"] . "/images/placeholder.png");
+                $rate = $_size[0] / $_size[1];
+            } elseif ($info["kind"] != "photo") {
                 return "<!-- file {$fileid} is not an image -->";
+            } else {
+                list($w, $h) = $this->getImageSize($fileId);
+                $rate = $w / $h;
+            }
 
             $className = "image";
             $iw = "auto";
             $ih = "auto";
-
-            list($w, $h) = $this->getImageSize($fileId);
-            $rate = $w / $h;
 
             foreach ($parts as $part) {
                 if (preg_match('@^width=(\d+)$@', $part, $m)) {
@@ -689,11 +700,6 @@ class Wiki extends CommonHandler
                 $ih = "150px";
                 $iw = round(150 * $rate) . "px";
             }
-
-            $small = "/i/thumbnails/{$fileId}.jpg";
-            $large = "/i/photos/{$fileId}.jpg";
-            $page = "/wiki?name=File:{$fileId}";
-            $title = "untitled";
 
             $res["images"][] = [
                 "src" => $large,

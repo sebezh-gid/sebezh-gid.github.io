@@ -20,10 +20,14 @@ flush-remote:
 
 pull-data:
 	ssh $(REMOTE) mysqldump sebgid | pv > data/remote.sql
-	mysql < remote.sql
+	mysql < data/remote.sql
 
 pull-files:
 	php -f tools/cli.php pull-files
+
+pull-pages:
+	ssh $(REMOTE) mysqldump sebgid pages history backlinks map_poi map_tags | pv > data/pages.sql
+	mysql < data/pages.sql
 
 reindex:
 	php -f tools/cli.php reindex
