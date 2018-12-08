@@ -100,13 +100,18 @@ jQuery(function ($) {
                 "нацпарк": "Себежский национальный парк",
                 "нацпарка": "Себежский национальный парк",
                 "национального парка": "Себежский национальный парк",
-                "РКЦ": "Районный культурный центр"
+                "ркц": "Районный культурный центр"
             };
 
             var v = this.value,
                 s = this.selectionStart,
                 e = this.selectionEnd,
                 x = v.substring(s, e);
+
+            if (s > 0 && v[s-1] == '[') {
+                console.log("already linked");
+                return false;
+            }
 
             // Autocorrect things.
             var _x = x.toLowerCase();
