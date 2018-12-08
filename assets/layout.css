@@ -21,6 +21,10 @@ main.container {
     padding-right: 10px;
 }
 
+main.container {
+    min-height: calc(100vh - 220px);
+}
+
 .hidden {
     display: none;
 }

@@ -867,10 +867,6 @@ h4 a[name] {
     text-align: center;
 }
 
-main.container {
-    min-height: calc(100vh - 140px);
-}
-
 main h2 {
     font-size: 21px;
     font-weight: normal;
