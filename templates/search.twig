@@ -24,7 +24,7 @@
             {% endif %}
             <p class="title"><a href="{{ res.link }}">{{ res.title }}</a></p>
             {% if res.snippet %}
-                <p class="snippet">{{ res.snippet }}</p>
+                <p class="snippet">{{ res.snippet|typo }}</p>
             {% else %}
                 <p class="snippet">Описание этой страницы отсутствует.</p>
             {% endif %}

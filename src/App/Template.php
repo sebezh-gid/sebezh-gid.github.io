@@ -52,12 +52,7 @@ class Template
             // Обрабатываем только текст между тэгами.
             $text = preg_replace_callback('@>([^<]+)<@', function ($m) {
                 $html = $m[1];
-
-                $html = preg_replace('@\s+--\s+@', '&nbsp;— ', $html);
-                $html = preg_replace('@\.  @', '.&nbsp; ', $html);
-
-                $html = preg_replace('@(По|Во|При|Из)\s+@', '\1 ', $html);
-                $html = preg_replace('@\s+(по|во|в|на|под|при|из|вы|с|к)\s+@', ' \1 ', $html);
+                $html = \App\Util::typo($html);
                 return ">" . $html . "<";
             }, $text);
 

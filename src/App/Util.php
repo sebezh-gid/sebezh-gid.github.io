@@ -4,6 +4,11 @@ namespace App;
 
 class Util
 {
+    /**
+     * Clean up the HTML structure from useless white spaces.
+     *
+     * Text typography is done in the typo twig filter.
+     **/
     public static function cleanHtml($html)
     {
         // See also the |type markdown filter.
@@ -19,24 +24,22 @@ class Util
         $html = preg_replace('@</a>\s+@', '</a> ', $html);
         $html = preg_replace('@\s+</a>@', ' </a>', $html);
 
-        // Типографику обрабатываем только внутри страницы.
-        $html = preg_replace_callback('@<body.+</body>@ms', function ($m) {
-            $html = $m[0];
+        return $html;
+    }
 
-            // Подклеиваем висячие предлоги и союзы.
-            $html = preg_replace('@\s+(по|во|о|об|от|но|в|на|под|при|из|вы|с|к|и|или|а|для)\s+@ui', ' \1 ', $html);
+    public static function typo($html)
+    {
+        // Подклеиваем висячие предлоги и союзы.
+        $html = preg_replace('@\s+(по|во|о|об|от|но|в|на|под|при|из|вы|с|к|и|или|а|для)\s+@ui', ' \1&nbsp;', $html);
 
-            // Подклеиваем единицы измерения.
-            $html = preg_replace('@(\d)\s+(га|км|м|шт)@', '\1 \2', $html);
+        // Подклеиваем единицы измерения.
+        $html = preg_replace('@(\d)\s+(га|км|м|шт)@', '\1&nbsp;\2', $html);
 
-            // Добавляем двойные пробелы в концы предложений.
-            $html = preg_replace('@([.?!])\s+@', '\1  ', $html);
+        // Добавляем двойные пробелы в концы предложений.
+        $html = preg_replace('@([.?!])\s+@', '\1  ', $html);
 
-            // Правим и подклеиваем двойные тире.
-            $html = preg_replace('@\s+--\s+@', ' — ', $html);
-
-            return $html;
-        }, $html);
+        // Правим и подклеиваем двойные тире.
+        $html = preg_replace('@\s+--\s+@', ' — ', $html);
 
         return $html;
     }

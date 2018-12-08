@@ -299,25 +299,20 @@ html	src/App/Parser.php	/^        $html = preg_replace('@\\s+--\\s+@', '&nbsp;�
 html	src/App/Parser.php	/^        $html = preg_replace_callback('@<h1>(.+)<\/h1>@', function ($m) use (&$props) {$/;"	v
 html	src/App/Parser.php	/^        $html = preg_replace_callback('@\\[\\[(.+?)\\]\\]@', function ($m) {$/;"	v
 html	src/App/Template.php	/^                $html = $m[1];$/;"	v
-html	src/App/Template.php	/^                $html = preg_replace('@(По|Во|При|Из)\\s+@', '\\1 ', $html);$/;"	v
-html	src/App/Template.php	/^                $html = preg_replace('@\\.  @', '.&nbsp; ', $html);$/;"	v
-html	src/App/Template.php	/^                $html = preg_replace('@\\s+(по|во|в|на|под|при|из|вы|с|к)\\s+@', ' \\1 ', $html);$/;"	v
-html	src/App/Template.php	/^                $html = preg_replace('@\\s+--\\s+@', '&nbsp;— ', $html);$/;"	v
+html	src/App/Template.php	/^                $html = \\App\\Util::typo($html);$/;"	v
 html	src/App/Template.php	/^            $html = \\Wik\\Common::renderMarkdown($src);$/;"	v
 html	src/App/Template.php	/^        $html = $template->render($data);$/;"	v
 html	src/App/Template.php	/^        $html = $this->renderFile($fileName, $data);$/;"	v
 html	src/App/Template.php	/^        $html = \\App\\Util::cleanHtml($html);$/;"	v
-html	src/App/Util.php	/^            $html = $m[0];$/;"	v
-html	src/App/Util.php	/^            $html = preg_replace('@([.?!])\\s+@', '\\1  ', $html);$/;"	v
-html	src/App/Util.php	/^            $html = preg_replace('@(\\d)\\s+(га|км|м|шт)@', '\\1 \\2', $html);$/;"	v
-html	src/App/Util.php	/^            $html = preg_replace('@\\s+(по|во|о|об|от|но|в|на|под|при|из|вы|с|к|и|или|а|для)\\s+@ui', ' \\1 ', $html);$/;"	v
-html	src/App/Util.php	/^            $html = preg_replace('@\\s+--\\s+@', ' — ', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace($re = '@\\s*<(' . $all . '|!--)([^>]*>)\\s*@', '<\\1\\2', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@([.?!])\\s+@', '\\1  ', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@(\\d)\\s+(га|км|м|шт)@', '\\1&nbsp;\\2', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@<\/a>\\s+@', '<\/a> ', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s*<\/(' . $all . ')>\\s*@ms', '<\/\\1>', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@\\s+(по|во|о|об|от|но|в|на|под|при|из|вы|с|к|и|или|а|для)\\s+@ui', ' \\1&nbsp;', $html);$/;"	v
+html	src/App/Util.php	/^        $html = preg_replace('@\\s+--\\s+@', ' — ', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/([a-z0-9]+)>@', '<\/\\1>', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $html);$/;"	v
-html	src/App/Util.php	/^        $html = preg_replace_callback('@<body.+<\/body>@ms', function ($m) {$/;"	v
 id	src/App/Database.php	/^        $id = $this->insert("files", [$/;"	v
 id	src/App/Handlers/Maps.php	/^                $id = $form["id"];$/;"	v
 id	src/App/Handlers/Maps.php	/^                $id = $this->db->insert("map_poi", [$/;"	v
@@ -756,6 +751,7 @@ type	src/App/Handlers/Wiki.php	/^                    $type = explode(";", $type)
 type	src/App/Handlers/Wiki.php	/^                    $type = mime_content_type($src);$/;"	v
 type	src/App/Handlers/Wiki.php	/^                $type = $file["headers"]["content-type"];$/;"	v
 type	src/App/Handlers/Wiki.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v
+typo	src/App/Util.php	/^    public static function typo($html)$/;"	f
 update	src/App/Database.php	/^    public function update($tableName, array $fields, array $where)$/;"	f
 updatePageHtml	src/App/Database.php	/^    public function updatePageHtml($pageName, $html)$/;"	f
 updated	src/App/Database.php	/^        $updated = strftime("%Y-%m-%d %H:%M:%S");$/;"	v
