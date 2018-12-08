@@ -309,7 +309,9 @@ html	src/App/Template.php	/^        $html = $this->renderFile($fileName, $data);
 html	src/App/Template.php	/^        $html = \\App\\Util::cleanHtml($html);$/;"	v
 html	src/App/Util.php	/^            $html = $m[0];$/;"	v
 html	src/App/Util.php	/^            $html = preg_replace('@([.?!])\\s+@', '\\1  ', $html);$/;"	v
+html	src/App/Util.php	/^            $html = preg_replace('@(\\d)\\s+(га|км|м|шт)@', '\\1 \\2', $html);$/;"	v
 html	src/App/Util.php	/^            $html = preg_replace('@\\s+(по|во|о|об|от|но|в|на|под|при|из|вы|с|к|и|или|а|для)\\s+@ui', ' \\1 ', $html);$/;"	v
+html	src/App/Util.php	/^            $html = preg_replace('@\\s+--\\s+@', ' — ', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace($re = '@\\s*<(' . $all . '|!--)([^>]*>)\\s*@', '<\\1\\2', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@<\/a>\\s+@', '<\/a> ', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s*<\/(' . $all . ')>\\s*@ms', '<\/\\1>', $html);$/;"	v
