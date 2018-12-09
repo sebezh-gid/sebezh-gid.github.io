@@ -267,6 +267,8 @@ hash	src/App/Handlers/Files.php	/^        $hash = $file["hash"];$/;"	v
 hash	src/App/Handlers/Files.php	/^        $hash = md5($body);$/;"	v
 hash	src/App/Handlers/Short.php	/^        $hash = empty($file["hash"])$/;"	v
 hash	src/App/Handlers/Upload.php	/^        $hash = md5($body);$/;"	v
+hash	src/App/Handlers/Wiki.php	/^                $hash = "";$/;"	v
+hash	src/App/Handlers/Wiki.php	/^                $hash = "#" . $parts[1];$/;"	v
 hash	src/App/UploadHandler.php	/^        $hash = md5($res["body"]);$/;"	v
 headers	src/App/Handlers/Files.php	/^        $headers = $request->getHeaders();$/;"	v
 headers	src/App/Handlers/Wiki.php	/^        $headers = $request->getHeaders();$/;"	v
@@ -285,7 +287,7 @@ html	src/App/Handlers/Wiki.php	/^                $html = "<div id='map_{$id}' cl
 html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' title='{$title}'>";$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $this->renderHTML($request, "wiki-page.twig", [$/;"	v
-html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s' class='wiki %s' title='%s'>%s<\/a>", urlencode($link), $cls, htmlspecialchars($title), htmlspecialchars($label));$/;"	v
+html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s%s' class='wiki %s' title='%s'>%s<\/a>", urlencode($link), $hash, $cls, htmlspecialchars($title), htmlspecialchars($label));$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderMarkdown($source);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderTOC($html);$/;"	v

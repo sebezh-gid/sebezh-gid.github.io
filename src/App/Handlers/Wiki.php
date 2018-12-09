@@ -675,6 +675,13 @@ class Wiki extends CommonHandler
                 $label = $parts[1];
             }
 
+            if (count($parts = explode("#", $link, 2)) == 2) {
+                $link = $parts[0];
+                $hash = "#" . $parts[1];
+            } else {
+                $hash = "";
+            }
+
             $cls = "good";
             $title = $link;
 
@@ -685,7 +692,7 @@ class Wiki extends CommonHandler
                 $title = "Нет такой страницы";
             }
 
-            $html = sprintf("<a href='/wiki?name=%s' class='wiki %s' title='%s'>%s</a>", urlencode($link), $cls, htmlspecialchars($title), htmlspecialchars($label));
+            $html = sprintf("<a href='/wiki?name=%s%s' class='wiki %s' title='%s'>%s</a>", urlencode($link), $hash, $cls, htmlspecialchars($title), htmlspecialchars($label));
 
             return $html;
         }, $source);
