@@ -31,6 +31,7 @@ http://sebezh-resource.ru/blogs/?page_id=12459
 http://foto-planeta.com/photo/771687.html
 http://tcdni.ru/pier/exhb22
 https://sites.google.com/site/mikheevgennady/pisma-iz-glubinki/pisma-iz-glubinki-3/vkrug-zamkovoj-gory
+http://www.gtrkpskov.ru/news-feed/news/513168-novyj-pamyatnik-soldatu-osvoboditelyu-ustanovili-segodnya-v-derevne-staritsy-sebezhskogo-rajona.html
 
 оформление:
 - https://gohugo.io/
