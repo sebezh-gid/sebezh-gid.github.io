@@ -37,7 +37,7 @@ jQuery(function ($) {
         }
 
         // Bold.
-        if (e.ctrlKey && e.key == 'b') {
+        if (e.ctrlKey && e.keyCode == 66) {
             var v = this.value,
                 s = this.selectionStart,
                 e = this.selectionEnd;
