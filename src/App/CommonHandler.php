@@ -195,4 +195,58 @@ class CommonHandler
             ];
         }, $this->fts->search($query));
     }
+
+    /**
+     * Send some text to the error log.
+     *
+     * Handles multiline output, prefixes.
+     **/
+    protected function log()
+    {
+        $args = func_get_args();
+        $text = call_user_func_array("sprintf", $args);
+
+        if (preg_match('@^([^:]+:\s*)@', $text, $m)) {
+            $prefix = $m[0];
+            $text = substr($text, strlen($prefix));
+        } else {
+            $prefix = "";
+        }
+
+        $text = str_replace("\r\n", "\n", $text);
+        $lines = preg_split('@\n@', $text, -1, PREG_SPLIT_NO_EMPTY);
+
+        $lines = array_map(function ($line) use ($prefix) {
+            return $prefix . $line;
+        }, $lines);
+
+        foreach ($lines as $line)
+            error_log($line);
+    }
+
+    protected function taskAdd($url, $args = [], $priority = 0)
+    {
+        try {
+            if ($args) {
+                $qs = [];
+                foreach ($args as $k => $v)
+                    $qs[] = urlencode($k) . '=' . urlencode($v);
+                $url .= "?" . implode("&", $qs);
+            }
+
+            $now = time();
+
+            $this->db->insert("tasks", [
+                "url" => $url,
+                "priority" => $priority,
+                "created" => $now,
+                "attempts" => 0,
+                "run_after" => $now,
+            ]);
+
+            $this->log("DBG tasks: scheduled %s", $url);
+        } catch (\Exception $e) {
+            $this->log("ERR tasks: error scheduling %s", $url);
+        }
+    }
 }
