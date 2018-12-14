@@ -212,7 +212,10 @@ class Maps extends CommonHandler
                 $h = self::PIC_HEIGHT;
                 $w = round($h * $r);
             } elseif (file_exists($fp = $_SERVER["DOCUMENT_ROOT"] . $attrs["src"])) {
-                debug($attrs);
+                $size = getimagesize($fp);
+                $r = $size[0] / $size[1];
+                $h = self::PIC_HEIGHT;
+                $w = round($h * $r);
             } elseif (preg_match('@^/i/thumbnails/(\d+)\.jpg$@', $attrs["src"], $m)) {
                 $body = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$m[1]]);
                 if ($body) {
