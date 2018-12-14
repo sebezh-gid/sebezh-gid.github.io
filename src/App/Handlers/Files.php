@@ -16,8 +16,8 @@ class Files extends CommonHandler
 {
     public function onGetRecent(Request $request, Response $response, array $args)
     {
-        $files = $this->db->fetch("SELECT `id`, `hash`, `real_name`, `kind`, `type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {
-            $type = explode("/", $em["type"]);
+        $files = $this->db->fetch("SELECT `id`, `hash`, `name`, `kind`, `mime_type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {
+            $type = explode("/", $em["mime_type"]);
             $type = $type[0];
 
             if ($type == "image")
@@ -28,7 +28,7 @@ class Files extends CommonHandler
             return [
                 "id" => $em["id"],
                 "type" => $type,
-                "label" => $em["real_name"],
+                "label" => $em["name"],
                 "link" => "/files/{$em["id"]}",
                 "image" => $image,
                 "created" => strftime("%Y-%m-%d", $em["created"]),
@@ -42,7 +42,7 @@ class Files extends CommonHandler
 
     public function onShowFile(Request $request, Response $response, array $args)
     {
-        $file = $this->db->fetch("SELECT `id`, `hash`, `name`, `real_name`, `kind`, `type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetch("SELECT `id`, `hash`, `name`, `kind`, `mime_type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($request);
 
@@ -53,7 +53,7 @@ class Files extends CommonHandler
 
     public function onDownload(Request $request, Response $response, array $args)
     {
-        $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($request);
 
@@ -61,7 +61,7 @@ class Files extends CommonHandler
             ->withHeader("Content-Length", $file["length"])
             ->withHeader("ETag", "\"{$file["hash"]}\"")
             ->withHeader("Cache-Control", "public, max-age=31536000")
-            ->withHeader("Content-Disposition", "attachment; filename=\"" . urlencode($file["real_name"]) . "\"");
+            ->withHeader("Content-Disposition", "attachment; filename=\"" . urlencode($file["name"]) . "\"");
 
         $response->getBody()->write($file["body"]);
         return $response;
@@ -74,7 +74,7 @@ class Files extends CommonHandler
         if ($cached = $this->db->cacheGet($path)) {
             $body = $cached;
         } else {
-            $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+            $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
             if (empty($file))
                 return $this->notfound($request);
 
@@ -103,7 +103,7 @@ class Files extends CommonHandler
 
     public function onPhoto(Request $request, Response $response, array $args)
     {
-        $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($request);
 

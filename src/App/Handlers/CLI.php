@@ -87,7 +87,6 @@ class CLI extends CommonHandler
                 $this->db->update("files", [
                     "id" => $rfile["id"],
                     "name" => $rfile["name"],
-                    "real_name" => $rfile["name"],
                     "mime_type" => $rfile["mime_type"],
                     "kind" => $kind,
                     "length" => $rfile["length"],
@@ -102,7 +101,6 @@ class CLI extends CommonHandler
                 $this->db->insert("files", [
                     "id" => $rfile["id"],
                     "name" => $rfile["name"],
-                    "real_name" => $rfile["name"],
                     "mime_type" => $rfile["mime_type"],
                     "kind" => $kind,
                     "length" => $rfile["length"],

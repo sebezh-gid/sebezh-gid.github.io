@@ -38,8 +38,7 @@ CREATE TABLE IF NOT EXISTS `history` (
 CREATE TABLE IF NOT EXISTS `files` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,    -- unique id for local access
     `name` VARCHAR(255),                              -- local name for public access (why we need this?)
-    `real_name` VARCHAR(1024),                        -- original name on upload
-    `type` VARCHAR(255),                              -- mime type
+    `mime_type` VARCHAR(255),                         -- mime type
     `kind` ENUM('photo', 'video', 'other') NOT NULL,  -- for quick filtering
     `length` INTEGER UNSIGNED NOT NULL,               -- body size in bytes
     `created` INTEGER UNSIGNED NOT NULL,              -- file creation timestamp

@@ -25,7 +25,7 @@ class UploadHandler extends Handlers
                 $fi = pathinfo($info["name"]);
                 $tn = $fi["filename"] . "_small." . $fi["extension"];
 
-                $code = "<a class='image' href='/files/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='/thumbnail/{$tn}' alt='{$info["real_name"]}'/></a>";
+                $code = "<a class='image' href='/files/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='/thumbnail/{$tn}' alt='{$info["name"]}'/></a>";
 
                 return $response->withJSON(array(
                     "code" => $code,
@@ -40,15 +40,14 @@ class UploadHandler extends Handlers
     protected function receiveFile(UploadedFile $file)
     {
         $res = array(
-            "name" => null,  // generate me
-            "real_name" => $file->getClientFilename(),
+            "name" => $file->getClientFilename(),
             "type" => $file->getClientMediaType(),
             "length" => $file->getSize(),
             "created" => time(),
             "body" => null,  // fill me in
             );
 
-        $ext = mb_strtolower(pathinfo($res["real_name"], PATHINFO_EXTENSION));
+        $ext = mb_strtolower(pathinfo($res["name"], PATHINFO_EXTENSION));
         if (!in_array($ext, ["jpg", "jpeg", "png", "gif"]))
             throw new RuntimeException("file of unsupported type");
 

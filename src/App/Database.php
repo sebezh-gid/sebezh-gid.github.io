@@ -104,8 +104,7 @@ class Database {
     {
         return $this->insert("files", [
             "name" => $fileInfo["name"],
-            "real_name" => $fileInfo["real_name"],
-            "type" => $fileInfo["type"],
+            "mime_type" => $fileInfo["type"],
             "length" => $fileInfo["length"],
             "created" => $fileInfo["created"],
             "uploaded" => time(),
@@ -119,7 +118,7 @@ class Database {
      **/
     public function findFiles()
     {
-        $rows = $this->fetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");
+        $rows = $this->fetch("SELECT `id`, `name`, `mime_type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");
         return $rows;
     }
 
@@ -221,8 +220,7 @@ class Database {
 
         $id = $this->insert("files", [
             "name" => $name,
-            "real_name" => $name,
-            "type" => $type,
+            "mime_type" => $type,
             "kind" => $kind,
             "length" => strlen($body),
             "created" => $now,

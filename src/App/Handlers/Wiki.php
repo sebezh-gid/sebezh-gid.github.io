@@ -247,7 +247,7 @@ class Wiki extends CommonHandler
 
     public function onFilesRSS(Request $request, Response $response, array $args)
     {
-        $files = $this->db->fetch("SELECT id, name, real_name, mime_type, kind, length, created, hash FROM files ORDER BY created DESC LIMIT 20");
+        $files = $this->db->fetch("SELECT `id`, `name`, `mime_type`, `kind`, `length`, `created`, `hash` FROM `files` ORDER BY `created` DESC LIMIT 20");
 
         // Load descriptions.
         $files = array_map(function ($row) {
@@ -271,7 +271,7 @@ class Wiki extends CommonHandler
 
     public function onFilesJSON(Request $request, Response $response, array $args)
     {
-        $files = $this->db->fetch("SELECT id, name, real_name, mime_type, kind, length, created, hash FROM files ORDER BY created");
+        $files = $this->db->fetch("SELECT `id`, `name`, `mime_type`, `kind`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");
 
         $files = array_map(function ($em) {
             return [

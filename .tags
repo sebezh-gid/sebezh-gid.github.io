@@ -116,7 +116,7 @@ code	src/App/Handlers/Short.php	/^        $code = $this->getCode($name);$/;"	v
 code	src/App/Handlers/ShortImage.php	/^            $code = rand(1001, 9999);$/;"	v
 code	src/App/Handlers/ShortImage.php	/^        $code = $args["code"];$/;"	v
 code	src/App/Handlers/ShortImage.php	/^        $code = $this->db->shortGetCode($name);$/;"	v
-code	src/App/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["real_name"]}'\/><\/a>";$/;"	v
+code	src/App/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["name"]}'\/><\/a>";$/;"	v
 comment	src/App/Handlers/Wiki.php	/^                $comment = "Файл загружен [по ссылке]({$link}).\\n\\n";$/;"	v
 comment	src/App/Handlers/Wiki.php	/^        $comment = null;$/;"	v
 commit	src/App/Database.php	/^    public function commit()$/;"	f
@@ -186,7 +186,7 @@ english	src/App/Handlers/Short.php	/^        $english = null;$/;"	v
 environment	src/App/Common.php	/^        $environment = \\League\\CommonMark\\Environment::createCommonMarkEnvironment();$/;"	v
 etag	src/App/Handlers/Files.php	/^        $etag = '"' . $hash . '"';$/;"	v
 ext	src/App/Handlers/Storage.php	/^        $ext = mb_strtolower(pathinfo($name, PATHINFO_EXTENSION));$/;"	v
-ext	src/App/UploadHandler.php	/^        $ext = mb_strtolower(pathinfo($res["real_name"], PATHINFO_EXTENSION));$/;"	v
+ext	src/App/UploadHandler.php	/^        $ext = mb_strtolower(pathinfo($res["name"], PATHINFO_EXTENSION));$/;"	v
 extractProperties	src/App/Parser.php	/^    public static function extractProperties($pageName, $text)$/;"	f
 fetch	src/App/Common.php	/^    public static function fetch($url)$/;"	f
 fetch	src/App/Database.php	/^    public function fetch($query, array $params = array(), $callback = null)$/;"	f
@@ -198,24 +198,23 @@ fi	src/App/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;
 fid	src/App/Handlers/Wiki.php	/^        $fid = $this->db->addFile($name, $type, $body);$/;"	v
 file	src/App/FileHandler.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 file	src/App/Handlers/File.php	/^        $file = $this->db->getFileByName($name);$/;"	v
-file	src/App/Handlers/Files.php	/^            $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
-file	src/App/Handlers/Files.php	/^        $file = $this->db->fetch("SELECT `id`, `hash`, `name`, `real_name`, `kind`, `type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
-file	src/App/Handlers/Files.php	/^        $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
-file	src/App/Handlers/Files.php	/^        $file = $this->db->fetchOne("SELECT `real_name`, `hash`, `type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
+file	src/App/Handlers/Files.php	/^            $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
+file	src/App/Handlers/Files.php	/^        $file = $this->db->fetch("SELECT `id`, `hash`, `name`, `kind`, `mime_type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
+file	src/App/Handlers/Files.php	/^        $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
 file	src/App/Handlers/Short.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 file	src/App/Handlers/Storage.php	/^        $file = $this->db->fileGet($args["name"]);$/;"	v
 file	src/App/Handlers/Upload.php	/^            $file = \\App\\Common::fetch($link);$/;"	v
-file	src/App/Handlers/Upload.php	/^        $file = $this->db->fetchOne("SELECT `id`, `name`, `real_name`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fid]);$/;"	v
+file	src/App/Handlers/Upload.php	/^        $file = $this->db->fetchOne("SELECT `id`, `name`, `mime_type`, `kind` FROM `files` WHERE `id` = ?", [$fid]);$/;"	v
 file	src/App/Handlers/Wiki.php	/^            $file = \\App\\Common::fetch($link);$/;"	v
 fileGet	src/App/Database.php	/^    public function fileGet($name)$/;"	f
 fileId	src/App/Handlers/Wiki.php	/^            $fileId = array_shift($parts);$/;"	v
 filePut	src/App/Database.php	/^    public function filePut($name, $data)$/;"	f
 files	src/App/Handlers/FileList.php	/^        $files = $this->db->findFiles();$/;"	v
-files	src/App/Handlers/Files.php	/^        $files = $this->db->fetch("SELECT `id`, `hash`, `real_name`, `kind`, `type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {$/;"	v
+files	src/App/Handlers/Files.php	/^        $files = $this->db->fetch("SELECT `id`, `hash`, `name`, `kind`, `mime_type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {$/;"	v
 files	src/App/Handlers/Files.php	/^        $files = $this->db->fetch("SELECT id, name, mime_type, length, created, hash FROM files ORDER BY id");$/;"	v
 files	src/App/Handlers/Files.php	/^        $files = array_map(function ($em) use ($base) {$/;"	v
-files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT id, name, real_name, mime_type, kind, length, created, hash FROM files ORDER BY created DESC LIMIT 20");$/;"	v
-files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT id, name, real_name, mime_type, kind, length, created, hash FROM files ORDER BY created");$/;"	v
+files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT `id`, `name`, `mime_type`, `kind`, `length`, `created`, `hash` FROM `files` ORDER BY `created` DESC LIMIT 20");$/;"	v
+files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT `id`, `name`, `mime_type`, `kind`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");$/;"	v
 files	src/App/Handlers/Wiki.php	/^        $files = array_map(function ($em) {$/;"	v
 files	src/App/Handlers/Wiki.php	/^        $files = array_map(function ($row) {$/;"	v
 files	src/App/UploadHandler.php	/^        $files = $request->getUploadedFiles();$/;"	v
@@ -655,7 +654,7 @@ rows	src/App/Database.php	/^            $rows = array_map($callback, $rows);$/;"
 rows	src/App/Database.php	/^        $rows = $sth->fetchAll(\\PDO::FETCH_ASSOC);$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT * FROM `files` WHERE `hash` = ?", [$hash]);$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT * FROM `files` WHERE `name` = ? OR `hash` = ?", [$name, $name]);$/;"	v
-rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `id`, `name`, `real_name`, `type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");$/;"	v
+rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `id`, `name`, `mime_type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch($query, $params);$/;"	v
 rows	src/App/Handlers/Database.php	/^                $rows = $this->db->fetch("select name FROM sqlite_master WHERE `type` = 'table' ORDER BY name");$/;"	v
@@ -706,7 +705,7 @@ small	src/App/Handlers/Wiki.php	/^            $small = "\/i\/thumbnails\/{$fileI
 snippet	src/App/Handlers/Wiki.php	/^            $snippet = $this->getPageSnippet($page);$/;"	v
 sort	src/App/Handlers/Wiki.php	/^        $sort = $request->getParam("sort");$/;"	v
 source	src/App/CommonHandler.php	/^        $source = preg_replace_callback('@\\[\\[([^]]+)\\]\\]@', function ($m) {$/;"	v
-source	src/App/Handlers/Upload.php	/^            $source = "# {$file["real_name"]}\\n\\n";$/;"	v
+source	src/App/Handlers/Upload.php	/^            $source = "# {$file["name"]}\\n\\n";$/;"	v
 source	src/App/Handlers/Wiki.php	/^                $source = "# {$title}\\n\\n";$/;"	v
 source	src/App/Handlers/Wiki.php	/^            $source = $blocks[1];$/;"	v
 source	src/App/Handlers/Wiki.php	/^            $source = preg_replace_callback('@<img[^>]+\/>@', function ($m) {$/;"	v
@@ -777,7 +776,7 @@ twig	src/App/Template.php	/^        $this->twig = new \\Twig\\Environment($loade
 twig	src/App/Template.php	/^    protected $twig;$/;"	v
 type	src/App/Database.php	/^            $type = $this->conn->getAttribute(\\PDO::ATTR_DRIVER_NAME);$/;"	v
 type	src/App/Handlers/Files.php	/^            $type = $type[0];$/;"	v
-type	src/App/Handlers/Files.php	/^            $type = explode("\/", $em["type"]);$/;"	v
+type	src/App/Handlers/Files.php	/^            $type = explode("\/", $em["mime_type"]);$/;"	v
 type	src/App/Handlers/Storage.php	/^        $type = $this->guessType($args["name"]);$/;"	v
 type	src/App/Handlers/Upload.php	/^                $type = $file["headers"]["content-type"];$/;"	v
 type	src/App/Handlers/Upload.php	/^                $type = $files["file"]->getClientMediaType();$/;"	v

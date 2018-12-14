@@ -33,11 +33,11 @@ class Upload extends CommonHandler
             ]);
         }
 
-        $file = $this->db->fetchOne("SELECT `id`, `name`, `real_name`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fid]);
+        $file = $this->db->fetchOne("SELECT `id`, `name`, `mime_type`, `kind` FROM `files` WHERE `id` = ?", [$fid]);
 
         $name = "File:" . $fid;
         if (!($page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$name]))) {
-            $source = "# {$file["real_name"]}\n\n";
+            $source = "# {$file["name"]}\n\n";
 
             if ($file["kind"] == "photo")
                 $source .= "[[image:{$fid}]]\n\n";
@@ -108,8 +108,7 @@ class Upload extends CommonHandler
 
         return $this->db->insert("files", [
             "name" => $name,
-            "real_name" => $name,
-            "type" => $type,
+            "mime_type" => $type,
             "kind" => $kind,
             "created" => time(),
             "uploaded" => time(),
