@@ -51,7 +51,7 @@ shell:
 	ssh $(REMOTE)
 
 sql:
-	mysql
+	sqlite3 data/database.sqlite
 
 sql-public:
 	ssh -t $(REMOTE) mysql
