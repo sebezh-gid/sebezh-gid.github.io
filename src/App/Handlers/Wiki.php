@@ -319,7 +319,7 @@ class Wiki extends CommonHandler
             if ($page) {
                 // update title
             } else {
-                $source = "# {$name}\n\n";
+                $source = "# {$title}\n\n";
                 $source .= "[[image:{$id}]]\n\n";
                 $source .= "Source: {$link}\n";
 
