@@ -1039,3 +1039,15 @@ textarea.code {
 .formatted h5:hover a.edit {
     display: inline;
 }
+
+table.recent td {
+    vertical-align: top;
+    padding: 0 10px 10px 0;
+    line-height: 1.5em;
+}
+table.recent p {
+    margin: 0;
+}
+table.recent a {
+    white-space: nowrap;
+}

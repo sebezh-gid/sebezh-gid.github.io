@@ -24,40 +24,86 @@ class CLI extends CommonHandler
 
     public function onPullFiles(Request $request, Response $response, array $args)
     {
-        $files = $this->db->fetchkv("SELECT `id`, `hash` FROM `files`");
+        if (!($url = $request->getParam("url"))) {
+            $this->log("ERR pull-files: url not specified.");
+            return;
+        }
 
-        if (!($remote = file_get_contents("https://sebezh-gid.ru/wiki/files.json"))) {
-            error_log("pull-files: error fetching remote files.json");
-            exit(1);
+        $local = $this->db->fetchkv("SELECT `id`, `hash` FROM `files`");
+
+        if (!($remote = file_get_contents($url))) {
+            $this->log("ERR pull-files: error fetching remote index.");
+            return;
         }
 
         $remote = json_decode($remote, true);
+        if (!is_array($remote)) {
+            $this->log("ERR pull-files: error fetching remote index.");
+            return;
+        }
 
-        foreach ($remote["files"] as $rfile) {
-            if (!array_key_exists($rfile["id"], $files)) {
-                $url = "https://sebezh-gid.ru/files/{$rfile["id"]}/download";
-                error_log("fetching {$url}");
-                $body = file_get_contents($url);
+        $all_count = count($remote["files"]);
 
-                if (($ll = strlen($body)) != $rfile["length"]) {
-                    error_log("pull-files: length mismatch: local={$ll}, remote={$rfile["length"]}; skipped.");
-                    continue;
-                }
+        $remote = array_filter($remote["files"], function ($em) use ($local) {
+            $id = $em["id"];
+            if (!isset($local[$id]))
+                return true;
+            if ($local[$id] != $em["hash"])
+                return true;
+            return false;
+        });
 
-                if (md5($body) != $rfile["hash"]) {
-                    error_log("pull-files: hash mismatch, skipped.");
-                    continue;
-                }
+        $this->log("DBG pull-files: remote has %u files, %u to pull.", $all_count, count($remote));
 
-                $kind = "other";
-                if (0 === strpos($rfile["type"], "image/"))
-                    $kind = "photo";
+        foreach (array_values($remote) as $idx => $rfile) {
+            $id = $rfile["id"];
 
+            if (!array_key_exists($id, $local)) {
+                $this->log("DBG pull-files: fetching [%u/%u] file %u -- new", $idx + 1, count($remote), $id);
+            } elseif ($local[$id] != $rfile["hash"]) {
+                $this->log("DBG pull-files: fetching [%u/%u] file %u -- updated", $idx + 1, count($remote), $id);
+            } else {
+                continue;
+            }
+
+            $url = $rfile["link"];
+            $body = file_get_contents($url);
+
+            if (($ll = strlen($body)) != $rfile["length"]) {
+                $this->log("WRN pull-files: length mismatch: local=%u, remote=%u; skipped.", $ll, $rfile["length"]);
+                continue;
+            }
+
+            if (md5($body) != $rfile["hash"]) {
+                $this->log("WRN pull-files: hash mismatch, skipped.");
+                continue;
+            }
+
+            $kind = "other";
+            if (0 === strpos($rfile["mime_type"], "image/"))
+                $kind = "photo";
+
+            if (isset($local[$id])) {
+                $this->db->update("files", [
+                    "id" => $rfile["id"],
+                    "name" => $rfile["name"],
+                    "real_name" => $rfile["name"],
+                    "mime_type" => $rfile["mime_type"],
+                    "kind" => $kind,
+                    "length" => $rfile["length"],
+                    "hash" => $rfile["hash"],
+                    "body" => $body,
+                    "created" => $rfile["created"],
+                    "uploaded" => $rfile["created"],
+                ], [
+                    "id" => $id,
+                ]);
+            } else {
                 $this->db->insert("files", [
                     "id" => $rfile["id"],
                     "name" => $rfile["name"],
                     "real_name" => $rfile["name"],
-                    "type" => $rfile["type"],
+                    "mime_type" => $rfile["mime_type"],
                     "kind" => $kind,
                     "length" => $rfile["length"],
                     "hash" => $rfile["hash"],
@@ -65,8 +111,9 @@ class CLI extends CommonHandler
                     "created" => $rfile["created"],
                     "uploaded" => $rfile["created"],
                 ]);
-
             }
+
+            unset($local[$id]);
         }
 
         error_log("all files downloaded.");
