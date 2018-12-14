@@ -18,6 +18,10 @@ flush:
 flush-remote:
 	echo "UPDATE pages SET html = null;" | ssh $(REMOTE) mysql
 
+mysql2sqlite:
+	sqlite3 data/database.sqlite < src/schema_sqlite.sql
+	php -f tools/dbcopy.php "mysql://sebgid:sebgid725@localhost/sebgid" "sqlite:data/database.sqlite" accounts backlinks files history map_poi map_tags odict pages sessions
+
 pull-data:
 	ssh $(REMOTE) mysqldump sebgid accounts backlinks history map_poi map_tags odict pages | pv > data/remote.sql
 	mysql < data/remote.sql

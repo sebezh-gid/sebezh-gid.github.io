@@ -1,16 +1,20 @@
 <?php
 
-if (count($argv) != 3) {
+if (count($argv) < 3) {
     $prog = basename($argv[0]);
-    printf("Usage: php -f %s dsn_1 dsn_2\n", $prog);
-    printf("Example: php -f %s sqlite:data/database.sqlite mysql://user:pass@localhost/dbname\n", $prog);
+    printf("Usage: php -f %s dsn_1 dsn_2 [tables...]\n", $prog);
+    printf("Example: php -f %s sqlite:data/database.sqlite mysql://user:pass@localhost/dbname sessions files\n", $prog);
     exit(1);
 }
 
 $src = connect($argv[1]);
 $dst = connect($argv[2]);
 
-$tables = list_tables($src);
+if (count($argv) >= 4)
+    $tables = array_slice($argv, 3);
+else
+    $tables = list_tables($src);
+
 foreach ($tables as $table) {
     $dh = null;
 
@@ -26,7 +30,12 @@ foreach ($tables as $table) {
             $dh = $dst->prepare($query);
         }
 
-        $dh->execute(array_values($row));
+        try {
+            $dh->execute(array_values($row));
+        } catch (\Exception $e) {
+            printf("ERROR copying row: %s\n", $e->getMessage());
+            die(var_dump($row));
+        }
     }
 }
 
