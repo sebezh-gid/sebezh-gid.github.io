@@ -19,11 +19,11 @@ flush-remote:
 	echo "UPDATE pages SET html = null;" | ssh $(REMOTE) mysql
 
 pull-data:
-	ssh $(REMOTE) mysqldump sebgid | pv > data/remote.sql
+	ssh $(REMOTE) mysqldump sebgid accounts backlinks history map_poi map_tags odict pages | pv > data/remote.sql
 	mysql < data/remote.sql
 
 pull-files:
-	php -f tools/cli.php pull-files
+	php -f tools/cli.php pull-files -- --url=https://sebezh-gid.ru/files/export
 
 pull-pages:
 	ssh $(REMOTE) mysqldump sebgid pages history backlinks map_poi map_tags | pv > data/pages.sql
