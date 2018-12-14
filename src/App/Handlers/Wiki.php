@@ -85,8 +85,8 @@ class Wiki extends CommonHandler
             if (preg_match('@^\d{4}$@', $pageName)) {
                 $contents = "# sebezh-gid.ru #{$pageName}\n\n- Русский: [[страница]]\n- English: [[something]]";
             } elseif (preg_match('@^File:(\d+)$@', $pageName, $m)) {
-                if ($file = $this->db->fetchOne("SELECT name, type FROM files WHERE id = ?", [$m[1]])) {
-                    if (0 === strpos($file["type"], "image/")) {
+                if ($file = $this->db->fetchOne("SELECT name, mime_type FROM files WHERE id = ?", [$m[1]])) {
+                    if (0 === strpos($file["mime_type"], "image/")) {
                         $contents = "# {$file["name"]}\n\n[[image:{$m[1]}]]";
                     } else {
                         $contents = "# other";
@@ -225,7 +225,7 @@ class Wiki extends CommonHandler
 
     public function onFilesRSS(Request $request, Response $response, array $args)
     {
-        $files = $this->db->fetch("SELECT id, name, real_name, type, kind, length, created, hash FROM files ORDER BY created DESC LIMIT 20");
+        $files = $this->db->fetch("SELECT id, name, real_name, mime_type, kind, length, created, hash FROM files ORDER BY created DESC LIMIT 20");
 
         // Load descriptions.
         $files = array_map(function ($row) {
@@ -249,13 +249,13 @@ class Wiki extends CommonHandler
 
     public function onFilesJSON(Request $request, Response $response, array $args)
     {
-        $files = $this->db->fetch("SELECT id, name, real_name, type, kind, length, created, hash FROM files ORDER BY created");
+        $files = $this->db->fetch("SELECT id, name, real_name, mime_type, kind, length, created, hash FROM files ORDER BY created");
 
         $files = array_map(function ($em) {
             return [
                 "id" => (int)$em["id"],
                 "name" => $em["name"],
-                "type" => $em["type"],
+                "type" => $em["mime_type"],
                 "created" => (int)$em["created"],
                 "length" => (int)$em["length"],
                 "hash" => $em["hash"],
@@ -710,7 +710,7 @@ class Wiki extends CommonHandler
             $page = "/wiki?name=File:{$fileId}";
             $title = "untitled";
 
-            $info = $this->db->fetchOne("SELECT `id`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fileId]);
+            $info = $this->db->fetchOne("SELECT `id`, `mime_type`, `kind` FROM `files` WHERE `id` = ?", [$fileId]);
             if (empty($info)) {
                 $small = "/images/placeholder.png";
                 $large = "/images/placeholder.png";

@@ -114,6 +114,35 @@ class Files extends CommonHandler
     }
 
     /**
+     * Returns information on all files.
+     **/
+    public function onExport(Request $request, Response $response, array $args)
+    {
+        $files = $this->db->fetch("SELECT id, name, mime_type, length, created, hash FROM files ORDER BY id");
+
+        $host = $request->getServerParam("HTTP_HOST");
+        $proto = ($request->getServerParam("HTTPS")) == "on" ? "https" : "http";
+
+        $base = $proto . "://" . $host;
+
+        $files = array_map(function ($em) use ($base) {
+            return [
+                "id" => (int)$em["id"],
+                "name" => $em["name"],
+                "mime_type" => $em["mime_type"],
+                "length" => (int)$em["length"],
+                "created" => (int)$em["created"],
+                "hash" => $em["hash"],
+                "link" => $base . "/files/" . $em["id"] . "/download",
+            ];
+        }, $files);
+
+        return $response->withJSON([
+            "files" => $files,
+        ]);
+    }
+
+    /**
      * Sends a file with caching enabled.
      *
      * Supports ETag.

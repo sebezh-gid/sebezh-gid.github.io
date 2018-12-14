@@ -70,6 +70,7 @@ attrs	src/App/Handlers/Wiki.php	/^                $attrs = \\App\\Util::parseHtm
 back	src/App/Handlers/Account.php	/^        $back = @$_GET["back"];$/;"	v
 barcode	src/App/Handlers/Short.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
 barcode	src/App/Handlers/ShortImage.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
+base	src/App/Handlers/Files.php	/^        $base = $proto . ":\/\/" . $host;$/;"	v
 base	src/App/Handlers/Short.php	/^        $base = $this->container->get("settings")["websiteBase"];$/;"	v
 base	src/App/Handlers/Sitemap.php	/^        $base = $this->container->get("settings")["websiteBase"];$/;"	v
 base	src/App/Search.php	/^                $base = \\App\\Stemmer::getWordBase($word);$/;"	v
@@ -207,8 +208,10 @@ filePut	src/App/Database.php	/^    public function filePut($name, $data)$/;"	f
 files	src/App/Handlers/CLI.php	/^        $files = $this->db->fetchkv("SELECT `id`, `hash` FROM `files`");$/;"	v
 files	src/App/Handlers/FileList.php	/^        $files = $this->db->findFiles();$/;"	v
 files	src/App/Handlers/Files.php	/^        $files = $this->db->fetch("SELECT `id`, `hash`, `real_name`, `kind`, `type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {$/;"	v
-files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT id, name, real_name, type, kind, length, created, hash FROM files ORDER BY created DESC LIMIT 20");$/;"	v
-files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT id, name, real_name, type, kind, length, created, hash FROM files ORDER BY created");$/;"	v
+files	src/App/Handlers/Files.php	/^        $files = $this->db->fetch("SELECT id, name, mime_type, length, created, hash FROM files ORDER BY id");$/;"	v
+files	src/App/Handlers/Files.php	/^        $files = array_map(function ($em) use ($base) {$/;"	v
+files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT id, name, real_name, mime_type, kind, length, created, hash FROM files ORDER BY created DESC LIMIT 20");$/;"	v
+files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT id, name, real_name, mime_type, kind, length, created, hash FROM files ORDER BY created");$/;"	v
 files	src/App/Handlers/Wiki.php	/^        $files = array_map(function ($em) {$/;"	v
 files	src/App/Handlers/Wiki.php	/^        $files = array_map(function ($row) {$/;"	v
 files	src/App/UploadHandler.php	/^        $files = $request->getUploadedFiles();$/;"	v
@@ -272,6 +275,7 @@ hash	src/App/Handlers/Wiki.php	/^                $hash = "#" . $parts[1];$/;"	v
 hash	src/App/UploadHandler.php	/^        $hash = md5($res["body"]);$/;"	v
 headers	src/App/Handlers/Files.php	/^        $headers = $request->getHeaders();$/;"	v
 headers	src/App/Handlers/Wiki.php	/^        $headers = $request->getHeaders();$/;"	v
+host	src/App/Handlers/Files.php	/^        $host = $request->getServerParam("HTTP_HOST");$/;"	v
 html	src/App/Common.php	/^        $html = $converter->convertToHtml($source);$/;"	v
 html	src/App/Common.php	/^        $html = preg_replace_callback('@<h([12345])>(.+)<\/h([12345])>@', function ($m) use (&$level, &$toc) {$/;"	v
 html	src/App/Common.php	/^        $html = str_replace("<div id=\\"toc\\"><\/div>", "<div id=\\"toc\\">{$toc}<\/div>", $html);$/;"	v
@@ -344,7 +348,7 @@ img	src/App/Handlers/Short.php	/^        $img = imagecreatefromstring($png);$/;"
 img	src/App/Handlers/ShortImage.php	/^        $img = imagecreatefromstring($png);$/;"	v
 img	src/App/Handlers/Wiki.php	/^        $img = imagecreatefromstring($body);$/;"	v
 info	src/App/Handlers/Short.php	/^        $info = $this->db->shortsGetByCode($code);$/;"	v
-info	src/App/Handlers/Wiki.php	/^            $info = $this->db->fetchOne("SELECT `id`, `type`, `kind` FROM `files` WHERE `id` = ?", [$fileId]);$/;"	v
+info	src/App/Handlers/Wiki.php	/^            $info = $this->db->fetchOne("SELECT `id`, `mime_type`, `kind` FROM `files` WHERE `id` = ?", [$fileId]);$/;"	v
 info	src/App/UploadHandler.php	/^                $info = $this->receiveFile($file);$/;"	v
 insert	src/App/Database.php	/^    public function insert($tableName, array $fields)$/;"	f
 isAdmin	src/App/CommonHandler.php	/^    protected function isAdmin(Request $request)$/;"	f
@@ -459,6 +463,7 @@ onDownload	src/App/Handlers/Files.php	/^    public function onDownload(Request $
 onEdit	src/App/Handlers/Maps.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
 onEdit	src/App/Handlers/Wiki.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
 onEmbedClipboard	src/App/Handlers/Wiki.php	/^    public function onEmbedClipboard(Request $request, Response $response, array $args)$/;"	f
+onExport	src/App/Handlers/Files.php	/^    public function onExport(Request $request, Response $response, array $args)$/;"	f
 onFilesJSON	src/App/Handlers/Wiki.php	/^    public function onFilesJSON(Request $request, Response $response, array $args)$/;"	f
 onFilesRSS	src/App/Handlers/Wiki.php	/^    public function onFilesRSS(Request $request, Response $response, array $args)$/;"	f
 onGet	src/App/FileHandler.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
@@ -563,6 +568,7 @@ prevChar	src/App/Stemmer.php	/^            $prevChar = mb_substr($word, $i - 1, 
 processWikiPage	src/App/Handlers/Wiki.php	/^    protected function processWikiPage($name, $source)$/;"	f
 props	src/App/Parser.php	/^        $props = array($/;"	v
 props	src/App/Util.php	/^        $props = [$/;"	v
+proto	src/App/Handlers/Files.php	/^        $proto = ($request->getServerParam("HTTPS")) == "on" ? "https" : "http";$/;"	v
 query	src/App/Database.php	/^        $query = "INSERT INTO `{$tableName}` ({$_fields}) VALUES ({$_marks})";$/;"	v
 query	src/App/Database.php	/^        $query = "UPDATE `{$tableName}` SET {$_set} WHERE {$_where}";$/;"	v
 query	src/App/Database.php	/^    public function query($query, array $params = array())$/;"	f
@@ -682,7 +688,7 @@ snippet	src/App/Handlers/Wiki.php	/^            $snippet = $this->getPageSnippet
 sort	src/App/Handlers/Wiki.php	/^        $sort = $request->getParam("sort");$/;"	v
 source	src/App/CommonHandler.php	/^        $source = preg_replace_callback('@\\[\\[([^]]+)\\]\\]@', function ($m) {$/;"	v
 source	src/App/Handlers/Upload.php	/^            $source = "# {$file["real_name"]}\\n\\n";$/;"	v
-source	src/App/Handlers/Wiki.php	/^                $source = "# {$name}\\n\\n";$/;"	v
+source	src/App/Handlers/Wiki.php	/^                $source = "# {$title}\\n\\n";$/;"	v
 source	src/App/Handlers/Wiki.php	/^            $source = $blocks[1];$/;"	v
 source	src/App/Handlers/Wiki.php	/^            $source = preg_replace_callback('@<img[^>]+\/>@', function ($m) {$/;"	v
 source	src/App/Handlers/Wiki.php	/^        $source = preg_replace_callback('@\\[\\[([^]]+)\\]\\]@', function ($m) {$/;"	v
