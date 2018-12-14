@@ -1,0 +1,22 @@
+{% extends "base.twig" %}
+
+{% block page_title %}История изменений{% endblock %}
+
+{% block page_h1 %}История изменений{% endblock %}
+
+{% block page_contents %}
+    <p>Здесь видны изменения за последний месяц.&nbsp; Полный список изменений есть на <a href="/wiki/index?sort=updated">отдельной странице</a>.</p>
+
+    <table class="recent">
+        <tbody>
+            {% for date, _pages in pages %}
+                <tr>
+                    <td>{{ date }}</td>
+                    <td>
+                        <p>{% for page in _pages %}{% if not loop.first %}, {% endif %}<a href="/wiki?name={{ page.name }}">{{ page.name }}</a>{% endfor %}.</p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

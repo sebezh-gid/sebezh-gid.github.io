@@ -211,6 +211,28 @@ class Wiki extends CommonHandler
         ]);
     }
 
+    /**
+     * Display full list of wiki pages.
+     **/
+    public function onRecent(Request $request, Response $response, array $args)
+    {
+        $sort = $request->getParam("sort");
+        $since = time() - 2592000;
+        $pages = $this->db->fetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` WHERE `source` IS NOT NULL AND `source` <> '' AND `name` NOT LIKE 'wiki:%' AND `name` NOT LIKE 'File:%' AND `updated` >= ? ORDER BY `name`", [$since]);
+
+        $res = [];
+        foreach ($pages as $page) {
+            $date = strftime("%Y-%m-%d", $page["updated"]);
+            $res[$date][] = $page;
+        }
+
+        krsort($res);
+
+        return $this->render($request, "wiki-recent.twig", [
+            "pages" => $res,
+        ]);
+    }
+
     public function onBacklinks(Request $request, Response $response, array $args)
     {
         if (!($name = $request->getParam("name")))
