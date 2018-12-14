@@ -230,6 +230,7 @@ class Wiki extends CommonHandler
 
         return $this->render($request, "wiki-recent.twig", [
             "pages" => $res,
+            "count" => count($pages),
         ]);
     }
 
@@ -271,7 +272,7 @@ class Wiki extends CommonHandler
 
     public function onFilesJSON(Request $request, Response $response, array $args)
     {
-        $files = $this->db->fetch("SELECT `id`, `name`, `mime_type`, `kind`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");
+        $rows = $this->db->fetch("SELECT `id`, `name`, `mime_type`, `kind`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");
 
         $files = array_map(function ($em) {
             return [
@@ -282,7 +283,7 @@ class Wiki extends CommonHandler
                 "length" => (int)$em["length"],
                 "hash" => $em["hash"],
             ];
-        }, $files);
+        }, $rows);
 
         return $response->withJSON([
             "files" => $files,
