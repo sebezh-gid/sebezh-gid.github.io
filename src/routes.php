@@ -24,7 +24,7 @@ $app->get("/wiki/files.json", '\App\Handlers\Wiki:onFilesJSON');
 $app->get("/wiki/pages.rss", '\App\Handlers\Wiki:onPagesRSS');
 $app->get("/wiki/backlinks", '\App\Handlers\Wiki:onBacklinks');
 
-$app->get("/map", '\App\Handlers\Maps:onList');
+$app->get("/map", '\App\Handlers\Maps:onMain');
 $app->get("/map/add", '\App\Handlers\Maps:onAdd');
 $app->get("/map/edit", '\App\Handlers\Maps:onEdit');
 $app->post("/map/save", '\App\Handlers\Maps:onSave');

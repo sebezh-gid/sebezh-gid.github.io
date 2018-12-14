@@ -1,0 +1,13 @@
+{% extends "base.twig" %}
+
+{% block more_head %}
+    <link rel="edit" title="Редактировать страницу" href="/map/add"/>
+    <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/map/add"/>
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block page_title %}Карты — {{ strings_ru.site_name }}{% endblock %}
+
+{% block container %}
+    <div id="whole_map" class="map" data-src="/map/all.json"></div>
+{% endblock %}

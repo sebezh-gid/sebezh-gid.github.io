@@ -22,7 +22,7 @@
 
         <title>{% block page_title %}{% if title %}{{ title }}{% else %}Wiki{% endif %} — {{ strings.site_name }}{% endblock %}</title>
     </head>
-    <body>
+    <body class="{{ body_class }}">
         <header>
             <div class="sep">
                 <div id="hlinks" class="corsette">
@@ -32,6 +32,7 @@
                         <li class="toggle"><a href="/wiki?name=Природа">Природа</a></li>
                         <li class="toggle"><a href="/wiki?name=Культура">Культура</a></li>
                         <li class="toggle"><a href="/wiki?name=Куда+сходить">Гид</a></li>
+                        <li class="toggle"><a href="/map">Карта</a></li>
                         <li class="toggle hidden">
                             <form method="get" action="/search">
                                 <input class="search" type="text" name="query" placeholder="Поиск по сайту..." autocomplete="off"/>
@@ -74,19 +75,21 @@
         </header>
 
         <main class="container" role="main">
-            <div class="row"{% if page %} itemscope itemtype="http://schema.org/Article"{% endif %}>
-                <div class="col-md-12">
-                    {% block page_header %}
-                        <div class="page-header">
-                            <h1>{% block page_h1 %}{% if title %}{{ title }}{% else %}It Works!{% endif %}{% endblock %}</h1>
-                        </div>
-                    {% endblock %}
+            {% block container %}
+                <div class="row"{% if page %} itemscope itemtype="http://schema.org/Article"{% endif %}>
+                    <div class="col-md-12">
+                        {% block page_header %}
+                            <div class="page-header">
+                                <h1>{% block page_h1 %}{% if title %}{{ title }}{% else %}It Works!{% endif %}{% endblock %}</h1>
+                            </div>
+                        {% endblock %}
 
-                    {% block page_contents %}
-                        <p>На этой странице пусто.</p>
-                    {% endblock %}
+                        {% block page_contents %}
+                            <p>На этой странице пусто.</p>
+                        {% endblock %}
+                    </div>
                 </div>
-            </div>
+            {% endblock %}
         </main>
 
         <footer class="corsette">

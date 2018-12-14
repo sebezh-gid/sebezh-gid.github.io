@@ -132,15 +132,17 @@ jQuery(function ($) {
                 var html = null;
                 if (m.html !== null)
                     html = m.html;
-                else if (m.link && m.title)
-                    html = sfmt("<p><a href='{0}'>{1}</a></p>", m.link, m.title);
-                else if (m.title)
-                    html = sfmt("<p>{0}</p>", m.title);
+                else {
+                    if (m.link && m.title)
+                        html = sfmt("<p><a href='{0}'>{1}</a></p>", m.link, m.title);
+                    else if (m.title)
+                        html = sfmt("<p>{0}</p>", m.title);
 
-                if (m.image && m.link) {
-                    html += sfmt("<p><a href='{0}'><img src='{1}' width='300'/></a></p>", m.link, m.image);
-                } else if (m.image) {
-                    html += sfmt("<p><img src='{0}' width='300'/></p>", m.image);
+                    if (m.image && m.link) {
+                        html += sfmt("<p><a href='{0}'><img src='{1}' width='300'/></a></p>", m.link, m.image);
+                    } else if (m.image) {
+                        html += sfmt("<p><img src='{0}' width='300'/></p>", m.image);
+                    }
                 }
 
                 if (html !== null)
@@ -221,6 +223,8 @@ jQuery(function ($) {
                 icon: null
             }, res.markers[idx]);
 
+            console.log(tree);
+
             if (tree.latlng) {
               points.push(tree.latlng);
 
@@ -234,13 +238,17 @@ jQuery(function ($) {
               }
 
               var html;
-              if (tree.link)
-                  html = "<p><a href='" + tree.link + "'>" + tree.title + "</a></p>";
-              else
-                  html = "<p>" + tree.title + "</p>";
+              if (tree.html) {
+                html = tree.html;
+              } else {
+                if (tree.link)
+                    html = "<p><a href='" + tree.link + "'>" + tree.title + "</a></p>";
+                else
+                    html = "<p>" + tree.title + "</p>";
 
-              if (tree.description)
-                  html += "<div class='poi-description'>" + tree.description + "</div>";
+                if (tree.description)
+                    html += "<div class='poi-description'>" + tree.description + "</div>";
+              }
 
               m.bindPopup(html);
             }

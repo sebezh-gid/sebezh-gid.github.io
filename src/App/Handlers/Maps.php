@@ -12,22 +12,15 @@ use App\CommonHandler;
 
 class Maps extends CommonHandler
 {
+    const PIC_HEIGHT = 100;
+
     /**
-     * List maps.
+     * Show the whole map.
      **/
-    public function onList(Request $request, Response $response, array $args)
+    public function onMain(Request $request, Response $response, array $args)
     {
-        $poi = $this->db->fetch("SELECT id, created, ll, title, link, icon, tags FROM map_poi ORDER BY created DESC");
-
-        $poi = array_map(function ($em) {
-            $ll = explode(",", $em["ll"]);
-            $em["lat"] = sprintf("%.3f", $ll[0]);
-            $em["lng"] = sprintf("%.3f", $ll[1]);
-            return $em;
-        }, $poi);
-
-        return $this->render($request, "maps.twig", [
-            "poi" => $poi,
+        return $this->render($request, "maps-main.twig", [
+            "body_class" => "whole_map",
         ]);
     }
 
@@ -36,15 +29,17 @@ class Maps extends CommonHandler
      **/
     public function onAllJSON(Request $request, Response $response, array $args)
     {
-        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, tags FROM map_poi WHERE ll <> '' ORDER BY created DESC");
+        $is_admin = $this->isAdmin($request);
 
-        $markers = array_map(function ($row) {
+        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, description FROM map_poi WHERE ll <> '' AND id IN (SELECT poi_id FROM map_tags WHERE tag = 'public') ORDER BY created DESC");
+
+        $markers = array_map(function ($row) use ($is_admin) {
+            $popup = $this->getPopup($row, $is_admin);
+
             return [
                 "latlng" => explode(",", $row["ll"]),
-                "title" => $row["title"],
-                "link" => "/map/edit?id={$row["id"]}",
-                "description" => "#{$row["id"]}",
                 "icon" => $row["icon"],
+                "html" => $popup,
             ];
         }, $poi);
 
@@ -199,5 +194,67 @@ class Maps extends CommonHandler
         }
 
         return $response->withJSON($res);
+    }
+
+    protected function getPopup(array $poi, $is_admin = false)
+    {
+        $img = null;
+        $link = htmlspecialchars($poi["link"]);
+
+        $description = preg_replace_callback('@<img[^>]+>@', function ($m) use (&$img) {
+            $attrs = \App\Util::parseHtmlAttrs($m[0]);
+
+            $w = 100;
+            $h = 100;
+
+            if (isset($attrs["width"]) and isset($attrs["height"])) {
+                $r = $attrs["width"] / $attrs["height"];
+                $h = self::PIC_HEIGHT;
+                $w = round($h * $r);
+            } elseif (file_exists($fp = $_SERVER["DOCUMENT_ROOT"] . $attrs["src"])) {
+                debug($attrs);
+            } elseif (preg_match('@^/i/thumbnails/(\d+)\.jpg$@', $attrs["src"], $m)) {
+                $body = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$m[1]]);
+                if ($body) {
+                    $img = imagecreatefromstring($body);
+                    $sw = imagesx($img);
+                    $sh = imagesy($img);
+                    $r = $sw / $sh;
+                    $h = self::PIC_HEIGHT;
+                    $w = round($h * $r);
+                }
+            }
+
+            $src = $attrs["src"];
+            $img = "<img src='{$src}' width='{$w}' height='{$h}'/>";
+
+            return "";
+        }, $poi["description"]);
+
+        $html = "<table><tbody><tr>";
+
+        if ($img) {
+            if ($link)
+                $img = "<a href='{$link}'>{$img}</a>";
+            $html .= "<td>{$img}</td>";
+        }
+
+        $html .= "<td class='t2'>";
+
+        if ($link)
+            $html .= sprintf("<div class='title'><a href='%s'>%s</a></div>", $link, htmlspecialchars($poi["title"]));
+        else
+            $html .= sprintf("<div class='title'>%s</div>", htmlspecialchars($poi["title"]));
+
+        $html .= trim($description);
+
+        $parts = explode(",", $poi["ll"]);
+        $ll = sprintf("%.4f, %.4f", $parts[0], $parts[1]);
+        $edit = $is_admin ? " &middot; <a href='/map/edit?id={$poi["id"]}'>править</a>" : "";
+        $html .= "<div class='coords'>{$ll}{$edit}</div>";
+
+        $html .= "</td></tr></tbody></table>";
+
+        return $html;
     }
 }
