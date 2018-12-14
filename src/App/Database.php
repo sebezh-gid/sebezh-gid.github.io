@@ -278,6 +278,18 @@ class Database {
         return $sth->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function fetchk($key, $query, array $params = [])
+    {
+        $rows = $this->fetch($query, $params);
+
+        $res = [];
+        foreach ($rows as $row) {
+            $res[$row[$key]] = $row;
+        }
+
+        return $res;
+    }
+
     public function fetchkv($query, array $params = [])
     {
         $rows = $this->fetch($query, $params);
