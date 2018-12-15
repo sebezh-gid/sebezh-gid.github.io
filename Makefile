@@ -17,7 +17,7 @@ flush:
 	echo "UPDATE pages SET html = null;" | sqlite3 data/database.sqlite
 
 flush-remote:
-	echo "UPDATE pages SET html = null;" | ssh $(REMOTE) mysql
+	echo "UPDATE pages SET html = null;" | ssh $(REMOTE) sqlite3 $(FOLDER)/data/database.sqlite
 
 mysql2sqlite:
 	sqlite3 data/database.sqlite < src/schema_sqlite.sql
