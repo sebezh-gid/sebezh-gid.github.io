@@ -258,6 +258,8 @@ jQuery(function ($) {
 
           if (points.length == 1) {
             map.setView(points[0], 12);
+          } else if (points.length == 0) {
+            div.hide();
           } else {
             var bounds = L.latLngBounds(points);
             map.fitBounds(bounds);
