@@ -562,6 +562,7 @@ pages	src/App/Handlers/Wiki.php	/^        $pages = $this->db->fetch("SELECT * FR
 pages	src/App/Handlers/Wiki.php	/^        $pages = $this->db->fetch("SELECT `id`, `name`, `created`, `updated`, LENGTH(`source`) AS `length` FROM `pages` WHERE `source` IS NOT NULL AND `source` <> '' AND `name` NOT LIKE 'wiki:%' AND `name` NOT LIKE 'File:%' AND `updated` >= ? ORDER BY `name`", [$since]);$/;"	v
 pages	src/App/Handlers/Wiki.php	/^        $pages = $this->db->fetch("SELECT `id`, `name`, `source` FROM `pages`");$/;"	v
 pages	src/App/Handlers/Wiki.php	/^        $pages = $this->db->listPages($sort);$/;"	v
+pages	src/App/Handlers/Wiki.php	/^        $pages = array_filter($pages);$/;"	v
 pages	src/App/Handlers/Wiki.php	/^        $pages = array_map(function ($em) {$/;"	v
 params	src/App/Handlers/Short.php	/^        $params = [$/;"	v
 params	src/App/Handlers/Short.php	/^        $params = array_merge([$/;"	v

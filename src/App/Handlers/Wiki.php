@@ -404,6 +404,9 @@ class Wiki extends CommonHandler
         error_log("reindex: preparing pages.");
 
         $pages = $this->db->fetch("SELECT * FROM `pages`", [], function ($row) {
+            if (preg_match('@^File:@', $row["name"]))
+                return false;
+
             $page = $this->processWikiPage($row["name"], $row["source"]);
 
             return [
@@ -417,6 +420,8 @@ class Wiki extends CommonHandler
                 ],
             ];
         });
+
+        $pages = array_filter($pages);
 
         error_log("reindex: updating.");
         $this->fts->reindexAll($pages);
