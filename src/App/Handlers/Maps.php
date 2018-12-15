@@ -54,7 +54,9 @@ class Maps extends CommonHandler
     public function onPoints(Request $request, Response $response, array $args)
     {
         $tag = $request->getParam("tag");
-        $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ? AND `ll` <> '') ORDER BY created DESC", [$tag]);
+        $tag = str_replace(" ", " ", $tag);
+        $tag = mb_strtolower($tag);
+        $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) AND `ll` <> '' ORDER BY created DESC", [$tag]);
 
         $markers = array_map(function ($row) {
             return [
@@ -116,13 +118,15 @@ class Maps extends CommonHandler
         }
 
         elseif (!empty($form["ll"])) {
+            $description = $this->prepareDescription($form);
+
             if (empty($form["id"])) {
                 $id = $this->db->insert("map_poi", [
                     "created" => strftime("%Y-%m-%d %H:%M:%S"),
                     "ll" => $form["ll"],
                     "title" => $form["title"],
                     "link" => $form["link"],
-                    "description" => $form["description"],
+                    "description" => $description,
                     "icon" => $form["icon"],
                     "tags" => $form["tags"],
                 ]);
@@ -134,7 +138,7 @@ class Maps extends CommonHandler
                     "ll" => $form["ll"],
                     "title" => $form["title"],
                     "link" => $form["link"],
-                    "description" => $form["description"],
+                    "description" => $description,
                     "icon" => $form["icon"],
                     "tags" => $form["tags"],
                 ], [
@@ -259,5 +263,63 @@ class Maps extends CommonHandler
         $html .= "</td></tr></tbody></table>";
 
         return $html;
+    }
+
+    protected function prepareDescription(array $form)
+    {
+        $description = $form["description"];
+
+        // If no image was specified -- get one from the page.
+        if (false === strpos($description, "<img")) {
+            if (preg_match('@^/wiki\?name=(.+)$@', $form["link"], $m)) {
+                $name = urldecode($m[1]);
+                if ($page = $this->db->fetchcell("SELECT source FROM pages WHERE name = ?", [$name])) {
+                    if (preg_match('@\[\[image:(\d+)[:\]]@', $page, $n)) {
+                        $img = "<img src='/i/thumbnails/{$n[1]}.jpg'/>";
+                        $description = trim($img . "\n\n" . $description);
+                    }
+                }
+            }
+        }
+
+        $description = preg_replace_callback('@<img[^>]+>@', function ($m) {
+            $attrs = \App\Util::parseHtmlAttrs($m[0]);
+
+            $sw = $sh = null;
+
+            if (isset($attrs["width"]) and isset($attrs["height"])) {
+                $sw = $attrs["width"];
+                $sh = $attrs["heigth"];
+            }
+
+            elseif (preg_match('@^/i/thumbnails/(\d+)\.jpg$@', $attrs["src"], $m)) {
+                if ($image = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$m[1]])) {
+                    if ($image = imagecreatefromstring($image)) {
+                        $sw = imagesx($image);
+                        $sh = imagesy($image);
+                    }
+                }
+            }
+
+            elseif (file_exists($fp = $_SERVER["DOCUMENT_ROOT"] . $attr["src"])) {
+                $size = getimagesize($fp);
+                $sw = $size[0];
+                $sh = $size[1];
+            }
+
+            if ($sw and $sh) {
+                $r = $sw / $sh;
+                $h = 100;
+                $w = round($h * $r);
+
+                $src = htmlspecialchars($attrs["src"]);
+                return "<img src='{$src}' width='{$w}' height='{$h}'/>";
+            }
+
+            $src = htmlspecialchars($attrs["src"]);
+            return "<img src='{$src}' width='100' height='100'/>";
+        }, $description);
+
+        return $description;
     }
 }

@@ -168,7 +168,11 @@ def	src/App/Handlers/Wiki.php	/^        $def = $this->container->get("settings")
 defaults	src/App/CommonHandler.php	/^        $defaults = [$/;"	v
 defaults	src/App/Template.php	/^        $this->defaults = isset($settings["defaults"])$/;"	v
 defaults	src/App/Template.php	/^    protected $defaults;$/;"	v
+description	src/App/Handlers/Maps.php	/^                        $description = trim($img . "\\n\\n" . $description);$/;"	v
+description	src/App/Handlers/Maps.php	/^            $description = $this->prepareDescription($form);$/;"	v
+description	src/App/Handlers/Maps.php	/^        $description = $form["description"];$/;"	v
 description	src/App/Handlers/Maps.php	/^        $description = preg_replace_callback('@<img[^>]+>@', function ($m) use (&$img) {$/;"	v
+description	src/App/Handlers/Maps.php	/^        $description = preg_replace_callback('@<img[^>]+>@', function ($m) {$/;"	v
 dir	src/App/Handlers/Files.php	/^            $dir = dirname($dst);$/;"	v
 divisor	src/App/Handlers/Files.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
 doc	src/App/Handlers/Wiki.php	/^                $doc = \\App\\Common::fetch($url);$/;"	v
@@ -265,6 +269,7 @@ getStats	src/App/Handlers/Database.php	/^    protected function getStats()$/;"	f
 getWordBase	src/App/Stemmer.php	/^    public static function getWordBase($word)$/;"	f
 guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
 h	src/App/Handlers/Maps.php	/^                    $h = self::PIC_HEIGHT;$/;"	v
+h	src/App/Handlers/Maps.php	/^                $h = 100;$/;"	v
 h	src/App/Handlers/Maps.php	/^                $h = self::PIC_HEIGHT;$/;"	v
 h	src/App/Handlers/Maps.php	/^            $h = 100;$/;"	v
 h	src/App/Handlers/Wiki.php	/^                $h = $_size[1];$/;"	v
@@ -357,6 +362,7 @@ img	src/App/Handlers/Files.php	/^                $img = $dst;$/;"	v
 img	src/App/Handlers/Files.php	/^            $img = imagecreatefromstring($file["body"]);$/;"	v
 img	src/App/Handlers/Files.php	/^        $img = $this->scaleImage($img, [$/;"	v
 img	src/App/Handlers/Files.php	/^        $img = $this->sharpenImage($img);$/;"	v
+img	src/App/Handlers/Maps.php	/^                        $img = "<img src='\/i\/thumbnails\/{$n[1]}.jpg'\/>";$/;"	v
 img	src/App/Handlers/Maps.php	/^                    $img = imagecreatefromstring($body);$/;"	v
 img	src/App/Handlers/Maps.php	/^                $img = "<a href='{$link}'>{$img}<\/a>";$/;"	v
 img	src/App/Handlers/Maps.php	/^            $img = "<img src='{$src}' width='{$w}' height='{$h}'\/>";$/;"	v
@@ -444,6 +450,7 @@ name	src/App/Handlers.php	/^        $name = $_POST["page_name"];$/;"	v
 name	src/App/Handlers/Database.php	/^                $name = $this->db->fetchcell("SELECT DATABASE()");$/;"	v
 name	src/App/Handlers/EditPage.php	/^        $name = $_POST["page_name"];$/;"	v
 name	src/App/Handlers/File.php	/^        $name = $args["name"];$/;"	v
+name	src/App/Handlers/Maps.php	/^                $name = urldecode($m[1]);$/;"	v
 name	src/App/Handlers/Short.php	/^        $name = $_GET["name"];$/;"	v
 name	src/App/Handlers/Short.php	/^        $name = $args["name"];$/;"	v
 name	src/App/Handlers/Short.php	/^        $name = $this->db->shortGetName($code);$/;"	v
@@ -585,7 +592,7 @@ pname	src/App/Handlers/Wiki.php	/^            $pname = "File:" . $row["id"];$/;"
 pname	src/App/Handlers/Wiki.php	/^        $pname = "File:" . $fid;$/;"	v
 png	src/App/Handlers/Short.php	/^        $png = $gen->writeString();$/;"	v
 png	src/App/Handlers/ShortImage.php	/^        $png = $gen->writeString();$/;"	v
-poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ? AND `ll` <> '') ORDER BY created DESC", [$tag]);$/;"	v
+poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) AND `ll` <> '' ORDER BY created DESC", [$tag]);$/;"	v
 poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetch("SELECT id, created, title, link, ll, icon, description FROM map_poi WHERE ll <> '' AND id IN (SELECT poi_id FROM map_tags WHERE tag = 'public') ORDER BY created DESC");$/;"	v
 poi	src/App/Handlers/Maps.php	/^        $poi = $this->db->fetchOne("SELECT * FROM `map_poi` WHERE `id` = ?", [$id]);$/;"	v
 popup	src/App/Handlers/Maps.php	/^            $popup = $this->getPopup($row, $is_admin);$/;"	v
@@ -593,6 +600,7 @@ postEdit	src/App/Handlers.php	/^    public function postEdit(Request $request, R
 prefix	src/App/CommonHandler.php	/^            $prefix = "";$/;"	v
 prefix	src/App/CommonHandler.php	/^            $prefix = $m[0];$/;"	v
 prefix	src/App/Stemmer.php	/^        $prefix = mb_substr($word, 0, $region, 'UTF-8');$/;"	v
+prepareDescription	src/App/Handlers/Maps.php	/^    protected function prepareDescription(array $form)$/;"	f
 prevChar	src/App/Stemmer.php	/^            $prevChar = mb_substr($word, $i - 1, 1, 'UTF-8');$/;"	v
 processWikiPage	src/App/Handlers/Wiki.php	/^    protected function processWikiPage($name, $source)$/;"	f
 props	src/App/Parser.php	/^        $props = array($/;"	v
@@ -608,6 +616,8 @@ query	src/App/Search.php	/^        $query = $this->normalizeText($query);$/;"	v
 r	src/App/Handlers/Files.php	/^                $r = $iw \/ $ih;$/;"	v
 r	src/App/Handlers/Maps.php	/^                    $r = $sw \/ $sh;$/;"	v
 r	src/App/Handlers/Maps.php	/^                $r = $attrs["width"] \/ $attrs["height"];$/;"	v
+r	src/App/Handlers/Maps.php	/^                $r = $size[0] \/ $size[1];$/;"	v
+r	src/App/Handlers/Maps.php	/^                $r = $sw \/ $sh;$/;"	v
 rate	src/App/Handlers/Wiki.php	/^                $rate = $w \/ $h;$/;"	v
 re	src/App/Common.php	/^        $re = new \\League\\CommonMark\\HtmlRenderer($environment);$/;"	v
 receiveFile	src/App/UploadHandler.php	/^    protected function receiveFile(UploadedFile $file)$/;"	f
@@ -707,7 +717,10 @@ settings	src/App/Template.php	/^        $settings = $container->get("settings")[
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['logger'];$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['renderer'];$/;"	v
 settings	src/dependencies.php	/^    $settings = $c->get('settings')['templates'];$/;"	v
+sh	src/App/Handlers/Maps.php	/^                        $sh = imagesy($image);$/;"	v
 sh	src/App/Handlers/Maps.php	/^                    $sh = imagesy($img);$/;"	v
+sh	src/App/Handlers/Maps.php	/^                $sh = $attrs["heigth"];$/;"	v
+sh	src/App/Handlers/Maps.php	/^                $sh = $size[1];$/;"	v
 sharpenImage	src/App/Handlers/Files.php	/^    protected function sharpenImage($img)$/;"	f
 sharpenMatrix	src/App/Handlers/Files.php	/^        $sharpenMatrix = array($/;"	v
 short	src/App/Handlers/Search.php	/^        $short = $this->db->shortsGetByCode($query);$/;"	v
@@ -719,6 +732,7 @@ shortsGetRecent	src/App/Database.php	/^    public function shortsGetRecent()$/;"
 sid	src/App/CommonHandler.php	/^            $sid = \\App\\Common::uuid();$/;"	v
 sid	src/App/CommonHandler.php	/^        $sid = $this->sessionGetId();$/;"	v
 since	src/App/Handlers/Wiki.php	/^        $since = time() - 2592000;$/;"	v
+size	src/App/Handlers/Maps.php	/^                $size = getimagesize($fp);$/;"	v
 small	src/App/Handlers/Wiki.php	/^                $small = "\/images\/placeholder.png";$/;"	v
 small	src/App/Handlers/Wiki.php	/^            $small = "\/i\/thumbnails\/{$fileId}.jpg";$/;"	v
 snippet	src/App/Handlers/Wiki.php	/^            $snippet = $this->getPageSnippet($page);$/;"	v
@@ -733,7 +747,9 @@ source	src/App/Handlers/Wiki.php	/^        $source = str_replace("\\r\\n", "\\n"
 splitWords	src/App/Search.php	/^    protected function splitWords($text)$/;"	f
 sql	src/App/Search.php	/^                $sql = "SELECT `key`, `meta` FROM `search` WHERE `search` MATCH ? ORDER BY bm25(`search`, 0, 10) LIMIT {$limit}";$/;"	v
 sql	src/App/Search.php	/^                $sql = "SELECT `key`, `meta`, MATCH(`title`) AGAINST (:query IN BOOLEAN MODE) * 10 AS `trel`, MATCH(`body`) AGAINST (:query IN BOOLEAN MODE) AS `brel` FROM `search` WHERE `key` NOT LIKE 'page:File:%' HAVING `trel` > 0 OR `brel` > 0 ORDER BY `trel` DESC, `brel` DESC LIMIT {$limit}";$/;"	v
+src	src/App/Handlers/Maps.php	/^                $src = htmlspecialchars($attrs["src"]);$/;"	v
 src	src/App/Handlers/Maps.php	/^            $src = $attrs["src"];$/;"	v
+src	src/App/Handlers/Maps.php	/^            $src = htmlspecialchars($attrs["src"]);$/;"	v
 src	src/App/Handlers/Wiki.php	/^                $src = "public" . str_replace("_small", "", $attrs["src"]);$/;"	v
 stack	src/App/Handlers/Error.php	/^        $stack = $e->getTraceAsString();$/;"	v
 stack	src/App/Handlers/Error.php	/^        $stack = str_replace($root . "\/", "", $stack);$/;"	v
@@ -747,11 +763,17 @@ status	src/App/Handlers/Error.php	/^        $status = 500;$/;"	v
 sth	src/App/Database.php	/^        $sth = $db->prepare($query);$/;"	v
 sth	src/App/Database.php	/^        $sth = $this->query($query, $_params);$/;"	v
 stopWords	src/App/Search.php	/^    static private $stopWords = ["а", "и", "о", "об", "в", "на", "под", "из"];$/;"	v
+sw	src/App/Handlers/Maps.php	/^                        $sw = imagesx($image);$/;"	v
 sw	src/App/Handlers/Maps.php	/^                    $sw = imagesx($img);$/;"	v
+sw	src/App/Handlers/Maps.php	/^                $sw = $attrs["width"];$/;"	v
+sw	src/App/Handlers/Maps.php	/^                $sw = $size[0];$/;"	v
+sw	src/App/Handlers/Maps.php	/^            $sw = $sh = null;$/;"	v
 tables	src/App/Handlers/Database.php	/^                $tables = $this->db->fetch("SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? ORDER BY `table_name`", [$name], function ($row) {$/;"	v
 tables	src/App/Handlers/Database.php	/^                $tables = [];$/;"	v
 tables	src/App/Handlers/Database.php	/^        $tables = $this->getStats();$/;"	v
 tag	src/App/Handlers/Maps.php	/^        $tag = $request->getParam("tag");$/;"	v
+tag	src/App/Handlers/Maps.php	/^        $tag = mb_strtolower($tag);$/;"	v
+tag	src/App/Handlers/Maps.php	/^        $tag = str_replace(" ", " ", $tag);$/;"	v
 tag	src/App/Handlers/Wiki.php	/^                $tag = $parts[1];$/;"	v
 tags	src/App/Handlers/Maps.php	/^            $tags = preg_split('@,\\s*@', $form["tags"], -1, PREG_SPLIT_NO_EMPTY);$/;"	v
 target	src/App/Parser.php	/^                $target = $parts[0];$/;"	v
