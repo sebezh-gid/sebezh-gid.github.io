@@ -583,6 +583,9 @@ class Wiki extends CommonHandler
      **/
     protected function refresh(Request $request)
     {
+        if (!$this->isAdmin($request))
+            return false
+
         if ($request->getParam("debug"))
             return true;
 
