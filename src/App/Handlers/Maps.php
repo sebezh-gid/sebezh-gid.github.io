@@ -58,12 +58,12 @@ class Maps extends CommonHandler
         $tag = mb_strtolower($tag);
         $poi = $this->db->fetch("SELECT * FROM map_poi WHERE `id` IN (SELECT `poi_id` FROM `map_tags` WHERE `tag` = ?) AND `ll` <> '' ORDER BY created DESC", [$tag]);
 
-        $markers = array_map(function ($row) {
+        $is_admin = $this->isAdmin($request);
+
+        $markers = array_map(function ($row) use ($is_admin) {
             return [
                 "latlng" => explode(",", $row["ll"]),
-                "title" => $row["title"],
-                "link" => $row["link"],
-                "description" => $row["description"],
+                "html" => $this->getPopup($row, $is_admin),
                 "icon" => $row["icon"],
             ];
         }, $poi);

@@ -1,4 +1,5 @@
 REMOTE=sebezh-gid.ru
+FOLDER=wiki
 
 all: assets tags
 
@@ -54,7 +55,7 @@ sql:
 	sqlite3 data/database.sqlite
 
 sql-public:
-	ssh -t $(REMOTE) mysql
+	ssh -t $(REMOTE) sqlite3 $(FOLDER)/data/database.sqlite
 
 tags:
 	@echo "Rebuilding ctags (see doc/HOWTO_dev.md)"

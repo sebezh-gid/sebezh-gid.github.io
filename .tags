@@ -437,7 +437,6 @@ log	src/App/CommonHandler.php	/^    protected function log()$/;"	f
 logger	src/dependencies.php	/^    $logger = new Monolog\\Logger($settings['name']);$/;"	v
 login	src/App/Handlers/Account.php	/^        $login = $request->getParam("login");$/;"	v
 markers	src/App/Handlers/Maps.php	/^        $markers = array_map(function ($row) use ($is_admin) {$/;"	v
-markers	src/App/Handlers/Maps.php	/^        $markers = array_map(function ($row) {$/;"	v
 md	src/App/Parser.php	/^        $md = new CommonMarkConverter();$/;"	v
 meta	src/App/Search.php	/^        $meta = $meta ? serialize($meta) : null;$/;"	v
 mode	src/App/Handlers/Maps.php	/^        $mode = $request->getParam("mode");$/;"	v
