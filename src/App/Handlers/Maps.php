@@ -161,8 +161,10 @@ class Maps extends CommonHandler
             ]);
         }
 
+        $next = isset($form["link"]) ? $form["link"] : "/map";
+
         return $response->withJSON([
-            "redirect" => "/map",
+            "redirect" => $next,
         ]);
     }
 

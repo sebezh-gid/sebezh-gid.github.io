@@ -467,6 +467,7 @@ nameEn	src/App/Handlers/ShortImage.php	/^        $nameEn = $this->getEnglishName
 nameRu	src/App/Handlers/ShortImage.php	/^        $nameRu = $this->getRussianName($code);$/;"	v
 names	src/App/Handlers/Wiki.php	/^        $names = $this->db->fetch("SELECT `name` FROM `pages` WHERE `id` IN (SELECT `page_id` FROM `backlinks` WHERE `link` = ?) ORDER BY `name`", [$name]);$/;"	v
 next	src/App/Handlers/Account.php	/^        $next = $request->getParam("back");$/;"	v
+next	src/App/Handlers/Maps.php	/^        $next = isset($form["link"]) ? $form["link"] : "\/map";$/;"	v
 next	src/App/Handlers/Search.php	/^            $next = "\/wiki?name=" . urlencode($short["link"]);$/;"	v
 next	src/App/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($info["link"]);$/;"	v
 next	src/App/Handlers/Upload.php	/^        $next = "\/wiki\/edit?name=" . urlencode($name);$/;"	v
