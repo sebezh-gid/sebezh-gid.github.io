@@ -46,3 +46,14 @@ a.image.left {
         margin: 0;
     }
 }
+
+.photoalbum {
+    min-height: 160px;
+}
+.photoalbum .showmore {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 150px;
+    font-size: 20px;
+    cursor: pointer;
+}

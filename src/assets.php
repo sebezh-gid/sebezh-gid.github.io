@@ -50,5 +50,6 @@ return [
         "assets/hotkeys.js",
         "assets/dialogs.js",
         "assets/maps.js",
+        "assets/images.js",
     ],
 ];

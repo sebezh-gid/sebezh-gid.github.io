@@ -60,6 +60,8 @@ accountGet	src/App/Database.php	/^    public function accountGet($login)$/;"	f
 addDefaults	src/App/Template.php	/^    protected function addDefaults(array $data)$/;"	f
 addFile	src/App/Database.php	/^    public function addFile($name, $type, $body)$/;"	f
 after	src/App/Handlers/Wiki.php	/^        $after = null;$/;"	v
+album	src/App/Handlers/Wiki.php	/^                    $album = [];$/;"	v
+album	src/App/Handlers/Wiki.php	/^        $album = [];$/;"	v
 aliases	src/App/Search.php	/^            $aliases = $this->db->fetchkv("SELECT `src`, `dst` FROM `odict` LIMIT 10000");$/;"	v
 aliases	src/App/Search.php	/^        static $aliases = null;$/;"	v
 all	src/App/Util.php	/^        $all = "html|head|body|header|main|footer|aside|nav|div|p|ul|ol|li|input|label|textarea|button|meta|title|h1|h2|h3|h4|h5|script|style|link|table|thead|tfoot|tbody|tr|th|td|img";$/;"	v
@@ -117,6 +119,7 @@ code	src/App/Handlers/Short.php	/^        $code = $this->getCode($name);$/;"	v
 code	src/App/Handlers/ShortImage.php	/^            $code = rand(1001, 9999);$/;"	v
 code	src/App/Handlers/ShortImage.php	/^        $code = $args["code"];$/;"	v
 code	src/App/Handlers/ShortImage.php	/^        $code = $this->db->shortGetCode($name);$/;"	v
+code	src/App/Handlers/Wiki.php	/^                        $code = "<div class='photoalbum'>";$/;"	v
 code	src/App/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["name"]}'\/><\/a>";$/;"	v
 comment	src/App/Handlers/Wiki.php	/^                $comment = "Файл загружен [по ссылке]({$link}).\\n\\n";$/;"	v
 comment	src/App/Handlers/Wiki.php	/^        $comment = null;$/;"	v
@@ -404,6 +407,7 @@ level	src/App/Common.php	/^            $level = (int)$openLevel;$/;"	v
 level	src/App/Common.php	/^        $level = 1;$/;"	v
 lines	src/App/CommonHandler.php	/^        $lines = array_map(function ($line) use ($prefix) {$/;"	v
 lines	src/App/CommonHandler.php	/^        $lines = preg_split('@\\n@', $text, -1, PREG_SPLIT_NO_EMPTY);$/;"	v
+lines	src/App/Handlers/Wiki.php	/^        $lines = explode("\\n", $source);$/;"	v
 lines	src/App/Handlers/Wiki.php	/^        $lines = explode("\\n", $text);$/;"	v
 lines	src/App/Parser.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
 lines	src/App/Parser.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
@@ -536,6 +540,7 @@ onUpdateDescriptions	src/App/Handlers/Maps.php	/^    public function onUpdateDes
 onUpload	src/App/Handlers/Wiki.php	/^    public function onUpload(Request $request, Response $response, array $args)$/;"	f
 options	src/App/Handlers/Files.php	/^        $options = array_merge([$/;"	v
 originalInternalEncoding	src/App/Stemmer.php	/^        $originalInternalEncoding = mb_internal_encoding();$/;"	v
+out	src/App/Handlers/Wiki.php	/^        $out = [];$/;"	v
 p	src/App/Handlers/Wiki.php	/^            $p = $this->processWikiPage($em["name"], $em["source"]);$/;"	v
 page	src/App/Handlers.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
 page	src/App/Handlers/EditPage.php	/^        $page = $this->db->getPageByName($pageName);$/;"	v
@@ -602,6 +607,7 @@ prefix	src/App/CommonHandler.php	/^            $prefix = $m[0];$/;"	v
 prefix	src/App/Stemmer.php	/^        $prefix = mb_substr($word, 0, $region, 'UTF-8');$/;"	v
 prepareDescription	src/App/Handlers/Maps.php	/^    protected function prepareDescription(array $form)$/;"	f
 prevChar	src/App/Stemmer.php	/^            $prevChar = mb_substr($word, $i - 1, 1, 'UTF-8');$/;"	v
+processPhotoAlbums	src/App/Handlers/Wiki.php	/^    protected function processPhotoAlbums($source)$/;"	f
 processWikiPage	src/App/Handlers/Wiki.php	/^    protected function processWikiPage($name, $source)$/;"	f
 props	src/App/Parser.php	/^        $props = array($/;"	v
 props	src/App/Util.php	/^        $props = [$/;"	v
@@ -738,6 +744,8 @@ source	src/App/Handlers/Upload.php	/^            $source = "# {$file["name"]}\\n
 source	src/App/Handlers/Wiki.php	/^                $source = "# {$title}\\n\\n";$/;"	v
 source	src/App/Handlers/Wiki.php	/^            $source = $blocks[1];$/;"	v
 source	src/App/Handlers/Wiki.php	/^            $source = preg_replace_callback('@<img[^>]+\/>@', function ($m) {$/;"	v
+source	src/App/Handlers/Wiki.php	/^        $source = $this->processPhotoAlbums($source);$/;"	v
+source	src/App/Handlers/Wiki.php	/^        $source = implode(PHP_EOL, $out);$/;"	v
 source	src/App/Handlers/Wiki.php	/^        $source = preg_replace_callback('@\\[\\[([^]]+)\\]\\]@', function ($m) {$/;"	v
 source	src/App/Handlers/Wiki.php	/^        $source = str_replace("\\r\\n", "\\n", $source);$/;"	v
 splitWords	src/App/Search.php	/^    protected function splitWords($text)$/;"	f

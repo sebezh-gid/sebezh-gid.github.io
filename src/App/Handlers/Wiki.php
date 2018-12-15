@@ -678,6 +678,8 @@ class Wiki extends CommonHandler
             $source = $blocks[1];
         }
 
+        $source = $this->processPhotoAlbums($source);
+
         // Process wiki links.
         $source = preg_replace_callback('@\[\[([^]]+)\]\]@', function ($m) {
             // Embed images later.
@@ -910,5 +912,34 @@ class Wiki extends CommonHandler
         ];
 
         return $res;
+    }
+
+    protected function processPhotoAlbums($source)
+    {
+        $out = [];
+        $album = [];
+
+        $lines = explode("\n", $source);
+        foreach ($lines as $line) {
+            if (preg_match('@^\s*\[\[image:[^]]+\]\]\s*$@', $line, $m)) {
+                $album[] = trim($line);
+            } else {
+                if ($album) {
+                    if (count($album) == 1)
+                        $out[] = $album[0];
+                    else {
+                        $code = "<div class='photoalbum'>";
+                        $code .= implode("", $album);
+                        $code .= "</div>";
+                        $out[] = $code;
+                    }
+                    $album = [];
+                }
+                $out[] = $line;
+            }
+        }
+
+        $source = implode(PHP_EOL, $out);
+        return $source;
     }
 }
