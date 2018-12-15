@@ -200,41 +200,31 @@ class Maps extends CommonHandler
         return $response->withJSON($res);
     }
 
+    public function onUpdateDescriptions(Request $request, Response $response, array $args)
+    {
+        $poi = $this->db->fetch("SELECT * FROM map_poi");
+        foreach ($poi as $poi) {
+            $desc = $this->prepareDescription($poi);
+            if ($desc != $poi["description"]) {
+                $this->db->update("map_poi", [
+                    "description" => $desc,
+                ], [
+                    "id" => $poi["id"],
+                ]);
+                $this->log("INF maps: poi %u description updated.", $poi["id"]);
+            }
+        }
+
+        return "DONE";
+    }
+
     protected function getPopup(array $poi, $is_admin = false)
     {
         $img = null;
         $link = htmlspecialchars($poi["link"]);
 
         $description = preg_replace_callback('@<img[^>]+>@', function ($m) use (&$img) {
-            $attrs = \App\Util::parseHtmlAttrs($m[0]);
-
-            $w = 100;
-            $h = 100;
-
-            if (isset($attrs["width"]) and isset($attrs["height"])) {
-                $r = $attrs["width"] / $attrs["height"];
-                $h = self::PIC_HEIGHT;
-                $w = round($h * $r);
-            } elseif (file_exists($fp = $_SERVER["DOCUMENT_ROOT"] . $attrs["src"])) {
-                $size = getimagesize($fp);
-                $r = $size[0] / $size[1];
-                $h = self::PIC_HEIGHT;
-                $w = round($h * $r);
-            } elseif (preg_match('@^/i/thumbnails/(\d+)\.jpg$@', $attrs["src"], $m)) {
-                $body = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$m[1]]);
-                if ($body) {
-                    $img = imagecreatefromstring($body);
-                    $sw = imagesx($img);
-                    $sh = imagesy($img);
-                    $r = $sw / $sh;
-                    $h = self::PIC_HEIGHT;
-                    $w = round($h * $r);
-                }
-            }
-
-            $src = $attrs["src"];
-            $img = "<img src='{$src}' width='{$w}' height='{$h}'/>";
-
+            $img = $m[0];
             return "";
         }, $poi["description"]);
 
@@ -287,12 +277,7 @@ class Maps extends CommonHandler
 
             $sw = $sh = null;
 
-            if (isset($attrs["width"]) and isset($attrs["height"])) {
-                $sw = $attrs["width"];
-                $sh = $attrs["heigth"];
-            }
-
-            elseif (preg_match('@^/i/thumbnails/(\d+)\.jpg$@', $attrs["src"], $m)) {
+            if (preg_match('@^/i/thumbnails/(\d+)\.jpg$@', $attrs["src"], $m)) {
                 if ($image = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$m[1]])) {
                     if ($image = imagecreatefromstring($image)) {
                         $sw = imagesx($image);
@@ -307,10 +292,21 @@ class Maps extends CommonHandler
                 $sh = $size[1];
             }
 
+            elseif (isset($attrs["width"]) and isset($attrs["height"])) {
+                $sw = $attrs["width"];
+                $sh = $attrs["height"];
+            }
+
             if ($sw and $sh) {
                 $r = $sw / $sh;
-                $h = 100;
-                $w = round($h * $r);
+
+                if ($r <= 1.5) {
+                    $h = 100;
+                    $w = round($h * $r);
+                } else {
+                    $w = 150;
+                    $h = round($w / $r);
+                }
 
                 $src = htmlspecialchars($attrs["src"]);
                 return "<img src='{$src}' width='{$w}' height='{$h}'/>";

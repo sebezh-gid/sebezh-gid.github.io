@@ -10,6 +10,8 @@ if (PHP_SAPI == "cli") {
     $app->post('/cli/{action:.+}', '\App\Handlers\CLI:onDefault');
 }
 
+$app->get('/tasks/map/update-descriptions', '\App\Handlers\Maps:onUpdateDescriptions');
+
 // Web routes.
 
 $app->get('/wiki', '\App\Handlers\Wiki:onRead');
