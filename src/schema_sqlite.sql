@@ -90,6 +90,15 @@ CREATE UNIQUE INDEX IF NOT EXISTS IDX_storage_name ON storage (name);
 CREATE VIRTUAL TABLE IF NOT EXISTS `search` USING fts5 (`key` UNINDEXED, `meta` UNINDEXED, `title`, `body`);
 
 
+CREATE TABLE IF NOT EXISTS `search_log` (
+    `id` INTEGER PRIMARY KEY,
+    `date` TEXT NOT NULL,
+    `query` TEXT NOT NULL,
+    `results` INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS `IDX_search_log_date` ON `search_log` (`date`);
+
+
 CREATE TABLE IF NOT EXISTS `odict` (
   `src` TEXT NOT NULL,
   `dst` TEXT NOT NULL

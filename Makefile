@@ -42,7 +42,7 @@ reindex-remote:
 	ssh $(REMOTE) php -f wiki/tools/cli.php reindex
 
 schema:
-	mysql < src/schema_mysql.sql
+	sqlite3 data/database.sqlite < src/schema_sqlite.sql
 
 serve:
 	php -d upload_max_filesize=100M -S 127.0.0.1:8080 -t public public/router.php
