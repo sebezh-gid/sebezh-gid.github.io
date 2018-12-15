@@ -36,15 +36,6 @@
 
 {% block page_header %}
     <div class="page-header">
-        {% if false %}
-            {# это пока не готово #}
-            <div class="icons">
-                <a href="/wiki?name=Скачать+путеводитель"><i class="fa fa-download"></i></a>
-                <a href="/wiki?name=QR-коды"><i class="fa fa-qrcode"></i></a>
-                <a href="/wiki?name=Карты"><i class="fa fa-compass"></i></a>
-                <a href="/wiki?name=О+сайте"><i class="fa fa-bars"></i></a>
-            </div>
-        {% endif %}
         <h1 itemprop="name">{{ page.title }}</h1>
     </div>
 {% endblock %}
@@ -59,13 +50,25 @@
 
         {{ page.html|typo }}
 
-        {% if file and file.type == "image/jpeg" %}
+        {% if file and file.kind == "photo" %}
             <a class="image" data-fancybox="gallery" href="{{ file.link }}">
-                <img src="{{file.thumbnail}}"/>
+                <img src="{{ file.thumbnail }}"/>
             </a>
 
-            <p>Код для вставки этого изображения:</p>
-            <pre>[[File:{{ file.name }}]]</pre>
+            {% if file.size %}
+                <p>Размер <a href="{{ file.link }}">исходного изображения</a>: {{ file.size[0] }}×{{ file.size[1] }} пикселей.</p>
+            {% endif %}
+
+            {% if backlinks|length == 1 %}
+                <p>Файл использован на странице <a href="/wiki?name={{ backlinks[0]|url_encode }}">{{ backlinks[0] }}</a>.</p>
+            {% elseif backlinks %}
+                <p>Файл использован на страницах:</p>
+                <ul>
+                    {% for l in backlinks %}
+                        <li><a href="/wiki?name={{ l|url_encode }}">{{ l }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}

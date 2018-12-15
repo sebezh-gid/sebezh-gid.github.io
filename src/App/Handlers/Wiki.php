@@ -51,9 +51,37 @@ class Wiki extends CommonHandler
                 return $response->withRedirect($link, 301);
             }
 
+            $backlinks = $this->db->fetch("SELECT p.name FROM pages p INNER JOIN backlinks b ON b.page_id = p.id WHERE b.link = :0 AND p.name <> :0 ORDER BY p.name", [$pageName], function ($row) {
+                return $row["name"];
+            });
+
+            $file = null;
+            if (preg_match('@^File:(\d+)$@', $pageName, $m)) {
+                if ($tmp = $this->db->fetchone("SELECT kind, body FROM files WHERE id = ?", [$m[1]])) {
+                    $size = null;
+                    if ($tmp["kind"] == "photo") {
+                        if ($img = imagecreatefromstring($tmp["body"])) {
+                            $w = imagesx($img);
+                            $h = imagesy($img);
+                            $size = [$w, $h];
+                        }
+                    }
+
+                    $file = [
+                        "id" => $m[1],
+                        "kind" => $tmp["kind"],
+                        "thumbnail" => "/i/thumbnails/{$m[1]}.jpg",
+                        "link" => "/files/{$m[1]}/download",
+                        "size" => $size,
+                    ];
+                }
+            }
+
             $html = $this->renderHTML($request, "wiki-page.twig", [
                 "language" => $page["language"],
                 "page" => $page,
+                "file" => $file,
+                "backlinks" => $backlinks,
                 "canonical_link" => "/wiki?name=" . urlencode($page["name"]),
             ]);
 
@@ -243,6 +271,22 @@ class Wiki extends CommonHandler
         return $this->render($request, "backlinks.twig", [
             "name" => $name,
             "pages" => $names,
+        ]);
+    }
+
+    public function onFiles(Request $request, Response $response, array $args)
+    {
+        $files = $this->db->fetch("SELECT `id`, `name`, `kind` FROM `files` WHERE `kind` = 'photo' ORDER BY `created` DESC", [], function ($row) {
+            return [
+                "id" => $row["id"],
+                "kind" => $row["kind"],
+                "link" => "/wiki?name=File%3A{$row["id"]}",
+                "image" => "/i/thumbnails/{$row["id"]}.jpg",
+            ];
+        });
+
+        return $this->render($request, "wiki-files.twig", [
+            "files" => $files,
         ]);
     }
 
@@ -738,6 +782,11 @@ class Wiki extends CommonHandler
             $parts = explode(":", $m[1]);
             $fileId = array_shift($parts);
 
+            // Hide images linking to themselves.
+            if ($name == "File:" . $fileId) {
+                return "";
+            }
+
             $small = "/i/thumbnails/{$fileId}.jpg";
             $large = "/i/photos/{$fileId}.jpg";
             $page = "/wiki?name=File:{$fileId}";
@@ -928,9 +977,9 @@ class Wiki extends CommonHandler
                 $album[] = trim($line);
             } else {
                 if ($album) {
-                    if (count($album) == 1)
+                    if (count($album) == 1) {
                         $out[] = $album[0];
-                    else {
+                    } else {
                         $code = "<div class='photoalbum'>";
                         $code .= implode("", $album);
                         $code .= "</div>";
@@ -940,6 +989,15 @@ class Wiki extends CommonHandler
                 }
                 $out[] = $line;
             }
+        }
+
+        if (count($album) == 1)
+            $out[] = $album[0];
+        elseif (count($album) > 1) {
+            $code = "<div class='photoalbum'>";
+            $code .= implode("", $album);
+            $code .= "</div>";
+            $out[] = $code;
         }
 
         $source = implode(PHP_EOL, $out);

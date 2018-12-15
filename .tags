@@ -73,6 +73,7 @@ attrs	src/App/Handlers/Wiki.php	/^                    $attrs = \\App\\Util::pars
 attrs	src/App/Handlers/Wiki.php	/^                $attrs = \\App\\Util::parseHtmlAttrs($_img);$/;"	v
 attrs	src/App/Handlers/Wiki.php	/^                $attrs = \\App\\Util::parseHtmlAttrs($m[0]);$/;"	v
 back	src/App/Handlers/Account.php	/^        $back = @$_GET["back"];$/;"	v
+backlinks	src/App/Handlers/Wiki.php	/^            $backlinks = $this->db->fetch("SELECT p.name FROM pages p INNER JOIN backlinks b ON b.page_id = p.id WHERE b.link = :0 AND p.name <> :0 ORDER BY p.name", [$pageName], function ($row) {$/;"	v
 barcode	src/App/Handlers/Short.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
 barcode	src/App/Handlers/ShortImage.php	/^        $barcode = $this->getBarCode($params["link"]);$/;"	v
 base	src/App/Handlers/Files.php	/^        $base = $proto . ":\/\/" . $host;$/;"	v
@@ -120,6 +121,7 @@ code	src/App/Handlers/ShortImage.php	/^            $code = rand(1001, 9999);$/;"
 code	src/App/Handlers/ShortImage.php	/^        $code = $args["code"];$/;"	v
 code	src/App/Handlers/ShortImage.php	/^        $code = $this->db->shortGetCode($name);$/;"	v
 code	src/App/Handlers/Wiki.php	/^                        $code = "<div class='photoalbum'>";$/;"	v
+code	src/App/Handlers/Wiki.php	/^            $code = "<div class='photoalbum'>";$/;"	v
 code	src/App/UploadHandler.php	/^                $code = "<a class='image' href='\/files\/{$info["name"]}' data-fancybox='gallery' data-caption='No description'><img src='\/thumbnail\/{$tn}' alt='{$info["name"]}'\/><\/a>";$/;"	v
 comment	src/App/Handlers/Wiki.php	/^                $comment = "Файл загружен [по ссылке]({$link}).\\n\\n";$/;"	v
 comment	src/App/Handlers/Wiki.php	/^        $comment = null;$/;"	v
@@ -216,7 +218,9 @@ file	src/App/Handlers/Short.php	/^        $file = $this->db->getFileByName($name
 file	src/App/Handlers/Storage.php	/^        $file = $this->db->fileGet($args["name"]);$/;"	v
 file	src/App/Handlers/Upload.php	/^            $file = \\App\\Common::fetch($link);$/;"	v
 file	src/App/Handlers/Upload.php	/^        $file = $this->db->fetchOne("SELECT `id`, `name`, `mime_type`, `kind` FROM `files` WHERE `id` = ?", [$fid]);$/;"	v
+file	src/App/Handlers/Wiki.php	/^                    $file = [$/;"	v
 file	src/App/Handlers/Wiki.php	/^            $file = \\App\\Common::fetch($link);$/;"	v
+file	src/App/Handlers/Wiki.php	/^            $file = null;$/;"	v
 fileGet	src/App/Database.php	/^    public function fileGet($name)$/;"	f
 fileId	src/App/Handlers/Wiki.php	/^            $fileId = array_shift($parts);$/;"	v
 filePut	src/App/Database.php	/^    public function filePut($name, $data)$/;"	f
@@ -224,6 +228,7 @@ files	src/App/Handlers/FileList.php	/^        $files = $this->db->findFiles();$/
 files	src/App/Handlers/Files.php	/^        $files = $this->db->fetch("SELECT `id`, `hash`, `name`, `kind`, `mime_type`, `created`, `length` FROM `files` ORDER BY `created` DESC", [], function ($em) {$/;"	v
 files	src/App/Handlers/Files.php	/^        $files = $this->db->fetch("SELECT id, name, mime_type, length, created, hash FROM files ORDER BY id");$/;"	v
 files	src/App/Handlers/Files.php	/^        $files = array_map(function ($em) use ($base) {$/;"	v
+files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT `id`, `name`, `kind` FROM `files` WHERE `kind` = 'photo' ORDER BY `created` DESC", [], function ($row) {$/;"	v
 files	src/App/Handlers/Wiki.php	/^        $files = $this->db->fetch("SELECT `id`, `name`, `mime_type`, `kind`, `length`, `created`, `hash` FROM `files` ORDER BY `created` DESC LIMIT 20");$/;"	v
 files	src/App/Handlers/Wiki.php	/^        $files = array_map(function ($em) {$/;"	v
 files	src/App/Handlers/Wiki.php	/^        $files = array_map(function ($row) {$/;"	v
@@ -273,6 +278,7 @@ getWordBase	src/App/Stemmer.php	/^    public static function getWordBase($word)$
 guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
 h	src/App/Handlers/Maps.php	/^                    $h = 100;$/;"	v
 h	src/App/Handlers/Maps.php	/^                    $h = round($w \/ $r);$/;"	v
+h	src/App/Handlers/Wiki.php	/^                            $h = imagesy($img);$/;"	v
 h	src/App/Handlers/Wiki.php	/^                $h = $_size[1];$/;"	v
 h	src/App/Handlers/Wiki.php	/^        $h = imagesy($img);$/;"	v
 h	src/dependencies.php	/^        $h = new \\App\\Handlers\\Error($c);$/;"	v
@@ -497,6 +503,7 @@ onEdit	src/App/Handlers/Maps.php	/^    public function onEdit(Request $request, 
 onEdit	src/App/Handlers/Wiki.php	/^    public function onEdit(Request $request, Response $response, array $args)$/;"	f
 onEmbedClipboard	src/App/Handlers/Wiki.php	/^    public function onEmbedClipboard(Request $request, Response $response, array $args)$/;"	f
 onExport	src/App/Handlers/Files.php	/^    public function onExport(Request $request, Response $response, array $args)$/;"	f
+onFiles	src/App/Handlers/Wiki.php	/^    public function onFiles(Request $request, Response $response, array $args)$/;"	f
 onFilesJSON	src/App/Handlers/Wiki.php	/^    public function onFilesJSON(Request $request, Response $response, array $args)$/;"	f
 onFilesRSS	src/App/Handlers/Wiki.php	/^    public function onFilesRSS(Request $request, Response $response, array $args)$/;"	f
 onGet	src/App/FileHandler.php	/^    public function onGet(Request $request, Response $response, array $args)$/;"	f
@@ -735,6 +742,8 @@ sid	src/App/CommonHandler.php	/^            $sid = \\App\\Common::uuid();$/;"	v
 sid	src/App/CommonHandler.php	/^        $sid = $this->sessionGetId();$/;"	v
 since	src/App/Handlers/Wiki.php	/^        $since = time() - 2592000;$/;"	v
 size	src/App/Handlers/Maps.php	/^                $size = getimagesize($fp);$/;"	v
+size	src/App/Handlers/Wiki.php	/^                            $size = [$w, $h];$/;"	v
+size	src/App/Handlers/Wiki.php	/^                    $size = null;$/;"	v
 small	src/App/Handlers/Wiki.php	/^                $small = "\/images\/placeholder.png";$/;"	v
 small	src/App/Handlers/Wiki.php	/^            $small = "\/i\/thumbnails\/{$fileId}.jpg";$/;"	v
 snippet	src/App/Handlers/Wiki.php	/^            $snippet = $this->getPageSnippet($page);$/;"	v
@@ -841,6 +850,7 @@ uuid	src/App/Common.php	/^    public static function uuid($body = null)$/;"	f
 v	src/App/Common.php	/^                    $v = trim($parts[1]);$/;"	v
 w	src/App/Handlers/Maps.php	/^                    $w = 150;$/;"	v
 w	src/App/Handlers/Maps.php	/^                    $w = round($h * $r);$/;"	v
+w	src/App/Handlers/Wiki.php	/^                            $w = imagesx($img);$/;"	v
 w	src/App/Handlers/Wiki.php	/^                $w = $_size[0];$/;"	v
 w	src/App/Handlers/Wiki.php	/^        $w = imagesx($img);$/;"	v
 wanted	src/App/Handlers/Wiki.php	/^        $wanted = null;$/;"	v
