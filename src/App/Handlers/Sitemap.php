@@ -13,7 +13,12 @@ class Sitemap extends CommonHandler
 {
     public function onGet(Request $request, Response $response, array $args)
     {
-        $base = $this->container->get("settings")["websiteBase"];
+        $host = $request->getServerParam("HTTP_HOST");
+
+        $https = $request->getServerParam("HTTPS") == "on";
+        $proto = $https ? "https" : "http";
+
+        $base = $proto . "://" . $host;
 
         $xml = "<?xml version='1.0' encoding='utf-8'?".">\n";
         $xml .= "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>\n";
