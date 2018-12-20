@@ -96,7 +96,7 @@ class CommonHandler
 
         $response = new Response(200);
         $response->getBody()->write($html);
-        return $response;
+        return $response->withHeader("Content-Type", "text/html; charset=utf-8");
     }
 
     /**
