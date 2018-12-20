@@ -87,6 +87,8 @@ class Upload extends CommonHandler
                 $files["file"]->moveTo($tmp);
                 $body = file_get_contents($tmp);
                 unlink($tmp);
+
+                $this->db->addFile($name, $type, $body);
             } else {
                 return false;
             }
