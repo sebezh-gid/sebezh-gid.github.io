@@ -393,4 +393,9 @@ class Database {
     {
         return $this->fetchCell("SELECT `value` FROM `cache` WHERE `key` = ?", [$key]);
     }
+
+    public function cacheGet2($key)
+    {
+        return $this->fetchOne("SELECT * FROM `cache` WHERE `key` = ?", [$key]);
+    }
 }
