@@ -873,6 +873,10 @@ class Wiki extends CommonHandler
             if (preg_match('@<p>(.+?)</p>@', $html, $m)) {
                 $res["summary"] = strip_tags($m[1]);
             }
+
+            elseif (preg_match('@<li>(.+?)</li>@', $html, $m)) {
+                $res["summary"] = strip_tags($m[1]);
+            }
         }
 
         if (preg_match_all('@<img[^>]+>@', $html, $m)) {
