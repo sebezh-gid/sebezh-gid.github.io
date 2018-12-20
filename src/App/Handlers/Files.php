@@ -29,7 +29,7 @@ class Files extends CommonHandler
                 "id" => $em["id"],
                 "type" => $type,
                 "label" => $em["name"],
-                "link" => "/files/{$em["id"]}",
+                "link" => "/wiki?name=File:{$em["id"]}",
                 "image" => $image,
                 "created" => strftime("%Y-%m-%d", $em["created"]),
             ];
@@ -53,26 +53,20 @@ class Files extends CommonHandler
 
     public function onDownload(Request $request, Response $response, array $args)
     {
-        $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `created`, `body` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($request);
 
-        $response = $response->withHeader("Content-Type", $file["mime_type"])
-            ->withHeader("Content-Length", $file["length"])
-            ->withHeader("ETag", "\"{$file["hash"]}\"")
-            ->withHeader("Cache-Control", "public, max-age=31536000")
-            ->withHeader("Content-Disposition", "attachment; filename=\"" . urlencode($file["name"]) . "\"");
-
-        $response->getBody()->write($file["body"]);
-        return $response;
+        return $this->sendCached($request, $file["body"], $file["hash"], $file["mime_type"], $file["created"]);
     }
 
     public function onThumbnail(Request $request, Response $response, array $args)
     {
         $path = $request->getUri()->getPath();
 
-        if ($cached = $this->db->cacheGet($path)) {
-            $body = $cached;
+        if ($tmp = $this->db->cacheGet2($path)) {
+            $body = $tmp["value"];
+            $lastmod = (int)$tmp["added"];
         } else {
             $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
             if (empty($file))
@@ -94,23 +88,26 @@ class Files extends CommonHandler
             } else {
                 $this->db->cacheSet($path, $body);
             }
+
+            $lastmod = time();
         }
 
         $hash = md5($body);
 
-        return $this->sendCached($request, $body, $hash, "image/jpeg");
+        return $this->sendCached($request, $body, $hash, "image/jpeg", $lastmod);
     }
 
     public function onPhoto(Request $request, Response $response, array $args)
     {
-        $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
+        $file = $this->db->fetchOne("SELECT `name`, `created`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
             return $this->notfound($request);
 
         $body = $file["body"];
         $hash = $file["hash"];
+        $lastmod = $file["created"];
 
-        return $this->sendCached($request, $body, $hash, "image/jpeg");
+        return $this->sendCached($request, $body, $hash, "image/jpeg", $lastmod);
     }
 
     /**
@@ -147,10 +144,19 @@ class Files extends CommonHandler
      *
      * Supports ETag.
      **/
-    protected function sendCached(Request $request, $body, $hash, $type)
+    protected function sendCached(Request $request, $body, $hash, $type, $lastmod = null)
     {
-        $etag = '"' . $hash . '"';
+        if ($lastmod)
+            $etag = sprintf("\"%x-%x\"", $lastmod, strlen($body));
+        else
+            $etag = '"' . $hash . '"';
+
         $response = new Response(200);
+
+        if ($lastmod) {
+            $ts = gmstrftime("%a, %d %b %Y %H:%M:%S %z", $lastmod);
+            $response = $response->withHeader("Last-Modified", $ts);
+        }
 
         $headers = $request->getHeaders();
         if (@$headers["HTTP_IF_NONE_MATCH"][0] == $etag) {
@@ -159,8 +165,8 @@ class Files extends CommonHandler
                 ->withHeader("Cache-Control", "public, max-age=31536000");
         }
 
-        $response = $response->withHeader("Content-Type", "image/jpeg")
-            ->withHeader("ETag", "\"{$hash}\"")
+        $response = $response->withHeader("Content-Type", $type)
+            ->withHeader("ETag", $etag)
             ->withHeader("Content-Length", strlen($body))
             ->withHeader("Cache-Control", "public, max-age=31536000");
         $response->getBody()->write($body);
