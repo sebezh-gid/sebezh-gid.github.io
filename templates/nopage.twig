@@ -14,7 +14,7 @@
 
  {% if search_results %}
   <hr/>
-  <p>Вот другие статьи, в которых удалось <a href="/search?query={{ page_name }}">найти</a> текст «{{ page_name }}»:</p>
+  <p>Вот другие статьи, в которых удалось <a href="/search?query={{ page_name }}" rel="nofollow">найти</a> текст «{{ page_name }}»:</p>
   {% include "parts/search_results.twig" %}
  {% endif %}
 {% endblock %}
