@@ -18,6 +18,6 @@ class NotFound extends CommonHandler
     public function __invoke(Request $request, Response $response, array $args)
     {
         $response = $this->render($request, "notfound.twig");
-        return $response->withStatus(404);
+        return $response->withStatus(404)->withHeader("Content-Type", "text/html; charset=utf-8");
     }
 }
