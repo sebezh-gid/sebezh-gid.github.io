@@ -19,7 +19,7 @@ class ShortRedirect extends CommonHandler
 
         // TODO: detect agent language.
 
-        $link = "/wiki?name=" . urlencode($name);
+        $link = "/wiki?name=" . rawurlencode($name);
         return $response->withRedirect($link, 301);
     }
 }

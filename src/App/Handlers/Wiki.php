@@ -41,13 +41,13 @@ class Wiki extends CommonHandler
 
             if (!empty($page["redirect"])) {
                 // TODO: check if page exists.
-                $link = "/wiki?name=" . urlencode($page["redirect"]);
+                $link = "/wiki?name=" . rawurlencode($page["redirect"]);
                 return $response->withRedirect($link, 303);
             }
 
             // Fix case.
             if ($page["name"] != $pageName) {
-                $link = "/wiki?name=" . urlencode($page["name"]);
+                $link = "/wiki?name=" . rawurlencode($page["name"]);
                 return $response->withRedirect($link, 301);
             }
 
@@ -82,7 +82,9 @@ class Wiki extends CommonHandler
                 "page" => $page,
                 "file" => $file,
                 "backlinks" => $backlinks,
-                "canonical_link" => "/wiki?name=" . urlencode($page["name"]),
+                "canonical_link" => "/wiki?name=" . rawurlencode($page["name"]),
+                "meta_description" => @$page["summary"],
+                "meta_keywords" => @$page["keywords"],
             ]);
 
             $this->db->update("pages", [
@@ -224,7 +226,7 @@ class Wiki extends CommonHandler
         }
 
         if ($next = $this->savePage($name, $text))
-            return $response->withRedirect("/wiki?name=" . urlencode($next), 303);
+            return $response->withRedirect("/wiki?name=" . rawurlencode($next), 303);
         else
             return $response->withRedirect("/", 303);
     }
@@ -236,6 +238,8 @@ class Wiki extends CommonHandler
 
         return $this->render($request, "index.twig", [
             "pages" => $pages,
+            "meta_keywords" => "список, перечень, индекс",
+            "meta_description" => "Полный перечень страниц в базе знаний.",
         ]);
     }
 
@@ -345,7 +349,7 @@ class Wiki extends CommonHandler
                 "name" => $em["name"],
                 "title" => $p["title"],
                 "created" => $em["created"],
-                "link" => "/wiki?name=" . urlencode($em["name"]),
+                "link" => "/wiki?name=" . rawurlencode($em["name"]),
             ];
         }, $pages);
 
@@ -769,7 +773,7 @@ class Wiki extends CommonHandler
                 $title = "Нет такой страницы";
             }
 
-            $html = sprintf("<a href='/wiki?name=%s%s' class='wiki %s' title='%s'>%s</a>", urlencode($link), $hash, $cls, htmlspecialchars($title), htmlspecialchars($label));
+            $html = sprintf("<a href='/wiki?name=%s%s' class='wiki %s' title='%s'>%s</a>", rawurlencode($link), $hash, $cls, htmlspecialchars($title), htmlspecialchars($label));
 
             return $html;
         }, $source);
@@ -882,6 +886,18 @@ class Wiki extends CommonHandler
         if (preg_match_all('@<img[^>]+>@', $html, $m)) {
             foreach ($m[0] as $_img) {
                 $attrs = \App\Util::parseHtmlAttrs($_img);
+            }
+        }
+
+        if ($tmp = $this->container->get("settings")["wiki_meta_defaults_{$res["language"]}"]) {
+            foreach ($tmp as $pattern => $options) {
+                if (preg_match('@' . $pattern . '@iu', $name)) {
+                    foreach ($options as $k => $v) {
+                        if (empty($res[$k]))
+                            $res[$k] = $v;
+                    }
+                    break;
+                }
             }
         }
 

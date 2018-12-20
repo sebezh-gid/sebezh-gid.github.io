@@ -1,0 +1,548 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Website checker.
+ *
+ * TODO: save cookies.
+ **/
+
+function debug()
+{
+    $args = func_get_args();
+
+    ob_start();
+    call_user_func_array("var_dump", $args);
+    $text = ob_get_clean();
+
+    echo $text;
+    debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+    exit(1);
+}
+
+
+function flog()
+{
+    $args = func_get_args();
+
+    $text = call_user_func_array("sprintf", $args);
+
+    $prefix = "";
+    if (preg_match('@^([^:]+:\s+)@', $text, $m)) {
+        $prefix = $m[1];
+        $text = substr($text, strlen($prefix));
+    }
+
+    $now = strftime("%Y-%m-%d %H:%M:%S ");
+
+    $lines = explode("\n", rtrim($text));
+    foreach ($lines as $line) {
+        printf("%s %s%s\n", $now, $prefix, rtrim($line));
+    }
+}
+
+
+class Database
+{
+    protected $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    public static function connect()
+    {
+        $home = getenv("HOME");
+        $path = $home . "/.website_tester.sqlite";
+        $dsn = "sqlite:" . $path;
+
+        $pdo = new \PDO($dsn, null, null);
+        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
+
+        $db = new self($pdo);;
+        $db->init();
+
+        return $db;
+    }
+
+    protected function init()
+    {
+        $queries = [
+            "CREATE TABLE IF NOT EXISTS `websites` (`id` INTEGER PRIMARY KEY, `base` TEXT NOT NULL)",
+            "CREATE UNIQUE INDEX IF NOT EXISTS `IDX_websites_base` ON `websites` (`base`)",
+            "CREATE TABLE IF NOT EXISTS `pages` (`id` INTEGER PRIMARY KEY, `site_id` INTEGER NOT NULL, `url` TEXT NULL, `status` INTEGER NULL)",
+            "CREATE INDEX IF NOT EXISTS `IDX_pages_site_id` ON `pages` (`site_id`)",
+            "CREATE INDEX IF NOT EXISTS `IDX_pages_url` ON `pages` (`url`)",
+        ];
+
+        foreach ($queries as $query) {
+            $this->query($query);
+        }
+    }
+
+    public function query($query, array $params = [])
+    {
+        try {
+            $sth = $this->pdo->prepare($query);
+            $sth->execute($params);
+            return $sth;
+        } catch (\Exception $e) {
+            flog("ERR: SQL error: %s; query=%s", $e->getMessage(), $query);
+            throw $e;
+        }
+    }
+
+    public function insert($tableName, array $fields)
+    {
+        $_fields = [];
+        $_marks = [];
+        $_params = [];
+
+        foreach ($fields as $k => $v) {
+            $_fields[] = "`{$k}`";
+            $_params[] = $v;
+            $_marks[] = "?";
+        }
+
+        $_fields = implode(", ", $_fields);
+        $_marks = implode(", ", $_marks);
+
+        $query = "INSERT INTO `{$tableName}` ({$_fields}) VALUES ({$_marks})";
+        $sth = $this->query($query, $_params);
+
+        return $this->pdo->lastInsertId();
+    }
+
+    public function fetch($query, array $params = [], $callback = null)
+    {
+        $sth = $this->query($query, $params);
+
+        $rows = $sth->fetchAll(\PDO::FETCH_ASSOC);
+        if ($callback)
+            $rows = array_map($callback, $rows);
+
+        return $rows;
+    }
+
+    public function fetchOne($query, array $params = [])
+    {
+        $sth = $this->query($query, $params);
+        return $sth->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function addWebsite($url)
+    {
+        if ($sel = $this->fetchOne("SELECT * FROM `websites` WHERE `base` = ?", [$url])) {
+            return (int)$sel["id"];
+        }
+
+        $id = $this->insert("websites", [
+            "base" => $url,
+        ]);
+
+        return $id;
+    }
+
+    public function begin()
+    {
+        $this->pdo->beginTransaction();
+    }
+
+    public function commit()
+    {
+        $this->pdo->commit();
+    }
+}
+
+
+class Checker
+{
+    protected $base;
+
+    protected $sitemap = null;
+
+    protected $errors = [];
+
+    protected $db;
+
+    protected $siteId;
+
+    protected $reset = false;
+
+    public function main(array $argv)
+    {
+        if (count($argv) < 2)
+            $this->fail("Usage: php -f %s URL\n", $argv[0]);
+
+        $this->db = Database::connect();
+
+        if (in_array("--reset", $argv))
+            $this->reset = true;
+
+        $this->testWebsite($argv[1]);
+
+        flog("Done.");
+    }
+
+    protected function testWebsite($url)
+    {
+        $this->base = $url;
+
+        $this->siteId = $this->db->addWebsite($url);
+        flog("INF: checking website %u, url=%s", $this->siteId, $url);
+
+        if ($this->reset)
+            $this->db->query("DELETE FROM `pages` WHERE `site_id` = ?", [$this->siteId]);
+
+        $this->sitemap = $url . "sitemap.xml";
+
+        $this->addLink($url, "cli");
+
+        $this->testRobots($url);
+        $this->testSitemap();
+        $this->testPages();
+    }
+
+    protected function testRobots($base)
+    {
+        $link = $base . "robots.txt";
+
+        $res = $this->get($link);
+        if ($res["status"] != 200)
+            $this->logError("robots.txt: file not found");
+
+        elseif (preg_match('@Sitemap:\s+(.+)$@mi', $res["data"], $m)) {
+            $name = basename($m[1]);
+            $this->sitemap = $base . $name;
+            // $this->sitemap = $m[1];
+        }
+
+        else {
+            $this->logError("robots.txt: sitemap not specified.");
+        }
+    }
+
+    protected function testSitemap()
+    {
+        $res = $this->get($this->sitemap);
+
+        $this->db->begin();
+
+        $count = 0;
+        if (preg_match_all('@<loc>([^<]+)</loc>@m', $res["data"], $m)) {
+            flog("DBG: adding %u links from the sitemap.", count($m[0]));
+
+            foreach ($m[1] as $link) {
+                $this->addLink($link, "sitemap");
+                $count++;
+            }
+        }
+
+        $this->db->commit();
+
+        if ($count == 0) {
+            $this->logError("sitemap has no urls");
+        } else {
+            flog("DBG: sitemap: found %u links.", $count);
+        }
+    }
+
+    protected function testPages()
+    {
+        while (true) {
+            $pages = $this->db->fetch("SELECT * FROM `pages` WHERE `site_id` = ? AND `status` IS NULL", [$this->siteId]);
+            if (empty($pages)) {
+                flog("DBG: no more pages to check.");
+                break;
+            }
+
+            foreach ($pages as $page) {
+                $this->testPage($page);
+            }
+        }
+    }
+
+    protected function testPage(array $page)
+    {
+        $url = $page["url"];
+        $res = $this->get($page["url"]);
+
+        if (empty($res["headers"]["content-type"])) {
+            $this->logError("no content-type for %s", $page["url"]);
+            flog("WRN: no content-type in %s", $page["url"]);
+            $ct = "text/html";
+        } else {
+            $ct = $res["headers"]["content-type"];
+        }
+
+        $t1 = $t2 = null;
+        if (preg_match('@^([^/]+)/([^;]+)@', $ct, $m)) {
+            $t1 = $m[1];
+            $t2 = $m[2];
+        }
+
+        if ($t1 == "text" and $t2 == "html") {
+            if ($links = $this->getPageLinks($res["data"])) {
+                foreach ($links as $link)
+                    $this->addLink($link, $url);
+            }
+
+            if ($res["status"] == 200)
+                $this->testPageMeta($page, $res);
+        }
+
+        elseif (empty($res["headers"]["last-modified"])) {
+            flog("WRN: no last-modified header in %s", $url);
+        }
+
+        elseif (empty($res["headers"]["etag"])) {
+            flog("WRN: no etag header in %s", $url);
+        }
+
+        else {
+            // debug($res["headers"]);
+        }
+
+        $this->db->query("UPDATE `pages` SET `status` = ? WHERE `id` = ?", [$res["status"], $page["id"]]);
+    }
+
+    protected function testPageMeta(array $page, array $res)
+    {
+        $meta = [
+            "charset" => null,
+            "viewport" => null,
+            "og:site_name" => null,
+            "og:url" => null,
+            "og:image" => null,
+            "description" => null,
+            "keywords" => null,
+            "title" => null,
+        ];
+
+        if (preg_match_all('@<meta[^>]+>@', $res["data"], $m)) {
+            foreach ($m[0] as $tag) {
+                $attrs = self::parseHtmlAttrs($tag);
+
+                if (!empty($attrs["charset"])) {
+                    $meta["charset"] = $attrs["charset"];
+                    continue;
+                }
+
+                $name = @$attrs["name"];
+                $content = @$attrs["content"];
+                if ($name and $content) {
+                    $meta[$name] = $content;
+                    continue;
+                }
+
+                $name = @$attrs["property"];
+                if ($name and $content) {
+                    $meta[$name] = $content;
+                    continue;
+                }
+            }
+        }
+
+        if (preg_match('@<title>(.+)</title>@', $res["data"], $m)) {
+            $meta["title"] = $m[1];
+        }
+
+        foreach ($meta as $k => $v) {
+            if ($v === null) {
+                flog("WRN: meta %s missing on page %s", $k, $page["url"]);
+                $this->logError("meta %s missing on page %s", $k, $page["url"]);
+            }
+        }
+    }
+
+    protected function get($link)
+    {
+        $context = stream_context_create(array(
+            "http" => array(
+                "method" => "GET",
+                "ignore_errors" => true,
+                ),
+            ));
+
+        $res = array(
+            "status" => null,
+            "status_text" => null,
+            "headers" => array(),
+            "data" => @file_get_contents($link, false, $context),
+            );
+
+        if (!empty($http_response_header)) {
+            foreach ($http_response_header as $h) {
+                if (preg_match('@^HTTP/[0-9.]+ (\d+) (.*)$@', $h, $m)) {
+                    $res["status"] = $m[1];
+                    $res["status_text"] = $m[2];
+                } else {
+                    $parts = explode(":", $h, 2);
+                    $k = strtolower(trim($parts[0]));
+                    $v = trim($parts[1]);
+                    $res["headers"][$k] = $v;
+                }
+            }
+        }
+
+        if (false === $res["data"])
+            $res["error"] = error_get_last();
+
+        flog("DBG: fetch: [%u] %s", $res["status"], $link);
+
+        return $res;
+    }
+
+    protected function addLink($link, $source = "unknown")
+    {
+        if (preg_match('@^(mailto:|tel:|#)@', $link)) {
+            return;
+        }
+
+        if (0 === strpos($link, "//"))
+            $link = "http:" . $link;
+
+        if (false === strpos($link, "://")) {
+            if ($link[0] == "/") {
+                $link = $this->base . substr($link, 1);
+            } else {
+                // TODO: base
+                $link = $this->base . $link;
+                // flog("ERR: bad link: %s; source: %s", $link, $source);
+                // return;
+            }
+        }
+
+        if (0 !== strpos($link, $this->base)) {
+            // flog("DBG: link skipped: %s", $link);
+            return;
+        }
+
+        /*
+        if (!$this->isProperLink($link)) {
+            flog("WRN: improper link: %s; source: %s", $link, $source);
+        }
+        */
+
+        if ($res = $this->db->fetchOne("SELECT id FROM `pages` WHERE `site_id` = ? AND `url` = ?", [$this->siteId, $link])) {
+            // nothing to do
+        }
+
+        else {
+            $this->db->insert("pages", [
+                "site_id" => $this->siteId,
+                "url" => $link,
+            ]);
+        }
+    }
+
+    protected function isProperLink($link)
+    {
+        $parts = explode("?", $link, 2);
+
+        if (count($parts) == 2) {
+            $args = array_map(function ($arg) {
+                if (false !== strpos($arg, '%'))
+                    return $arg;
+
+                $parts = explode("=", $arg, 2);
+                if (count($parts) != 2)
+                    return $arg;
+
+                $k = $parts[0];
+                $v = $parts[1];
+
+                if (urlencode($k) != $k)
+                    $k = urlencode($k);
+
+                if (!preg_match('@^[a-z0-9_%]+$@i', $v))
+                    $v = urlencode($v);
+
+                return $k . '=' . $v;
+            }, explode("&", $parts[1]));
+
+            $parts[1] = implode("&", $args);
+        }
+
+        $nlink = implode("?", $parts);
+        return $nlink == $link;
+    }
+
+    protected function getPageLinks($html)
+    {
+        $res = [];
+
+        if (preg_match_all('@<a\s+[^>]+>@', $html, $m)) {
+            foreach ($m[0] as $em) {
+                $attrs = self::parseHtmlAttrs($em);
+
+                if (@$attrs["rel"] == "nofollow")
+                    continue;
+
+                if (!empty($attrs["href"]))
+                    $res[] = htmlspecialchars_decode($attrs["href"]);
+            }
+        }
+
+        if (preg_match_all('@<img[^>]+>@', $html, $m)) {
+            foreach ($m[0] as $em) {
+                $attrs = self::parseHtmlAttrs($em);
+                if (!empty($attrs["src"]))
+                    $res[] = htmlspecialchars_decode($attrs["src"]);
+            }
+        }
+
+        if (preg_match_all('@<link[^>]+>@', $html, $m)) {
+            foreach ($m[0] as $em) {
+                $attrs = self::parseHtmlAttrs($em);
+                if (!empty($attrs["href"]))
+                    $res[] = htmlspecialchars_decode($attrs["href"]);
+            }
+        }
+
+        return $res;
+    }
+
+    protected function fail()
+    {
+        $args = func_get_args();
+
+        $text = call_user_func_array("sprintf", $args);
+        $text = trim($text) . PHP_EOL;
+
+        echo $text;
+        exit(1);
+    }
+
+    protected function logError()
+    {
+        $args = func_get_args();
+        $text = call_user_func_array("sprintf", $args);
+
+        $this->errors[] = $text;
+    }
+
+    public static function parseHtmlAttrs($tag)
+    {
+        $res = [];
+
+        if (preg_match_all('@([a-z-]+)="([^"]+)"@', $tag, $m)) {
+            foreach ($m[1] as $idx => $key)
+                $res[$key] = trim($m[2][$idx]);
+        }
+
+        if (preg_match_all("@([a-z-]+)='([^']+)'@", $tag, $m)) {
+            foreach ($m[1] as $idx => $key)
+                $res[$key] = trim($m[2][$idx]);
+        }
+
+        return $res;
+    }
+}
+
+
+$c = new Checker();
+$c->main($argv);
+
+// vim: set ts=4 sts=4 sw=4 et:

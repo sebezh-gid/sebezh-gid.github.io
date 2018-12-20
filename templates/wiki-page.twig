@@ -1,8 +1,8 @@
 {% extends "base.twig" %}
 
 {% block more_head %}
-    <link rel="edit" title="Редактировать страницу" href="/wiki/edit?name={{ page.name }}"/>
-    <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/wiki/edit?name={{ page.name }}"/>
+    <link rel="edit" title="Редактировать страницу" href="/wiki/edit?name={{ page.name|url_encode }}"/>
+    <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/wiki/edit?name={{ page.name|url_encode }}"/>
 
     <meta property="og:url" content="https://{{ host }}/wiki?name={{ page.name|url_encode }}"/>
     <meta property="og:type" content="article"/>
@@ -22,9 +22,6 @@
                 <meta property="og:image:height" content="{{ image.height }}"/>
             {% endif %}
         {% endfor %}
-    {% endif %}
-    {% if page.summary %}
-        <meta name="description" property="og:description" content="{{ page.summary }}"/>
     {% endif %}
 
     {% if "File:" in page.name %}

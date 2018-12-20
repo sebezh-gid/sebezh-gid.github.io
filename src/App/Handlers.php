@@ -58,7 +58,7 @@ class Handlers extends CommonHandler
 
         $this->db->updatePage($name, $text);
 
-        return $response->withRedirect("/wiki?name=" . urlencode($name), 303);
+        return $response->withRedirect("/wiki?name=" . rawurlencode($name), 303);
     }
 
     public function getHome(Request $request, Response $response)

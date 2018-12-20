@@ -53,7 +53,7 @@ class Upload extends CommonHandler
             ]);
         }
 
-        $next = "/wiki/edit?name=" . urlencode($name);
+        $next = "/wiki/edit?name=" . rawurlencode($name);
 
         return $response->withJSON([
             "redirect" => $next,

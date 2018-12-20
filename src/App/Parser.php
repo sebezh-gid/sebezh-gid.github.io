@@ -31,7 +31,7 @@ class Parser
                 $title = $parts[1];
             }
 
-            $link = sprintf("<a class=\"wiki\" href=\"/wiki?name=%s\" title=\"%s\">%s</a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));
+            $link = sprintf("<a class=\"wiki\" href=\"/wiki?name=%s\" title=\"%s\">%s</a>", rawurlencode($target), htmlspecialchars($title), htmlspecialchars($title));
 
             return $link;
         }, $html);

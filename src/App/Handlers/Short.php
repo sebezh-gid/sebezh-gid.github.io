@@ -112,7 +112,7 @@ class Short extends CommonHandler
         if (empty($info))
             return $this->notfound();
 
-        $next = "/wiki?name=" . urlencode($info["link"]);
+        $next = "/wiki?name=" . rawurlencode($info["link"]);
 
         return $response->withRedirect($next, 302);
     }

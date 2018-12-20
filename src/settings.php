@@ -48,6 +48,32 @@ return [
             'homePage' => 'Введение',
         ],
 
+        'wiki_meta_defaults_ru' => [
+            '^File' => [
+                'keywords' => 'Гид по Себежу, файл, фотография, фото',
+                'summary' => 'Архив фотографий и документов путеводителя по Себежской земле.',
+            ],
+            '\s(год|января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)$' => [
+                'keywords' => 'Гид по Себежу, даты, события, история, календарь',
+                'summary' => 'Календарь и хроника в путеводителе по Себежской земле.',
+            ],
+            '.' => [
+                'keywords' => 'гид, путеводитель, туризм, Себеж, Себежская земля, Себежский район, псковщина',
+                'summary' => 'Путеводитель но Себежской земле: статьи, рекомендации, фотографии, история.',
+            ],
+        ],
+
+        'wiki_meta_defaults_en' => [
+            '^File' => [
+                'keywords' => 'files, photos, illustrations, Sebezh Guide, Guide to Sebezh',
+                'summary' => 'Photo archive for the Guide to Sebezh.',
+            ],
+            '.' => [
+                'keywords' => 'guide, travel, voyage, tourism, Sebezh, Pskov, Russia',
+                'summary' => 'Guide to the Sebezh land: articles, photos, history, knowledge base.',
+            ],
+        ],
+
         'thumbnails' => [
             'small' => [
                 'width' => 200,

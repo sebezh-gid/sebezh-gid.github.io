@@ -160,7 +160,7 @@ class CommonHandler
             if (empty($this->db->fetch("SELECT `name` FROM `pages` WHERE `name` = ?", [$link])))
                 $cls = "broken";
 
-            $html = sprintf("<a href='/wiki?name=%s' class='wiki %s'>%s</a>", urlencode($link), $cls, htmlspecialchars($label));
+            $html = sprintf("<a href='/wiki?name=%s' class='wiki %s'>%s</a>", rawurlencode($link), $cls, htmlspecialchars($label));
 
             // TODO: embed files
 
@@ -184,7 +184,7 @@ class CommonHandler
     {
         return array_map(function ($em) {
             $name = substr($em["key"], 5);
-            $link = "/wiki?name=" . urlencode($name);
+            $link = "/wiki?name=" . rawurlencode($name);
 
             return [
                 "link" => $link,
@@ -230,7 +230,7 @@ class CommonHandler
             if ($args) {
                 $qs = [];
                 foreach ($args as $k => $v)
-                    $qs[] = urlencode($k) . '=' . urlencode($v);
+                    $qs[] = rawurlencode($k) . '=' . rawurlencode($v);
                 $url .= "?" . implode("&", $qs);
             }
 

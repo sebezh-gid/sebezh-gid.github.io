@@ -61,4 +61,7 @@ tags:
 	@echo "Rebuilding ctags (see doc/HOWTO_dev.md)"
 	@find src -name "*.php" | xargs ctags-exuberant -f .tags -h ".php" -R --totals=yes --tag-relative=yes --PHP-kinds=+cf --regex-PHP='/abstract class ([^ ]*)/\1/c/' --regex-PHP='/interface ([^ ]*)/\1/c/' --regex-PHP='/(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/' >/dev/null 2>&1
 
+test-website:
+	php -f tools/test-website "http://gid.local/" | tee test.log | grep -v improper | grep -E 'WRN|ERR'
+
 .PHONY: assets tags sql schema

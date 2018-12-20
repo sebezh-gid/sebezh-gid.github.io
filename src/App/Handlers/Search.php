@@ -20,7 +20,7 @@ class Search extends Handlers
 
         $short = $this->db->shortsGetByCode($query);
         if ($short) {
-            $next = "/wiki?name=" . urlencode($short["link"]);
+            $next = "/wiki?name=" . rawurlencode($short["link"]);
             return $response->withRedirect($next, 303);
         }
 
@@ -40,7 +40,8 @@ class Search extends Handlers
             "wikiName" => $wikiName,
             "has_page" => $hasPage,
             "results" => $results,
-            "edit_link" => "/wiki/edit?name=" . urlencode($wikiName),
+            "edit_link" => "/wiki/edit?name=" . rawurlencode($wikiName),
+            "meta_keywords" => "гид, путеводитель, Себеж, поиск",
         ]);
     }
 

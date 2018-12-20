@@ -25,7 +25,7 @@ class Sitemap extends CommonHandler
 
         $pages = $this->db->listPages();
         foreach ($pages as $page) {
-            $link = $base . "/wiki?name=" . urlencode($page["name"]);
+            $link = $base . "/wiki?name=" . rawurlencode($page["name"]);
             $date = strftime("%Y-%m-%d", $page["updated"]);
             $xml .= "<url><loc>{$link}</loc><lastmod>{$date}</lastmod></url>\n";
         }
