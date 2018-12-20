@@ -302,7 +302,7 @@ host	src/App/Handlers/Sitemap.php	/^        $host = $request->getServerParam("HT
 html	src/App/Common.php	/^        $html = $converter->convertToHtml($source);$/;"	v
 html	src/App/Common.php	/^        $html = preg_replace_callback('@<h([12345])>(.+)<\/h([12345])>@', function ($m) use (&$level, &$toc) {$/;"	v
 html	src/App/Common.php	/^        $html = str_replace("<div id=\\"toc\\"><\/div>", "<div id=\\"toc\\">{$toc}<\/div>", $html);$/;"	v
-html	src/App/CommonHandler.php	/^            $html = sprintf("<a href='\/wiki?name=%s' class='wiki %s'>%s<\/a>", urlencode($link), $cls, htmlspecialchars($label));$/;"	v
+html	src/App/CommonHandler.php	/^            $html = sprintf("<a href='\/wiki?name=%s' class='wiki %s'>%s<\/a>", rawurlencode($link), $cls, htmlspecialchars($label));$/;"	v
 html	src/App/CommonHandler.php	/^        $html = $this->renderHTML($request, $templateName, $data);$/;"	v
 html	src/App/CommonHandler.php	/^        $html = $this->template->render($templateName, $data);$/;"	v
 html	src/App/CommonHandler.php	/^        $html = \\App\\Common::renderMarkdown($source);$/;"	v
@@ -315,7 +315,7 @@ html	src/App/Handlers/Wiki.php	/^                $html = "<div id='map_{$id}' cl
 html	src/App/Handlers/Wiki.php	/^            $html = "<a class='{$className}' href='{$page}' data-src='{$large}' data-fancybox='gallery' title='{$title}'>";$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^            $html = $this->renderHTML($request, "wiki-page.twig", [$/;"	v
-html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s%s' class='wiki %s' title='%s'>%s<\/a>", urlencode($link), $hash, $cls, htmlspecialchars($title), htmlspecialchars($label));$/;"	v
+html	src/App/Handlers/Wiki.php	/^            $html = sprintf("<a href='\/wiki?name=%s%s' class='wiki %s' title='%s'>%s<\/a>", rawurlencode($link), $hash, $cls, htmlspecialchars($title), htmlspecialchars($label));$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = $page["html"];$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderMarkdown($source);$/;"	v
 html	src/App/Handlers/Wiki.php	/^        $html = \\App\\Common::renderTOC($html);$/;"	v
@@ -425,22 +425,22 @@ lines	src/App/Parser.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);
 lines	src/App/Util.php	/^                $lines = array_slice($lines, $idx + 1);$/;"	v
 lines	src/App/Util.php	/^        $lines = preg_split('@(\\r\\n|\\n)@', $text);$/;"	v
 link	src/App/CommonHandler.php	/^                $link = $parts[0];$/;"	v
-link	src/App/CommonHandler.php	/^            $link = "\/wiki?name=" . urlencode($name);$/;"	v
+link	src/App/CommonHandler.php	/^            $link = "\/wiki?name=" . rawurlencode($name);$/;"	v
 link	src/App/CommonHandler.php	/^            $link = $m[1];$/;"	v
 link	src/App/Handlers/Maps.php	/^        $link = htmlspecialchars($poi["link"]);$/;"	v
 link	src/App/Handlers/Short.php	/^                $link = $page["ru"];$/;"	v
 link	src/App/Handlers/Short.php	/^            $link = $page["name"];$/;"	v
 link	src/App/Handlers/Short.php	/^        $link = null;$/;"	v
-link	src/App/Handlers/ShortRedirect.php	/^        $link = "\/wiki?name=" . urlencode($name);$/;"	v
-link	src/App/Handlers/Sitemap.php	/^            $link = $base . "\/wiki?name=" . urlencode($page["name"]);$/;"	v
+link	src/App/Handlers/ShortRedirect.php	/^        $link = "\/wiki?name=" . rawurlencode($name);$/;"	v
+link	src/App/Handlers/Sitemap.php	/^            $link = $base . "\/wiki?name=" . rawurlencode($page["name"]);$/;"	v
 link	src/App/Handlers/Upload.php	/^        $link = $request->getParam("link");$/;"	v
 link	src/App/Handlers/Wiki.php	/^                        $link = urldecode(substr($attrs["href"], 11));$/;"	v
-link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . urlencode($page["name"]);$/;"	v
-link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . urlencode($page["redirect"]);$/;"	v
+link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . rawurlencode($page["name"]);$/;"	v
+link	src/App/Handlers/Wiki.php	/^                $link = "\/wiki?name=" . rawurlencode($page["redirect"]);$/;"	v
 link	src/App/Handlers/Wiki.php	/^                $link = $parts[0];$/;"	v
 link	src/App/Handlers/Wiki.php	/^            $link = $m[1];$/;"	v
 link	src/App/Handlers/Wiki.php	/^            $link = $request->getParam("link");$/;"	v
-link	src/App/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", urlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
+link	src/App/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=\\"\/wiki?name=%s\\" title=\\"%s\\">%s<\/a>", rawurlencode($target), htmlspecialchars($title), htmlspecialchars($title));$/;"	v
 links	src/App/Handlers/Wiki.php	/^                $links = [];$/;"	v
 listPages	src/App/Database.php	/^    public function listPages($sort = null)$/;"	f
 ll	src/App/Handlers/Maps.php	/^        $ll = sprintf("%.4f, %.4f", $parts[0], $parts[1]);$/;"	v
@@ -482,9 +482,9 @@ nameRu	src/App/Handlers/ShortImage.php	/^        $nameRu = $this->getRussianName
 names	src/App/Handlers/Wiki.php	/^        $names = $this->db->fetch("SELECT `name` FROM `pages` WHERE `id` IN (SELECT `page_id` FROM `backlinks` WHERE `link` = ?) ORDER BY `name`", [$name]);$/;"	v
 next	src/App/Handlers/Account.php	/^        $next = $request->getParam("back");$/;"	v
 next	src/App/Handlers/Maps.php	/^        $next = isset($form["link"]) ? $form["link"] : "\/map";$/;"	v
-next	src/App/Handlers/Search.php	/^            $next = "\/wiki?name=" . urlencode($short["link"]);$/;"	v
-next	src/App/Handlers/Short.php	/^        $next = "\/wiki?name=" . urlencode($info["link"]);$/;"	v
-next	src/App/Handlers/Upload.php	/^        $next = "\/wiki\/edit?name=" . urlencode($name);$/;"	v
+next	src/App/Handlers/Search.php	/^            $next = "\/wiki?name=" . rawurlencode($short["link"]);$/;"	v
+next	src/App/Handlers/Short.php	/^        $next = "\/wiki?name=" . rawurlencode($info["link"]);$/;"	v
+next	src/App/Handlers/Upload.php	/^        $next = "\/wiki\/edit?name=" . rawurlencode($name);$/;"	v
 nh	src/App/Handlers/Files.php	/^                $nh = round($nw \/ $r);$/;"	v
 normalizeText	src/App/Search.php	/^    public function normalizeText($text)$/;"	f
 normalizeWords	src/App/Search.php	/^    protected function normalizeWords(array $words)$/;"	f
