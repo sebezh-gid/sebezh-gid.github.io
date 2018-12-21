@@ -47,7 +47,6 @@ $app->get('/{code:[0-9]{4}}', '\App\Handlers\ShortRedirect');
 
 $app->any('/upload', '\App\Handlers\Upload');
 
-$app->get('/files', '\App\Handlers\Files:onGetRecent');
 $app->get('/files/export', '\App\Handlers\Files:onExport');
 $app->get('/files/{id:[0-9]+}', '\App\Handlers\Files:onShowFile');
 $app->get('/files/{id:[0-9]+}/download', '\App\Handlers\Files:onDownload');
