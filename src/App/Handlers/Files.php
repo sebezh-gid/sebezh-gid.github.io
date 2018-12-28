@@ -57,44 +57,27 @@ class Files extends CommonHandler
         if (empty($file))
             return $this->notfound($request);
 
-        return $this->sendCached($request, $file["body"], $file["hash"], $file["mime_type"], $file["created"]);
+        return $this->sendCached($request, $file["body"], $file["mime_type"], $file["created"]);
     }
 
     public function onThumbnail(Request $request, Response $response, array $args)
     {
-        $path = $request->getUri()->getPath();
-
-        if ($tmp = $this->db->cacheGet2($path)) {
-            $body = $tmp["value"];
-            $lastmod = (int)$tmp["added"];
-        } else {
+        return $this->sendFromCache($request, function () use ($args) {
             $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);
             if (empty($file))
-                return $this->notfound($request);
+                return $this->notfound();
 
             $img = imagecreatefromstring($file["body"]);
             if ($img === false) {
                 error_log("file {$args["id"]} is not an image.");
-                return $this->notfound($request);
+                return $this->notfound();
             }
 
             if (!($body = $this->getImage($img)))
-                return $this->notfound($request);
+                return $this->notfound();
 
-            $dst = $_SERVER["DOCUMENT_ROOT"] . $path;
-            $dir = dirname($dst);
-            if (is_dir($dir) and is_writable($dir)) {
-                file_put_contents($dst, $body);
-            } else {
-                $this->db->cacheSet($path, $body);
-            }
-
-            $lastmod = time();
-        }
-
-        $hash = md5($body);
-
-        return $this->sendCached($request, $body, $hash, "image/jpeg", $lastmod);
+            return ["image/jpeg", $body];
+        });
     }
 
     public function onPhoto(Request $request, Response $response, array $args)
@@ -107,7 +90,7 @@ class Files extends CommonHandler
         $hash = $file["hash"];
         $lastmod = $file["created"];
 
-        return $this->sendCached($request, $body, $hash, "image/jpeg", $lastmod);
+        return $this->sendCached($request, $body, "image/jpeg", $lastmod);
     }
 
     /**
@@ -137,41 +120,6 @@ class Files extends CommonHandler
         return $response->withJSON([
             "files" => $files,
         ]);
-    }
-
-    /**
-     * Sends a file with caching enabled.
-     *
-     * Supports ETag.
-     **/
-    protected function sendCached(Request $request, $body, $hash, $type, $lastmod = null)
-    {
-        if ($lastmod)
-            $etag = sprintf("\"%x-%x\"", $lastmod, strlen($body));
-        else
-            $etag = '"' . $hash . '"';
-
-        $response = new Response(200);
-
-        if ($lastmod) {
-            $ts = gmstrftime("%a, %d %b %Y %H:%M:%S %z", $lastmod);
-            $response = $response->withHeader("Last-Modified", $ts);
-        }
-
-        $headers = $request->getHeaders();
-        if (@$headers["HTTP_IF_NONE_MATCH"][0] == $etag) {
-            return $response->withStatus(304)
-                ->withHeader("ETag", $etag)
-                ->withHeader("Cache-Control", "public, max-age=31536000");
-        }
-
-        $response = $response->withHeader("Content-Type", $type)
-            ->withHeader("ETag", $etag)
-            ->withHeader("Content-Length", strlen($body))
-            ->withHeader("Cache-Control", "public, max-age=31536000");
-        $response->getBody()->write($body);
-
-        return $response;
     }
 
     protected function getImage($img)

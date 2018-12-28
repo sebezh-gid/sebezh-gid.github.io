@@ -251,4 +251,55 @@ class CommonHandler
             $this->log("ERR tasks: error scheduling %s", $url);
         }
     }
+
+    protected function sendFromCache(Request $request, $callback)
+    {
+        $path = $request->getUri()->getPath();
+
+        $row = $this->db->fetchOne("SELECT * FROM `cache` WHERE `key` = ?", [$path]);
+        if (empty($row)) {
+            list($type, $body) = $callback();
+
+            $added = time();
+            $this->db->insert("cache", [
+                "key" => $path,
+                "added" => $added,
+                "value" => $type . ";" . $body,
+            ]);
+        } else {
+            $added = (int)$row["added"];
+            list($type, $body) = explode(";", $row["value"], 2);
+        }
+
+        $path = $_SERVER["DOCUMENT_ROOT"] . $path;
+        $folder = dirname($path);
+        if (file_exists($folder) and is_dir($folder) and is_writable($folder))
+            file_put_contents($path, $body);
+
+        return $this->sendCached($request, $body, $type, $added);
+    }
+
+    protected function sendCached(Request $request, $body, $type, $lastmod)
+    {
+        $etag = sprintf("\"%x-%x\"", $lastmod, strlen($body));
+        $ts = gmstrftime("%a, %d %b %Y %H:%M:%S %z", $lastmod);
+
+        $response = new Response(200);
+        $response = $response->withHeader("Last-Modified", $ts);
+
+        $headers = $request->getHeaders();
+        if (@$headers["HTTP_IF_NONE_MATCH"][0] == $etag) {
+            return $response->withStatus(304)
+                ->withHeader("ETag", $etag)
+                ->withHeader("Cache-Control", "public, max-age=31536000");
+        }
+
+        $response = $response->withHeader("Content-Type", $type)
+            ->withHeader("ETag", $etag)
+            ->withHeader("Content-Length", strlen($body))
+            ->withHeader("Cache-Control", "public, max-age=31536000");
+        $response->getBody()->write($body);
+
+        return $response;
+    }
 }

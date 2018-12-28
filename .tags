@@ -61,6 +61,8 @@ acc	src/App/Handlers/Account.php	/^        $acc = $this->db->fetchOne("SELECT * 
 accountGet	src/App/Database.php	/^    public function accountGet($login)$/;"	f
 addDefaults	src/App/Template.php	/^    protected function addDefaults(array $data)$/;"	f
 addFile	src/App/Database.php	/^    public function addFile($name, $type, $body)$/;"	f
+added	src/App/CommonHandler.php	/^            $added = (int)$row["added"];$/;"	v
+added	src/App/CommonHandler.php	/^            $added = time();$/;"	v
 after	src/App/Handlers/Wiki.php	/^        $after = null;$/;"	v
 album	src/App/Handlers/Wiki.php	/^                    $album = [];$/;"	v
 album	src/App/Handlers/Wiki.php	/^        $album = [];$/;"	v
@@ -88,7 +90,6 @@ bh	src/App/Handlers/Short.php	/^        $bh = imagesy($barcode);$/;"	v
 bh	src/App/Handlers/ShortImage.php	/^        $bh = imagesy($barcode);$/;"	v
 blocks	src/App/Handlers/Wiki.php	/^        $blocks = explode("\\n---\\n", $source, 2);$/;"	v
 body	src/App/Handlers/CLI.php	/^            $body = file_get_contents($url);$/;"	v
-body	src/App/Handlers/Files.php	/^            $body = $tmp["value"];$/;"	v
 body	src/App/Handlers/Files.php	/^        $body = $file["body"];$/;"	v
 body	src/App/Handlers/Upload.php	/^                $body = $file["data"];$/;"	v
 body	src/App/Handlers/Upload.php	/^                $body = file_get_contents($tmp);$/;"	v
@@ -181,14 +182,12 @@ description	src/App/Handlers/Maps.php	/^            $description = $this->prepar
 description	src/App/Handlers/Maps.php	/^        $description = $form["description"];$/;"	v
 description	src/App/Handlers/Maps.php	/^        $description = preg_replace_callback('@<img[^>]+>@', function ($m) use (&$img) {$/;"	v
 description	src/App/Handlers/Maps.php	/^        $description = preg_replace_callback('@<img[^>]+>@', function ($m) {$/;"	v
-dir	src/App/Handlers/Files.php	/^            $dir = dirname($dst);$/;"	v
 divisor	src/App/Handlers/Files.php	/^        $divisor = array_sum(array_map('array_sum', $sharpenMatrix));$/;"	v
 doc	src/App/Handlers/Wiki.php	/^                $doc = \\App\\Common::fetch($url);$/;"	v
 dp	src/App/Common.php	/^        $dp = new \\League\\CommonMark\\DocParser($environment);$/;"	v
 dsn	src/App/Database.php	/^        $this->dsn = $dsn;$/;"	v
 dsn	src/App/Database.php	/^    protected $dsn;$/;"	v
 dst	src/App/Handlers/Files.php	/^                $dst = imagecreatetruecolor($nw, $nh);$/;"	v
-dst	src/App/Handlers/Files.php	/^            $dst = $_SERVER["DOCUMENT_ROOT"] . $path;$/;"	v
 dst	src/App/Handlers/ShortImage.php	/^        $dst = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 e	src/App/Handlers/Error.php	/^        $e = $args["exception"];$/;"	v
 edit	src/App/Handlers/Maps.php	/^        $edit = $is_admin ? " &middot; <a href='\/map\/edit?id={$poi["id"]}'>править<\/a>" : "";$/;"	v
@@ -200,8 +199,7 @@ english	src/App/Handlers/Short.php	/^                    $english = $page["title
 english	src/App/Handlers/Short.php	/^            $english = $page["title"];$/;"	v
 english	src/App/Handlers/Short.php	/^        $english = null;$/;"	v
 environment	src/App/Common.php	/^        $environment = \\League\\CommonMark\\Environment::createCommonMarkEnvironment();$/;"	v
-etag	src/App/Handlers/Files.php	/^            $etag = '"' . $hash . '"';$/;"	v
-etag	src/App/Handlers/Files.php	/^            $etag = sprintf("\\"%x-%x\\"", $lastmod, strlen($body));$/;"	v
+etag	src/App/CommonHandler.php	/^        $etag = sprintf("\\"%x-%x\\"", $lastmod, strlen($body));$/;"	v
 ext	src/App/Handlers/Storage.php	/^        $ext = mb_strtolower(pathinfo($name, PATHINFO_EXTENSION));$/;"	v
 ext	src/App/UploadHandler.php	/^        $ext = mb_strtolower(pathinfo($res["name"], PATHINFO_EXTENSION));$/;"	v
 extractProperties	src/App/Parser.php	/^    public static function extractProperties($pageName, $text)$/;"	f
@@ -245,6 +243,7 @@ findRegions	src/App/Stemmer.php	/^    private static function findRegions($word)
 findSection	src/App/Handlers/Wiki.php	/^    protected function findSection($text, $sectionName)$/;"	f
 fn	src/App/Handlers/Short.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
 fn	src/App/Handlers/ShortImage.php	/^        $fn = __DIR__ . "\/..\/..\/..\/data\/plate.png";$/;"	v
+folder	src/App/CommonHandler.php	/^        $folder = dirname($path);$/;"	v
 form	src/App/Handlers/Maps.php	/^        $form = $request->getParam("form");$/;"	v
 found	src/App/Handlers/Wiki.php	/^            $found = preg_match('@^#+\\s*(.+)$@', $line, $m);$/;"	v
 fresh	src/App/Handlers/Wiki.php	/^        $fresh = $this->refresh($request);$/;"	v
@@ -296,13 +295,12 @@ hash	src/App/Common.php	/^        $hash = sha1($_SERVER["DOCUMENT_ROOT"] . rand(
 hash	src/App/Database.php	/^        $hash = md5($body);$/;"	v
 hash	src/App/FileHandler.php	/^        $hash = empty($file["hash"])$/;"	v
 hash	src/App/Handlers/Files.php	/^        $hash = $file["hash"];$/;"	v
-hash	src/App/Handlers/Files.php	/^        $hash = md5($body);$/;"	v
 hash	src/App/Handlers/Short.php	/^        $hash = empty($file["hash"])$/;"	v
 hash	src/App/Handlers/Upload.php	/^        $hash = md5($body);$/;"	v
 hash	src/App/Handlers/Wiki.php	/^                $hash = "";$/;"	v
 hash	src/App/Handlers/Wiki.php	/^                $hash = "#" . $parts[1];$/;"	v
 hash	src/App/UploadHandler.php	/^        $hash = md5($res["body"]);$/;"	v
-headers	src/App/Handlers/Files.php	/^        $headers = $request->getHeaders();$/;"	v
+headers	src/App/CommonHandler.php	/^        $headers = $request->getHeaders();$/;"	v
 headers	src/App/Handlers/Wiki.php	/^        $headers = $request->getHeaders();$/;"	v
 host	src/App/Handlers/Files.php	/^        $host = $request->getServerParam("HTTP_HOST");$/;"	v
 host	src/App/Handlers/Sitemap.php	/^        $host = $request->getServerParam("HTTP_HOST");$/;"	v
@@ -416,8 +414,6 @@ lang	src/App/Template.php	/^        $lang = $dlang = isset($this->defaults["lang
 large	src/App/Handlers/Wiki.php	/^                $large = "\/images\/placeholder.png";$/;"	v
 large	src/App/Handlers/Wiki.php	/^            $large = "\/i\/photos\/{$fileId}.jpg";$/;"	v
 lastUpdate	src/App/Handlers/Wiki.php	/^        $lastUpdate = $this->db->fetchCell("SELECT MAX(updated) FROM `pages`");$/;"	v
-lastmod	src/App/Handlers/Files.php	/^            $lastmod = (int)$tmp["added"];$/;"	v
-lastmod	src/App/Handlers/Files.php	/^            $lastmod = time();$/;"	v
 lastmod	src/App/Handlers/Files.php	/^        $lastmod = $file["created"];$/;"	v
 lat	src/App/Handlers/Maps.php	/^            $lat = $lng = [];$/;"	v
 lat	src/App/Handlers/Maps.php	/^            $lat = array_sum($lat) \/ count($lat);$/;"	v
@@ -607,7 +603,8 @@ parts	src/App/Handlers/Wiki.php	/^                $parts = explode(":", $m[1]);$
 parts	src/App/Handlers/Wiki.php	/^            $parts = explode(":", $m[1]);$/;"	v
 parts	src/App/Parser.php	/^            $parts = explode("|", $m[1], 2);$/;"	v
 password	src/App/Handlers/Account.php	/^        $password = $request->getParam("password");$/;"	v
-path	src/App/Handlers/Files.php	/^        $path = $request->getUri()->getPath();$/;"	v
+path	src/App/CommonHandler.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $path;$/;"	v
+path	src/App/CommonHandler.php	/^        $path = $request->getUri()->getPath();$/;"	v
 path	src/App/Handlers/Short.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 path	src/App/Handlers/Storage.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
 pname	src/App/Handlers/Wiki.php	/^            $pname = "File:" . $row["id"];$/;"	v
@@ -675,12 +672,11 @@ res	src/App/Handlers/Wiki.php	/^        $res = [$/;"	v
 res	src/App/Handlers/Wiki.php	/^        $res = [];$/;"	v
 res	src/App/UploadHandler.php	/^        $res = array($/;"	v
 res	src/App/Util.php	/^        $res = [];$/;"	v
+response	src/App/CommonHandler.php	/^        $response = $response->withHeader("Content-Type", $type)$/;"	v
+response	src/App/CommonHandler.php	/^        $response = $response->withHeader("Last-Modified", $ts);$/;"	v
 response	src/App/CommonHandler.php	/^        $response = new Response(200);$/;"	v
 response	src/App/FileHandler.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
 response	src/App/Handlers/Error.php	/^            $response = $this->render($request, $tpl, $data);$/;"	v
-response	src/App/Handlers/Files.php	/^            $response = $response->withHeader("Last-Modified", $ts);$/;"	v
-response	src/App/Handlers/Files.php	/^        $response = $response->withHeader("Content-Type", $type)$/;"	v
-response	src/App/Handlers/Files.php	/^        $response = new Response(200);$/;"	v
 response	src/App/Handlers/NotFound.php	/^        $response = $this->render($request, "notfound.twig");$/;"	v
 response	src/App/Handlers/Short.php	/^        $response = $response->withHeader("Content-Type", "image\/png")$/;"	v
 response	src/App/Handlers/Short.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
@@ -694,6 +690,7 @@ rollback	src/App/Database.php	/^    public function rollback()$/;"	f
 root	src/App/Handlers/Error.php	/^        $root = dirname(dirname(dirname(__DIR__)));$/;"	v
 root	src/App/Handlers/Wiki.php	/^                $root = __DIR__ . "\/..\/..\/..\/public";$/;"	v
 root	src/App/Template.php	/^        $root = $settings["template_path"];$/;"	v
+row	src/App/CommonHandler.php	/^        $row = $this->db->fetchOne("SELECT * FROM `cache` WHERE `key` = ?", [$path]);$/;"	v
 row	src/App/Database.php	/^            $row = array_values($row);$/;"	v
 row	src/App/Database.php	/^        $row = $this->fetch("SELECT `id` FROM `shorts` WHERE `name` = ?", [$name]);$/;"	v
 row	src/App/Database.php	/^        $row = $this->fetch("SELECT `name` FROM `shorts` WHERE `id` = ?", [$code]);$/;"	v
@@ -731,7 +728,8 @@ section	src/App/Handlers/Wiki.php	/^                $section = "";$/;"	v
 section	src/App/Handlers/Wiki.php	/^        $section = $request->getParam("page_section");$/;"	v
 section	src/App/Handlers/Wiki.php	/^        $section = $request->getQueryParam("section");$/;"	v
 sel	src/App/Handlers/Database.php	/^                    $sel = $this->db->fetchOne($_query);$/;"	v
-sendCached	src/App/Handlers/Files.php	/^    protected function sendCached(Request $request, $body, $hash, $type, $lastmod = null)$/;"	f
+sendCached	src/App/CommonHandler.php	/^    protected function sendCached(Request $request, $body, $type, $lastmod)$/;"	f
+sendFromCache	src/App/CommonHandler.php	/^    protected function sendFromCache(Request $request, $callback)$/;"	f
 sessionGet	src/App/Database.php	/^    public function sessionGet($id)$/;"	f
 sessionGetId	src/App/CommonHandler.php	/^    protected function sessionGetId()$/;"	f
 sessionSave	src/App/CommonHandler.php	/^    protected function sessionSave(array $data)$/;"	f
@@ -840,7 +838,7 @@ tpl	src/App/Handlers/Error.php	/^            $tpl = "database-busy.twig";$/;"	v
 tpl	src/App/Handlers/Error.php	/^            $tpl = "unauthorized.twig";$/;"	v
 tpl	src/App/Handlers/Error.php	/^        $tpl = "error.twig";$/;"	v
 tpl	src/dependencies.php	/^    $tpl = new \\App\\Template($c);$/;"	v
-ts	src/App/Handlers/Files.php	/^            $ts = gmstrftime("%a, %d %b %Y %H:%M:%S %z", $lastmod);$/;"	v
+ts	src/App/CommonHandler.php	/^        $ts = gmstrftime("%a, %d %b %Y %H:%M:%S %z", $lastmod);$/;"	v
 twig	src/App/Template.php	/^        $this->twig = new \\Twig\\Environment($loader);$/;"	v
 twig	src/App/Template.php	/^    protected $twig;$/;"	v
 type	src/App/Database.php	/^            $type = $this->conn->getAttribute(\\PDO::ATTR_DRIVER_NAME);$/;"	v
