@@ -72,7 +72,7 @@ class Database extends CommonHandler
                 $_parts = [];
                 foreach ($fields as $field) {
                     $parts = explode(" ", mb_strtolower(trim($field)));
-                    if (in_array($parts[1], ["blob"])) {
+                    if (count($parts) > 1 and in_array($parts[1], ["blob"])) {
                         $_parts[] = "SUM(LENGTH(HEX({$parts[0]}))) / 2";
                     } elseif (!in_array($parts[0], ["primary", "key", "unique"])) {
                         $_parts[] = "SUM(LENGTH({$parts[0]}))";
