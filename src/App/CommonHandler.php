@@ -135,6 +135,18 @@ class CommonHandler
         }
 
         $html = $this->template->render($templateName, $data);
+
+        $html = preg_replace_callback('@"([0-9a-z./]+\.(js|css))"@', function ($m) {
+            $link = $m[1];
+            $path = $_SERVER["DOCUMENT_ROOT"] . $link;
+            if (file_exists($path) && is_file($path)) {
+                $etag = sprintf("%x-%x", filemtime($path), filesize($path));
+                $link .= "?etag=" . $etag;
+            }
+
+            return '"' . $link . '"';
+        }, $html);
+
         return $html;
     }
 
