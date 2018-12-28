@@ -49,9 +49,12 @@ _fields	src/App/Database.php	/^        $_fields = implode(", ", $_fields);$/;"	v
 _marks	src/App/Database.php	/^        $_marks = [];$/;"	v
 _marks	src/App/Database.php	/^        $_marks = implode(", ", $_marks);$/;"	v
 _params	src/App/Database.php	/^        $_params = [];$/;"	v
+_parts	src/App/Handlers/Database.php	/^                $_parts = [];$/;"	v
+_query	src/App/Handlers/Database.php	/^                $_query = "SELECT COUNT(1) AS `rows`, {$_sum} AS `bytes` FROM `{$row["name"]}`";$/;"	v
 _set	src/App/Database.php	/^        $_set = [];$/;"	v
 _set	src/App/Database.php	/^        $_set = implode(", ", $_set);$/;"	v
 _size	src/App/Handlers/Wiki.php	/^                $_size = getimagesize($root . "\/images\/placeholder.png");$/;"	v
+_sum	src/App/Handlers/Database.php	/^                $_sum = implode(" + ", $_parts);$/;"	v
 _where	src/App/Database.php	/^        $_where = [];$/;"	v
 _where	src/App/Database.php	/^        $_where = implode(" AND ", $_where);$/;"	v
 acc	src/App/Handlers/Account.php	/^        $acc = $this->db->fetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);$/;"	v
@@ -210,6 +213,9 @@ fetchk	src/App/Database.php	/^    public function fetchk($key, $query, array $pa
 fetchkv	src/App/Database.php	/^    public function fetchkv($query, array $params = [])$/;"	f
 fi	src/App/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;"	v
 fid	src/App/Handlers/Wiki.php	/^        $fid = $this->db->addFile($name, $type, $body);$/;"	v
+fields	src/App/Handlers/Database.php	/^                $fields = explode(",", $fields);$/;"	v
+fields	src/App/Handlers/Database.php	/^                $fields = preg_replace('@--.*$@m', '', $m[1]);$/;"	v
+fields	src/App/Handlers/Database.php	/^                $fields = preg_replace('@\\([^)]+\\)@', '', $fields);$/;"	v
 file	src/App/FileHandler.php	/^        $file = $this->db->getFileByName($name);$/;"	v
 file	src/App/Handlers/Files.php	/^            $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `body`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
 file	src/App/Handlers/Files.php	/^        $file = $this->db->fetch("SELECT `id`, `hash`, `name`, `kind`, `mime_type`, `created`, `uploaded`, `length` FROM `files` WHERE `id` = ?", [$args["id"]]);$/;"	v
@@ -274,6 +280,7 @@ getPageText	src/App/Handlers/Wiki.php	/^    protected function getPageText(array
 getPopup	src/App/Handlers/Maps.php	/^    protected function getPopup(array $poi, $is_admin = false)$/;"	f
 getRussianName	src/App/Handlers/Short.php	/^    protected function getRussianName($code)$/;"	f
 getRussianName	src/App/Handlers/ShortImage.php	/^    protected function getRussianName($code)$/;"	f
+getSQLiteStats	src/App/Handlers/Database.php	/^    protected function getSQLiteStats()$/;"	f
 getStats	src/App/Handlers/Database.php	/^    protected function getStats()$/;"	f
 getWordBase	src/App/Stemmer.php	/^    public static function getWordBase($word)$/;"	f
 guessType	src/App/Handlers/Storage.php	/^    protected function guessType($name)$/;"	f
@@ -444,7 +451,7 @@ link	src/App/Parser.php	/^            $link = sprintf("<a class=\\"wiki\\" href=
 links	src/App/Handlers/Wiki.php	/^                $links = [];$/;"	v
 listPages	src/App/Database.php	/^    public function listPages($sort = null)$/;"	f
 ll	src/App/Handlers/Maps.php	/^        $ll = sprintf("%.4f, %.4f", $parts[0], $parts[1]);$/;"	v
-lmap	src/App/CommonHandler.php	/^        $lmap = [$/;"	v
+lmap	src/App/CommonHandler.php	/^            $lmap = [$/;"	v
 lng	src/App/Handlers/Maps.php	/^            $lng = array_sum($lng) \/ count($lng);$/;"	v
 loader	src/App/Template.php	/^        $loader = new \\Twig\\Loader\\FilesystemLoader($root);$/;"	v
 local	src/App/Handlers/CLI.php	/^        $local = $this->db->fetchkv("SELECT `id`, `hash` FROM `files`");$/;"	v
@@ -591,6 +598,7 @@ part1	src/App/UploadHandler.php	/^        $part1 = substr(sha1($_SERVER["DOCUMEN
 part2	src/App/UploadHandler.php	/^        $part2 = substr(sha1($res["body"]), 0, 10);$/;"	v
 part3	src/App/UploadHandler.php	/^        $part3 = sprintf("%x", time());$/;"	v
 parts	src/App/Common.php	/^                    $parts = explode(":", $h, 2);$/;"	v
+parts	src/App/Handlers/Database.php	/^                    $parts = explode(" ", mb_strtolower(trim($field)));$/;"	v
 parts	src/App/Handlers/Maps.php	/^                $parts = explode(",", $row["ll"]);$/;"	v
 parts	src/App/Handlers/Maps.php	/^        $parts = explode(",", $poi["ll"]);$/;"	v
 parts	src/App/Handlers/Wiki.php	/^                    $parts = ["image"];$/;"	v
@@ -669,7 +677,7 @@ res	src/App/UploadHandler.php	/^        $res = array($/;"	v
 res	src/App/Util.php	/^        $res = [];$/;"	v
 response	src/App/CommonHandler.php	/^        $response = new Response(200);$/;"	v
 response	src/App/FileHandler.php	/^        $response = $response->withHeader("Content-Type", $file["type"])$/;"	v
-response	src/App/Handlers/Error.php	/^        $response = $this->render($request, $tpl, $data);$/;"	v
+response	src/App/Handlers/Error.php	/^            $response = $this->render($request, $tpl, $data);$/;"	v
 response	src/App/Handlers/Files.php	/^            $response = $response->withHeader("Last-Modified", $ts);$/;"	v
 response	src/App/Handlers/Files.php	/^        $response = $response->withHeader("Content-Type", $type)$/;"	v
 response	src/App/Handlers/Files.php	/^        $response = new Response(200);$/;"	v
@@ -697,7 +705,7 @@ rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT * FROM `files` 
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `id`, `name`, `mime_type`, `length`, `created`, `hash` FROM `files` ORDER BY `created`");$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch("SELECT `name` FROM `pages` ORDER BY `name`");$/;"	v
 rows	src/App/Database.php	/^        $rows = $this->fetch($query, $params);$/;"	v
-rows	src/App/Handlers/Database.php	/^                $rows = $this->db->fetch("select name FROM sqlite_master WHERE `type` = 'table' ORDER BY name");$/;"	v
+rows	src/App/Handlers/Database.php	/^        $rows = $length = 0;$/;"	v
 rows	src/App/Handlers/Maps.php	/^            $rows = $this->db->fetch("SELECT ll FROM map_poi t1 INNER JOIN map_tags t2 ON t2.poi_id = t1.id WHERE t2.tag = ?", ["public"]);$/;"	v
 rows	src/App/Handlers/Maps.php	/^            $rows = $this->db->fetch("SELECT ll FROM map_poi");$/;"	v
 rows	src/App/Handlers/Maps.php	/^        $rows = $this->db->fetch("SELECT ll FROM map_poi t1 INNER JOIN map_tags t2 ON t2.poi_id = t1.id WHERE t2.tag = ?", [$tag]);$/;"	v
@@ -715,12 +723,14 @@ rv	src/App/Stemmer.php	/^        $rv = 0;$/;"	v
 saveFile	src/App/Database.php	/^    public function saveFile(array $fileInfo)$/;"	f
 savePage	src/App/Handlers/Wiki.php	/^    protected function savePage($name, $text)$/;"	f
 scaleImage	src/App/Handlers/Files.php	/^    protected function scaleImage($img, array $options)$/;"	f
+schema	src/App/Handlers/Database.php	/^        $schema = $this->db->fetch("SELECT * FROM `sqlite_master` WHERE `type` = 'table' ORDER BY `name`");$/;"	v
 search	src/App/CommonHandler.php	/^    protected function search($query)$/;"	f
 search	src/App/Handlers/Wiki.php	/^            $search = $this->search($pageName);$/;"	v
 search	src/App/Search.php	/^    public function search($query, $limit = 100)$/;"	f
 section	src/App/Handlers/Wiki.php	/^                $section = "";$/;"	v
 section	src/App/Handlers/Wiki.php	/^        $section = $request->getParam("page_section");$/;"	v
 section	src/App/Handlers/Wiki.php	/^        $section = $request->getQueryParam("section");$/;"	v
+sel	src/App/Handlers/Database.php	/^                    $sel = $this->db->fetchOne($_query);$/;"	v
 sendCached	src/App/Handlers/Files.php	/^    protected function sendCached(Request $request, $body, $hash, $type, $lastmod = null)$/;"	f
 sessionGet	src/App/Database.php	/^    public function sessionGet($id)$/;"	f
 sessionGetId	src/App/CommonHandler.php	/^    protected function sessionGetId()$/;"	f
@@ -774,6 +784,7 @@ state	src/App/Stemmer.php	/^                        $state = 1;$/;"	v
 state	src/App/Stemmer.php	/^                        $state = 2;$/;"	v
 state	src/App/Stemmer.php	/^        $state = 0;$/;"	v
 status	src/App/Handlers/Error.php	/^            $status = 401;$/;"	v
+status	src/App/Handlers/Error.php	/^            $status = 503;$/;"	v
 status	src/App/Handlers/Error.php	/^        $status = 500;$/;"	v
 sth	src/App/Database.php	/^        $sth = $db->prepare($query);$/;"	v
 sth	src/App/Database.php	/^        $sth = $this->query($query, $_params);$/;"	v
@@ -783,8 +794,8 @@ sw	src/App/Handlers/Maps.php	/^                $sw = $attrs["width"];$/;"	v
 sw	src/App/Handlers/Maps.php	/^                $sw = $size[0];$/;"	v
 sw	src/App/Handlers/Maps.php	/^            $sw = $sh = null;$/;"	v
 tables	src/App/Handlers/Database.php	/^                $tables = $this->db->fetch("SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? ORDER BY `table_name`", [$name], function ($row) {$/;"	v
-tables	src/App/Handlers/Database.php	/^                $tables = [];$/;"	v
 tables	src/App/Handlers/Database.php	/^        $tables = $this->getStats();$/;"	v
+tables	src/App/Handlers/Database.php	/^        $tables = [];$/;"	v
 tag	src/App/Handlers/Maps.php	/^        $tag = $request->getParam("tag");$/;"	v
 tag	src/App/Handlers/Maps.php	/^        $tag = mb_strtolower($tag);$/;"	v
 tag	src/App/Handlers/Maps.php	/^        $tag = str_replace(" ", " ", $tag);$/;"	v
@@ -819,13 +830,13 @@ title	src/App/Parser.php	/^                $title = $parts[0];$/;"	v
 title	src/App/Parser.php	/^                $title = $parts[1];$/;"	v
 title	src/App/Search.php	/^            $title = $this->normalizeText($title);$/;"	v
 titleText	src/App/Common.php	/^            $titleText = strip_tags($titleText);$/;"	v
-tmp	src/App/Handlers/Database.php	/^                    $tmp = $this->db->fetchOne("SELECT COUNT(1) AS `count` FROM `{$row["name"]}`");$/;"	v
 tmp	src/App/Handlers/Upload.php	/^                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
 tmp	src/App/Handlers/Wiki.php	/^                $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
 tmp	src/App/Handlers/Wiki.php	/^            $tmp = $this->findSection($contents, $section);$/;"	v
 tmp	src/App/UploadHandler.php	/^        $tmp = tempnam($_SERVER["DOCUMENT_ROOT"], "upload_");$/;"	v
 tn	src/App/UploadHandler.php	/^                $tn = $fi["filename"] . "_small." . $fi["extension"];$/;"	v
 toc	src/App/Common.php	/^        $toc = "<h2>Содержание<\/h2>";$/;"	v
+tpl	src/App/Handlers/Error.php	/^            $tpl = "database-busy.twig";$/;"	v
 tpl	src/App/Handlers/Error.php	/^            $tpl = "unauthorized.twig";$/;"	v
 tpl	src/App/Handlers/Error.php	/^        $tpl = "error.twig";$/;"	v
 tpl	src/dependencies.php	/^    $tpl = new \\App\\Template($c);$/;"	v

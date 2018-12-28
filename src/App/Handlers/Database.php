@@ -17,9 +17,17 @@ class Database extends CommonHandler
 
         $tables = $this->getStats();
 
+        $rows = $length = 0;
+        foreach ($tables as $t) {
+            $rows += $t["row_count"];
+            $length += $t["length"];
+        }
+
         return $this->render($request, "dbstats.twig", [
             "dbtype" => $this->db->getConnectionType(),
             "tables" => $tables,
+            "db_rows" => $rows,
+            "db_length" => $length,
         ]);
     }
 
@@ -27,26 +35,7 @@ class Database extends CommonHandler
     {
         switch ($this->db->getConnectionType()) {
             case "sqlite":
-                $tables = [];
-
-                $rows = $this->db->fetch("select name FROM sqlite_master WHERE `type` = 'table' ORDER BY name");
-                foreach ($rows as $row) {
-                    if ($row["name"] == "files") {
-                        $tmp = $this->db->fetchOne("SELECT COUNT(1) AS `rows`, 0 AS `bytes` FROM `{$row["name"]}`");
-                    } else {
-                        $tmp = $this->db->fetchOne("SELECT COUNT(1) AS `rows`, 0 AS `bytes` FROM `{$row["name"]}`");
-                    }
-
-                    debug($tmp);
-
-                    $tables[] = [
-                        "name" => $row["name"],
-                        "row_count" => (int)$tmp["rows"],
-                        "bytes" => (int)$tmp["bytes"],
-                    ];
-                }
-
-                break;
+                return $this->getSQLiteStats();
 
             case "mysql":
                 $name = $this->db->fetchcell("SELECT DATABASE()");
@@ -60,6 +49,51 @@ class Database extends CommonHandler
                 });
 
                 break;
+        }
+
+        return $tables;
+    }
+
+    protected function getSQLiteStats()
+    {
+        $tables = [];
+
+        $schema = $this->db->fetch("SELECT * FROM `sqlite_master` WHERE `type` = 'table' ORDER BY `name`");
+        foreach ($schema as $row) {
+            if (preg_match('@\((.+)\)@ms', $row["sql"], $m)) {
+                // Delete comments.
+                $fields = preg_replace('@--.*$@m', '', $m[1]);
+
+                // Delete brackets, like key specs.
+                $fields = preg_replace('@\([^)]+\)@', '', $fields);
+
+                $fields = explode(",", $fields);
+
+                $_parts = [];
+                foreach ($fields as $field) {
+                    $parts = explode(" ", mb_strtolower(trim($field)));
+                    if (in_array($parts[1], ["blob"])) {
+                        $_parts[] = "SUM(LENGTH(HEX({$parts[0]}))) / 2";
+                    } elseif (!in_array($parts[0], ["primary", "key", "unique"])) {
+                        $_parts[] = "SUM(LENGTH({$parts[0]}))";
+                    }
+                }
+
+                $_sum = implode(" + ", $_parts);
+                $_query = "SELECT COUNT(1) AS `rows`, {$_sum} AS `bytes` FROM `{$row["name"]}`";
+
+                try {
+                    $sel = $this->db->fetchOne($_query);
+                } catch (\Exception $e) {
+                    debug($row, $_query);
+                }
+
+                $tables[] = [
+                    "name" => $row["name"],
+                    "row_count" => (int)$sel["rows"],
+                    "length" => (int)$sel["bytes"],
+                ];
+            }
         }
 
         return $tables;

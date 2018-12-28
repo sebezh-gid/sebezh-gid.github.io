@@ -19,6 +19,13 @@
                 <th class="number">Размер</th>
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+                <td/>
+                <td class="number">{{ db_rows }}</td>
+                <td class="number">{{ db_length|megabytes }}</td>
+            </tr>
+        </tfoot>
         <tbody>
             {% for t in tables %}
                 <tr>
