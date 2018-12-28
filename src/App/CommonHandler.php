@@ -120,16 +120,18 @@ class CommonHandler
 
         $lang = $data["language"];
 
-        $lmap = [
-            "wiki:footer:{$lang}" => "wiki_footer",
-            "wiki:footer" => "wiki_footer",
-            "wiki:sidebar:{$lang}" => "wiki_sidebar",
-            "wiki:sidebar" => "wiki_sidebar",
-        ];
+        if (empty($data["no_database"])) {
+            $lmap = [
+                "wiki:footer:{$lang}" => "wiki_footer",
+                "wiki:footer" => "wiki_footer",
+                "wiki:sidebar:{$lang}" => "wiki_sidebar",
+                "wiki:sidebar" => "wiki_sidebar",
+            ];
 
-        foreach ($lmap as $k => $v) {
-            if (empty($data[$v]) and ($src = $this->db->fetchCell("SELECT `source` FROM `pages` WHERE `name` = ?", [$k])))
-                $data[$v] = $src;
+            foreach ($lmap as $k => $v) {
+                if (empty($data[$v]) and ($src = $this->db->fetchCell("SELECT `source` FROM `pages` WHERE `name` = ?", [$k])))
+                    $data[$v] = $src;
+            }
         }
 
         $html = $this->template->render($templateName, $data);

@@ -31,12 +31,28 @@ class Error extends CommonHandler
             "stack" => $stack,
         ];
 
-        if ($e instanceof \App\Errors\Unauthorized) {
+        // Database is busy.  This happens when another thread is writing
+        // to the database and we cannot open it even for reading.
+        // Cannot use template rendering, as it could involve database queries.
+        // Return a static pre-configured web page.
+        if ($e instanceof \PDOException and false !== strpos($data["e"]["message"], "unable to open database file")) {
+            $tpl = "database-busy.twig";
+            $status = 503;
+            $data["no_database"] = true;
+        }
+
+        elseif ($e instanceof \App\Errors\Unauthorized) {
             $tpl = "unauthorized.twig";
             $status = 401;
         }
 
-        $response = $this->render($request, $tpl, $data);
+        try {
+            $response = $this->render($request, $tpl, $data);
+        } catch (\Exception $e) {
+            error_log("ERR: could not render error page using {$tpl}: " . $e->getMessage());
+            debug($data["e"]);
+        }
+
         return $response->withStatus($status);
     }
 }

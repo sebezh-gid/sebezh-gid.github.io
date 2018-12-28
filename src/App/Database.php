@@ -247,8 +247,17 @@ class Database {
             $this->conn->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
 
             $type = $this->conn->getAttribute(\PDO::ATTR_DRIVER_NAME);
-            if ($type == "mysql") {
+            if ($type == "mysql")
                 $this->conn->query("SET NAMES utf8");
+
+            if (!empty($this->dsn["autoexec"])) {
+                if (is_array($this->dsn["autoexec"])) {
+                    foreach ($this->dsn["autoexec"] as $query) {
+                        $this->conn->query($query);
+                    }
+                } else {
+                    error_log("database: dsn.autoexec must be an array of queries.");
+                }
             }
         }
 

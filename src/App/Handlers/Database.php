@@ -31,10 +31,18 @@ class Database extends CommonHandler
 
                 $rows = $this->db->fetch("select name FROM sqlite_master WHERE `type` = 'table' ORDER BY name");
                 foreach ($rows as $row) {
-                    $tmp = $this->db->fetchOne("SELECT COUNT(1) AS `count` FROM `{$row["name"]}`");
+                    if ($row["name"] == "files") {
+                        $tmp = $this->db->fetchOne("SELECT COUNT(1) AS `rows`, 0 AS `bytes` FROM `{$row["name"]}`");
+                    } else {
+                        $tmp = $this->db->fetchOne("SELECT COUNT(1) AS `rows`, 0 AS `bytes` FROM `{$row["name"]}`");
+                    }
+
+                    debug($tmp);
+
                     $tables[] = [
                         "name" => $row["name"],
-                        "row_count" => (int)$tmp["count"],
+                        "row_count" => (int)$tmp["rows"],
+                        "bytes" => (int)$tmp["bytes"],
                     ];
                 }
 

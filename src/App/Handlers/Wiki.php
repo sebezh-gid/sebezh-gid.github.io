@@ -440,7 +440,6 @@ class Wiki extends CommonHandler
             }
         }
 
-
         return $response->withJSON($res);
     }
 
