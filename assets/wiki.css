@@ -1051,3 +1051,21 @@ table.recent p {
 table.recent a {
     white-space: nowrap;
 }
+
+.form-actions ul.wiki_buttons {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+.form-actions ul.wiki_buttons li {
+    margin: 0 5px;
+}
+.form-actions ul.wiki_buttons a {
+    padding: 0 8px;
+    height: 28px;
+    line-height: 28px;
+    vertical-align: top;
+    margin: 0;
+}

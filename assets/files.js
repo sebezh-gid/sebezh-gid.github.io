@@ -40,14 +40,6 @@ jQuery(function ($) {
         }, 100);
     });
 
-    $(document).on("click", ".showUpload", function (e) {
-        e.preventDefault();
-        $("#dlg-upload .msgbox").hide();
-        $("#dlg-upload, #block").show();
-        $("#dlg-upload")[0].reset();
-        $(".uploadLink").focus();
-    });
-
     $(document).on("click", "form#dlg-embed-photo button[type=reset]", function (e) {
         $("#block, .dialog").hide();
     });
