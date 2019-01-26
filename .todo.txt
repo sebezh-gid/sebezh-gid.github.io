@@ -44,6 +44,7 @@ http://vtrk.ru/?p=13618
 http://sebezh-resource.ru/blogs/?page_id=9976
 городское маркирование, https://strelkamag.com/ru/article/vocabulary-urban-annotation
 https://vk.com/wall463338312_194
+http://www.pskov.aif.ru/society/people/alenka_i_serezha_60_let_vmeste
 
 оформление:
 - https://gohugo.io/
