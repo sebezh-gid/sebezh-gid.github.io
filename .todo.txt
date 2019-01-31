@@ -46,6 +46,7 @@ http://sebezh-resource.ru/blogs/?page_id=9976
 https://vk.com/wall463338312_194
 http://www.pskov.aif.ru/society/people/alenka_i_serezha_60_let_vmeste
 https://vk.com/wall-58397130_11631
+https://vk.com/tsmir
 
 оформление:
 - https://gohugo.io/
