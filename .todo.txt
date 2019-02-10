@@ -49,6 +49,11 @@ https://vk.com/wall-58397130_11631
 https://vk.com/tsmir
 https://vk.com/wall-165379896_14651
 
+Карты Идрицы:
+- https://pp.userapi.com/c852020/v852020929/b2ea0/-VRcxYPeUbI.jpg
+- https://pp.userapi.com/c852020/v852020929/b2eb4/flSmhiWcILk.jpg
+- https://pp.userapi.com/c852020/v852020929/b2ec8/zw6i0vZZlXM.jpg
+
 оформление:
 - https://gohugo.io/
 - https://www.chromium.org/quic -- содержимое в цельном квадрате, заголовок сайта и поиск в шапке, контент внутри квадрата
