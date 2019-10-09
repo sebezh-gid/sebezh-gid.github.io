@@ -51,16 +51,17 @@ class Wiki extends CommonHandler
                 return $response->withRedirect($link, 301);
             }
 
-            $backlinks = $this->db->fetch("SELECT p.name FROM pages p INNER JOIN backlinks b ON b.page_id = p.id WHERE b.link = :0 AND p.name <> :0 ORDER BY p.name", [$pageName], function ($row) {
+            $backlinks = $this->db->fetch("SELECT p.name FROM pages p INNER JOIN backlinks b ON b.page_id = p.id WHERE b.link = ? AND p.name <> ? ORDER BY p.name", [$pageName, $pageName], function ($row) {
                 return $row["name"];
             });
 
             $file = null;
             if (preg_match('@^File:(\d+)$@', $pageName, $m)) {
-                if ($tmp = $this->db->fetchone("SELECT kind, body FROM files WHERE id = ?", [$m[1]])) {
+                if ($tmp = $this->db->fetchone("SELECT original, kind FROM files WHERE id = ?", [$m[1]])) {
                     $size = null;
                     if ($tmp["kind"] == "photo") {
-                        if ($img = imagecreatefromstring($tmp["body"])) {
+                        $body = $this->fsget($tmp["original"]);
+                        if ($img = $body) {
                             $w = imagesx($img);
                             $h = imagesy($img);
                             $size = [$w, $h];
@@ -923,7 +924,8 @@ class Wiki extends CommonHandler
 
     protected function getImageSize($fileId)
     {
-        $body = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$fileId]);
+        $file = $this->db->fetchone("SELECT * FROM files WHERE id = ?", [$fileId]);
+        $body = $this->fsget($file["original"]);
 
         $img = imagecreatefromstring($body);
         $w = imagesx($img);

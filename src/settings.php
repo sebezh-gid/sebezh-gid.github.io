@@ -33,9 +33,9 @@ return [
         ],
 
         'dsn' => [
-            'name' => 'sqlite:' . __DIR__ . '/../data/database.sqlite',
-            'user' => null,
-            'password' => null,
+            'name' => 'mysql:dbname=sebezh_gid',
+            'user' => 'sebezh_gid',
+            'password' => '8FCbf7B7',
         ],
 
         'wiki' => [
@@ -78,6 +78,12 @@ return [
             'host' => '127.0.0.1',
             'port' => 9306,
             'index' => 'wiki',
+        ],
+
+        'files' => [
+            'path' => __DIR__ . "/../data/files/" . $_SERVER["HTTP_HOST"],
+            'fmode' => 0644,
+            'dmode' => 0775,
         ],
     ],
 ];

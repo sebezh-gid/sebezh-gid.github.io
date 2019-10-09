@@ -280,7 +280,8 @@ class Maps extends CommonHandler
             $sw = $sh = null;
 
             if (preg_match('@^/i/thumbnails/(\d+)\.jpg$@', $attrs["src"], $m)) {
-                if ($image = $this->db->fetchcell("SELECT body FROM files WHERE id = ?", [$m[1]])) {
+                if ($image = $this->db->fetchcell("SELECT oritinal FROM files WHERE id = ?", [$m[1]])) {
+                    $image = $this->fsget($image);
                     if ($image = imagecreatefromstring($image)) {
                         $sw = imagesx($image);
                         $sh = imagesy($image);

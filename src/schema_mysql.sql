@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     `login` VARCHAR(255) NOT NULL,
     `password` VARCHAR(1024) NULL,
+    `enabled` tinyint(1) unsigned not null default 0,
     `last_login` DATETIME NULL,
     PRIMARY KEY(`id`),
     UNIQUE KEY(`login`),
@@ -36,15 +37,16 @@ CREATE TABLE IF NOT EXISTS `history` (
 
 -- Generic file storage table.  Uploaded files go here.
 CREATE TABLE IF NOT EXISTS `files` (
-    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,    -- unique id for local access
-    `name` VARCHAR(255),                              -- local name for public access (why we need this?)
-    `mime_type` VARCHAR(255),                         -- mime type
-    `kind` ENUM('photo', 'video', 'other') NOT NULL,  -- for quick filtering
-    `length` INTEGER UNSIGNED NOT NULL,               -- body size in bytes
-    `created` INTEGER UNSIGNED NOT NULL,              -- file creation timestamp
-    `uploaded` INTEGER UNSIGNED NOT NULL,             -- file upload timestamp
-    `body` MEDIUMBLOB,                                -- file contents
-    `hash` CHAR(32) NOT NULL,                         -- body hash for synchronizing
+    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,             -- unique id for local access
+    `name` VARCHAR(255),                                       -- local name for public access (why we need this?)
+    `mime_type` VARCHAR(255),                                  -- mime type
+    `kind` ENUM('photo', 'video', 'audio', 'other') NOT NULL,  -- for quick filtering
+    `length` INTEGER UNSIGNED NOT NULL,                        -- body size in bytes
+    `created` INTEGER UNSIGNED NOT NULL,                       -- file creation timestamp
+    `uploaded` INTEGER UNSIGNED NOT NULL,                      -- file upload timestamp
+    `hash` CHAR(32) NOT NULL,                                  -- body hash for synchronizing
+    `original` VARCHAR(1024) NOT NULL,                         -- source file path
+    `thumbnail` VARCHAR(1024) NULL,                            -- preview path
     PRIMARY KEY(`id`),
     KEY(`name`),
     KEY(`created`),

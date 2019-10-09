@@ -1,5 +1,5 @@
-REMOTE=sebezh-gid.ru
-FOLDER=wiki
+REMOTE=vhost.umonkey.net
+FOLDER=hosts/sebezh-gid.ru
 
 all: assets tags
 
@@ -10,8 +10,7 @@ autoload:
 	composer dump-autoload
 
 deploy:
-	rsync -avz -e ssh src templates vendor $(REMOTE):wiki/
-	hgput public/libs.* public/app.*
+	rsync -avz -e ssh src templates vendor public $(REMOTE):$(FOLDER)/
 
 flush:
 	echo "UPDATE pages SET html = null;" | sqlite3 data/database.sqlite
@@ -55,7 +54,11 @@ sql:
 	sqlite3 data/database.sqlite
 
 sql-public:
-	ssh -t $(REMOTE) sqlite3 $(FOLDER)/data/database.sqlite
+	ssh -t $(REMOTE) mysql --defaults-file=/home/vhost/.my.sebezh_gid.cnf
+
+sqlite2mysql:
+	mysql < src/schema_mysql.sql
+	php -f tools/dbcopy.php "sqlite:data/database.sqlite" "mysql://sebezh_gid:8FCbf7B7@localhost/sebezh_gid"
 
 tags:
 	@echo "Rebuilding ctags (see doc/HOWTO_dev.md)"

@@ -49,8 +49,9 @@ CREATE TABLE IF NOT EXISTS `files` (
     `length` INTEGER NOT NULL,    -- body size in bytes
     `created` INTEGER NOT NULL,   -- file creation timestamp
     `uploaded` INTEGER NOT NULL,  -- file upload timestamp
-    `body` BLOB,                  -- file contents
-    `hash` TEXT NOT NULL          -- body hash for synchronizing
+    `hash` TEXT NOT NULL,         -- body hash for synchronizing
+    `original` TEXT NOT NULL,     -- source file path
+    `thumbnail` TEXT NULL         -- preview path
 );
 CREATE INDEX IF NOT EXISTS IDX_files_name ON files (name);
 CREATE INDEX IF NOT EXISTS IDX_files_created ON files (created);

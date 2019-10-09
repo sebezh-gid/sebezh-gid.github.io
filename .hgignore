@@ -1,14 +1,13 @@
 ^vendor$
 ^logs$
-^data/database\.sqlite$
-^data/remote\.sql$
 ^pages\.json$
 \.fossil$
 ^public/photo$
 ^public/short$
-^data/sphinx$
 ^h$
 ^public/f$
 ^public/i$
 ^public/(app|libs)(\.min)?\.(css|js)$
 ^public/images/map/src
+^data$
+^tmp$

@@ -314,4 +314,47 @@ class CommonHandler
 
         return $response;
     }
+
+    /**
+     * Вытаскивает файл из файловой системы.
+     *
+     * @param string $path Относительный путь, внутри папки data/files/example.com
+     * @return string Содержимое файла.
+     **/
+    protected function fsget($path)
+    {
+        $st = $this->container->get("settings")["files"];
+
+        if (empty($st["path"]))
+            throw new \RuntimeException("file storage not configured");
+
+        $src = $st["path"] . "/" . $path;
+        if (!is_readable($src))
+            throw new \RuntimeException("file {$path} is not readable");
+
+        return file_get_contents($src);
+    }
+
+    protected function fsput($body)
+    {
+        $hash = md5($body);
+        $path = substr($hash, 0, 1) . "/" . substr($hash, 1, 2) . "/" . substr($hash, 3);
+
+        $st = array_merge([
+            "path" => null,
+            "fmode" => 0664,
+            "dmode" => 0775,
+        ], $this->container->get("settings")["files"]);
+
+        $dst = $st["path"] . "/" . $path;
+
+        $dir = dirname($dst);
+        if (!is_dir($dir)) {
+            if (false === mkdir($dir, $st["dmode"], true))
+                throw new \RuntimeException("could not create directory {$dir}");
+        }
+
+        $res = file_put_contents($dst, $body);
+        return $path;
+    }
 }
