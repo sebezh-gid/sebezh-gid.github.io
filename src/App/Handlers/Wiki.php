@@ -188,7 +188,7 @@ class Wiki extends CommonHandler
             }
         }
 
-        $fid = $this->db->addFile($name, $type, $body);
+        $fid = $this->addFile($name, $type, $body);
 
         $pname = "File:" . $fid;
         if (!($page = $this->db->fetchOne("SELECT * FROM `pages` WHERE `name` = ?", [$pname]))) {
@@ -419,7 +419,7 @@ class Wiki extends CommonHandler
                     if (0 === strpos($type, "image/")) {
                         $name = basename(explode("?", $url)[0]);
                         $type = explode(";", $type)[0];
-                        $id = $this->db->addFile($name, $type, $doc["data"]);
+                        $id = $this->addFile($name, $type, $doc["data"]);
 
                         $res["id"] = $id;
                         $res["type"] = "image";
@@ -494,7 +494,7 @@ class Wiki extends CommonHandler
 
                     $name = basename($src);
                     $type = mime_content_type($src);
-                    if (!($id = $this->db->addFile($name, $type, file_get_contents($src))))
+                    if (!($id = $this->addFile($name, $type, file_get_contents($src))))
                         return $m[0];  // TODO: exception
 
                     $parts[] = $id;

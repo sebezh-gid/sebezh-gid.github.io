@@ -357,4 +357,35 @@ class CommonHandler
         $res = file_put_contents($dst, $body);
         return $path;
     }
+
+    public function addFile($name, $type, $body)
+    {
+        $hash = md5($body);
+
+        if ($old = $this->db->fetchOne("SELECT `id` FROM `files` WHERE `hash` = ?", [$hash]))
+            return $old["id"];
+
+        $kind = "other";
+        if (0 === strpos($type, "image/"))
+            $kind = "photo";
+        elseif (0 === strpos($type, "video/"))
+            $kind = "video";
+
+        $now = time();
+
+        $path = $this->fsput($body);
+
+        $id = $this->db->insert("files", [
+            "name" => $name,
+            "mime_type" => $type,
+            "kind" => $kind,
+            "length" => strlen($body),
+            "created" => $now,
+            "uploaded" => $now,
+            "hash" => $hash,
+            "original" => $path,
+        ]);
+
+        return $id;
+    }
 }

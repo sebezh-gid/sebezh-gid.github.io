@@ -62,7 +62,7 @@ _where	src/App/Database.php	/^        $_where = implode(" AND ", $_where);$/;"	v
 acc	src/App/Handlers/Account.php	/^        $acc = $this->db->fetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);$/;"	v
 accountGet	src/App/Database.php	/^    public function accountGet($login)$/;"	f
 addDefaults	src/App/Template.php	/^    protected function addDefaults(array $data)$/;"	f
-addFile	src/App/Database.php	/^    public function addFile($name, $type, $body)$/;"	f
+addFile	src/App/CommonHandler.php	/^    public function addFile($name, $type, $body)$/;"	f
 added	src/App/CommonHandler.php	/^            $added = (int)$row["added"];$/;"	v
 added	src/App/CommonHandler.php	/^            $added = time();$/;"	v
 after	src/App/Handlers/Wiki.php	/^        $after = null;$/;"	v
@@ -219,7 +219,7 @@ fetchcell	src/App/Database.php	/^    public function fetchcell($query, array $pa
 fetchk	src/App/Database.php	/^    public function fetchk($key, $query, array $params = [])$/;"	f
 fetchkv	src/App/Database.php	/^    public function fetchkv($query, array $params = [])$/;"	f
 fi	src/App/UploadHandler.php	/^                $fi = pathinfo($info["name"]);$/;"	v
-fid	src/App/Handlers/Wiki.php	/^        $fid = $this->db->addFile($name, $type, $body);$/;"	v
+fid	src/App/Handlers/Wiki.php	/^        $fid = $this->addFile($name, $type, $body);$/;"	v
 fields	src/App/Handlers/Database.php	/^                $fields = explode(",", $fields);$/;"	v
 fields	src/App/Handlers/Database.php	/^                $fields = preg_replace('@--.*$@m', '', $m[1]);$/;"	v
 fields	src/App/Handlers/Database.php	/^                $fields = preg_replace('@\\([^)]+\\)@', '', $fields);$/;"	v
@@ -306,7 +306,6 @@ h	src/dependencies.php	/^        $h = new \\App\\Handlers\\NotFound($c);$/;"	v
 hasPage	src/App/Handlers/Search.php	/^        $hasPage = $this->db->getPageByName($wikiName) ? true : false;$/;"	v
 hash	src/App/Common.php	/^        $hash = sha1($_SERVER["DOCUMENT_ROOT"] . rand(1111, 9999) . microtime(true));$/;"	v
 hash	src/App/CommonHandler.php	/^        $hash = md5($body);$/;"	v
-hash	src/App/Database.php	/^        $hash = md5($body);$/;"	v
 hash	src/App/FileHandler.php	/^        $hash = empty($file["hash"])$/;"	v
 hash	src/App/Handlers/Files.php	/^        $hash = $file["hash"];$/;"	v
 hash	src/App/Handlers/Short.php	/^        $hash = empty($file["hash"])$/;"	v
@@ -362,7 +361,7 @@ html	src/App/Util.php	/^        $html = preg_replace('@\\s+--\\s+@', ' — ', $
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/([a-z0-9]+)>@', '<\/\\1>', $html);$/;"	v
 html	src/App/Util.php	/^        $html = preg_replace('@\\s+<\/a>@', ' <\/a>', $html);$/;"	v
 https	src/App/Handlers/Sitemap.php	/^        $https = $request->getServerParam("HTTPS") == "on";$/;"	v
-id	src/App/Database.php	/^        $id = $this->insert("files", [$/;"	v
+id	src/App/CommonHandler.php	/^        $id = $this->db->insert("files", [$/;"	v
 id	src/App/Handlers/CLI.php	/^            $id = $em["id"];$/;"	v
 id	src/App/Handlers/CLI.php	/^            $id = $rfile["id"];$/;"	v
 id	src/App/Handlers/Files.php	/^            $id = $row["id"];$/;"	v
@@ -370,7 +369,7 @@ id	src/App/Handlers/Maps.php	/^                $id = $form["id"];$/;"	v
 id	src/App/Handlers/Maps.php	/^                $id = $this->db->insert("map_poi", [$/;"	v
 id	src/App/Handlers/Maps.php	/^            $id = $form["id"];$/;"	v
 id	src/App/Handlers/Maps.php	/^        $id = $request->getParam("id");$/;"	v
-id	src/App/Handlers/Wiki.php	/^                        $id = $this->db->addFile($name, $type, $doc["data"]);$/;"	v
+id	src/App/Handlers/Wiki.php	/^                        $id = $this->addFile($name, $type, $doc["data"]);$/;"	v
 id	src/App/Handlers/Wiki.php	/^                $id = $this->db->insert("pages", [$/;"	v
 id	src/App/Handlers/Wiki.php	/^                $id = mt_rand(1111, 9999);$/;"	v
 id	src/App/Handlers/Wiki.php	/^            $id = $page["id"];$/;"	v
@@ -414,9 +413,9 @@ iw	src/App/Handlers/Wiki.php	/^                $iw = round(150 * $rate) . "px";$
 iw	src/App/Handlers/Wiki.php	/^            $iw = "auto";$/;"	v
 iw	src/App/Thumbnailer.php	/^        $iw = imagesx($img);$/;"	v
 k	src/App/Common.php	/^                    $k = strtolower(trim($parts[0]));$/;"	v
-kind	src/App/Database.php	/^            $kind = "photo";$/;"	v
-kind	src/App/Database.php	/^            $kind = "video";$/;"	v
-kind	src/App/Database.php	/^        $kind = "other";$/;"	v
+kind	src/App/CommonHandler.php	/^            $kind = "photo";$/;"	v
+kind	src/App/CommonHandler.php	/^            $kind = "video";$/;"	v
+kind	src/App/CommonHandler.php	/^        $kind = "other";$/;"	v
 kind	src/App/Handlers/CLI.php	/^                $kind = "photo";$/;"	v
 kind	src/App/Handlers/CLI.php	/^            $kind = "other";$/;"	v
 kind	src/App/Handlers/Upload.php	/^                $kind = "other";$/;"	v
@@ -510,6 +509,7 @@ normalizeText	src/App/Search.php	/^    public function normalizeText($text)$/;"	
 normalizeWords	src/App/Search.php	/^    protected function normalizeWords(array $words)$/;"	f
 notfound	src/App/CommonHandler.php	/^    protected function notfound(Request $request)$/;"	f
 now	src/App/CommonHandler.php	/^            $now = time();$/;"	v
+now	src/App/CommonHandler.php	/^        $now = time();$/;"	v
 now	src/App/Database.php	/^        $now = time();$/;"	v
 now	src/App/Handlers/Wiki.php	/^            $now = time();$/;"	v
 nw	src/App/Thumbnailer.php	/^                $nw = $options["width"];$/;"	v
@@ -625,6 +625,7 @@ password	src/App/Handlers/Account.php	/^        $password = $request->getParam("
 path	src/App/CommonHandler.php	/^            $path = $_SERVER["DOCUMENT_ROOT"] . $link;$/;"	v
 path	src/App/CommonHandler.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $path;$/;"	v
 path	src/App/CommonHandler.php	/^        $path = $request->getUri()->getPath();$/;"	v
+path	src/App/CommonHandler.php	/^        $path = $this->fsput($body);$/;"	v
 path	src/App/CommonHandler.php	/^        $path = substr($hash, 0, 1) . "\/" . substr($hash, 1, 2) . "\/" . substr($hash, 3);$/;"	v
 path	src/App/Handlers/Files.php	/^            $path = $this->fsput($body);$/;"	v
 path	src/App/Handlers/Short.php	/^        $path = $_SERVER["DOCUMENT_ROOT"] . $request->getUri()->getPath();$/;"	v
