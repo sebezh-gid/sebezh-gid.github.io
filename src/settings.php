@@ -38,12 +38,6 @@ return [
             'password' => null,
         ],
 
-        'dsn.mysql' => [
-            'name' => 'mysql:dbname=sebgid',
-            'user' => 'sebgid',
-            'password' => 'sebgid725',
-        ],
-
         'wiki' => [
             'homePage' => 'Введение',
         ],
