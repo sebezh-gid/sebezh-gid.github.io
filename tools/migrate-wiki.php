@@ -39,6 +39,9 @@ $db->beginTransaction();
 
 $db->query('DELETE FROM `nodes` WHERE `type` IN (\'wiki\', \'file\')');
 
+$last = (int)$db->fetchcell('SELECT MAX(id) FROM nodes');
+$db->query(sprintf('ALTER TABLE nodes AUTO_INCREMENT = %u', $last + 1));
+
 $files = $db->fetch('SELECT * FROM `files` ORDER BY `id`');
 foreach ($files as $file) {
     $node = [
@@ -78,7 +81,16 @@ foreach ($files as $file) {
         [$file['id'], strftime('%Y-%m-%d %H:%M:%S', $file['uploaded']), $node['id']]);
 }
 
-$pages = $db->fetch('SELECT * FROM `pages` ORDER BY `id`');
+// Move file descriptions into new nodes.
+$pages = $db->fetch('SELECT * FROM `pages` WHERE name LIKE \'File:%\'');
+foreach ($pages as $page) {
+    $fid = (int)substr($page['name'], 5);
+    $node = $nf->get($fid);
+    $node['description'] = $page['source'];
+    $nf->save($node);
+}
+
+$pages = $db->fetch('SELECT * FROM `pages` WHERE `name` NOT LIKE \'File:%\' ORDER BY `created`');
 foreach ($pages as $page) {
     $node = $wiki->updatePage($page['name'], $page['source'], $admin);
     $node['created'] = strftime('%Y-%m-%d %H:%M:%S', $page['created']);

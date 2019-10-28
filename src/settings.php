@@ -78,7 +78,7 @@ return [
         ],
 
         'files' => [
-            'path' => __DIR__ . "/../data/files",
+            'path' => __DIR__ . "/../data/files/sebezh-gid.ru",
             'fmode' => 0644,
             'dmode' => 0775,
         ],

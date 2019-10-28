@@ -19,6 +19,9 @@ pull-data:
 	ssh $(REMOTE) mysqldump --defaults-file=.my.sebezh_gid.cnf sebezh_gid files pages | pv > data/remote.sql
 	mysql < data/remote.sql
 
+pull-files:
+	rsync -avz -e ssh --delete $(REMOTE):$(FOLDER)/data/files/sebezh-gid.ru data/files/
+
 push-ufw:
 	rsync -avz --delete --exclude .hg vendor/umonkey/ufw1/ ~/src/ufw1/
 	cd ~/src/ufw1/ && bash -l
