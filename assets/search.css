@@ -1,11 +1,7 @@
-.result a.img {
-    float: right;
-    display: block;
-    margin-left: 15px;
+form.search {
+    width: 100%;
 }
-.result img {
-    height: 100px;
-}
-.result.with_img {
-    min-height: 100px;
+body.notfound form.search input {
+    width: calc(100% - 35px);
+    max-width: 100%;
 }

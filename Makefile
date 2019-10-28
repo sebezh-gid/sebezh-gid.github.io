@@ -4,36 +4,24 @@ FOLDER=hosts/sebezh-gid.ru
 all: assets tags
 
 assets:
-	php -f tools/compress.php src/assets.php
+	composer run-script assets
 
-autoload:
-	composer dump-autoload
+db:
+	mysql
+
+db-remote:
+	ssh -t $(REMOTE) mysql --defaults-file=.my.sebezh_gid.cnf
 
 deploy:
 	rsync -avz -e ssh src templates vendor public $(REMOTE):$(FOLDER)/
 
-flush:
-	echo "UPDATE pages SET html = null;" | sqlite3 data/database.sqlite
-
-flush-remote:
-	echo "UPDATE pages SET html = null; DELETE FROM cache;" | ssh $(REMOTE) sqlite3 $(FOLDER)/data/database.sqlite
-
-mysql2sqlite:
-	sqlite3 data/database.sqlite < src/schema_sqlite.sql
-	php -f tools/dbcopy.php "mysql://sebgid:sebgid725@localhost/sebgid" "sqlite:data/database.sqlite" accounts backlinks files history map_poi map_tags odict pages sessions
-
 pull-data:
-	ssh $(REMOTE) mysqldump sebgid accounts backlinks history map_poi map_tags odict pages | pv > data/remote.sql
+	ssh $(REMOTE) mysqldump --defaults-file=.my.sebezh_gid.cnf sebezh_gid files pages | pv > data/remote.sql
 	mysql < data/remote.sql
 
-pull-files:
-	php -f tools/cli.php pull-files -- --url=https://sebezh-gid.ru/files/export
-
-pull-pages:
-	ssh $(REMOTE) mysqldump sebgid pages history backlinks map_poi map_tags | pv > data/pages.sql
-	mysql < data/pages.sql
-	echo "UPDATE pages SET html = null;" | mysql sebgid
-	rm -f data/pages.sql
+push-ufw:
+	rsync -avz --delete --exclude .hg vendor/umonkey/ufw1/ ~/src/ufw1/
+	cd ~/src/ufw1/ && bash -l
 
 reindex:
 	php -f tools/cli.php reindex
@@ -42,23 +30,10 @@ reindex-remote:
 	ssh $(REMOTE) php -f wiki/tools/cli.php reindex
 
 schema:
-	sqlite3 data/database.sqlite < src/schema_sqlite.sql
-
-serve:
-	php -d upload_max_filesize=100M -S 127.0.0.1:8080 -t public public/router.php
+	mysql < src/schema_mysql.sql
 
 shell:
 	ssh $(REMOTE)
-
-sql:
-	sqlite3 data/database.sqlite
-
-sql-public:
-	ssh -t $(REMOTE) mysql --defaults-file=/home/vhost/.my.sebezh_gid.cnf
-
-sqlite2mysql:
-	mysql < src/schema_mysql.sql
-	php -f tools/dbcopy.php "sqlite:data/database.sqlite" "mysql://sebezh_gid:8FCbf7B7@localhost/sebezh_gid"
 
 tags:
 	@echo "Rebuilding ctags (see doc/HOWTO_dev.md)"
@@ -67,4 +42,13 @@ tags:
 test-website:
 	php -f tools/test-website "http://gid.local/" | tee test.log | grep -v improper | grep -E 'WRN|ERR'
 
-.PHONY: assets tags sql schema
+update-ufw:
+	hg --cwd vendor/umonkey/ufw1/ up -C
+	hg --cwd vendor/umonkey/ufw1/ clean
+	composer update umonkey/ufw1
+	hg ci composer.json composer.lock -m "Dependency update: umonkey/ufw1"
+
+update-ufw-raw:
+	rsync -avz --delete --exclude .hg ~/src/ufw1/ vendor/umonkey/ufw1/
+
+.PHONY: assets tags schema

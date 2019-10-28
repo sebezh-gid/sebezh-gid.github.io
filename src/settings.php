@@ -27,19 +27,22 @@ return [
 
         // Monolog settings
         'logger' => [
-            'name' => 'slim-app',
-            'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
-            'level' => \Monolog\Logger::DEBUG,
+            'path' => __DIR__ . '/../tmp/php.log.%Y%m%d',
+            'symlink' => __DIR__ . '/../tmp/php.log',
         ],
 
         'dsn' => [
             'name' => 'mysql:dbname=sebezh_gid',
             'user' => 'sebezh_gid',
             'password' => '8FCbf7B7',
+            'bootstrap' => [
+                'SET NAMES utf8',
+            ],
         ],
 
         'wiki' => [
             'homePage' => 'Введение',
+            'editor_roles' => ['admin', 'editor'],
         ],
 
         'wiki_meta_defaults_ru' => [
@@ -74,16 +77,111 @@ return [
             ],
         ],
 
-        'sphinx' => [
-            'host' => '127.0.0.1',
-            'port' => 9306,
-            'index' => 'wiki',
-        ],
-
         'files' => [
-            'path' => __DIR__ . "/../data/files/" . $_SERVER["HTTP_HOST"],
+            'path' => __DIR__ . "/../data/files",
             'fmode' => 0644,
             'dmode' => 0775,
+        ],
+
+        'nodes_idx' => [
+            'file' => ['kind'],
+            'user' => ['email'],
+        ],
+
+        'node_forms' => [
+            'file' => [
+                'edit_title' => 'Редактирование файла',
+                'fields' => [
+                    'name' => [
+                        'label' => 'Название файла',
+                        'type' => 'textline',
+                        'required' => true,
+                    ],
+                    'kind' => [
+                        'label' => 'Тип содержимого',
+                        'type' => 'select',
+                        'options' => [
+                            'photo' => 'фотография',
+                            'video' => 'видео',
+                            'audio' => 'звук',
+                            'other' => 'другое',
+                        ],
+                    ],
+                    'mime_type' => [
+                        'label' => 'Тип MIME',
+                        'type' => 'textline',
+                        'required' => true,
+                    ],
+                    'files' => [
+                        'label' => 'Варианты файла',
+                        'type' => 'fileparts',
+                    ],
+                ],
+            ],
+            'user' => [
+                'new_title' => 'Добавление пользователя',
+                'edit_title' => 'Редактирование профиля пользователя',
+                'fields' => [
+                    'name' => [
+                        'label' => 'Фамилия, имя',
+                        'type' => 'textline',
+                        'required' => true,
+                        'placeholder' => 'Сусанин Иван',
+                    ],
+                    'email' => [
+                        'label' => 'Email',
+                        'type' => 'textline',
+                        'required' => true,
+                    ],
+                    'phone' => [
+                        'label' => 'Номер телефона',
+                        'type' => 'textline',
+                    ],
+                    'role' => [
+                        'label' => 'Роль в работе сайта',
+                        'type' => 'select',
+                        'options' => [
+                            'nobody' => 'никто',
+                            'user' => 'пользователь',
+                            'editor' => 'редактор',
+                            'admin' => 'администратор',
+                        ],
+                    ],
+                    'published' => [
+                        'label' => 'разрешить доступ',
+                        'type' => 'checkbox',
+                    ],
+                ],
+            ],
+            'wiki' => [
+                'edit_title' => 'Редактирование страницы',
+                'fields' => [
+                    'name' => [
+                        'label' => 'Название страницы',
+                        'type' => 'textline',
+                        'required' => true,
+                    ],
+                    'source' => [
+                        'label' => 'Текст',
+                        'type' => 'textarea',
+                        'rows' => 10,
+                        'class' => 'markdown',
+                        'required' => true,
+                        'help' => 'Можно использовать <a href="http://ilfire.ru/kompyutery/shpargalka-po-sintaksisu-markdown-markdaun-so-vsemi-samymi-populyarnymi-tegami/" target="blank">форматирование Markdown</a>.',
+                    ],
+                    'published' => [
+                        'type' => 'hidden',
+                    ],
+                    'deleted' => [
+                        'type' => 'checkbox',
+                        'label' => 'удалить статью',
+                    ],
+                ],
+            ],  // picture
+        ],  // node_forms
+
+        'admin' => [
+            'allowed_roles' => ['admin'],
         ],
     ],
 ];

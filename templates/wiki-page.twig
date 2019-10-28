@@ -1,8 +1,10 @@
 {% extends "base.twig" %}
 
 {% block more_head %}
-    <link rel="edit" title="Редактировать страницу" href="/wiki/edit?name={{ page.name|url_encode }}"/>
-    <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/wiki/edit?name={{ page.name|url_encode }}"/>
+    {% if edit_link %}
+        <link rel="edit" title="Редактировать страницу" href="/wiki/edit?name={{ page.name|url_encode }}"/>
+        <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/wiki/edit?name={{ page.name|url_encode }}"/>
+    {% endif %}
 
     <meta property="og:url" content="https://{{ host }}/wiki?name={{ page.name|url_encode }}"/>
     <meta property="og:type" content="article"/>
@@ -38,6 +40,16 @@
 {% endblock %}
 
 {% block page_contents %}
+    {% if edit_link %}
+        {% if page_age == 0 %}
+            <div class="wikimeta">Страница была изменена сегодня; вы тоже можете <a href="{{ edit_link }}">редактировать её</a>.</div>
+        {% elseif page_age == 1 %}
+            <div class="wikimeta">Страница была изменена вчера; вы тоже можете <a href="{{ edit_link }}">редактировать её</a>.</div>
+        {% else %}
+            <div class="wikimeta">Страница была изменена {{ page_age }} {{ page_age|sklo("день", "дня", "дней") }} назад; вы тоже можете <a href="{{ edit_link }}">редактировать её</a>.</div>
+        {% endif %}
+    {% endif %}
+
     <div class="formatted" itemprop="articleBody">
         {% if page.en %}
             <p><i>You can read this page in English: <a href="/wiki?name={{ page.en }}">{{ page.en }}</a>.</i></p>
@@ -45,27 +57,12 @@
             <p><i>Эта страница есть на русском языке: <a href="/wiki?name={{ page.ru }}">{{ page.ru }}</a>.</i></p>
         {% endif %}
 
-        {{ page.html|typo }}
-
-        {% if file and file.kind == "photo" %}
-            <a class="image" data-fancybox="gallery" href="{{ file.link }}">
-                <img src="{{ file.thumbnail }}"/>
-            </a>
-
-            {% if file.size %}
-                <p>Размер <a href="{{ file.link }}">исходного изображения</a>: {{ file.size[0] }}×{{ file.size[1] }} пикселей.</p>
-            {% endif %}
-
-            {% if backlinks|length == 1 %}
-                <p>Файл использован на странице <a href="/wiki?name={{ backlinks[0]|url_encode }}">{{ backlinks[0] }}</a>.</p>
-            {% elseif backlinks %}
-                <p>Файл использован на страницах:</p>
-                <ul>
-                    {% for l in backlinks %}
-                        <li><a href="/wiki?name={{ l|url_encode }}">{{ l }}</a></li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+        {% if "wiki:" in page.name %}
+            <pre>{{ page.text }}</pre>
+        {% else %}
+            {{ page.html|raw }}
         {% endif %}
     </div>
+
+    <div id="disqus_thread"></div>
 {% endblock %}

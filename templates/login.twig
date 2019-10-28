@@ -4,29 +4,37 @@
     <meta name="robots" contents="noindex, follow"/>
 {% endblock %}
 
+{% block page_title %}Вход{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block body_class %}login{% endblock %}
+
+{% block page_header %}{% endblock %}
+
 {% block page_contents %}
-    <div class="row">
-        <div class="col-md-6">
-            <form method="post" class="async">
-                <input type="hidden" name="back" value="{{ back }}"/>
-                <div class="form-group">
-                    <label>Логин</label>
-                    <input class="form-control" type="text" name="login"/>
-                </div>
-                <div class="form-group">
-                    <label>Пароль</label>
-                    <input class="form-control" type="password" name="password"/>
-                </div>
-                <div class="form-actions">
-                    <button type="submit">Войти</button>
-                </div>
-
-                <p class="msgbox" style="display: none"></p>
-            </form>
+    <form method="post" class="async login" action="/login">
+        <div class='page-header'>
+            <h1>Путеводитель по Себежу</h1>
+            <p class='lead'>Доступ к некоторым функциям ограничен.<br/>Подтвердите личность чтобы снять ограничение.</p>
         </div>
 
-        <div class="col-md-6">
-            <p>После идентификации вы сможете редактировать страницы, если администратор сайта выдал вам соответствующий доступ.</p>
+        <input type="hidden" name="next" value="{{ request.get.back }}"/>
+        <div class="form-group">
+            <label>Email</label>
+            <input class="form-control" type="text" name="email" required/>
         </div>
-    </div>
+        <div class="form-group">
+            <label>Пароль</label>
+            <input class="form-control" type="password" name="password" required/>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Войти</button>
+            <a class="btn btn-default" href="/register{% if request.get.back %}?back={{ request.get.back }}{% endif %}">Зарегистрироваться</a>
+        </div>
+
+        <p class="msgbox" style="display: none"></p>
+    </form>
 {% endblock %}

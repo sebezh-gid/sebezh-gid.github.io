@@ -31,57 +31,62 @@
         {% endif %}
 
     </head>
-    <body class="{{ body_class }}">
-        <header>
-            <div class="sep">
-                <div id="hlinks" class="corsette">
-                    <ul class="links">
-                        <li><a class="logo" href="/wiki?name={{ "Введение"|url_encode }}"><strong>Гид по Себежу</strong></a></li>
-                        <li class="toggle"><a href="/wiki?name={{ "История Себежа"|url_encode }}">История</a></li>
-                        <li class="toggle"><a href="/wiki?name={{ "Природа"|url_encode }}">Природа</a></li>
-                        <li class="toggle"><a href="/wiki?name={{ "Культура"|url_encode }}">Культура</a></li>
-                        <li class="toggle"><a href="/wiki?name={{ "Куда сходить"|url_encode }}">Гид</a></li>
-                        <li class="toggle"><a href="/map">Карта</a></li>
-                        <li class="toggle hidden">
-                            <form method="get" action="/search">
-                                <input class="search" type="text" name="query" placeholder="Поиск по сайту..." autocomplete="off"/>
-                                <button type="reset"><i class="fas fa-times"></i></button>
-                            </form>
-                        </li>
+    <body class="{% block body_class %}{{ body_class }}{% endblock %}">
+        {% block header %}
+            <header>
+                <div class="sep">
+                    <div id="hlinks" class="corsette">
+                        <ul class="links">
+                            <li><a class="logo" href="/wiki?name={{ "Введение"|url_encode }}"><strong>Гид по Себежу</strong></a></li>
+                            <li class="toggle"><a href="/wiki?name={{ "История Себежа"|url_encode }}">История</a></li>
+                            <li class="toggle"><a href="/wiki?name={{ "Природа"|url_encode }}">Природа</a></li>
+                            <li class="toggle"><a href="/wiki?name={{ "Культура"|url_encode }}">Культура</a></li>
+                            <li class="toggle"><a href="/wiki?name={{ "Куда сходить"|url_encode }}">Гид</a></li>
+                            <li class="toggle"><a href="/map">Карта</a></li>
+                            <li class="toggle hidden">
+                                <form method="get" action="/search">
+                                    <input class="search" type="text" name="query" placeholder="Поиск по сайту..." autocomplete="off"/>
+                                    <button type="reset"><i class="fas fa-times"></i></button>
+                                </form>
+                            </li>
+                        </ul>
+                        <ul class="buttons">
+                            <li><a id="showsearch" href="/search" title="Поиск (/)"><i class="fas fa-search"></i></a></li>
+                            <li><a id="showmap" href="/wiki?name={{ "Карта сайта"|url_encode }}" title="Карта сайта (=)"><i class="fas fa-bars"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="hmap" class="corsette">
+                    <ul class>
+                        <li><a href="/wiki?name={{ "Как добраться"|url_encode }}">Как добраться</a></li>
+                        <li><a href="/wiki?name={{ "Куда сходить"|url_encode }}">Куда сходить</a></li>
+                        <li><a href="/wiki?name={{ "Где остановиться"|url_encode }}">Где остановиться</a></li>
+                        <li><a href="/wiki?name={{ "Список людей"|url_encode }}">Интересные люди</a></li>
                     </ul>
-                    <ul class="buttons">
-                        <li><a id="showsearch" href="/search" title="Поиск (/)"><i class="fas fa-search"></i></a></li>
-                        <li><a id="showmap" href="/wiki?name={{ "Карта сайта"|url_encode }}" title="Карта сайта (=)"><i class="fas fa-bars"></i></a></li>
+                    <ul class>
+                        <li><a href="/wiki?name={{ "Достопримечательности"|url_encode }}">Достопримечательности</a></li>
+                        <li><a href="/wiki?name={{ "Где поесть"|url_encode }}">Где поесть</a></li>
+                        <li><a href="/wiki?name={{ "Ночная жизнь"|url_encode }}">Ночная жизнь</a></li>
+                        <li><a href="/wiki?name={{ "Меры предосторожности"|url_encode }}">Меры предосторожности</a></li>
+                    </ul>
+                    <ul class>
+                        <li><a href="/wiki?name={{ "Себеж"|url_encode }}">Себеж</a></li>
+                        <li><a href="/wiki?name={{ "Себежский район"|url_encode }}">Себежский район</a></li>
+                        <li><a href="/wiki?name={{ "Себежский национальный парк"|url_encode }}">Национальный парк</a></li>
+                        <li><a href="/wiki?name={{ "Озёра"|url_encode }}">Озёра</a></li>
+                    </ul>
+                    <ul class>
+                        <li><a href="/wiki?name={{ "О сайте"|url_encode }}">О сайте</a></li>
+                        <li><a href="/wiki?name={{ "Редакторам"|url_encode }}">Прислать информацию</a></li>
+                        <li><a href="/wiki/recent">Свежие правки</a></li>
+                        <li><a href="/wiki/index">Все страницы</a></li>
+                        {% if user.role == 'admin' %}
+                            <li><a href="/admin">Админка</a></li>
+                        {% endif %}
                     </ul>
                 </div>
-            </div>
-            <div id="hmap" class="corsette">
-                <ul class>
-                    <li><a href="/wiki?name={{ "Как добраться"|url_encode }}">Как добраться</a></li>
-                    <li><a href="/wiki?name={{ "Куда сходить"|url_encode }}">Куда сходить</a></li>
-                    <li><a href="/wiki?name={{ "Где остановиться"|url_encode }}">Где остановиться</a></li>
-                    <li><a href="/wiki?name={{ "Список людей"|url_encode }}">Интересные люди</a></li>
-                </ul>
-                <ul class>
-                    <li><a href="/wiki?name={{ "Достопримечательности"|url_encode }}">Достопримечательности</a></li>
-                    <li><a href="/wiki?name={{ "Где поесть"|url_encode }}">Где поесть</a></li>
-                    <li><a href="/wiki?name={{ "Ночная жизнь"|url_encode }}">Ночная жизнь</a></li>
-                    <li><a href="/wiki?name={{ "Меры предосторожности"|url_encode }}">Меры предосторожности</a></li>
-                </ul>
-                <ul class>
-                    <li><a href="/wiki?name={{ "Себеж"|url_encode }}">Себеж</a></li>
-                    <li><a href="/wiki?name={{ "Себежский район"|url_encode }}">Себежский район</a></li>
-                    <li><a href="/wiki?name={{ "Себежский национальный парк"|url_encode }}">Национальный парк</a></li>
-                    <li><a href="/wiki?name={{ "Озёра"|url_encode }}">Озёра</a></li>
-                </ul>
-                <ul class>
-                    <li><a href="/wiki?name={{ "О сайте"|url_encode }}">О сайте</a></li>
-                    <li><a href="/wiki?name={{ "Редакторам"|url_encode }}">Прислать информацию</a></li>
-                    <li><a href="/wiki/recent">Свежие правки</a></li>
-                    <li><a href="/wiki/index">Все страницы</a></li>
-                </ul>
-            </div>
-        </header>
+            </header>
+        {% endblock %}
 
         <main class="container" role="main">
             {% block container %}

@@ -1,4 +1,4 @@
-table td.rowid {
+table.table .rowid {
     text-align: right;
     color: #888;
 }

@@ -3,46 +3,7 @@
 
 $container = $app->getContainer();
 
-// view renderer
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    return new Slim\Views\PhpRenderer($settings['template_path']);
-};
-
-$container['template'] = function ($c) {
-    $settings = $c->get('settings')['templates'];
-    $tpl = new \App\Template($c);
-    return $tpl;
-};
-
-$container['notFoundHandler'] = function ($c) {
-    return function ($request, $response) use ($c) {
-        $h = new \App\Handlers\NotFound($c);
-        return $h($request, $response, []);
-    };
-};
-
-$container['errorHandler'] = function ($c) {
-    return function ($request, $response, $e) use ($c) {
-        $h = new \App\Handlers\Error($c);
-        return $h($request, $response, ["exception" => $e]);
-    };
-};
-
-// monolog
-$container['logger'] = function ($c) {
-    $settings = $c->get('settings')['logger'];
-    $logger = new Monolog\Logger($settings['name']);
-    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
-    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
-    return $logger;
-};
-
-
-// database
-$container['database'] = function ($c) {
-    return new \App\Database($c->get("settings")["dsn"]);
-};
+\Ufw1\Util::containerSetup($container);
 
 
 function debug()

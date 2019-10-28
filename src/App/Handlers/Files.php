@@ -12,7 +12,7 @@ use Slim\Http\Response;
 use App\CommonHandler;
 
 
-class Files extends CommonHandler
+class Files extends \Ufw1\Handlers\Files
 {
     public function onGetRecent(Request $request, Response $response, array $args)
     {
@@ -51,7 +51,7 @@ class Files extends CommonHandler
         ]);
     }
 
-    public function onDownload(Request $request, Response $response, array $args)
+    public function xonDownload(Request $request, Response $response, array $args)
     {
         $file = $this->db->fetchOne("SELECT `name`, `hash`, `mime_type`, `created`, `original` FROM `files` WHERE `id` = ?", [$args["id"]]);
         if (empty($file))
@@ -73,49 +73,5 @@ class Files extends CommonHandler
         $lastmod = $file["created"];
 
         return $this->sendCached($request, $body, "image/jpeg", $lastmod);
-    }
-
-    /**
-     * Returns information on all files.
-     **/
-    public function onExport(Request $request, Response $response, array $args)
-    {
-        $files = $this->db->fetch("SELECT id, name, mime_type, length, created, hash FROM files ORDER BY id");
-
-        $host = $request->getServerParam("HTTP_HOST");
-        $proto = ($request->getServerParam("HTTPS")) == "on" ? "https" : "http";
-
-        $base = $proto . "://" . $host;
-
-        $files = array_map(function ($em) use ($base) {
-            return [
-                "id" => (int)$em["id"],
-                "name" => $em["name"],
-                "mime_type" => $em["mime_type"],
-                "length" => (int)$em["length"],
-                "created" => (int)$em["created"],
-                "hash" => $em["hash"],
-                "link" => $base . "/files/" . $em["id"] . "/download",
-            ];
-        }, $files);
-
-        return $response->withJSON([
-            "files" => $files,
-        ]);
-    }
-
-    /**
-     * Выгрузка файлов из базы данных в файловую систему.
-     **/
-    public function onDump(Request $request, Response $response, array $args)
-    {
-        $rows = $this->db->fetch("SELECT `id` FROM `files` WHERE `body` IS NOT NULL");
-        foreach ($rows as $row) {
-            $id = $row["id"];
-            $body = $this->db->fetchcell("SELECT `body` FROM `files` WHERE `id` = ?", [$id]);
-
-            $path = $this->fsput($body);
-            $this->db->query("UPDATE `files` SET `body` = NULL, `original` = ? WHERE `id` = ?", [$path, $id]);
-        }
     }
 }

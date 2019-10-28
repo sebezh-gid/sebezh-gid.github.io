@@ -644,37 +644,8 @@ table.tktinfo th {
     color: gray;
 }
 
-a.btn, button.btn, label.btn {
-    display: inline-block;
-    line-height: 2em;
-    height: 30px;
-    padding: 0 1em;
-    color: #444;
-    background-color: #eee;
-    border: solid 1px #ccc;
-    border-radius: 3px;
-    text-decoration: none;
-    cursor: pointer;
-}
-a.btn.tool {
-    padding: 0 8px;
-    height: 28px;
-    line-height: 28px;
-}
-.btn.lsep {
-    margin-left: 20px;
-}
-
-.btn.active {
-    background-color: #ddd;
-}
-
 .actions {
     font-size: 0;
-}
-.actions .btn {
-    font-size: 14px;
-    margin-right: 10px;
 }
 
 .btn-group {
@@ -935,16 +906,6 @@ table.grid tbody td {
     border: solid 1px #ccc;
 }
 
-form.search {
-    margin: 0 0 20px;
-}
-form.search button {
-    width: 100px;
-}
-form.search input {
-    width: calc(100% - 120px);
-    max-width: 400px;
-}
 .result {
     margin: 0 0 1.5em;
 }
@@ -1052,20 +1013,45 @@ table.recent a {
     white-space: nowrap;
 }
 
+
+body.wiki_edit main,
+body.wiki_edit #hlinks {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+body.wiki_edit footer {
+    display: none;
+}
+
+
 .form-actions ul.wiki_buttons {
     display: inline-block;
     list-style-type: none;
-    margin: 0;
+    margin: 0 0 0 20px;
     padding: 0;
     vertical-align: top;
 }
 .form-actions ul.wiki_buttons li {
     margin: 0 5px;
+    display: inline-block;
 }
 .form-actions ul.wiki_buttons a {
     padding: 0 8px;
-    height: 28px;
+    height: 30px;
+    width: 30px;
     line-height: 28px;
-    vertical-align: top;
+    vertical-align: baseline;
     margin: 0;
+    box-sizing: border-box;
+}
+
+.wikimeta {
+    color: #888;
+    font-size: 14px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+.wikimeta a {
+    color: inherit;
 }

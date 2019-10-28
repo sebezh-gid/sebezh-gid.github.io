@@ -1,0 +1,46 @@
+{% extends "base.twig" %}
+
+{% block page_title %}Регистрация{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block body_class %}register{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block page_contents %}
+    <form method="post" class="async register">
+        <div class="page-header">
+            <h1>Регистрация в путеводителе</h1>
+            <p class='lead'>Регистрация позволит вам вносить изменения в тексты статей.</p>
+        </div>
+
+        <div class="form-group name">
+            <label>Фамилия, имя</label>
+            <input class="form-control" type="text" name="name" required placeholder="Сусанин Иван" autofocus/>
+        </div>
+        <div class="form-group">
+            <label>Номер телефона</label>
+            <input class="form-control" type="text" name="phone"/>
+            <p class='help-block'>Мы свяжемся если будут вопросы по вашим правкам.</p>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input class="form-control" type="text" name="email"/>
+            <p class='help-block'>Нужен для восстановления пароля если вы его забудете.</p>
+        </div>
+        <div class="form-group">
+            <label>Пароль</label>
+            <input class="form-control" type="password" name="password"/>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Зарегистрировать</button>
+            <a class="btn btn-default" href="/">Назад</a>
+        </div>
+
+        <p class="msgbox" style="display: none"></p>
+    </form>
+{% endblock %}

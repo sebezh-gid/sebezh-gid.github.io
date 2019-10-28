@@ -238,24 +238,3 @@ jQuery(function ($) {
         $(".dialog, #block").hide();
     });
 });
-
-
-/**
- * Edit page sections.
- **/
-jQuery(function ($) {
-    var link = $("link[rel=edit]:first");
-    if (link.length == 0)
-        return;
-
-    var base = link.attr("href");
-
-    $(".formatted h1, .formatted h2, .formatted h3, .formatted h4, .formatted h5").each(function () {
-        if ($(this).closest("#toc").length > 0)
-            return;
-
-        var text = $(this).text().replace('\xa0', ' ');
-        var link = base + "&section=" + encodeURI(text);
-        $(this).append("<a class='edit' href='" + link + "'>edit</a>");
-    });
-});
