@@ -33,7 +33,7 @@ schema:
 	mysql < src/schema_mysql.sql
 
 shell:
-	ssh $(REMOTE)
+	ssh -t $(REMOTE) cd hosts/sebezh-gid.ru \; bash -l
 
 tags:
 	@echo "Rebuilding ctags (see doc/HOWTO_dev.md)"

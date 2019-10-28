@@ -59,6 +59,7 @@ foreach ($files as $file) {
             'path' => $file['original'],
             'length' => $file['length'],
             'storage' => 'local',
+            'url' => "/node/{$file['id']}/download/original",
         ];
     }
 
@@ -67,6 +68,7 @@ foreach ($files as $file) {
             'type' => $file['mime_type'],
             'path' => $file['thumbnail'],
             'storage' => 'local',
+            'url' => "/node/{$file['id']}/download/small",
         ];
     }
 
