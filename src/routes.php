@@ -8,6 +8,7 @@ use Slim\Http\Response;
 \App\Handlers\Account::setupRoutes($app);
 \App\Handlers\Wiki::setupRoutes($app);
 \App\Handlers\Files::setupRoutes($app);
+\Ufw1\Handlers\Shortener::setupRoutes($app);
 
 $app->get ('/map', '\App\Handlers\Maps:onMain');
 $app->get ('/map/add', '\App\Handlers\Maps:onAdd');

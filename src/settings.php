@@ -177,7 +177,30 @@ return [
                         'label' => 'удалить статью',
                     ],
                 ],
-            ],  // picture
+            ],  // wiki
+            'sokr' => [
+                'edit_title' => 'Редактирование ссылки',
+                'fields' => [
+                    'name' => [
+                        'label' => 'Короткий адрес',
+                        'type' => 'textline',
+                        'required' => true,
+                        'readonly' => true,
+                    ],
+                    'target' => [
+                        'label' => 'Настоящий адрес страницы',
+                        'type' => 'textline',
+                        'required' => true,
+                    ],
+                    'published' => [
+                        'type' => 'hidden',
+                    ],
+                    'deleted' => [
+                        'type' => 'checkbox',
+                        'label' => 'удалить ссылку',
+                    ],
+                ],
+            ],  // sokr
         ],  // node_forms
 
         'admin' => [
