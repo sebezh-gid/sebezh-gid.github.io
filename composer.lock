@@ -1461,7 +1461,7 @@
             "source": {
                 "type": "hg",
                 "url": "/home/hex/src/ufw1",
-                "reference": "e5eab6fd4116"
+                "reference": "93b112e6e306"
             },
             "require": {
                 "league/commonmark": "1.0.0",
@@ -1472,16 +1472,14 @@
                 "slim/slim": "^3.1",
                 "twig/twig": "^2.4"
             },
+            "bin": [
+                "bin/build-assets"
+            ],
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Ufw1\\": "src/Ufw1"
                 }
-            },
-            "scripts": {
-                "assets": [
-                    "Ufw1\\Util::runCompressor"
-                ]
             },
             "authors": [
                 {
@@ -1490,7 +1488,7 @@
                 }
             ],
             "description": "slim based website framework for pet projects",
-            "time": "2019-10-27T06:46:13+00:00"
+            "time": "2019-10-29T10:30:35+00:00"
         }
     ],
     "packages-dev": [],
