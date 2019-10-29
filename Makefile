@@ -4,7 +4,7 @@ FOLDER=hosts/sebezh-gid.ru
 all: assets tags
 
 assets:
-	composer run-script assets
+	php -f vendor/bin/build-assets
 
 db:
 	mysql

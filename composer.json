@@ -34,8 +34,5 @@
     },
     "config": {
         "process-timeout" : 0
-    },
-    "scripts": {
-        "assets": "Ufw1\\Util::runCompressor"
     }
 }
