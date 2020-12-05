@@ -5,7 +5,7 @@ namespace App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class CommonHandler extends \Ufw1\CommonHandler
+class CommonHandler
 {
     protected $container;
 
@@ -187,6 +187,11 @@ class CommonHandler extends \Ufw1\CommonHandler
         $html = \App\Util::cleanHtml($html);
 
         return $html;
+    }
+
+    protected function notfound(Request $request)
+    {
+        return $this->render($request, "notfound.twig")->withStatus(404);
     }
 
     protected function search($query)

@@ -1,15 +1,13 @@
 <?php
 /**
  * Account operations.
- *
- * Lets users log in.
  **/
 
-namespace App\Handlers;
+namespace Wiki\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
-use App\CommonHandler;
+use Wiki\CommonHandler;
 
 
 class Account extends CommonHandler
@@ -18,7 +16,7 @@ class Account extends CommonHandler
     {
         $back = @$_GET["back"];
 
-        return $this->render($request, "login.twig", [
+        return $this->render($response, "login.twig", [
             "title" => "Идентификация",
             "back" => $back,
         ]);
@@ -26,26 +24,16 @@ class Account extends CommonHandler
 
     public function onLogin(Request $request, Response $response, array $args)
     {
-        $login = $request->getParam("login");
-        $password = $request->getParam("password");
-        $next = $request->getParam("back");
-
-        $acc = $this->db->fetchOne("SELECT * FROM `accounts` WHERE `login` = ?", [$login]);
+        $acc = $this->db->accountGet($_POST["login"]);
         if (empty($acc)) {
             return $response->withJSON([
                 "message" => "Нет такого пользователя.",
             ]);
         }
 
-        if (!password_verify($password, $acc["password"])) {
+        if ($_POST["password"] != $acc["password"]) {
             return $response->withJSON([
                 "message" => "Пароль не подходит.",
-            ]);
-        }
-
-        if ($acc["enabled"] == 0) {
-            return $response->withJSON([
-                "message" => "Учётная запись отключена.",
             ]);
         }
 
@@ -53,11 +41,7 @@ class Account extends CommonHandler
             "user_id" => $acc["id"],
         ]);
 
-        $this->db->update("accounts", [
-            "last_login" => strftime("%Y-%m-%d %H:%M:%S"),
-        ], [
-            "id" => $acc["id"],
-        ]);
+        $next = $_POST["back"];
 
         return $response->withJSON([
             "redirect" => $next,

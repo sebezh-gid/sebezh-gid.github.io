@@ -1,7 +1,20 @@
-REMOTE=vhost.umonkey.net
-FOLDER=hosts/sebezh-gid.ru
+# Development scripts for sebezh-gid.ru
+#
+# Most commands:
+#
+# make serve -- run local server in development mode.
+# make build -- prepare the production image
+# make push  -- publish the production image
 
-all: assets tags
+VERSION = v2.0
+IMAGE = umonkey/sebezh-gid
+
+all: serve
+
+serve:
+	docker build --build-arg USER_ID=`id -u` --build-arg GROUP_ID=`id -g` --tag $(IMAGE):local --file build/Dockerfile.local .
+	docker run --rm -it -v $(PWD):/app --name sebezh_gid -p 8000:80 $(IMAGE):local
+
 
 assets:
 	php -f vendor/bin/build-assets

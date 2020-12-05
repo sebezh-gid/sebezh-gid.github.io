@@ -2,13 +2,25 @@
 
 return [
     "public/app.css" => [
-        'vendor/umonkey/ufw1/assets/*.css',
-        'assets/*.css',
+        "assets/async.css",
+        "assets/wiki.css",
+        "assets/layout.css",
+        "assets/tables.css",
+        "assets/header.css",
+        "assets/footer.css",
+        "assets/forms.css",
+        "assets/maps.css",
+        "assets/sidebar.css",
+        "assets/files.css",
+        "assets/search.css",
+        "assets/images.css",
+        "assets/dialogs.css",
     ],
 
     "public/app.js" => [
-        'vendor/umonkey/ufw1/assets/*.js',
+        "assets/async.js",
         "assets/wiki.js",
+        "assets/wiki_file_upload.js",
         "assets/header.js",
         "assets/files.js",
         "assets/hotkeys.js",

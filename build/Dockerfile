@@ -1,0 +1,18 @@
+FROM alpine:3.12
+
+ARG USER_ID
+ARG GROUP_ID
+
+RUN addgroup -g ${GROUP_ID} www-data && adduser -HD -u ${USER_ID} -G www-data www-data
+
+RUN apk add --no-cache php7-cli php7-fpm php7-json php7-openssl php7-phar php7-mbstring php7-pdo_sqlite php7-curl php7-simplexml php7-gd python3 nginx supervisor
+
+COPY build/local/ /
+RUN mkdir -p /run/nginx
+
+ENV APP_ENV=local
+ENV DB_NAME=/app/var/database.sqlite
+WORKDIR /app
+
+CMD ["/usr/bin/supervisord", "-nc", "/etc/supervisord.conf"]
+EXPOSE 80/tcp

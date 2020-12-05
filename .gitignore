@@ -1,2 +1,4 @@
 vendor
-logs
+public/libs.*
+public/app.*
+var
