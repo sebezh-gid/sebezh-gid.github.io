@@ -17,7 +17,6 @@
     }],
     "require": {
         "php": ">=7.0.0",
-        "endroid/qr-code": "^3.2",
         "umonkey/ufw1": "dev-default"
     },
     "require-dev": {

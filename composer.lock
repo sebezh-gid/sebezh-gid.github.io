@@ -129,66 +129,6 @@
             "time": "2017-10-25T22:45:27+00:00"
         },
         {
-            "name": "endroid/qr-code",
-            "version": "3.7.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/endroid/qr-code.git",
-                "reference": "f282ff34f21dadea06ec39824e7753adfb3f3b8d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/endroid/qr-code/zipball/f282ff34f21dadea06ec39824e7753adfb3f3b8d",
-                "reference": "f282ff34f21dadea06ec39824e7753adfb3f3b8d",
-                "shasum": ""
-            },
-            "require": {
-                "bacon/bacon-qr-code": "^2.0",
-                "ext-gd": "*",
-                "khanamiryan/qrcode-detector-decoder": "^1.0.2",
-                "myclabs/php-enum": "^1.5",
-                "php": ">=7.2",
-                "symfony/http-foundation": "^3.4||^4.0",
-                "symfony/options-resolver": "^3.4||^4.0",
-                "symfony/property-access": "^3.4||^4.0"
-            },
-            "require-dev": {
-                "endroid/test": "dev-master"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Endroid\\QrCode\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jeroen van den Enden",
-                    "email": "info@endroid.nl"
-                }
-            ],
-            "description": "Endroid QR Code",
-            "homepage": "https://github.com/endroid/qr-code",
-            "keywords": [
-                "bundle",
-                "code",
-                "endroid",
-                "php",
-                "qr",
-                "qrcode"
-            ],
-            "time": "2019-10-25T08:44:11+00:00"
-        },
-        {
             "name": "khanamiryan/qrcode-detector-decoder",
             "version": "1.0.2",
             "source": {
