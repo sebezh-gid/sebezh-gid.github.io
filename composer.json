@@ -11,10 +11,6 @@
             "homepage": "https://umonkey.net/"
         }
     ],
-    "repositories": [{
-        "type": "hg",
-        "url": "/home/hex/src/ufw1"
-    }],
     "require": {
         "php": ">=7.0.0",
         "umonkey/ufw1": "dev-default"
