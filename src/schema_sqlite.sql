@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 );
 CREATE UNIQUE INDEX IF NOT EXISTS IDX_accounts_login ON accounts (login);
 
+INSERT INTO accounts VALUES (1, 'admin', '$2y$10$8pfQG/TaO7QzI24Abo9GJu6vRWnT8yeUfQvLzbNql7NDtks4gT1KS', 1, null);
+
 
 CREATE TABLE IF NOT EXISTS `pages` (
     `id` INTEGER PRIMARY KEY,
