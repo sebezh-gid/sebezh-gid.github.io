@@ -4,3 +4,4 @@ var
 db_name.txt
 db_user.txt
 db_password.txt
+/vendor/
