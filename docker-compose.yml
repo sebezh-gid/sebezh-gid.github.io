@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+    web:
+        container_name: sebezh_gid_web
+        image: umonkey/sebezh-gid:latest
+        volumes:
+            - gid_var:/app/var
+        environment:
+            - "APP_ENV=production"
+            - "DB_NAME=mysql:dbname=sebezh_gid;host=10.46.0.5"
+        secrets:
+            - db_name
+            - db_user
+            - db_password
+        restart: unless-stopped
+
+secrets:
+    db_name:
+        file: db_name.txt
+    db_user:
+        file: db_user.txt
+    db_password:
+        file: db_password.txt
+
+volumes:
+    gid_var:

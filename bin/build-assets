@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('display_errors', 'stderr');
+
+requireAutoloader();
+
+require __DIR__ . '/../src/compress.php';
+
+
+function requireAutoloader()
+{
+    $autoloadPaths = [
+        // Local package usage
+        __DIR__ . '/../vendor/autoload.php',
+        // Package was included as a library
+        __DIR__ . '/../../../autoload.php',
+    ];
+    foreach ($autoloadPaths as $path) {
+        if (file_exists($path)) {
+            require_once $path;
+            break;
+        }
+    }
+}
+
+if (count($argv) == 1) {
+    printf("CSS and JavaScript compressor.\n");
+    printf("Usage: %s source_maps...\n", basename($argv[0]));
+    exit(1);
+}
+
+$sources = array_slice($argv, 1);
+
+foreach ($sources as $src) {
+    $compiler = new \Compiler($src);
+    $compiler->compile();
+    $compiler->compile_min();
+}
