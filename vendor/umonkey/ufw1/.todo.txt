@@ -1,1 +1,0 @@
-LESS compiler: https://github.com/leafo/lessphp
