@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $settings = [
     'displayErrorDetails' => true, // set to false in production
     'addContentLengthHeader' => false, // Allow the web server to send the content-length header
@@ -204,11 +206,9 @@ $settings = [
     ],
 ];
 
-if ($more = getenv('APP_CONFIG')) {
-    $more = include $more;
-    if (is_array($more)) {
-        $settings = array_replace($settings, $more);
-    }
+if (getenv('APP_ENV') === 'production') {
+    $more = include __DIR__ . '/settings-production.php';
+    $settings = array_replace($settings, $more);
 }
 
 return ['settings' => $settings];

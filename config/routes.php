@@ -1,15 +1,8 @@
 <?php
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+declare(strict_types=1);
 
-// CLI routes.
-if (PHP_SAPI == 'cli') {
-    $app->post('/cli/reindex', '\App\Handlers\Wiki:onCliReindex');
-    $app->post('/cli/update-images', '\App\Handlers\Wiki:onCliUpdateImages');
-    $app->post('/cli/{action:.+}', '\App\Handlers\CLI:onDefault');
-}
-
+/*
 $app->get ('/tasks/map/update-descriptions', '\App\Handlers\Maps:onUpdateDescriptions');
 
 // Web routes.
@@ -59,3 +52,4 @@ $app->get ('/search/log', \App\Handlers\Search::class . ':onLog');
 $app->get ('/sitemap.xml', '\App\Handlers\Sitemap');
 
 $app->get ('/', '\App\Handlers:getHome');
+*/
