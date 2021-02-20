@@ -1,8 +1,7 @@
-public/libs.*
-public/app.*
-var
-db_name.txt
-db_user.txt
-db_password.txt
+/public/i
+/public/short
+/public/photo
+/public/libs.*
+/public/app.*
+/var
 /vendor/
-/api-v3

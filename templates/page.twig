@@ -1,0 +1,71 @@
+{% extends "base.twig" %}
+
+{% block more_head %}
+    <link rel="edit" title="Редактировать страницу" href="/wiki/edit?name={{ page.name }}"/>
+    <link rel="alternate" type="application/x-wiki" title="Редактировать страницу" href="/wiki/edit?name={{ page.name }}"/>
+
+    <meta property="og:url" content="https://{{ host }}/wiki?name={{ page.name|url_encode }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    {% if page.image %}
+        <meta property="og:image" content="{{ page.image|replace({"/i/thumbnails/": "/i/photos/"}) }}"/>
+    {% else %}
+        <meta property="og:image" content="/images/splash.jpg"/>
+    {% endif %}
+    {% if page.images %}
+        {% for image in page.images %}
+            <meta property="og:image" content="{{ image.src }}"/>
+            {% if image.width %}
+                <meta property="og:image:width" content="{{ image.width }}"/>
+            {% endif %}
+            {% if image.height %}
+                <meta property="og:image:height" content="{{ image.height }}"/>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if page.summary %}
+        <meta name="description" property="og:description" content="{{ page.summary }}"/>
+    {% endif %}
+
+    {% if "File:" in page.name %}
+        <meta name="robots" content="noindex"/>
+    {% endif %}
+{% endblock %}
+
+{% block page_title %}{% if page.name == "Введение" %}Гид по Себежу{% else %}{{ page.title }} — {% if page.language == "en" %}Sebezh Guide{% else %}гид по Себежу{% endif %}{% endif %}{% endblock %}
+
+{% block page_header %}
+    <div class="page-header">
+        {% if false %}
+            {# это пока не готово #}
+            <div class="icons">
+                <a href="/wiki?name=Скачать+путеводитель"><i class="fa fa-download"></i></a>
+                <a href="/wiki?name=QR-коды"><i class="fa fa-qrcode"></i></a>
+                <a href="/wiki?name=Карты"><i class="fa fa-compass"></i></a>
+                <a href="/wiki?name=О+сайте"><i class="fa fa-bars"></i></a>
+            </div>
+        {% endif %}
+        <h1 itemprop="name">{{ page.title }}</h1>
+    </div>
+{% endblock %}
+
+{% block page_contents %}
+    <div class="formatted" itemprop="articleBody">
+        {% if page.en %}
+            <p><i>You can read this page in English: <a href="/wiki?name={{ page.en }}">{{ page.en }}</a>.</i></p>
+        {% elseif page.ru %}
+            <p><i>Эта страница есть на русском языке: <a href="/wiki?name={{ page.ru }}">{{ page.ru }}</a>.</i></p>
+        {% endif %}
+
+        {{ page.html|typo }}
+
+        {% if file and file.type == "image/jpeg" %}
+            <a class="image" data-fancybox="gallery" href="{{ file.link }}">
+                <img src="{{file.thumbnail}}"/>
+            </a>
+
+            <p>Код для вставки этого изображения:</p>
+            <pre>[[File:{{ file.name }}]]</pre>
+        {% endif %}
+    </div>
+{% endblock %}

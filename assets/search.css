@@ -1,7 +1,0 @@
-form.search {
-    width: 100%;
-}
-body.notfound form.search input {
-    width: calc(100% - 35px);
-    max-width: 100%;
-}

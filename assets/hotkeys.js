@@ -36,36 +36,6 @@ jQuery(function ($) {
             this.selectionEnd = e + 3;
         }
 
-        // Bold.
-        if (e.ctrlKey && e.keyCode == 66) {
-            var v = this.value,
-                s = this.selectionStart,
-                e = this.selectionEnd;
-
-            var src = v.substring(s, e);
-            if (src == "") {
-                console.log("empty selection");
-            }
-
-            else if (v[s] == "*") {
-                console.log("already bold");
-            }
-
-            else if (s > 0 && v[s-1] == "*") {
-                console.log("already bold");
-            }
-
-            else {
-                v = v.substring(0, s) + "**" + v.substring(s, e) + "**" + v.substring(e);
-                this.value = v;
-                this.selectionStart = s;
-                this.selectionEnd = e + 4;
-                console.log("making bold");
-            }
-
-            return false;
-        }
-
         // Make itemized list from selected lines
         if (e.altKey && e.key == "-") {
             var v = this.value,
@@ -99,27 +69,13 @@ jQuery(function ($) {
             var fixmap = {
                 "нацпарк": "Себежский национальный парк",
                 "нацпарка": "Себежский национальный парк",
-                "национального парка": "Себежский национальный парк",
-                "ркц": "Районный культурный центр",
-                "музей": "Себежский краеведческий музей",
-                "музея": "Себежский краеведческий музей",
-                "музее": "Себежский краеведческий музей",
-                "себежский музей": "Себежский краеведческий музей",
-                "себежского музея": "Себежский краеведческий музей",
-                "себежском музее": "Себежский краеведческий музей",
-                "себежа": "Себеж",
-                "себеже": "Себеж"
+                "национального парка": "Себежский национальный парк"
             };
 
             var v = this.value,
                 s = this.selectionStart,
                 e = this.selectionEnd,
                 x = v.substring(s, e);
-
-            if (s > 0 && v[s-1] == '[') {
-                console.log("already linked");
-                return false;
-            }
 
             // Autocorrect things.
             var _x = x.toLowerCase();
@@ -171,35 +127,15 @@ jQuery(function ($) {
         }
     });
 
-    // Show search on slash.
     $(document).on("keydown", function (e) {
-        var a = $(document.activeElement);
-
         if (e.keyCode == 191) {
-            if (!a.is("input") && !a.is("textarea")) {
+            var a = $(document.activeElement);
+            if (!a.is("input.search") && !a.is("input") && !a.is("textarea")) {
                 console.log(e.keyCode);
                 e.preventDefault();
-                $("#showsearch").click();
-                // $("input.search:first").focus();
+                $("input.search:first").focus();
                 return false;
             }
-        }
-
-        else if (e.keyCode == 27) {
-            if (a.is("input.search")) {
-                e.preventDefault();
-                $("header button[type=reset]").click();
-            }
-        }
-
-        else if (e.keyCode == 61) {
-            if (!a.is("input") && !a.is("textarea")) {
-                $("header #showmap").click();
-            }
-        }
-
-        else {
-            // console.log(e.keyCode);
         }
     });
 });

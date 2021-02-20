@@ -1,22 +1,24 @@
 <?php
-
 /**
  * Slim Framework (https://slimframework.com)
  *
- * @license https://github.com/slimphp/Slim/blob/4.x/LICENSE.md (MIT License)
+ * @license https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
 
-declare(strict_types=1);
-
 namespace Slim\Interfaces;
+
+use RuntimeException;
 
 interface CallableResolverInterface
 {
     /**
-     * Resolve $toResolve into a callable
+     * Invoke the resolved callable.
      *
-     * @param string|callable $toResolve
+     * @param callable|string $toResolve
+     *
      * @return callable
+     *
+     * @throws RuntimeException
      */
-    public function resolve($toResolve): callable;
+    public function resolve($toResolve);
 }

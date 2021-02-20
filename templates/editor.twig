@@ -1,0 +1,43 @@
+{% extends "base.twig" %}
+
+{% block page_title %}re:{{ page_name }} — гид по Себежу{% endblock %}
+
+{% block page_h1 %}{% if is_editable %}Редактирование страницы «{{ page_name }}»{% else %}Исходный код страницы «{{ page_name }}»{% endif %}{% endblock %}
+
+{% block page_contents %}
+ <form class="pedit" method="post" action="/wiki/edit">
+  <input type="hidden" name="page_name" value="{{ page_name }}"/>
+
+  <textarea class="form-control markdown wiki" name="page_source" autofocus="autofocus"{% if not is_editable %} readonly="readonly"{% endif %}>{{ page_source }}</textarea>
+
+  {% if is_editable %}
+    <div class="form-actions">
+     <button class="btn btn-primary">Сохранить</button> или <a href="/wiki?name={{ page_name }}">оставить как есть</a> &middot; <a href="/wiki?name=Памятка+редактора" target="_blank">памятка редактора</a>
+     <a class="btn btn-default tool lsep showUpload" href="/upload" target="_blank" title="Загрузить фото"><i class="fa fa-image"></i></a>
+     <a id="addmap" class="btn btn-default tool" href="/wiki?name=Как вставить карту" title="Вставить карту" target="_blank"><i class="fa fa-map-marker"></i></a>
+    </div>
+  {% endif %}
+ </form>
+
+<form id="dlg-upload" class="dialog async" action="/wiki/upload" method="post" style="display: none">
+    <div class="form-group">
+        <label>Выберите файлы</label>
+        <input class="form-control autosubmit" type="file" name="file" accept="image/*"/>
+    </div>
+
+    <div class="form-group">
+        <label>Или введите адрес файла</label>
+        <input class="form-control uploadLink wide" type="text" name="link" placeholder="https://..." autocomplete="off"/>
+    </div>
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Загрузить</button>
+        <button class="btn btn-default cancel" type="button">Отмена</button>
+    </div>
+
+    <p class="msgbox" style="display: none"></p>
+</form>
+
+    {% include "parts/map_dialog.twig" with {"tag": page_name} %}
+
+{% endblock %}

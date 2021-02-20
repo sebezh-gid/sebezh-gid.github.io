@@ -1,6 +1,6 @@
 <?php
 
-function do_cli($path, array $args = [])
+function do_cli($path)
 {
     chdir(dirname(__DIR__));
     require "./vendor/autoload.php";
@@ -18,23 +18,9 @@ function do_cli($path, array $args = [])
     // Register routes
     require __DIR__ . '/../src/routes.php';
 
-    $request_uri = $path;
-    $query_string = "";
-
-    if ($args) {
-        $qs = [];
-
-        foreach ($args as $arg)
-            $qs[] = urlencode($arg[0]) . '=' . urlencode($arg[1]);
-
-        $query_string = implode("&", $qs);
-        $request_uri .= "?" . $query_string;
-    }
-
     $environment = Slim\Http\Environment::mock([
         "REQUEST_METHOD" => "POST",
-        "REQUEST_URI" => $request_uri,
-        "QUERY_STRING" => $query_string,
+        "REQUEST_URI" => $path,
     ]);
 
     $request = \Slim\Http\Request::createFromEnvironment($environment);
