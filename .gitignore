@@ -4,4 +4,4 @@
 /public/libs.*
 /public/app.*
 /var
-/vendor/
+/.env.php

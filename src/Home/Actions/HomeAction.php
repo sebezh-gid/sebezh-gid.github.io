@@ -16,6 +16,7 @@ class HomeAction extends AbstractACtion
 
     public function __construct(Config $config)
     {
+        parent::__construct();
         $this->redirect = $config->get('home.redirect');
     }
 
