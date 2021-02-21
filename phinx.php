@@ -1,6 +1,6 @@
 <?php
 
-$settings = include __DIR__ . '/settings.php';
+$settings = include __DIR__ . '/config/settings.php';
 
 if (!isset($settings['phinx.dsn'])) {
     throw new \RuntimeException('phinx.dsn not set');
@@ -8,9 +8,7 @@ if (!isset($settings['phinx.dsn'])) {
 
 return [
     'paths' => [
-        'migrations' => [
-            __DIR__ . '/src/Migrations',
-        ],
+        'migrations' => __DIR__ . '/src/Migrations',
     ],
 
     'environments' => [

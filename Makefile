@@ -23,7 +23,7 @@ lint:
 	vendor/bin/phpcs -s --standard=dev/phpcs.xml src
 
 migrate:
-	vendor/bin/phinx --configuration=config/phinx.php --parser=php migrate
+	vendor/bin/phinx migrate
 
 pull-data:
 	ssh $(REMOTE) mysqldump sebgid | pv > data/remote.sql
