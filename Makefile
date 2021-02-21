@@ -22,6 +22,9 @@ lint:
 	vendor/bin/phpstan --configuration=dev/phpstan.neon analyze --no-progress --no-ansi src
 	vendor/bin/phpcs -s --standard=dev/phpcs.xml src
 
+migrate:
+	vendor/bin/phinx --configuration=config/phinx.php --parser=php migrate
+
 pull-data:
 	ssh $(REMOTE) mysqldump sebgid | pv > data/remote.sql
 	mysql < remote.sql

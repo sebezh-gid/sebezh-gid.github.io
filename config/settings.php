@@ -17,10 +17,15 @@ $settings = [
 ];
 
 
-if (getenv('APP_ENV') === 'local') {
+$_appenv = getenv('APP_ENV');
+if ($_appenv === false) {
+    $_appenv = 'local';
+}
+
+if ($_appenv === 'local') {
     define('APP_ENV', 'local');
     $settings = array_replace($settings, include __DIR__ . '/settings-local.php');
-} elseif (getenv('APP_ENV') === 'staging') {
+} elseif ($_appenv === 'staging') {
     define('APP_ENV', 'staging');
     $settings = array_replace($settings, include __DIR__ . '/settings-staging.php');
 } else {
