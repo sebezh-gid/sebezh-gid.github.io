@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '011053e0ac7cc496b085f0ce16c49141f0b64010',
+    'reference' => '7db1559234d9c9461a5e5e70b96ab49f3c44b37e',
     'name' => 'umonkey/sebezh-gid',
   ),
   'versions' => 
@@ -471,6 +471,15 @@
       ),
       'reference' => 'c95468897f408dd0aca2ff582074423dd0455122',
     ),
+    'twig/twig' => 
+    array (
+      'pretty_version' => 'v3.3.0',
+      'version' => '3.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5',
+    ),
     'umonkey/sebezh-gid' => 
     array (
       'pretty_version' => '2.x-dev',
@@ -478,7 +487,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '011053e0ac7cc496b085f0ce16c49141f0b64010',
+      'reference' => '7db1559234d9c9461a5e5e70b96ab49f3c44b37e',
     ),
   ),
 );
