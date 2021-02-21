@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Cache;
+namespace App\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -14,7 +14,7 @@ class CachingMiddleware
     {
         $response = $handler->handle($request);
 
-        if ($request->getMethod() === 'GET') {
+        if ($request->getMethod() === 'GET' && $response->getStatusCode() === 200) {
             if (!$this->hasCacheControl($response)) {
                 $response = $response->withHeader('Cache-Control', 'public, max-age=3600');
             }
