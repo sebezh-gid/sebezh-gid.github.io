@@ -16,7 +16,7 @@ class App
         $cb = new ContainerBuilder();
         //$cb->useAutowiring(false);
         $cb->useAnnotations(false);
-        $cb->addDefinitions(include __DIR__ . '/../config/dependencies.php');
+        $cb->addDefinitions(self::getDependencies());
         $container = $cb->build();
 
         $config = $container->get('App\\Config');
@@ -44,5 +44,15 @@ class App
 
         $rc = $app->getRouteCollector();
         $rc->setCacheFile($fn);
+    }
+
+    protected static function getDependencies(): array
+    {
+        $fn = __DIR__ . '/../config/dependencies.php';
+        if (!file_exists($fn)) {
+            throw new \RuntimeException('dependencies not set');
+        }
+
+        return include $fn;
     }
 }
