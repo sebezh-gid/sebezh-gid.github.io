@@ -1,0 +1,11 @@
+includes:
+    - ../vendor/phpstan/phpstan-strict-rules/rules.neon
+parameters:
+    level: 6
+    checkMissingIterableValueType: false
+    parallel:
+        maximumNumberOfProcesses: 1
+    bootstrapFiles:
+        - phpstan-constants.php
+    dynamicConstantNames:
+        - APP_ENV

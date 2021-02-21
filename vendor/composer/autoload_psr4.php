@@ -28,6 +28,7 @@ return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'PhpDocReader\\' => array($vendorDir . '/php-di/phpdoc-reader/src/PhpDocReader'),
+    'PHPStan\\' => array($vendorDir . '/phpstan/phpstan-strict-rules/src'),
     'Opis\\Closure\\' => array($vendorDir . '/opis/closure/src'),
     'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
     'Invoker\\' => array($vendorDir . '/php-di/invoker/src'),
