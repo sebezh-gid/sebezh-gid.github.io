@@ -3,8 +3,17 @@
 declare(strict_types=1);
 
 $settings = [
+    'pdo.dsn' => 'mysql:dbname=sebezh_gid',
+    'pdo.user' => 'sebgid',
+    'pdo.password' => null,
+
+    'template.path' => __DIR__ . '/../templates',
+
     'tmp' => __DIR__ . '/../var',
+
+    'wiki.main-page' => 'Введение',
 ];
+
 
 if (getenv('APP_ENV') === 'local') {
     define('APP_ENV', 'local');

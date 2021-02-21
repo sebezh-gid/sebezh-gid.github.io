@@ -6,7 +6,6 @@ namespace App;
 
 use RuntimeException;
 
-
 class Config
 {
     /** @var array **/
